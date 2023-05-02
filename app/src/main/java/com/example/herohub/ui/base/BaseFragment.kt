@@ -15,7 +15,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
     abstract val bindingInflater: (LayoutInflater) -> VB
     private var _binding: VB? = null
     protected val binding get() = _binding!!
-    abstract fun getViewModel(): VM
+    abstract fun getViewModel(): Class<VM>
     private var _viewModel: VM? = null
     protected val viewModel get() = _viewModel!!
 
@@ -25,7 +25,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater(layoutInflater)
-        _viewModel = getViewModel()
+        //_viewModel =    //getViewModel()
         return binding.root
     }
 
