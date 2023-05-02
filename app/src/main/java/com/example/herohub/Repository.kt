@@ -8,12 +8,12 @@ class Repository {
         MarvelApi.marvelService.getAllCharacters()
     }
 
-    private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
+    private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<Nour<T>> {
         return function().map {
             if (it.isSuccessful) {
-                State.Success(it.body())
+                Nour.Success(it.body())
             } else {
-                State.Failure(it.message())
+                Nour.Failure(it.message())
             }
         }
     }
