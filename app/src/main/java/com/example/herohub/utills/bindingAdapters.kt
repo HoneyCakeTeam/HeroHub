@@ -11,7 +11,7 @@ fun <T> showWhenLoading(view: View, state: State<T>?){
 }
 @BindingAdapter("app:showWhenError")
 fun <T> showWhenErorr(view: View, state: State<T>?){
-    if (state is State.Erorr) view.visibility=View.VISIBLE
+    if (state is State.Error) view.visibility=View.VISIBLE
     else view.visibility=View.VISIBLE
 }
 @BindingAdapter("app:showWhenSuccess")
