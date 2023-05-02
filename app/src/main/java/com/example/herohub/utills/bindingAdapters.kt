@@ -1,8 +1,7 @@
-package com.example.herohub
+package com.example.herohub.utills
 
 import android.view.View
 import androidx.databinding.BindingAdapter
-import com.example.herohub.models.State
 
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, state: State<T>?){
@@ -10,7 +9,7 @@ fun <T> showWhenLoading(view: View, state: State<T>?){
     else view.visibility=View.VISIBLE
 }
 @BindingAdapter("app:showWhenError")
-fun <T> showWhenErorr(view: View, state: State<T>?){
+fun <T> showWhenError(view: View, state: State<T>?){
     if (state is State.Error) view.visibility=View.VISIBLE
     else view.visibility=View.VISIBLE
 }

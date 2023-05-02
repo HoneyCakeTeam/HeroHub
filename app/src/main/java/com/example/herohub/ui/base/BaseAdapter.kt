@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.herohub.ui.base.BaseDiffUtil
 
 /**
  * Created by Aziza Helmy on 5/2/2023.

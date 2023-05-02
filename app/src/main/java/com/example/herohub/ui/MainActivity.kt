@@ -1,11 +1,8 @@
-package com.example.herohub
+package com.example.herohub.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.herohub.R
 
 class MainActivity : AppCompatActivity() {
 

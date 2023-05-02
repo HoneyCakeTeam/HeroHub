@@ -1,5 +1,7 @@
-package com.example.herohub
+package com.example.herohub.data
 
+import com.example.herohub.data.source.remote.MarvelApi
+import com.example.herohub.utills.State
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
@@ -8,12 +10,12 @@ class Repository {
         MarvelApi.marvelService.getAllCharacters()
     }
 
-    private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<Nour<T>> {
+    private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
             if (it.isSuccessful) {
-                Nour.Success(it.body())
+                State.Success(it.body())
             } else {
-                Nour.Failure(it.message())
+                State.Error(it.message())
             }
         }
     }

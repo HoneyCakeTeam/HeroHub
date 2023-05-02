@@ -1,4 +1,4 @@
-package com.example.herohub
+package com.example.herohub.ui.base
 
 import androidx.recyclerview.widget.DiffUtil
 

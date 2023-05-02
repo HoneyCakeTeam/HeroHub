@@ -1,4 +1,4 @@
-package com.example.herohub
+package com.example.herohub.data.source.remote
 
 import com.example.herohub.model.Character
 import io.reactivex.rxjava3.core.Single

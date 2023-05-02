@@ -13,7 +13,7 @@ data class BaseResponse<T>(
     @SerializedName("copyright")
     val copyright: String? = "",
     @SerializedName("data")
-    val `data`: DataResponse<T>,
+    val data: DataResponse<T>,
     @SerializedName("etag")
     val etag: String? = "",
     @SerializedName("status")

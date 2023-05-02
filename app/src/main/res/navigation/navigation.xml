@@ -7,47 +7,47 @@
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.example.herohub.HomeFragment"
+        android:name="com.example.herohub.ui.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/characters_details_fragment"
-        android:name="com.example.herohub.CharactersDetailsFragment"
+        android:name="com.example.herohub.ui.characterdetails.CharacterDetailsFragment"
         android:label="Characters"
         tools:layout="@layout/fragment_characters_details" />
     <fragment
         android:id="@+id/comics_details_fragment"
-        android:name="com.example.herohub.ComicsDetailsFragment"
+        android:name="com.example.herohub.ui.comicdetails.ComicDetailsFragment"
         android:label="Comics Details"
         tools:layout="@layout/fragment_comics_details" />
     <fragment
         android:id="@+id/series_details_fragment"
-        android:name="com.example.herohub.SeriesDetailsFragment"
+        android:name="com.example.herohub.ui.seriesdetails.SeriesDetailsFragment"
         android:label="Series Details"
         tools:layout="@layout/fragment_series_details" />
     <fragment
         android:id="@+id/events_details_fragment"
-        android:name="com.example.herohub.EventsDetailsFragment"
+        android:name="com.example.herohub.ui.eventdetails.EventDetailsFragment"
         android:label="Events Details"
         tools:layout="@layout/fragment_events_details" />
     <fragment
         android:id="@+id/stories_details_fragment"
-        android:name="com.example.herohub.StoriesDetailsFragment"
+        android:name="com.example.herohub.ui.storydetails.StoriesDetailsFragment"
         android:label="Stories Details"
         tools:layout="@layout/fragment_stories_details" />
     <fragment
         android:id="@+id/favourite_fragment"
-        android:name="com.example.herohub.FavouriteScreenFragment"
+        android:name="com.example.herohub.ui.favorite.FavouriteScreenFragment"
         android:label="Favourite Screen"
         tools:layout="@layout/fragment_favourite_screen" />
     <fragment
         android:id="@+id/search_fragment"
-        android:name="com.example.herohub.SearchScreenFragment"
+        android:name="com.example.herohub.ui.search.SearchScreenFragment"
         android:label="Search Screen"
         tools:layout="@layout/fragment_search_screen" />
     <fragment
         android:id="@+id/categories_fragment"
-        android:name="com.example.herohub.CategoriesFragment"
+        android:name="com.example.herohub.ui.category.CategoriesFragment"
         android:label="Categories"
         tools:layout="@layout/fragment_categories" />
 </navigation>
