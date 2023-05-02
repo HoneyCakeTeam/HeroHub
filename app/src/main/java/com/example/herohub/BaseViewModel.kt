@@ -3,14 +3,21 @@ package com.example.herohub
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
-class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+    abstract val TAG: String
 
+    protected fun addToCompositeDisposable(disposable: Disposable) {
+        compositeDisposable.add(disposable)
+    }
     override fun onCleared() {
-        Log.i("BaseViewModel", "on clear")
-        compositeDisposable.dispose()
         super.onCleared()
+        compositeDisposable.clear()
+    }
+    protected open fun log(message: String) {
+        Log.v(TAG, message)
     }
 }
