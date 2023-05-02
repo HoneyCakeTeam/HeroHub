@@ -9,7 +9,7 @@ abstract class BaseViewModel : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
     abstract val TAG: String
-    fun CompositeDisposable.addToCompositeDisposable(disposable: Disposable) {
+    protected fun CompositeDisposable.addToCompositeDisposable(disposable: Disposable) {
         this.add(disposable)
     }
 
