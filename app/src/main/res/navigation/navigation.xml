@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/home_fragment">
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.example.herohub.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/characters_details_fragment"
+        android:name="com.example.herohub.CharactersDetailsFragment"
+        android:label="Characters"
+        tools:layout="@layout/fragment_characters_details" />
+    <fragment
+        android:id="@+id/comics_details_fragment"
+        android:name="com.example.herohub.ComicsDetailsFragment"
+        android:label="Comics Details"
+        tools:layout="@layout/fragment_comics_details" />
+    <fragment
+        android:id="@+id/series_details_fragment"
+        android:name="com.example.herohub.SeriesDetailsFragment"
+        android:label="Series Details"
+        tools:layout="@layout/fragment_series_details" />
+    <fragment
+        android:id="@+id/events_details_fragment"
+        android:name="com.example.herohub.EventsDetailsFragment"
+        android:label="Events Details"
+        tools:layout="@layout/fragment_events_details" />
+    <fragment
+        android:id="@+id/stories_details_fragment"
+        android:name="com.example.herohub.StoriesDetailsFragment"
+        android:label="Stories Details"
+        tools:layout="@layout/fragment_stories_details" />
+    <fragment
+        android:id="@+id/favourite_fragment"
+        android:name="com.example.herohub.FavouriteScreenFragment"
+        android:label="Favourite Screen"
+        tools:layout="@layout/fragment_favourite_screen" />
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="com.example.herohub.SearchScreenFragment"
+        android:label="Search Screen"
+        tools:layout="@layout/fragment_search_screen" />
+    <fragment
+        android:id="@+id/categories_fragment"
+        android:name="com.example.herohub.CategoriesFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_categories" />
+</navigation>
