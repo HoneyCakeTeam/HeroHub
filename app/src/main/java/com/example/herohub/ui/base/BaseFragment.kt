@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     abstract val TAG: String
     abstract val bindingInflater: (LayoutInflater) -> VB
     private var _binding: VB? = null
     protected val binding get() = _binding!!
+    abstract fun getViewModel(): VM
+    private var _viewModel: VM? = null
+    protected val viewModel get() = _viewModel!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +25,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater(layoutInflater)
+        _viewModel = getViewModel()
         return binding.root
     }
 
