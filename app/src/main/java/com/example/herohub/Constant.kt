@@ -1,5 +1,5 @@
 package com.example.herohub
 
-object Constants {
+object Constant {
     const val BASE_URL = "http://gateway.marvel.com/v1/public"
 }
