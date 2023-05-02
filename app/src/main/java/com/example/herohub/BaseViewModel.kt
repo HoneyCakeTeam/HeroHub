@@ -9,10 +9,9 @@ abstract class BaseViewModel : ViewModel() {
 
     private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
     abstract val TAG: String
-    protected fun CompositeDisposable.addToCompositeDisposable(disposable: Disposable) {
-        this.add(disposable)
+    fun Disposable.addToCompositeDisposable() {
+        compositeDisposable.add(this)
     }
-
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
