@@ -7,5 +7,5 @@ import retrofit2.http.GET
 
 interface MarvelService {
     @GET("characters")
-    fun getAllCharacters() : Single<Response<Character>>
+    fun getAllCharacters() : Single<Character>
 }
