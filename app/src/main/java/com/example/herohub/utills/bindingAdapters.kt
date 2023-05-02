@@ -1,9 +1,12 @@
 package com.example.herohub.utills
 
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.herohub.BaseAdapter
+import com.example.herohub.R
 
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, state: State<T>?){
@@ -27,4 +30,13 @@ fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     } else {
         (view.adapter as BaseAdapter<T>?)?.setItems(emptyList())
     }
+}
+@BindingAdapter(value = ["app:imageUrl"])
+fun setImageFromUrl(view: ImageView, url: String?) {
+    Glide
+        .with(view)
+        .load( url)
+//        .placeholder(R.drawable.movie_placeholder)
+//        .error(R.drawable.movie_error)
+        .centerCrop().into(view)
 }
