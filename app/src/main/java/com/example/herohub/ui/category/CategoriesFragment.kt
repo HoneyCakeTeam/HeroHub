@@ -1,27 +1,24 @@
 package com.example.herohub.ui.category
 
+import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.navigation.Navigation
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.herohub.R
-import com.example.herohub.data.local.model.Category
 import com.example.herohub.databinding.FragmentCategoriesBinding
 import com.example.herohub.ui.base.BaseFragment
-import com.example.herohub.utills.navigateTo
 
-class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoryViewModel>() {
+class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
     override val TAG: String = this::class.java.simpleName
-    override val bindingInflater: (LayoutInflater) -> FragmentCategoriesBinding
-        get() = FragmentCategoriesBinding::inflate
-
-    override fun getViewModel() = CategoryViewModel::class.java
-
-
+    override val layoutIdFragment: Int = R.layout.fragment_categories
+    override val viewModel: CategoryViewModel by viewModels()
     override fun setup() {
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-
         initCategoryAdapter()
 //        navigateToCategory()
+        viewModel.itemCategory.observe(this){
+
+        }
 
     }
 

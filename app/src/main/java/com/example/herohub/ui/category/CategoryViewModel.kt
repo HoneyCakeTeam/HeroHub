@@ -14,10 +14,10 @@ class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
     private val _itemCategory = MutableLiveData<List<Category>>()
     val itemCategory: LiveData<List<Category>> = _itemCategory
 
+
     init {
         getCategories()
     }
-
     private fun getCategories() {
         val categories = repository.getCategories()
         _itemCategory.postValue(categories)

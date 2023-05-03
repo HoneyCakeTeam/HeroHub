@@ -71,32 +71,32 @@
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.example.herohub.CharacterFragment"
+        android:name="com.example.herohub.ui.category.character.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" />
     <fragment
         android:id="@+id/seriesFragment"
-        android:name="com.example.herohub.SeriesFragment"
+        android:name="com.example.herohub.ui.category.series.SeriesFragment"
         android:label="fragment_series"
         tools:layout="@layout/fragment_series" />
     <fragment
         android:id="@+id/storyFragment"
-        android:name="com.example.herohub.StoryFragment"
+        android:name="com.example.herohub.ui.category.story.StoryFragment"
         android:label="fragment_story"
         tools:layout="@layout/fragment_story" />
     <fragment
         android:id="@+id/eventsFragment"
-        android:name="com.example.herohub.EventsFragment"
+        android:name="com.example.herohub.ui.category.event.EventsFragment"
         android:label="fragment_events"
         tools:layout="@layout/fragment_events" />
     <fragment
         android:id="@+id/comicsFragment"
-        android:name="com.example.herohub.ComicsFragment"
+        android:name="com.example.herohub.ui.category.comic.ComicsFragment"
         android:label="fragment_comics"
         tools:layout="@layout/fragment_comics" />
     <fragment
         android:id="@+id/creatorFragment"
-        android:name="com.example.herohub.CreatorFragment"
+        android:name="com.example.herohub.ui.category.creator.CreatorFragment"
         android:label="fragment_creator"
         tools:layout="@layout/fragment_creator" />
 </navigation>
