@@ -26,7 +26,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoryViewM
     }
 
 //    private fun navigateToCategory() {
-//        viewModel.itemCategory.observe(this) { category ->
+//        viewModel.itemCat.observe(this) { category ->
 //            when (category.categoryName) {
 //                getString(R.string.characters) -> Navigation.navigateTo(
 //                    binding.root,

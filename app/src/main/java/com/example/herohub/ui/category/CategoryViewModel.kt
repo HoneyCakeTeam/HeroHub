@@ -6,19 +6,19 @@ import com.example.herohub.data.Repository
 import com.example.herohub.data.local.model.Category
 import com.example.herohub.ui.base.BaseViewModel
 
-class CategoryViewModel:BaseViewModel() , CategoryInteractionListener{
+class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
     override val TAG: String = this::class.java.simpleName
 
     private val repository = Repository()
 
+    private val _itemCategory = MutableLiveData<List<Category>>()
+    val itemCategory: LiveData<List<Category>> = _itemCategory
 
     init {
         getCategories()
     }
 
-    private val _itemCategory = MutableLiveData<List<Category>>()
-    val itemCategory:LiveData<List<Category>> = _itemCategory
-    fun getCategories(){
+    private fun getCategories() {
         val categories = repository.getCategories()
         _itemCategory.postValue(categories)
     }
