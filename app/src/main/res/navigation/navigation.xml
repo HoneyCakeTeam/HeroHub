@@ -49,5 +49,57 @@
         android:id="@+id/categories_fragment"
         android:name="com.example.herohub.ui.category.CategoriesFragment"
         android:label="@string/category"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categories_fragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_categories_fragment_to_creatorFragment"
+            app:destination="@id/creatorFragment" />
+        <action
+            android:id="@+id/action_categories_fragment_to_seriesFragment"
+            app:destination="@id/seriesFragment" />
+        <action
+            android:id="@+id/action_categories_fragment_to_eventsFragment"
+            app:destination="@id/eventsFragment" />
+        <action
+            android:id="@+id/action_categories_fragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
+        <action
+            android:id="@+id/action_categories_fragment_to_creatorFragment2"
+            app:destination="@id/creatorFragment" />
+        <action
+            android:id="@+id/action_categories_fragment_to_comicsFragment"
+            app:destination="@id/comicsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.example.herohub.CharacterFragment"
+        android:label="fragment_character"
+        tools:layout="@layout/fragment_character" />
+    <fragment
+        android:id="@+id/seriesFragment"
+        android:name="com.example.herohub.SeriesFragment"
+        android:label="fragment_series"
+        tools:layout="@layout/fragment_series" />
+    <fragment
+        android:id="@+id/storyFragment"
+        android:name="com.example.herohub.StoryFragment"
+        android:label="fragment_story"
+        tools:layout="@layout/fragment_story" />
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.example.herohub.EventsFragment"
+        android:label="fragment_events"
+        tools:layout="@layout/fragment_events" />
+    <fragment
+        android:id="@+id/comicsFragment"
+        android:name="com.example.herohub.ComicsFragment"
+        android:label="fragment_comics"
+        tools:layout="@layout/fragment_comics" />
+    <fragment
+        android:id="@+id/creatorFragment"
+        android:name="com.example.herohub.CreatorFragment"
+        android:label="fragment_creator"
+        tools:layout="@layout/fragment_creator" />
 </navigation>
