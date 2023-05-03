@@ -23,6 +23,7 @@
             android:paddingHorizontal="@dimen/spacing_medium"
             android:paddingVertical="@dimen/spacing_tiny"
             app:checkedChip="@id/chip_character"
+            android:scrollbars="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

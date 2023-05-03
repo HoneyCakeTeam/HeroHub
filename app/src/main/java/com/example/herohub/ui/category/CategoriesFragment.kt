@@ -14,5 +14,4 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
         binding.recyclerCategory.adapter = adapter
     }
 
-
 }
