@@ -9,7 +9,9 @@ class Repository {
     fun getAllCharacters() = wrapWithState {
         MarvelApi.marvelService.getAllCharacters()
     }
-
+    fun getAllSeries() = wrapWithState {
+        MarvelApi.marvelService.getAllSeries()
+    }
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
             if (it.isSuccessful) {
