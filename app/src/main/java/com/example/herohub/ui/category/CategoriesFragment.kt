@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentCategoriesBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.utills.State
 
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
     override val TAG: String = this::class.java.simpleName
