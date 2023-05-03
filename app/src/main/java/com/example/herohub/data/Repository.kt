@@ -11,6 +11,26 @@ class Repository {
         remoteDataSource.getAllCharacters()
     }
 
+    fun getAllComics() = wrapWithState {
+        remoteDataSource.getAllComics()
+    }
+
+    fun getAllCreators() = wrapWithState {
+        remoteDataSource.getAllCreators()
+    }
+
+    fun getAllEvents() = wrapWithState {
+        remoteDataSource.getAllEvents()
+    }
+
+    fun getAllSeries() = wrapWithState {
+        remoteDataSource.getAllSeries()
+    }
+
+    fun getAllStories() = wrapWithState {
+        remoteDataSource.getAllStories()
+    }
+
 
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
