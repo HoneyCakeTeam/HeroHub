@@ -10,6 +10,10 @@ class Repository {
     fun getAllCharacters() = wrapWithState {
         remoteDataSource.getAllCharacters()
     }
+    fun getStoryDetails(id:String) = wrapWithState {
+        remoteDataSource.getStoryDetails(id)
+    }
+
 
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
