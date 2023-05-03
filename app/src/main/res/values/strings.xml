@@ -11,4 +11,5 @@
     <string name="series_details">Series Details</string>
     <string name="events_details">Events Details</string>
     <string name="stories_details">Stories Details</string>
+    <string name="click_on_search_icon_to_start_searching">Click on search icon to start searching</string>
 </resources>

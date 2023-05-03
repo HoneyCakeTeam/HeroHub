@@ -27,4 +27,14 @@
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
     </style>
+
+    <style name="TextStyleCategories">
+        <item name="android:layout_marginStart">@dimen/spacing_medium</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_small</item>
+        <item name="android:fontFamily">@font/josefinsans_semibold</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+    </style>
+
 </resources>
