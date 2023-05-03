@@ -1,49 +1,47 @@
 package com.example.herohub.ui.seriesdetails
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.herohub.data.Repository
+import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Series
+import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.State
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class SeriesDetailsViewModel :ViewModel(){
+class SeriesDetailsViewModel : BaseViewModel() {
+    override val TAG: String
+        get() = this::class.java.simpleName.toString()
 
-    private val repository = Repository()
-    private val _data = MutableLiveData<State<Series>>()
-    val data: LiveData<State<Series>>
-        get() = _data
+    private val repository: Repository by lazy { Repository() }
+
+    private val _seriesData = MutableLiveData<State<BaseResponse<Series>?>>()
+    val seriesData: LiveData<State<BaseResponse<Series>?>>
+        get() = _seriesData
 
     init {
-        //  _counter.value = Counter(0)
-        getAllSerieslist()
+        getAllSeriesList()
     }
-//
-//    fun incrementCounter() {
-//        val currentCount = _counter.value?.count ?: 0
-//        _counter.postValue(Counter(currentCount + 1))
-//    }
 
-    fun getAllSerieslist(): Disposable {
-       return repository.getAllSeries()
+    private fun getAllSeriesList() {
+        _seriesData.postValue(State.Loading)
+
+        repository.getAllSeries()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe(::onPostData, ::onError)
+            .subscribe(::onSeriesSuccessData, ::onError)
+            .addToCompositeDisposable()
     }
 
-    private fun onPostData(series:State<Series>) {
-        _data.postValue(series)
+    private fun onSeriesSuccessData(seriesState: State<BaseResponse<Series>?>) {
+        _seriesData.postValue(seriesState)
+        log(seriesState.toData().toString())
     }
 
-    private fun onError(e: Throwable) {
-        Log.e(TAG, "Error fetching Series")
+    private fun onError(errorMessage: Throwable) {
+        log(errorMessage.message.toString())
     }
 
-    companion object {
-        private const val TAG = "SeriesDetailsViewModel"
-    }
+
 }
