@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         installSplashScreen()
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 //        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_host) as NavHostFragment
