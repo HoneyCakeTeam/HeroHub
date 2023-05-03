@@ -4,9 +4,12 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.herohub.ui.eventdetails.EventDetailsViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.eventdetails.EventDetailsFragment">
@@ -17,5 +20,5 @@
             android:layout_height="match_parent"
             android:text="@string/hello_blank_fragment" />
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
