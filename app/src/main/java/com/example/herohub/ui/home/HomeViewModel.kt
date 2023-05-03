@@ -7,8 +7,7 @@ import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.herohub.utills.handleThreadsAndSubscribe
 
 class HomeViewModel : BaseViewModel() {
     override val TAG: String
@@ -28,9 +27,7 @@ class HomeViewModel : BaseViewModel() {
         _characterResponse.postValue(UiState.Loading)
 
         repository.getAllCharacters()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetCharacterSuccess, ::onGetCharacterError)
+            .handleThreadsAndSubscribe(::onGetCharacterSuccess, ::onGetCharacterError)
             .addToCompositeDisposable()
     }
 
