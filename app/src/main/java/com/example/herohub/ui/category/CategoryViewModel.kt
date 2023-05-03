@@ -14,7 +14,7 @@ import com.example.herohub.utills.State
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class CategoryViewModel : BaseViewModel() {
+class CategoryViewModel : BaseViewModel() , CategoryInteractionListener {
     override val TAG: String = this::class.java.simpleName
 
     private val repository = Repository()
@@ -115,6 +115,10 @@ class CategoryViewModel : BaseViewModel() {
 
     private fun onError(throwable: Throwable) {
         log(throwable.message.toString())
+    }
+
+    override fun onItemClick(id: Int) {
+
     }
 
 }

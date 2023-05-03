@@ -10,6 +10,8 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
     override val layoutIdFragment: Int = R.layout.fragment_categories
     override val viewModel: CategoryViewModel by viewModels()
     override fun setup() {
+        val adapter = CategoryAdapter(emptyList(), viewModel)
+        binding.recyclerCategory.adapter = adapter
     }
 
 
