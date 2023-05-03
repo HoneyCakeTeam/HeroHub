@@ -20,18 +20,21 @@
         android:layout_marginEnd="@dimen/spacing_small"
         android:layout_marginBottom="@dimen/spacing_medium"
         app:cardCornerRadius="@dimen/spacing_medium"
+        android:onClick="@{() -> listener.onCategoryClick(item)}"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/characters"
+                tools:src="@drawable/characters"
+                android:src="@{item.categoryImage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,14 +54,15 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Category"
-                android:textSize="@dimen/text_xgiant"
+                android:layout_marginBottom="@dimen/spacing_medium"
                 android:fontFamily="@font/josefinsans_semibold"
                 android:textColor="@color/md_theme_dark_onBackground"
+                android:textSize="@dimen/text_xgiant"
+                android:text="@{item.categoryName}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Category" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

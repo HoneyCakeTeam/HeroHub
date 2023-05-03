@@ -21,51 +21,50 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoryViewM
         binding.lifecycleOwner = this
 
         initCategoryAdapter()
-        navigateToCategory()
+//        navigateToCategory()
 
     }
 
-    private fun navigateToCategory() {
-        viewModel.itemCategory.observe(this) { category ->
-            when (category.categoryName) {
-                getString(R.string.characters) -> Navigation.navigateTo(
-                    binding.root,
-                    R.id.action_categories_fragment_to_characterFragment
-                )
-
-                getString(R.string.series) -> Navigation.navigateTo(
-                    binding.root,
-                    R.id.action_categories_fragment_to_seriesFragment
-                )
-
-                getString(R.string.comics) -> Navigation.navigateTo(
-                    binding.root,
-                    R.id.action_categories_fragment_to_comicsFragment
-                )
-
-                getString(R.string.events) -> Navigation.navigateTo(
-                    binding.root,
-                    R.id.action_categories_fragment_to_eventsFragment
-                )
-
-                getString(R.string.creators) -> Navigation.navigateTo(
-                    binding.root,
-                    R.id.action_categories_fragment_to_creatorFragment
-                )
-
-                getString(R.string.stories) -> Navigation.navigateTo(
-                    binding.root,
-                    R.id.action_categories_fragment_to_storyFragment
-                )
-            }
-
-        }
-    }
+//    private fun navigateToCategory() {
+//        viewModel.itemCategory.observe(this) { category ->
+//            when (category.categoryName) {
+//                getString(R.string.characters) -> Navigation.navigateTo(
+//                    binding.root,
+//                    R.id.action_categories_fragment_to_characterFragment
+//                )
+//
+//                getString(R.string.series) -> Navigation.navigateTo(
+//                    binding.root,
+//                    R.id.action_categories_fragment_to_seriesFragment
+//                )
+//
+//                getString(R.string.comics) -> Navigation.navigateTo(
+//                    binding.root,
+//                    R.id.action_categories_fragment_to_comicsFragment
+//                )
+//
+//                getString(R.string.events) -> Navigation.navigateTo(
+//                    binding.root,
+//                    R.id.action_categories_fragment_to_eventsFragment
+//                )
+//
+//                getString(R.string.creators) -> Navigation.navigateTo(
+//                    binding.root,
+//                    R.id.action_categories_fragment_to_creatorFragment
+//                )
+//
+//                getString(R.string.stories) -> Navigation.navigateTo(
+//                    binding.root,
+//                    R.id.action_categories_fragment_to_storyFragment
+//                )
+//            }
+//
+//        }
+//    }
 
     private fun initCategoryAdapter() {
         val adapter = CategoryAdapter(emptyList(), viewModel)
         binding.categoriesRecycler.adapter = adapter
     }
-
 
 }
