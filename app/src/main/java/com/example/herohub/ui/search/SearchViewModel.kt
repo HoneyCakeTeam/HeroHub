@@ -32,12 +32,11 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
                     log(it.message.toString())
                 }
             ).addToCompositeDisposable()
-
     }
 
     override fun <T> onItemClick(item: T) {
 
     }
-
-
 }
+
+
