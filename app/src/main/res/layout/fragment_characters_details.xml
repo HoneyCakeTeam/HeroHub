@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="viewModel"
-    type="com.example.herohub.ui.characterdetails.CharacterDetailsViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.example.herohub.ui.characterdetails.CharacterDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,15 +19,17 @@
             android:id="@+id/image_character"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:srcCompat="@mipmap/ic_launcher"
             android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:imageUrl="@{viewModel.characterDetails.toData().data.results.get(0).thumbnail.path}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/text_view_character_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:text="@{viewModel.characterDetails.toData().data.results.get(0).name}"
             android:textSize="@dimen/text_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,9 +54,9 @@
             android:layout_marginTop="@dimen/spacing_large"
             android:orientation="horizontal"
             app:items="@{viewModel.characterComics.toData().data.results}"
-            tools:listitem="@layout/comic_item"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_character_name" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_character_name"
+            tools:listitem="@layout/comic_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

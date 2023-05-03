@@ -9,12 +9,21 @@
         android:id="@+id/home_fragment"
         android:name="com.example.herohub.ui.home.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_fragment_to_characters_details_fragment2"
+            app:destination="@id/characters_details_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/characters_details_fragment"
         android:name="com.example.herohub.ui.characterdetails.CharacterDetailsFragment"
         android:label="@string/characters"
-        tools:layout="@layout/fragment_characters_details" />
+        tools:layout="@layout/fragment_characters_details">
+        <argument
+            android:name="characterId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/comics_details_fragment"
         android:name="com.example.herohub.ui.comicdetails.ComicDetailsFragment"
