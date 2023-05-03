@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -13,6 +14,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.category.CategoriesFragment">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:paddingVertical="@dimen/spacing_tiny"
+            app:checkedChip="@id/chip_character"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_character"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/characters" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_stories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stories" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/series" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_comics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comics" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/events" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_creators"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/creators" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chips_categories"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
