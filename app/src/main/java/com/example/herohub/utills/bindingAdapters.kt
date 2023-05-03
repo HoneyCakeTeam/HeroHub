@@ -5,7 +5,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.herohub.BaseAdapter
+import com.example.herohub.ui.base.BaseAdapter
 
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, state: State<T>?) {
