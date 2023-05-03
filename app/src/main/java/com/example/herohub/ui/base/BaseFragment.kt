@@ -5,33 +5,40 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewbinding.ViewBinding
+import com.example.herohub.BR
 
-abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
+abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
 
     abstract val TAG: String
-    abstract val bindingInflater: (LayoutInflater) -> VB
-    private var _binding: VB? = null
-    protected val binding get() = _binding!!
-    abstract fun getViewModel(): Class<VM>
-    open lateinit var viewModel: VM
+    abstract val layoutIdFragment: Int
+    abstract val viewModel: ViewModel
+    private lateinit var _binding: VB
+    protected val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = bindingInflater(layoutInflater)
 
-        return binding.root
+        _binding = DataBindingUtil.inflate(
+            inflater,
+            layoutIdFragment,
+            container, false)
+
+        _binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            setVariable(BR.viewModel, viewModel)
+            return root
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[getViewModel()]
         setup()
     }
 
@@ -41,8 +48,4 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         Log.e(TAG, value.toString())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }
