@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -16,7 +15,6 @@ import com.example.herohub.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var  navController :NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -25,10 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         statusBarTheme()
 
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_host) as NavHostFragment
-//        navController = navHostFragment.navController
-//        NavigationUI.setupWithNavController(binding.bottomNav, navController)
-//        NavigationUI.setupActionBarWithNavController(this , navController )
     }
 
     override fun onResume() {
