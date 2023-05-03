@@ -13,6 +13,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun getViewModel(): Class<HomeViewModel> = HomeViewModel::class.java
 
     override fun setup() {
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
 }
