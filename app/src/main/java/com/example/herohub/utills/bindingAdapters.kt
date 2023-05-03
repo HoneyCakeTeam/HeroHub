@@ -5,23 +5,23 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.herohub.BaseAdapter
+import com.example.herohub.ui.base.BaseAdapter
 
 @BindingAdapter("app:showWhenLoading")
-fun <T> showWhenLoading(view: View, state: State<T>?) {
-    if (state is State.Loading) view.visibility = View.VISIBLE
+fun <T> showWhenLoading(view: View, uiState: UiState<T>?) {
+    if (uiState is UiState.Loading) view.visibility = View.VISIBLE
     else view.visibility = View.VISIBLE
 }
 
 @BindingAdapter("app:showWhenError")
-fun <T> showWhenError(view: View, state: State<T>?) {
-    if (state is State.Error) view.visibility = View.VISIBLE
+fun <T> showWhenError(view: View, uiState: UiState<T>?) {
+    if (uiState is UiState.Error) view.visibility = View.VISIBLE
     else view.visibility = View.VISIBLE
 }
 
 @BindingAdapter("app:showWhenSuccess")
-fun <T> showWhenSuccess(view: View, state: State<T>?) {
-    if (state is State.Success) view.visibility = View.VISIBLE
+fun <T> showWhenSuccess(view: View, uiState: UiState<T>?) {
+    if (uiState is UiState.Success) view.visibility = View.VISIBLE
     else view.visibility = View.VISIBLE
 }
 

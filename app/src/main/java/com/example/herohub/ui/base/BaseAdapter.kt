@@ -1,12 +1,13 @@
-package com.example.herohub
+package com.example.herohub.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.herohub.ui.base.BaseDiffUtil
+
 
 /**
  * Created by Aziza Helmy on 5/2/2023.
@@ -44,8 +45,8 @@ abstract class BaseAdapter<T>(private val listener: BaseInteractionListener) :
         when (holder) {
             is ItemViewHolder -> {
                 holder.binding.apply {
-//                    setVariable(BR.item,currentItem)
-//                    setVariable(BR.listener,listener)
+                    setVariable(BR.item, currentItem)
+                    setVariable(BR.listener, listener)
 
                 }
             }

@@ -6,7 +6,7 @@
     <data>
 <variable
     name="viewModel"
-    type="com.example.herohub.ui.characterdetails." />
+    type="com.example.herohub.ui.characterdetails.CharacterDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
             android:orientation="horizontal"
+            app:items="@{viewModel.characterComics.toData().data.results}"
             tools:listitem="@layout/comic_item"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/text_view_character_name" />

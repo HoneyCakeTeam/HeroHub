@@ -4,4 +4,5 @@ class RemoteDataSource {
     private val marvelService = MarvelApi.marvelService
     fun getAllCharacters() = MarvelApi.marvelService.getAllCharacters()
     fun getCharacterDetails(characterId: Int) = marvelService.getCharacterDetails(characterId)
+    fun getCharacterComics(characterId: Int) = marvelService.getCharacterComics(characterId)
 }
