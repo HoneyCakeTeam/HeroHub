@@ -6,6 +6,7 @@ import com.example.herohub.R
 import com.example.herohub.data.local.model.Category
 import com.example.herohub.databinding.FragmentCategoriesBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.utills.navigateTo
 
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoryViewModel>() {
     override val TAG: String = this::class.java.simpleName
@@ -20,12 +21,42 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding, CategoryViewM
         binding.lifecycleOwner = this
 
         initCategoryAdapter()
+        navigateToCategory()
+
+    }
+
+    private fun navigateToCategory() {
         viewModel.itemCategory.observe(this) { category ->
             when (category.categoryName) {
-                "Characters" -> {
-                    Navigation.findNavController(binding.root)
-                        .navigate(R.id.action_categories_fragment_to_characterFragment)
-                }
+                getString(R.string.characters) -> Navigation.navigateTo(
+                    binding.root,
+                    R.id.action_categories_fragment_to_characterFragment
+                )
+
+                getString(R.string.series) -> Navigation.navigateTo(
+                    binding.root,
+                    R.id.action_categories_fragment_to_seriesFragment
+                )
+
+                getString(R.string.comics) -> Navigation.navigateTo(
+                    binding.root,
+                    R.id.action_categories_fragment_to_comicsFragment
+                )
+
+                getString(R.string.events) -> Navigation.navigateTo(
+                    binding.root,
+                    R.id.action_categories_fragment_to_eventsFragment
+                )
+
+                getString(R.string.creators) -> Navigation.navigateTo(
+                    binding.root,
+                    R.id.action_categories_fragment_to_creatorFragment
+                )
+
+                getString(R.string.stories) -> Navigation.navigateTo(
+                    binding.root,
+                    R.id.action_categories_fragment_to_storyFragment
+                )
             }
 
         }

@@ -65,9 +65,7 @@
         <action
             android:id="@+id/action_categories_fragment_to_storyFragment"
             app:destination="@id/storyFragment" />
-        <action
-            android:id="@+id/action_categories_fragment_to_creatorFragment2"
-            app:destination="@id/creatorFragment" />
+        <action app:destination="@id/creatorFragment" />
         <action
             android:id="@+id/action_categories_fragment_to_comicsFragment"
             app:destination="@id/comicsFragment" />
