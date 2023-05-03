@@ -7,6 +7,4 @@ class SearchViewModel : BaseViewModel() {
     override val TAG: String = this::class.java.simpleName.toString()
     private val repository = Repository()
 
-
-
 }

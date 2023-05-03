@@ -1,19 +1,19 @@
 package com.example.herohub.ui.search
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import com.example.herohub.R
+import com.example.herohub.databinding.FragmentSearchScreenBinding
+import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.ui.eventdetails.EventDetailsViewModel
 
-class SearchScreenFragment  : Fragment() {
+class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
+    override val TAG: String = this::class.java.simpleName
+    override val layoutIdFragment = R.layout.fragment_search_screen
+    override val viewModel: SearchViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_screen, container, false)
+    override fun setup() {
+
     }
+
 }
