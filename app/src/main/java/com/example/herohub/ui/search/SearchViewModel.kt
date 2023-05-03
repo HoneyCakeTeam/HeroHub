@@ -17,7 +17,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     private val _response = MutableLiveData<State<BaseResponse<Character>?>>()
     val response: LiveData<State<BaseResponse<Character>?>> get() = _response
 
-    private fun getAllCharacters() {
+     fun getAllCharacters() {
         _response.postValue(State.Loading)
         repository
             .getAllCharacters()

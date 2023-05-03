@@ -16,6 +16,7 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
     override val viewModel: SearchViewModel by viewModels()
 
     override fun setup() {
+        viewModel.getAllCharacters()
         search()
     }
 
@@ -23,7 +24,6 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
        val listOfCharacters =  viewModel.response.value!!.toData()!!.data.results
         listOfCharacters!![0].name
 
-        
     }
 
     private fun search() {
