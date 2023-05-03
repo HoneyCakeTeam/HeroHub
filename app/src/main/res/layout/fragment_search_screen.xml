@@ -6,7 +6,9 @@
 
     <data>
 
-
+        <variable
+            name="viewModel"
+            type="com.example.herohub.ui.search.SearchViewModel" />
 
     </data>
 
