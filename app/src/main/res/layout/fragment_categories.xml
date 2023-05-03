@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.herohub.ui.category.CategoryViewModel" />
@@ -12,6 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.category.CategoriesFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categories_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/spacing_medium"
+            android:orientation="vertical" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
