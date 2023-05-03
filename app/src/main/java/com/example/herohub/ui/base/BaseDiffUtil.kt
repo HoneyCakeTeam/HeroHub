@@ -2,7 +2,7 @@ package com.example.herohub.ui.base
 
 import androidx.recyclerview.widget.DiffUtil
 
-class BaseDiffUtil<T>(
+open class BaseDiffUtil<T>(
     private val oldList: List<T>,
     private val newList: List<T>,
     private val checkIfSameItem: (oldItem: T, newItem: T) -> Boolean,
