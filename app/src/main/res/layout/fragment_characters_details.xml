@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.characterdetails.CharacterDetailsFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_character"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/text_view_character_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="@dimen/text_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_character"
+            tools:text="character Name" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_comics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_character_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
