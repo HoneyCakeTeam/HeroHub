@@ -1,19 +1,17 @@
 package com.example.herohub.ui.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.herohub.R
+import com.example.herohub.databinding.FragmentHomeBinding
+import com.example.herohub.ui.base.BaseFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override val TAG: String = this::class.java.simpleName.toString()
+    override val layoutIdFragment: Int = R.layout.fragment_home
+    override val viewModel: HomeViewModel by viewModels()
+
+    override fun setup() {
+
     }
 }
