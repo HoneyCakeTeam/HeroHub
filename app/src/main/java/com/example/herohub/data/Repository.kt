@@ -30,12 +30,13 @@ class Repository {
         remoteDataSource.getAllEvents()
     }
 
-    fun getAllSeries() = wrapWithState {
-        remoteDataSource.getAllSeries()
-    }
 
     fun getAllStories() = wrapWithState {
         remoteDataSource.getAllStories()
+    }
+
+    fun getStoryDetails(id:String) = wrapWithState {
+        remoteDataSource.getStoryDetails(id)
     }
 
 

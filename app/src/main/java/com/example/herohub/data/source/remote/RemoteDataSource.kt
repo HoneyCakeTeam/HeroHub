@@ -8,4 +8,5 @@ class RemoteDataSource {
     fun getAllSeries() = MarvelApi.marvelService.getAllSeries()
     fun getAllStories() = MarvelApi.marvelService.getAllStories()
     fun getEvent(eventId: Int) = MarvelApi.marvelService.getEvent(eventId)
+    fun getStoryDetails(id:String) = MarvelApi.marvelService.getStoryDetails(id)
 }
