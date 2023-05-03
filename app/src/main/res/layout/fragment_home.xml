@@ -23,6 +23,7 @@
             android:text="@{viewModel.characterResponse.toData().data.results.get(1).name}"
             android:textColor="@color/design_default_color_error"
             android:textSize="@dimen/text_large"
+            app:showWhenSuccess="@{viewModel.characterResponse}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
