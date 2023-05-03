@@ -11,8 +11,9 @@ class Repository {
         remoteDataSource.getAllCharacters()
     }
     fun getAllSeries() = wrapWithState {
-        MarvelApi.marvelService.getAllSeries()
+        remoteDataSource.getAllSeries()
     }
+
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
             try {
