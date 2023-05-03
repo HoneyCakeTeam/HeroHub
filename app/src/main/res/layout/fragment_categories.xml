@@ -1,21 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.herohub.ui.category.CategoryViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.category.CategoriesFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_categories"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:paddingVertical="@dimen/spacing_tiny"
+            app:checkedChip="@id/chip_character"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleLine="true"
+            app:singleSelection="true">
 
-    </FrameLayout>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_character"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/characters" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_stories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stories" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/series" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_comics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comics" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/events" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_creators"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/creators" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_category"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/spacing_simi_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chips_categories"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_category"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

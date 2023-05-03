@@ -1,19 +1,17 @@
 package com.example.herohub.ui.category
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.herohub.R
+import com.example.herohub.databinding.FragmentCategoriesBinding
+import com.example.herohub.ui.base.BaseFragment
 
-class CategoriesFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
+    override val TAG: String = this::class.java.simpleName
+    override val layoutIdFragment: Int = R.layout.fragment_categories
+    override val viewModel: CategoryViewModel by viewModels()
+    override fun setup() {
+        val adapter = CategoryAdapter(emptyList(), viewModel)
+        binding.recyclerCategory.adapter = adapter
     }
+
 }

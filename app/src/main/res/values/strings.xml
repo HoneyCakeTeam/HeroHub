@@ -11,4 +11,9 @@
     <string name="series_details">Series Details</string>
     <string name="events_details">Events Details</string>
     <string name="stories_details">Stories Details</string>
+    <string name="series">Series</string>
+    <string name="comics">Comics</string>
+    <string name="events">Events</string>
+    <string name="creators">Creators</string>
+    <string name="stories">Stories</string>
 </resources>

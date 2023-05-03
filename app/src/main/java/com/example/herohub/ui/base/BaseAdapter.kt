@@ -1,4 +1,4 @@
-package com.example.herohub
+package com.example.herohub.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,19 +6,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.herohub.ui.base.BaseDiffUtil
+import com.example.herohub.BR
 
 /**
  * Created by Aziza Helmy on 5/2/2023.
  */
-abstract class BaseAdapter<T>(private val listener: BaseInteractionListener) :
+abstract class BaseAdapter<T>(
+    private var items: List<T>,
+    private val listener: BaseInteractionListener
+) :
     RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
 
-    private var items = arrayListOf<T>()
     abstract val layoutId: Int
 
     fun setItems(newItems: List<T>) {
-        items = newItems as ArrayList<T>
+        items = newItems
         val diffResult =
             DiffUtil.calculateDiff(BaseDiffUtil(items, newItems, ::areItemsSame, ::areContentSame))
         diffResult.dispatchUpdatesTo(this)
@@ -44,8 +46,8 @@ abstract class BaseAdapter<T>(private val listener: BaseInteractionListener) :
         when (holder) {
             is ItemViewHolder -> {
                 holder.binding.apply {
-//                    setVariable(BR.item,currentItem)
-//                    setVariable(BR.listner,listener)
+                    setVariable(BR.item,currentItem)
+                    setVariable(BR.listener,listener)
 
                 }
             }
