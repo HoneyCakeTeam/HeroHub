@@ -45,7 +45,7 @@ abstract class BaseAdapter<T>(private val listener: BaseInteractionListener) :
             is ItemViewHolder -> {
                 holder.binding.apply {
 //                    setVariable(BR.item,currentItem)
-//                    setVariable(BR.listner,listener)
+//                    setVariable(BR.listener,listener)
 
                 }
             }
