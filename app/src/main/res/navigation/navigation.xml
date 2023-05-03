@@ -29,7 +29,12 @@
         android:id="@+id/events_details_fragment"
         android:name="com.example.herohub.ui.eventdetails.EventDetailsFragment"
         android:label="@string/events_details"
-        tools:layout="@layout/fragment_events_details" />
+        tools:layout="@layout/fragment_events_details" >
+        <argument
+            android:name="eventId"
+            app:argType="integer"
+            android:defaultValue="269" />
+    </fragment>
     <fragment
         android:id="@+id/stories_details_fragment"
         android:name="com.example.herohub.ui.storydetails.StoriesDetailsFragment"
