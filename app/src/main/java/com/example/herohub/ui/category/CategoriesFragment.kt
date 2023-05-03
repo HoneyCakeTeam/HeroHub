@@ -15,7 +15,6 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding , CategoryView
     override fun setup() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
     }
 
 }
