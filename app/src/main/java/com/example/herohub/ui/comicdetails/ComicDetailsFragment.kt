@@ -1,19 +1,18 @@
 package com.example.herohub.ui.comicdetails
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.herohub.R
+import com.example.herohub.databinding.FragmentComicsDetailsBinding
+import com.example.herohub.ui.base.BaseFragment
 
-class ComicDetailsFragment  : Fragment() {
+class ComicDetailsFragment : BaseFragment<FragmentComicsDetailsBinding>() {
+    override val TAG: String = this::class.java.simpleName
+    override val layoutIdFragment = R.layout.fragment_comics_details
+    override val viewModel: ComicDetailsViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comics_details, container, false)
+    override fun setup() {
+
     }
+
+
 }
