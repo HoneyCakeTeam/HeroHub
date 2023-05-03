@@ -23,12 +23,13 @@ class MarvelInterceptor : Interceptor {
 
     private fun getMarvelHash(ts: String): String {
         val input = "$ts${BuildConfig.PRIVATE_KEY}${BuildConfig.PUBLIC_KEY}"
-        val bytes = MessageDigest.getInstance("MD5").digest(input.toByteArray())
+        val bytes = MessageDigest.getInstance(MD5_ALGORITHM).digest(input.toByteArray())
 
         return bytes.joinToString("") { "%02x".format(it) }
     }
 
     companion object {
+        private const val MD5_ALGORITHM = "MD5"
         private const val TIME_STAMP = "ts"
         private const val API_KEY = "apikey"
         private const val HASH = "hash"

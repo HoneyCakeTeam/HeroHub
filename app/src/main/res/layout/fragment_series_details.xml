@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="vm"
-    type="com.example.herohub.ui.seriesdetails.SeriesDetailsViewModel" />
+
     </data>
 
     <FrameLayout
@@ -15,10 +13,9 @@
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
-            android:id="@+id/data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           />
+            android:text="@string/hello_blank_fragment" />
 
     </FrameLayout>
 </layout>

@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import com.example.herohub.R
+import com.example.herohub.databinding.FragmentSeriesDetailsBinding
 import com.example.herohub.data.Repository
 import com.example.herohub.databinding.FragmentSeriesDetailsBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-
-class SeriesDetailsFragment : Fragment() {
+class SeriesDetailsFragment  : Fragment() {
     private lateinit var binding: FragmentSeriesDetailsBinding
     private val viewModel: SeriesDetailsViewModel by viewModels()
 
