@@ -11,6 +11,9 @@ class Repository {
         remoteDataSource.getAllCharacters()
     }
 
+    fun getCharacterDetails(characterId: Int) =
+        wrapWithState { remoteDataSource.getCharacterDetails(characterId) }
+
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
             try {
