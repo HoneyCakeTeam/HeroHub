@@ -7,8 +7,7 @@ import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Event
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.herohub.utills.handleThreadsAndSubscribe
 
 class EventDetailsViewModel : BaseViewModel() {
     private val repository = Repository()
@@ -25,9 +24,7 @@ class EventDetailsViewModel : BaseViewModel() {
     fun getEvent(eventId: Int) {
         _eventResponse.postValue(UiState.Loading)
         repository.getEvent(eventId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
+            .handleThreadsAndSubscribe(
                 ::onGetEventSuccess,
                 ::onGetEventFailure
             ).addToCompositeDisposable()
