@@ -36,7 +36,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 
     override fun <T> onItemClick(item: T) {
-        TODO("Not yet implemented")
+
     }
 
 
