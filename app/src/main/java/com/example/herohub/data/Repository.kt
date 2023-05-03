@@ -11,6 +11,10 @@ class Repository {
         remoteDataSource.getAllCharacters()
     }
 
+    fun getEvent(eventId: Int) = wrapWithState {
+        remoteDataSource.getEvent(eventId)
+    }
+
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
             try {
