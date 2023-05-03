@@ -11,6 +11,10 @@ class Repository {
         remoteDataSource.getAllCharacters()
     }
 
+    fun getComic(comicId: Int) = wrapWithState {
+        remoteDataSource.getComic(comicId)
+    }
+
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
         return function().map {
             try {
