@@ -23,11 +23,11 @@
             android:text="@{viewModel.characterResponse.toData().data.results.get(1).name}"
             android:textColor="@color/design_default_color_error"
             android:textSize="@dimen/text_large"
-            app:showWhenSuccess="@{viewModel.characterResponse}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:showWhenSuccess="@{viewModel.characterResponse}"
             tools:text="@string/app_name" />
 
         <TextView
@@ -39,34 +39,34 @@
             android:text="@{viewModel.characterResponse.toData().data.results.get(1).description}"
             android:textColor="@color/design_default_color_error"
             android:textSize="@dimen/text_large"
-            app:showWhenSuccess="@{viewModel.characterResponse}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:showWhenSuccess="@{viewModel.characterResponse}"
             tools:text="@string/app_name" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:showWhenLoading="@{viewModel.characterResponse}"
-            app:lottie_rawRes="@raw/loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:lottie_rawRes="@raw/loading"
+            app:showWhenLoading="@{viewModel.characterResponse}" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/error"
-            app:showWhenError="@{viewModel.characterResponse}"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenError="@{viewModel.characterResponse}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
