@@ -10,11 +10,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface MarvelService {
-    @GET("characters")
-    fun getAllCharacters(): Single<Response<BaseResponse<Character>>>
-
     @GET("events/{eventId}")
     fun getEvent(@Path("eventId") eventId: Int): Single<Response<BaseResponse<Event>>>
+
+    @GET("characters")
     fun getAllCharacters() : Single<Response<Character>>
     @GET("series")
     fun getAllSeries() : Single<Response<BaseResponse<Series>>>
