@@ -38,11 +38,13 @@
             android:text="@{viewModel.characterResponse.toData().data.results.get(1).description}"
             android:textColor="@color/design_default_color_error"
             android:textSize="@dimen/text_large"
+            app:showWhenSuccess="@{viewModel.characterResponse}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:text="@string/app_name" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
