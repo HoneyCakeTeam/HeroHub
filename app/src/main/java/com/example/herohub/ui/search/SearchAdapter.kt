@@ -6,7 +6,7 @@ import com.example.herohub.R
 
 class CategoryAdapter<T>(listener: SearchInteractionListener) :
     BaseAdapter<T>(listener) {
-    override val layoutId: Int = R.layout.item_category
+    override val layoutId: Int = R.layout.item_search
 }
 
 interface SearchInteractionListener : BaseInteractionListener {
