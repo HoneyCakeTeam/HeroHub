@@ -21,13 +21,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        navController  = findNavController(R.id.fragment_host)
-        NavigationUI.setupActionBarWithNavController(this , navController )
+        setupNavigation()
+    }
+    private fun setupNavigation() {
+        val navController = findNavController(R.id.fragment_host)
+        NavigationUI.setupActionBarWithNavController(this, navController)
         binding.bottomNav.setupWithNavController(navController)
     }
-
     override fun onSupportNavigateUp(): Boolean {
-        navController.navigateUp()
-        return true
+        val navController = findNavController(R.id.fragment_host)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
