@@ -43,7 +43,7 @@ fun <T> setPlaceHolder(view: View, list: List<T>) {
 fun setImageFromUrl(view: ImageView, url: String?) {
     Glide
         .with(view)
-        .load(url)
+        .load("$url.jpg")
 //        .placeholder(R.drawable.movie_placeholder)
 //        .error(R.drawable.movie_error)
         .centerCrop().into(view)

@@ -1,6 +1,7 @@
 package com.example.herohub.data.source.remote
 
 class RemoteDataSource {
+    private val marvelService = MarvelApi.marvelService
     fun getAllCharacters() = MarvelApi.marvelService.getAllCharacters()
     fun getAllComics() = MarvelApi.marvelService.getAllComics()
     fun getAllCreators() = MarvelApi.marvelService.getAllCreators()
@@ -12,4 +13,6 @@ class RemoteDataSource {
 
     fun getComic(comicId: Int) = MarvelApi.marvelService.getComic(comicId)
 
+    fun getCharacterDetails(characterId: Int) = marvelService.getCharacterDetails(characterId)
+    fun getCharacterComics(characterId: Int) = marvelService.getCharacterComics(characterId)
 }

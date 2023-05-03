@@ -4,23 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.herohub.BR
+
 
 /**
  * Created by Aziza Helmy on 5/2/2023.
  */
-abstract class BaseAdapter<T>(
-    private var items: List<T>,
-    private val listener: BaseInteractionListener
-) :
+abstract class BaseAdapter<T>(private val listener: BaseInteractionListener) :
     RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
 
+    private var items = arrayListOf<T>()
     abstract val layoutId: Int
 
     fun setItems(newItems: List<T>) {
-        items = newItems
+        items = newItems as ArrayList<T>
         val diffResult =
             DiffUtil.calculateDiff(BaseDiffUtil(items, newItems, ::areItemsSame, ::areContentSame))
         diffResult.dispatchUpdatesTo(this)
@@ -46,8 +45,8 @@ abstract class BaseAdapter<T>(
         when (holder) {
             is ItemViewHolder -> {
                 holder.binding.apply {
-                    setVariable(BR.item,currentItem)
-                    setVariable(BR.listener,listener)
+                    setVariable(BR.item, currentItem)
+                    setVariable(BR.listener, listener)
 
                 }
             }

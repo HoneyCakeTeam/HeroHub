@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.characterdetails.ComicsInteractionListener" />
+
+        <variable
+            name="item"
+            type="com.example.herohub.model.Comic" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/spacing_medium"
+        android:layout_height="wrap_content"
+        android:onClick="@{()-> listener.onClickComic(item.id)}"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_comic"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:imageUrl="@{item.thumbnail.path}"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/text_view_comic_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/spacing_small"
+            android:text="@{item.title}"
+            tools:text="Comic Title" />
+
+    </LinearLayout>
+</layout>

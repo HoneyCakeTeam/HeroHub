@@ -1,7 +1,7 @@
 package com.example.herohub.data
 
 import com.example.herohub.data.source.remote.RemoteDataSource
-import com.example.herohub.utills.State
+import com.example.herohub.utills.UiState
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
@@ -44,16 +44,22 @@ class Repository {
         remoteDataSource.getComic(comicId)
     }
 
-    private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
+    fun getCharacterDetails(characterId: Int) =
+        wrapWithState { remoteDataSource.getCharacterDetails(characterId) }
+
+    fun getCharacterComics(characterId: Int) =
+        wrapWithState { remoteDataSource.getCharacterComics(characterId) }
+
+    private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<UiState<T>> {
         return function().map {
             try {
                 if (it.isSuccessful) {
-                    State.Success(it.body())
+                    UiState.Success(it.body())
                 } else {
-                    State.Error(it.message())
+                    UiState.Error(it.message())
                 }
             } catch (e: Exception) {
-                State.Error(e.message ?: "Connection Failed")
+                UiState.Error(e.message ?: "Connection Failed")
             }
         }
     }
