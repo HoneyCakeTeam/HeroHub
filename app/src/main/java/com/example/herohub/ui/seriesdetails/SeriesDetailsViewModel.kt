@@ -6,7 +6,7 @@ import com.example.herohub.data.Repository
 import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.utills.State
+import com.example.herohub.utills.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -16,8 +16,8 @@ class SeriesDetailsViewModel : BaseViewModel() {
 
     private val repository: Repository by lazy { Repository() }
 
-    private val _seriesData = MutableLiveData<State<BaseResponse<Series>?>>()
-    val seriesData: LiveData<State<BaseResponse<Series>?>>
+    private val _seriesData = MutableLiveData<UiState<BaseResponse<Series>?>>()
+    val seriesData: LiveData<UiState<BaseResponse<Series>?>>
         get() = _seriesData
 
     init {
@@ -25,7 +25,7 @@ class SeriesDetailsViewModel : BaseViewModel() {
     }
 
     private fun getAllSeriesList() {
-        _seriesData.postValue(State.Loading)
+        _seriesData.postValue(UiState.Loading)
 
         repository.getAllSeries()
             .observeOn(AndroidSchedulers.mainThread())
@@ -34,9 +34,9 @@ class SeriesDetailsViewModel : BaseViewModel() {
             .addToCompositeDisposable()
     }
 
-    private fun onSeriesSuccessData(seriesState: State<BaseResponse<Series>?>) {
-        _seriesData.postValue(seriesState)
-        log(seriesState.toData().toString())
+    private fun onSeriesSuccessData(seriesUiState: UiState<BaseResponse<Series>?>) {
+        _seriesData.postValue(seriesUiState)
+        log(seriesUiState.toData().toString())
     }
 
     private fun onError(errorMessage: Throwable) {

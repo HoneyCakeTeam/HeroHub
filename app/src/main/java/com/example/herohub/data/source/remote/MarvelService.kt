@@ -19,7 +19,7 @@ interface MarvelService {
     fun getEvent(@Path("eventId") eventId: Int): Single<Response<BaseResponse<Event>>>
 
     @GET("characters")
-    fun getAllCharacters(): Single<Response<Character>>
+    fun getAllCharacters(): Single<Response<BaseResponse<Character>>>
 
     @GET("characters/{characterId}")
     fun getCharacterDetails(

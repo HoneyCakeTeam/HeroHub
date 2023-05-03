@@ -8,20 +8,20 @@ import com.bumptech.glide.Glide
 import com.example.herohub.ui.base.BaseAdapter
 
 @BindingAdapter("app:showWhenLoading")
-fun <T> showWhenLoading(view: View, state: State<T>?) {
-    if (state is State.Loading) view.visibility = View.VISIBLE
+fun <T> showWhenLoading(view: View, UiState: UiState<T>?) {
+    if (UiState is UiState.Loading) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
 
 @BindingAdapter("app:showWhenError")
-fun <T> showWhenError(view: View, state: State<T>?) {
-    if (state is State.Error) view.visibility = View.VISIBLE
+fun <T> showWhenError(view: View, UiState: UiState<T>?) {
+    if (UiState is UiState.Error) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
 
 @BindingAdapter("app:showWhenSuccess")
-fun <T> showWhenSuccess(view: View, state: State<T>?) {
-    if (state is State.Success) view.visibility = View.VISIBLE
+fun <T> showWhenSuccess(view: View, UiState: UiState<T>?) {
+    if (UiState is UiState.Success) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
 

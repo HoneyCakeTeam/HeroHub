@@ -6,7 +6,7 @@ import com.example.herohub.data.Repository
 import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Character
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.utills.State
+import com.example.herohub.utills.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -16,8 +16,8 @@ class HomeViewModel : BaseViewModel() {
 
     private val repository: Repository by lazy { Repository() }
 
-    private val _characterResponse = MutableLiveData<State<BaseResponse<Character>?>>()
-    val characterResponse: LiveData<State<BaseResponse<Character>?>>
+    private val _characterResponse = MutableLiveData<UiState<BaseResponse<Character>?>>()
+    val characterResponse: LiveData<UiState<BaseResponse<Character>?>>
         get() = _characterResponse
 
     init {
@@ -25,7 +25,7 @@ class HomeViewModel : BaseViewModel() {
     }
 
     private fun getAllCharacters() {
-        _characterResponse.postValue(State.Loading)
+        _characterResponse.postValue(UiState.Loading)
 
         repository.getAllCharacters()
             .subscribeOn(Schedulers.io())
@@ -34,9 +34,9 @@ class HomeViewModel : BaseViewModel() {
             .addToCompositeDisposable()
     }
 
-    private fun onGetCharacterSuccess(state: State<BaseResponse<Character>?>) {
-        _characterResponse.postValue(state)
-        log(state.toData().toString())
+    private fun onGetCharacterSuccess(UiState: UiState<BaseResponse<Character>?>) {
+        _characterResponse.postValue(UiState)
+        log(UiState.toData().toString())
     }
 
     private fun onGetCharacterError(errorMessage: Throwable) =

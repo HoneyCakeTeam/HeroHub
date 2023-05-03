@@ -6,13 +6,13 @@ import okhttp3.Response
 import java.security.MessageDigest
 
 class MarvelInterceptor : Interceptor {
-    private val ts = System.currentTimeMillis().toString()
-    private val hash = getMarvelHash(ts)
+    private val timeStamp = System.currentTimeMillis().toString()
+    private val hash = getMarvelHash(timeStamp)
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val url = request.url.newBuilder()
-            .addQueryParameter(TIME_STAMP, ts)
+            .addQueryParameter(TIME_STAMP, timeStamp)
             .addQueryParameter(API_KEY, BuildConfig.PUBLIC_KEY)
             .addQueryParameter(HASH, hash)
             .build()
