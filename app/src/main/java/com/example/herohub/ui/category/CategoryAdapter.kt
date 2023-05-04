@@ -4,8 +4,8 @@ import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 
-class CategoryAdapter(category: List<String>, listener: CategoryInteractionListener) :
-    BaseAdapter<String>(category, listener) {
+class CategoryAdapter(listener: CategoryInteractionListener) :
+    BaseAdapter<String>(listener) {
     override val layoutId: Int = R.layout.item_category
 }
 

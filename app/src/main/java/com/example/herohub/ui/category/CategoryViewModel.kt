@@ -59,6 +59,7 @@ class CategoryViewModel : BaseViewModel() , CategoryInteractionListener {
 
     private fun getAllCreators() {
         repository.getAllCreators()
+
             .observeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::onGetCreatorsSuccess, ::onError)
@@ -66,12 +67,11 @@ class CategoryViewModel : BaseViewModel() , CategoryInteractionListener {
     }
 
     private fun getAllEvents() {
-        repository.getAllEvents()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetEventsSuccess, ::onError)
-            .addToCompositeDisposable()
+
+        disposeObservable(repository.getAllEvents(), ::onGetEventsSuccess, ::onError)
+
     }
+
 
     private fun getAllSeries() {
         repository.getAllSeries()

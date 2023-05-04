@@ -53,10 +53,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
             android:orientation="horizontal"
-            app:items="@{viewModel.characterComics.toData().data.results}"
+            app:items="@{viewModel.characterComics.toData().results}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/text_view_character_name"
-            tools:listitem="@layout/comic_item" />
+            tools:listitem="@layout/item_comic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class BaseAdapter<T>(private val listener: BaseInteractionListener) :
     RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
 
-    private var items = arrayListOf<T>()
+    private var items = emptyList<T>()
     abstract val layoutId: Int
 
     fun setItems(newItems: List<T>) {
-        items = newItems as ArrayList<T>
+        items = newItems
         val diffResult =
             DiffUtil.calculateDiff(BaseDiffUtil(items, newItems, ::areItemsSame, ::areContentSame))
         diffResult.dispatchUpdatesTo(this)
