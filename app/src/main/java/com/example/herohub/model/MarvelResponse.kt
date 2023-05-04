@@ -33,40 +33,11 @@ data class DataResponse<T>(
     val total: Int? = 0,
 )
 
-data class Thumbnail(
-    @SerializedName("extension")
-    val extension: String? = null,
-    @SerializedName("path")
-    val path: String? = null,
-)
 
-data class Item(
-    @SerializedName("name")
-    val name: String? = null,
-    @SerializedName("resourceURI")
-    val resourceURI: String? = null,
-    @SerializedName("type")
-    val type: String? = null,
-    @SerializedName("role")
-    val role: String? = null,
-)
 
-data class Result<T>(
-    @SerializedName("available")
-    val available: Int? = null,
-    @SerializedName("collectionURI")
-    val collectionURI: String? = null,
-    @SerializedName("items")
-    val items: List<T?>? = null,
-    @SerializedName("returned")
-    val returned: Int? = null,
-)
 
-data class Url(
-    @SerializedName("type")
-    val type: String? = null,
-    @SerializedName("url")
-    val url: String? = null,
-)
+
+
+
 
 

@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class Event(
     @SerializedName("characters")
-    val characters: Result<Item>? = null,
+    val characters: CollectionResult<Item>? = null,
     @SerializedName("comics")
-    val comics: Result<Item>? = null,
+    val comics: CollectionResult<Item>? = null,
     @SerializedName("creators")
-    val creators: Result<Item>? = null,
+    val creators: CollectionResult<Item>? = null,
     @SerializedName("description")
     val description: String? = "",
     @SerializedName("end")
@@ -25,11 +25,11 @@ data class Event(
     @SerializedName("resourceURI")
     val resourceURI: String? = "",
     @SerializedName("series")
-    val series: Result<Item>? = null,
+    val series: CollectionResult<Item>? = null,
     @SerializedName("start")
     val start: String? = "",
     @SerializedName("stories")
-    val stories: Result<Item>? = null,
+    val stories: CollectionResult<Item>? = null,
     @SerializedName("thumbnail")
     val thumbnail: Thumbnail? = Thumbnail(),
     @SerializedName("title")

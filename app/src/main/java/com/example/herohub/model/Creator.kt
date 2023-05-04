@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Creator(
     @SerializedName("comics")
-    val comics: Result<Item>? = null,
+    val comics: CollectionResult<Item>? = null,
     @SerializedName("events")
-    val events: Result<Item>? = null,
+    val events: CollectionResult<Item>? = null,
     @SerializedName("firstName")
     val firstName: String? = "",
     @SerializedName("fullName")
@@ -23,9 +23,9 @@ data class Creator(
     @SerializedName("resourceURI")
     val resourceURI: String? = "",
     @SerializedName("series")
-    val series: Result<Item>? = null,
+    val series: CollectionResult<Item>? = null,
     @SerializedName("stories")
-    val stories: Result<Item>? = null,
+    val stories: CollectionResult<Item>? = null,
     @SerializedName("suffix")
     val suffix: String? = "",
     @SerializedName("thumbnail")

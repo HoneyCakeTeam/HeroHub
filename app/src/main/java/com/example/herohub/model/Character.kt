@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName
 
 data class Character(
     @SerializedName("comics")
-    val comics: Result<Item>? = null,
+    val comics: CollectionResult<Item>? = null,
     @SerializedName("description")
     val description: String? = "",
     @SerializedName("events")
-    val events: Result<Item>? = null,
+    val events: CollectionResult<Item>? = null,
     @SerializedName("id")
     val id: Int? = 0,
     @SerializedName("modified")
@@ -20,9 +20,9 @@ data class Character(
     @SerializedName("resourceURI")
     val resourceURI: String? = "",
     @SerializedName("series")
-    val series: Result<Item>? = null,
+    val series: CollectionResult<Item>? = null,
     @SerializedName("stories")
-    val stories: Result<Item>?,
+    val stories: CollectionResult<Item>?,
     @SerializedName("thumbnail")
     val thumbnail: Thumbnail? = Thumbnail(),
     @SerializedName("urls")

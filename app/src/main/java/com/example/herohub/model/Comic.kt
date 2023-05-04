@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class Comic(
     @SerializedName("characters")
-    val characters: Result<Item>? = null,
+    val characters: CollectionResult<Item>? = null,
     @SerializedName("collectedIssues")
     val collectedIssues: List<Item>? = listOf(),
     @SerializedName("creators")
-    val creators: Result<Item>? = null,
+    val creators: CollectionResult<Item>? = null,
     @SerializedName("dates")
     val dates: List<Date>? = listOf(),
     @SerializedName("description")
@@ -21,7 +21,7 @@ data class Comic(
     @SerializedName("ean")
     val ean: String? = "",
     @SerializedName("events")
-    val events: Result<Item>? = null,
+    val events: CollectionResult<Item>? = null,
     @SerializedName("format")
     val format: String? = "",
     @SerializedName("id")
@@ -45,7 +45,7 @@ data class Comic(
     @SerializedName("series")
     val series: Item? = Item(),
     @SerializedName("stories")
-    val stories: Result<Item>? = null,
+    val stories: CollectionResult<Item>? = null,
     @SerializedName("textObjects")
     val textObjects: List<TextObject>? = listOf(),
     @SerializedName("thumbnail")

@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName
 
 data class Series(
     @SerializedName("characters")
-    val characters: Result<Item>? = null,
+    val characters: CollectionResult<Item>? = null,
     @SerializedName("comics")
-    val comics: Result<Item>? = null,
+    val comics: CollectionResult<Item>? = null,
     @SerializedName("creators")
-    val creators: Result<Item>? = null,
+    val creators: CollectionResult<Item>? = null,
     @SerializedName("description")
     val description: String? = null,
     @SerializedName("endYear")
     val endYear: Int? = 0,
     @SerializedName("events")
-    val events: Result<Item>? = null,
+    val events: CollectionResult<Item>? = null,
     @SerializedName("id")
     val id: Int? = 0,
     @SerializedName("modified")
@@ -31,7 +31,7 @@ data class Series(
     @SerializedName("startYear")
     val startYear: Int? = 0,
     @SerializedName("stories")
-    val stories: Result<Item>? = null,
+    val stories: CollectionResult<Item>? = null,
     @SerializedName("thumbnail")
     val thumbnail: Thumbnail? = Thumbnail(),
     @SerializedName("title")
