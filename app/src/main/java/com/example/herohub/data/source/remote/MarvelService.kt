@@ -35,20 +35,20 @@ interface MarvelService {
     fun getComic(@Path("comicId") comicId : Int ) : Single<Response<BaseResponse<Comic>>>
 
     @GET("comics")
-    fun getAllComics(): Single<Response<Comic>>
+    fun getAllComics(): Single<Response<BaseResponse<Comic>>>
 
     @GET("creators")
-    fun getAllCreators(): Single<Response<Creator>>
+    fun getAllCreators(): Single<Response<BaseResponse<Creator>>>
 
     @GET("events")
-    fun getAllEvents(): Single<Response<Event>>
+    fun getAllEvents(): Single<Response<BaseResponse<Event>>>
 
     @GET("series")
-    fun getAllSeries(): Single<Response<Series>>
+    fun getAllSeries(): Single<Response<BaseResponse<Series>>>
 
     @GET("stories")
-    fun getAllStories(): Single<Response<Story>>
+    fun getAllStories(): Single<Response<BaseResponse<Story>>>
 
     @GET("stories")
-    fun getStoryDetails(@Query("id") id :String) :Single<Response<Story>>
+    fun getStoryDetails(@Query("id") id: String): Single<Response<BaseResponse<Story>>>
 }

@@ -1,7 +1,10 @@
 package com.example.herohub.data
 
 import com.example.herohub.data.source.remote.MarvelApi
+import com.example.herohub.model.BaseResponse
+import com.example.herohub.model.DataResponse
 import com.example.herohub.utills.UiState
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
@@ -47,20 +50,19 @@ class Repository {
     fun getCharacterDetails(characterId: Int) =
         wrapWithState { api.getCharacterDetails(characterId) }
 
-    fun getCharacterComics(characterId: Int) =
-        wrapWithState { api.getCharacterComics(characterId) }
+    fun getCharacterComics(characterId: Int) = wrapWithState { api.getCharacterComics(characterId) }
 
-    private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<UiState<T>> {
-        return function().map {
-            try {
-                if (it.isSuccessful) {
-                    UiState.Success(it.body())
-                } else {
-                    UiState.Error(it.message())
-                }
-            } catch (e: Exception) {
-                UiState.Error(e.message ?: "Connection Failed")
+    private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
+            Observable<UiState<DataResponse<T>>> {
+        return function().toObservable().map {
+            if (it.isSuccessful) {
+                UiState.Success(it.body()?.data)
+            } else {
+                UiState.Error(it.message())
             }
-        }
+        }.startWithItem(UiState.Loading)
     }
+
+
 }
+

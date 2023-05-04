@@ -17,7 +17,7 @@ import com.example.herohub.utills.handleThreadsAndSubscribe
 class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     private val repository = Repository()
 
-    private val _characterComics = MutableLiveData<UiState<BaseResponse<Comic>?>>(UiState.Loading)
+    private val _characterComics = MutableLiveData<UiState<BaseResponse<Comic>?>>()
     val characterComics: LiveData<UiState<BaseResponse<Comic>?>>
         get() = _characterComics
 
