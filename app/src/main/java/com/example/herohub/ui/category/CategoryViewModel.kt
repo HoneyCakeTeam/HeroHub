@@ -6,110 +6,86 @@ import com.example.herohub.data.Repository
 import com.example.herohub.model.Character
 import com.example.herohub.model.Comic
 import com.example.herohub.model.Creator
+import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.model.Story
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.utills.State
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.example.herohub.utills.UiState
 
-class CategoryViewModel : BaseViewModel() , CategoryInteractionListener {
+class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
     override val TAG: String = this::class.java.simpleName
 
     private val repository = Repository()
 
-    private val _characters = MutableLiveData<State<Character>>()
-    val characters: LiveData<State<Character>> = _characters
+    private val _characters = MutableLiveData<UiState<DataResponse<Character>>>()
+    val characters: LiveData<UiState<DataResponse<Character>>> = _characters
 
-    private val _stories = MutableLiveData<State<Story>>()
-    val stories: LiveData<State<Story>> = _stories
+    private val _stories = MutableLiveData<UiState<DataResponse<Story>>>()
+    val stories: LiveData<UiState<DataResponse<Story>>> = _stories
 
-    private val _events = MutableLiveData<State<Event>>()
-    val events: LiveData<State<Event>> = _events
+    private val _events = MutableLiveData<UiState<DataResponse<Event>>>()
+    val events: LiveData<UiState<DataResponse<Event>>> = _events
 
-    private val _comics = MutableLiveData<State<Comic>>()
-    val comic: LiveData<State<Comic>> = _comics
+    private val _comics = MutableLiveData<UiState<DataResponse<Comic>>>()
+    val comic: LiveData<UiState<DataResponse<Comic>>> = _comics
 
-    private val _series = MutableLiveData<State<Series>>()
-    val series: LiveData<State<Series>> = _series
+    private val _series = MutableLiveData<UiState<DataResponse<Series>>>()
+    val series: LiveData<UiState<DataResponse<Series>>> = _series
 
-    private val _creators = MutableLiveData<State<Creator>>()
-    val creators: LiveData<State<Creator>> = _creators
+    private val _creators = MutableLiveData<UiState<DataResponse<Creator>>>()
+    val creators: LiveData<UiState<DataResponse<Creator>>> = _creators
 
     init {
         getAllCharacters()
     }
 
     private fun getAllCharacters() {
-        repository.getAllCharacters()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetCharacterSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllCharacters(), ::onGetCharacterSuccess, ::onError)
     }
 
     private fun getAllComics() {
-        repository.getAllComics()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetComicsSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllComics(), ::onGetComicsSuccess, ::onError)
     }
 
     private fun getAllCreators() {
-        repository.getAllCreators()
-
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetCreatorsSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllCreators(), ::onGetCreatorsSuccess, ::onError)
     }
 
     private fun getAllEvents() {
-
         disposeObservable(repository.getAllEvents(), ::onGetEventsSuccess, ::onError)
-
     }
 
 
     private fun getAllSeries() {
-        repository.getAllSeries()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetSeriesSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllSeries(), ::onGetSeriesSuccess, ::onError)
     }
 
     private fun getAllStories() {
-        repository.getAllStories()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetStoriesSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllStories(), ::onGetStoriesSuccess, ::onError)
     }
 
-    private fun onGetCharacterSuccess(state: State<Character>) {
+    private fun onGetCharacterSuccess(state: UiState<DataResponse<Character>>) {
         _characters.postValue(state)
     }
 
-    private fun onGetComicsSuccess(state: State<Comic>) {
+    private fun onGetComicsSuccess(state: UiState<DataResponse<Comic>>) {
         _comics.postValue(state)
     }
 
-    private fun onGetCreatorsSuccess(state: State<Creator>) {
+    private fun onGetCreatorsSuccess(state: UiState<DataResponse<Creator>>) {
         _creators.postValue(state)
     }
 
-    private fun onGetEventsSuccess(state: State<Event>) {
+    private fun onGetEventsSuccess(state: UiState<DataResponse<Event>>) {
         _events.postValue(state)
     }
 
-    private fun onGetSeriesSuccess(state: State<Series>) {
+    private fun onGetSeriesSuccess(state: UiState<DataResponse<Series>>) {
         _series.postValue(state)
     }
 
-    private fun onGetStoriesSuccess(state: State<Story>) {
+    private fun onGetStoriesSuccess(state: UiState<DataResponse<Story>>) {
         _stories.postValue(state)
     }
 
