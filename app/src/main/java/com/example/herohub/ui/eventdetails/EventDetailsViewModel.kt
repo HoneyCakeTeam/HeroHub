@@ -3,18 +3,17 @@ package com.example.herohub.ui.eventdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
-import com.example.herohub.model.BaseResponse
+import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Event
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
-import com.example.herohub.utills.handleThreadsAndSubscribe
 
 class EventDetailsViewModel : BaseViewModel() {
     private val repository = Repository()
     override val TAG = "EVENT_DETAILS_VIEW_MODEL"
 
-    private val _eventResponse = MutableLiveData<UiState<BaseResponse<Event>>>()
-    val eventResponse: LiveData<UiState<BaseResponse<Event>>>
+    private val _eventResponse = MutableLiveData<UiState<DataResponse<Event>>>()
+    val eventResponse: LiveData<UiState<DataResponse<Event>>>
         get() = _eventResponse
 
     private val _event = MutableLiveData<Event>()
@@ -23,18 +22,18 @@ class EventDetailsViewModel : BaseViewModel() {
 
     fun getEvent(eventId: Int) {
         _eventResponse.postValue(UiState.Loading)
-        repository.getEvent(eventId)
-            .handleThreadsAndSubscribe(
-                ::onGetEventSuccess,
-                ::onGetEventFailure
-            ).addToCompositeDisposable()
+        disposeObservable(
+            repository.getEvent(eventId),
+            ::onGetEventSuccess,
+            ::onGetEventFailure
+        )
 
     }
 
-    private fun onGetEventSuccess(UiState: UiState<BaseResponse<Event>>) {
+    private fun onGetEventSuccess(UiState: UiState<DataResponse<Event>>) {
         _eventResponse.value = UiState
         UiState.toData()?.let {
-            _event.value = it.data.results?.get(0)
+            _event.value = it.results?.get(0)
         }
     }
 
