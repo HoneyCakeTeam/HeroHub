@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
 
 @BindingAdapter("app:showWhenLoading")
@@ -44,7 +45,7 @@ fun setImageFromUrl(view: ImageView, url: String?) {
     Glide
         .with(view)
         .load("$url.jpg")
-//        .placeholder(R.drawable.movie_placeholder)
-//        .error(R.drawable.movie_error)
+        .placeholder(R.drawable.logo)
+        .error(R.drawable.error)
         .centerCrop().into(view)
 }

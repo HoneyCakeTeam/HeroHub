@@ -17,10 +17,12 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     private val repository = Repository()
 
     private val _characterComics = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val characterComics: LiveData<UiState<DataResponse<Comic>>> = _characterComics
+    val characterComics: LiveData<UiState<DataResponse<Comic>>>
+        get() = _characterComics
 
     private val _characterDetails = MutableLiveData<UiState<DataResponse<Character>>>()
-    val characterDetails: LiveData<UiState<DataResponse<Character>>> = _characterDetails
+    val characterDetails: LiveData<UiState<DataResponse<Character>>>
+        get() = _characterDetails
 
     private val _navigateToComicDetails = MutableLiveData(0)
     val navigateToComicDetails: LiveData<Int> = _navigateToComicDetails
