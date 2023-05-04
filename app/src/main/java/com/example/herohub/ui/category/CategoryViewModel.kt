@@ -6,36 +6,38 @@ import com.example.herohub.data.Repository
 import com.example.herohub.model.Character
 import com.example.herohub.model.Comic
 import com.example.herohub.model.Creator
+import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.model.Story
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.State
+import com.example.herohub.utills.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class CategoryViewModel : BaseViewModel() , CategoryInteractionListener {
+class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
     override val TAG: String = this::class.java.simpleName
 
     private val repository = Repository()
 
-    private val _characters = MutableLiveData<State<Character>>()
-    val characters: LiveData<State<Character>> = _characters
+    private val _characters = MutableLiveData<UiState<DataResponse<Character>>>()
+    val characters: LiveData<UiState<DataResponse<Character>>> = _characters
 
-    private val _stories = MutableLiveData<State<Story>>()
-    val stories: LiveData<State<Story>> = _stories
+    private val _stories = MutableLiveData<UiState<DataResponse<Story>>>()
+    val stories: LiveData<UiState<DataResponse<Story>>> = _stories
 
-    private val _events = MutableLiveData<State<Event>>()
-    val events: LiveData<State<Event>> = _events
+    private val _events = MutableLiveData<UiState<DataResponse<Event>>>()
+    val events: LiveData<UiState<DataResponse<Event>>> = _events
 
-    private val _comics = MutableLiveData<State<Comic>>()
-    val comic: LiveData<State<Comic>> = _comics
+    private val _comics = MutableLiveData<UiState<DataResponse<Comic>>>()
+    val comic: LiveData<UiState<DataResponse<Comic>>> = _comics
 
-    private val _series = MutableLiveData<State<Series>>()
-    val series: LiveData<State<Series>> = _series
+    private val _series = MutableLiveData<UiState<DataResponse<Series>>>()
+    val series: LiveData<UiState<DataResponse<Series>>> = _series
 
-    private val _creators = MutableLiveData<State<Creator>>()
-    val creators: LiveData<State<Creator>> = _creators
+    private val _creators = MutableLiveData<UiState<DataResponse<Creator>>>()
+    val creators: LiveData<UiState<DataResponse<Creator>>> = _creators
 
     init {
         getAllCharacters()
