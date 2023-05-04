@@ -1,4 +1,4 @@
-package com.example.herohub.ui.storydetails.viewmodel
+package com.example.herohub.ui.storydetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,16 +1,10 @@
-package com.example.herohub.ui.storydetails.view
+package com.example.herohub.ui.storydetails
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import com.example.herohub.R
 import com.example.herohub.data.Repository
 import com.example.herohub.databinding.FragmentStoriesDetailsBinding
 import com.example.herohub.ui.base.BaseFragment
-import com.example.herohub.ui.storydetails.viewmodel.StoryDetailsViewModel
 
 class StoriesDetailsFragment  :BaseFragment<FragmentStoriesDetailsBinding>() {
     override val TAG: String = this::class.simpleName.toString()
