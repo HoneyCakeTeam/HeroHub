@@ -20,7 +20,7 @@ class StoryDetailsViewModel(private val repository:Repository) : BaseViewModel()
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribeOn(Schedulers.io())
 //            .subscribe()
-        _storyDetailsData.postValue(response)
+  //      _storyDetailsData.postValue(response)
 
 
     }
