@@ -1,8 +1,9 @@
 package com.example.herohub.ui.search
 
-import com.example.herohub.BaseAdapter
-import com.example.herohub.BaseInteractionListener
+
 import com.example.herohub.R
+import com.example.herohub.ui.base.BaseAdapter
+import com.example.herohub.ui.base.BaseInteractionListener
 
 class SearchAdapter<T>(listener: SearchInteractionListener) :
     BaseAdapter<T>(listener) {
