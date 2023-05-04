@@ -3,13 +3,11 @@ package com.example.herohub.ui.characterdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
-import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Character
 import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
-import com.example.herohub.utills.handleThreadsAndSubscribe
 
 
 /**
@@ -19,14 +17,12 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     private val repository = Repository()
 
     private val _characterComics = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val characterComics: LiveData<UiState<DataResponse<Comic>>>
-        get() = _characterComics
+    val characterComics: LiveData<UiState<DataResponse<Comic>>> = _characterComics
 
-    private val _characterDetails =
-        MutableLiveData<UiState<BaseResponse<Character>?>>(UiState.Loading)
-    val characterDetails: LiveData<UiState<BaseResponse<Character>?>> = _characterDetails
+    private val _characterDetails = MutableLiveData<UiState<DataResponse<Character>>>()
+    val characterDetails: LiveData<UiState<DataResponse<Character>>> = _characterDetails
 
-    private val _navigateToComicDetails = MutableLiveData<Int>(0)
+    private val _navigateToComicDetails = MutableLiveData(0)
     val navigateToComicDetails: LiveData<Int> = _navigateToComicDetails
 
 
@@ -38,33 +34,30 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
         disposeObservable(
             repository.getCharacterComics(characterId),
             ::onGetCharacterComicsSuccess,
-            ::onGetCharacterComicsFailed
+            ::onError
         )
-
     }
 
     fun getDetailsOfCharacter(characterId: Int) {
-        repository.getCharacterDetails(characterId)
-            .handleThreadsAndSubscribe(
-                ::onGetCharacterDetailsSuccess,
-                ::onGetCharacterDetailsFailed
-            )
+        disposeObservable(
+            repository.getCharacterDetails(characterId),
+            ::onGetCharacterDetailsSuccess,
+            ::onError
+        )
     }
 
-    private fun onGetCharacterDetailsSuccess(state: UiState<BaseResponse<Character>?>) {
+    private fun onGetCharacterDetailsSuccess(state: UiState<DataResponse<Character>>) {
         _characterDetails.postValue(state)
-    }
 
-    private fun onGetCharacterDetailsFailed(throwable: Throwable) {
-        _characterDetails.postValue(UiState.Error(throwable.message.toString()))
     }
 
     private fun onGetCharacterComicsSuccess(state: UiState<DataResponse<Comic>>) {
         _characterComics.postValue(state)
     }
 
-    private fun onGetCharacterComicsFailed(throwable: Throwable) {
+    private fun onError(throwable: Throwable) {
         _characterComics.postValue(UiState.Error(throwable.message.toString()))
+        _characterDetails.postValue(UiState.Error(throwable.message.toString()))
     }
 
     override fun onClickComic(id: Int) {
