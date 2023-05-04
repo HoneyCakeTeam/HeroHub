@@ -11,10 +11,7 @@ import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.model.Story
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.utills.State
 import com.example.herohub.utills.UiState
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
     override val TAG: String = this::class.java.simpleName
@@ -44,51 +41,28 @@ class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
     }
 
     private fun getAllCharacters() {
-        repository.getAllCharacters()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetCharacterSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllCharacters(), ::onGetCharacterSuccess, ::onError)
     }
 
     private fun getAllComics() {
-        repository.getAllComics()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetComicsSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllComics(), ::onGetComicsSuccess, ::onError)
     }
 
     private fun getAllCreators() {
-        repository.getAllCreators()
-
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetCreatorsSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllCreators(), ::onGetCreatorsSuccess, ::onError)
     }
 
     private fun getAllEvents() {
-
         disposeObservable(repository.getAllEvents(), ::onGetEventsSuccess, ::onError)
-
     }
 
 
     private fun getAllSeries() {
-        repository.getAllSeries()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetSeriesSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllSeries(), ::onGetSeriesSuccess, ::onError)
     }
 
     private fun getAllStories() {
-        repository.getAllStories()
-            .observeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetStoriesSuccess, ::onError)
-            .addToCompositeDisposable()
+        disposeObservable(repository.getAllStories(), ::onGetStoriesSuccess, ::onError)
     }
 
     private fun onGetCharacterSuccess(state: UiState<DataResponse<Character>>) {
