@@ -1,4 +1,4 @@
-package com.example.herohub.ui.storydetails.viewmodel
+package com.example.herohub.ui.storydetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +20,7 @@ class StoryDetailsViewModel(private val repository:Repository) : BaseViewModel()
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribeOn(Schedulers.io())
 //            .subscribe()
-        _storyDetailsData.postValue(response)
+  //      _storyDetailsData.postValue(response)
 
 
     }

@@ -3,11 +3,10 @@ package com.example.herohub.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
-import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Character
+import com.example.herohub.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
-import com.example.herohub.utills.handleThreadsAndSubscribe
 
 class HomeViewModel : BaseViewModel() {
     override val TAG: String
@@ -15,8 +14,8 @@ class HomeViewModel : BaseViewModel() {
 
     private val repository: Repository by lazy { Repository() }
 
-    private val _characterResponse = MutableLiveData<UiState<BaseResponse<Character>?>>()
-    val characterResponse: LiveData<UiState<BaseResponse<Character>?>>
+    private val _characterResponse = MutableLiveData<UiState<DataResponse<Character>?>>()
+    val characterResponse: LiveData<UiState<DataResponse<Character>?>>
         get() = _characterResponse
 
     init {
@@ -25,17 +24,20 @@ class HomeViewModel : BaseViewModel() {
 
     private fun getAllCharacters() {
         _characterResponse.postValue(UiState.Loading)
-
-        repository.getAllCharacters()
-            .handleThreadsAndSubscribe(::onGetCharacterSuccess, ::onGetCharacterError)
-            .addToCompositeDisposable()
+        disposeObservable(
+            repository.getAllCharacters(),
+            ::onGetCharacterSuccess,
+            ::onGetCharacterError
+        )
     }
 
-    private fun onGetCharacterSuccess(UiState: UiState<BaseResponse<Character>?>) {
+    private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>?>) {
         _characterResponse.postValue(UiState)
         log(UiState.toData().toString())
     }
 
-    private fun onGetCharacterError(errorMessage: Throwable) =
+    private fun onGetCharacterError(errorMessage: Throwable) {
+        _characterResponse.postValue(UiState.Error(errorMessage.message.toString()))
         log(errorMessage.message.toString())
+    }
 }
