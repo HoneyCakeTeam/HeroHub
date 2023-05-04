@@ -1,54 +1,54 @@
 package com.example.herohub.data
 
-import com.example.herohub.data.source.remote.RemoteDataSource
+import com.example.herohub.data.source.remote.MarvelApi
 import com.example.herohub.utills.UiState
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
 class Repository {
-    private val remoteDataSource = RemoteDataSource()
+    private val api = MarvelApi.marvelService
     fun getAllCharacters() = wrapWithState {
-        remoteDataSource.getAllCharacters()
+        api.getAllCharacters()
     }
     fun getAllSeries() = wrapWithState {
-        remoteDataSource.getAllSeries()
+        api.getAllSeries()
     }
 
     fun getEvent(eventId: Int) = wrapWithState {
-        remoteDataSource.getEvent(eventId)
+        api.getEvent(eventId)
     }
 
     fun getAllComics() = wrapWithState {
-        remoteDataSource.getAllComics()
+        api.getAllComics()
     }
 
     fun getAllCreators() = wrapWithState {
-        remoteDataSource.getAllCreators()
+        api.getAllCreators()
     }
 
     fun getAllEvents() = wrapWithState {
-        remoteDataSource.getAllEvents()
+        api.getAllEvents()
     }
 
 
     fun getAllStories() = wrapWithState {
-        remoteDataSource.getAllStories()
+        api.getAllStories()
     }
 
     fun getStoryDetails(id:String) = wrapWithState {
-        remoteDataSource.getStoryDetails(id)
+        api.getStoryDetails(id)
     }
 
 
     fun getComic(comicId: Int) = wrapWithState {
-        remoteDataSource.getComic(comicId)
+        api.getComic(comicId)
     }
 
     fun getCharacterDetails(characterId: Int) =
-        wrapWithState { remoteDataSource.getCharacterDetails(characterId) }
+        wrapWithState { api.getCharacterDetails(characterId) }
 
     fun getCharacterComics(characterId: Int) =
-        wrapWithState { remoteDataSource.getCharacterComics(characterId) }
+        wrapWithState { api.getCharacterComics(characterId) }
 
     private fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<UiState<T>> {
         return function().map {
