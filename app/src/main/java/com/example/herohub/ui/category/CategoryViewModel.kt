@@ -91,27 +91,27 @@ class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
             .addToCompositeDisposable()
     }
 
-    private fun onGetCharacterSuccess(state: State<Character>) {
+    private fun onGetCharacterSuccess(state: UiState<DataResponse<Character>>) {
         _characters.postValue(state)
     }
 
-    private fun onGetComicsSuccess(state: State<Comic>) {
+    private fun onGetComicsSuccess(state: UiState<DataResponse<Comic>>) {
         _comics.postValue(state)
     }
 
-    private fun onGetCreatorsSuccess(state: State<Creator>) {
+    private fun onGetCreatorsSuccess(state: UiState<DataResponse<Creator>>) {
         _creators.postValue(state)
     }
 
-    private fun onGetEventsSuccess(state: State<Event>) {
+    private fun onGetEventsSuccess(state: UiState<DataResponse<Event>>) {
         _events.postValue(state)
     }
 
-    private fun onGetSeriesSuccess(state: State<Series>) {
+    private fun onGetSeriesSuccess(state: UiState<DataResponse<Series>>) {
         _series.postValue(state)
     }
 
-    private fun onGetStoriesSuccess(state: State<Story>) {
+    private fun onGetStoriesSuccess(state: UiState<DataResponse<Story>>) {
         _stories.postValue(state)
     }
 
