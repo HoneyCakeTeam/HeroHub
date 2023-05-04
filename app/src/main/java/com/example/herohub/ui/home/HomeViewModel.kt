@@ -36,6 +36,8 @@ class HomeViewModel : BaseViewModel() {
         log(UiState.toData().toString())
     }
 
-    private fun onGetCharacterError(errorMessage: Throwable) =
+    private fun onGetCharacterError(errorMessage: Throwable) {
+        _characterResponse.postValue(UiState.Error(errorMessage.message.toString()))
         log(errorMessage.message.toString())
+    }
 }
