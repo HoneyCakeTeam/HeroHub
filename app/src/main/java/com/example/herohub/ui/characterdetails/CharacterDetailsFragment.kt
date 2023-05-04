@@ -4,6 +4,7 @@ package com.example.herohub.ui.characterdetails
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.herohub.R
+import com.example.herohub.databinding.FragmentCharactersDetailsBinding
 import com.example.herohub.ui.base.BaseFragment
 
 
@@ -19,7 +20,7 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
     override fun setup() {
         viewModel.getComicsOfCharacter(args.characterId)
         viewModel.getDetailsOfCharacter(args.characterId)
-        handleAdapter()
+        //   handleAdapter()
     }
 
     private fun handleAdapter() {
