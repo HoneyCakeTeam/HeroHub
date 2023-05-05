@@ -29,7 +29,7 @@ class Repository {
     }
 
     fun getAllComics(): Observable<UiState<DataResponse<Comic>>> = wrapWithState {
-        api.getAllComics()
+        api.getAllComics(100)
     }
 
     fun getAllCreators(): Observable<UiState<DataResponse<Creator>>> = wrapWithState {
