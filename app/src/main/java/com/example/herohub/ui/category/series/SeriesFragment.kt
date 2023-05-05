@@ -18,8 +18,7 @@ class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
 
     private fun initiateAdapter() {
         val adapter = SeriesAdapter(viewModel)
-
-
+        binding.recyclerSeries.adapter = adapter
     }
 
 }
