@@ -19,13 +19,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
     private val comicsFragment by lazy { ComicsFragment() }
     private val eventsFragment by lazy { EventsFragment() }
     private val seriesFragment by lazy { SeriesFragment() }
-    private val storiesFragment by lazy { StoriesFragment() }
     private val categories = listOf(
         charactersFragment,
         comicsFragment,
         eventsFragment,
         seriesFragment,
-//        storiesFragment
     )
     private val categoriesTitles = listOf(
         "Characters",
