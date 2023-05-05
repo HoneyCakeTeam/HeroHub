@@ -48,5 +48,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_character"
-        tools:listitem="@layout/item_character" />
+        tools:listitem="@layout/item_super_heroes" />
 </androidx.constraintlayout.widget.ConstraintLayout>
