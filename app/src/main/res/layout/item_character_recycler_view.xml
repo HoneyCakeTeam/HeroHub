@@ -15,23 +15,23 @@
         android:layout_marginTop="@dimen/spacing_medium"
         android:layout_marginBottom="@dimen/spacing_small"
         android:fontFamily="@font/josefinsans_regular"
+        android:text="@string/super_hero"
         android:textColor="@color/md_theme_light_onPrimary"
         android:textSize="@dimen/text_giant"
         app:layout_constraintBottom_toTopOf="@id/recycler_slider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Super Hero" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/josefinsans_regular"
-        android:text="See all"
         android:layout_marginEnd="@dimen/spacing_medium"
+        android:fontFamily="@font/josefinsans_regular"
+        android:text="@string/see_all"
         android:textColor="@color/md_theme_light_onPrimary"
         android:textSize="@dimen/text_small"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/text_character"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/text_character" />
 
 
