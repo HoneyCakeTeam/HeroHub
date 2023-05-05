@@ -13,7 +13,7 @@ import com.example.herohub.model.Story
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
-class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
+class CategoryViewModel : BaseViewModel() {
     override val TAG: String = this::class.java.simpleName
 
     private val repository = Repository()
@@ -92,9 +92,4 @@ class CategoryViewModel : BaseViewModel(), CategoryInteractionListener {
     private fun onError(throwable: Throwable) {
         log(throwable.message.toString())
     }
-
-    override fun onItemClick(id: Int) {
-
-    }
-
 }

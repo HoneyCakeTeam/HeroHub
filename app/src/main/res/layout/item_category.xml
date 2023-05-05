@@ -9,7 +9,7 @@
             type="com.example.herohub.model.Thumbnail" />
         <variable
             name="listener"
-            type="com.example.herohub.ui.category.CategoryInteractionListener" />
+            type="com.example.herohub.ui.base.BaseInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -25,6 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/ic_launcher_background" />
+            tools:src="@drawable/spiderman" />
     </com.google.android.material.card.MaterialCardView>
 </layout>
