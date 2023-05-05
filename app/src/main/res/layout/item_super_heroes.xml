@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_item_character"
-    android:layout_width="120dp"
-    android:layout_height="120dp"
-    android:layout_marginHorizontal="@dimen/spacing_small"
-    app:cardCornerRadius="64dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/image_character"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/slider_placeholder" />
+    <data>
 
-</androidx.cardview.widget.CardView>
+        <variable
+            name="item"
+            type="com.example.herohub.model.Character" />
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.SuperHeroesInteractionListener" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_item_character"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        app:cardCornerRadius="64dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_character"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/slider_placeholder"
+            app:imageUrl="@{item.thumbnail.path}" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
