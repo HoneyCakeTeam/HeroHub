@@ -14,9 +14,9 @@ class SeriesDetailsViewModel : BaseViewModel() {
 
     private val repository: Repository by lazy { Repository() }
 
-    private val _seriesData = MutableLiveData<UiState<DataResponse<Series>?>>()
-    val seriesData: LiveData<UiState<DataResponse<Series>?>>
-        get() = _seriesData
+    private val _seriesDetails = MutableLiveData<UiState<DataResponse<Series>?>>()
+    val seriesDetails: LiveData<UiState<DataResponse<Series>?>>
+        get() = _seriesDetails
 
 
     fun getSeriesDetails(seriesId:Int) {
@@ -24,11 +24,11 @@ class SeriesDetailsViewModel : BaseViewModel() {
     }
 
     private fun onSeriesSuccessData(seriesUiState: UiState<DataResponse<Series>?>) {
-        _seriesData.postValue(seriesUiState)
+        _seriesDetails.postValue(seriesUiState)
     }
 
     private fun onError(errorMessage: Throwable) {
-        _seriesData.postValue(UiState.Error(errorMessage.message.toString()))
+        _seriesDetails.postValue(UiState.Error(errorMessage.message.toString()))
     }
 
 
