@@ -17,7 +17,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:onClick="@{() -> listener.onClickCharacter(item.itemId)}"
+        android:onClick="@{() -> listener.onClickItem(item.itemId)}"
         android:layout_marginHorizontal="@dimen/spacing_tiny"
         android:layout_marginVertical="@dimen/spacing_small"
         app:cardCornerRadius="@dimen/radius_medium"
