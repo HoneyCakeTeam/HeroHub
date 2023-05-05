@@ -10,6 +10,11 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
     override val layoutIdFragment: Int = R.layout.fragment_categories
     override val viewModel: CategoryViewModel by viewModels()
     override fun setup() {
+        initiateCategoryViewPager()
+    }
+
+    private fun initiateCategoryViewPager() {
+
     }
 
 }
