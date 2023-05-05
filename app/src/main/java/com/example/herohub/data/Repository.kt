@@ -75,6 +75,5 @@ class Repository {
         }.startWithItem(UiState.Loading)
     }
 
-
 }
 

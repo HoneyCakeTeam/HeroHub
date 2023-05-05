@@ -1,5 +1,6 @@
 package com.example.herohub.ui.search
 
+
 import androidx.fragment.app.viewModels
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSearchScreenBinding
@@ -12,5 +13,11 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
 
     override fun setup() {
         viewModel.getAllCharacters()
+        initAdapter()
+    }
+
+    private fun initAdapter(){
+        val adapter = SearchAdapter(viewModel)
+        binding.rvSearchResult.adapter = adapter
     }
 }

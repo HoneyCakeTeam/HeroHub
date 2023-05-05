@@ -19,57 +19,61 @@
         android:windowSoftInputMode="adjustPan"
         android:fitsSystemWindows="true">
 
-        <SearchView
-            android:id="@+id/search_bar"
+        <EditText
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_margin="@dimen/spacing_medium"
+            android:paddingStart="@dimen/spacing_giant"
             android:imeOptions="flagNoFullscreen"
             android:background="@drawable/search_rounded"
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
-            android:queryHint="@string/search"
+            android:hint="@string/search"
+            android:text="@={viewModel.searchQuery}"
+            app:onTextChanged="@{(text) -> viewModel.updateSearchQuery(text.toString())}"
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/img_search"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:src="@drawable/image_search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar"
-            app:showBeforeSearching="@{viewModel.response}"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/img_search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="270dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:src="@drawable/image_search"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/searchView"-->
+<!--            app:layout_constraintVertical_bias="0.357"-->
+<!--            app:showBeforeSearching="@{viewModel.response}"-->
+<!--            tools:layout_editor_absoluteX="0dp" />-->
 
-        <TextView
-            android:id="@+id/tv_empty_search"
-            style="@style/TextStyleCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:alpha="0.7"
-            android:textColor="@color/md_theme_light_primary"
-            android:text="Discover Characters and comics....."
-            app:layout_constraintEnd_toEndOf="@id/img_search"
-            app:layout_constraintStart_toStartOf="@id/img_search"
-            app:layout_constraintTop_toBottomOf="@+id/img_search"
-            app:showBeforeSearching="@{viewModel.response}"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_empty_search"-->
+<!--            style="@style/TextStyleCategories"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/spacing_giant"-->
+<!--            android:alpha="0.7"-->
+<!--            android:text="Discover Characters and comics....."-->
+<!--            android:textColor="@color/md_theme_light_primary"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/img_search"-->
+<!--            app:layout_constraintHorizontal_bias="0.475"-->
+<!--            app:layout_constraintStart_toStartOf="@id/img_search"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/img_search"-->
+<!--            app:showBeforeSearching="@{viewModel.response}" />-->
 
-        <TextView
-            android:id="@+id/tv_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:alpha="0.7"
-            android:text="@string/click_on_search_icon_to_start_searching"
-            app:layout_constraintEnd_toEndOf="@id/img_search"
-            app:layout_constraintStart_toStartOf="@id/img_search"
-            app:layout_constraintTop_toBottomOf="@+id/tv_empty_search"
-            app:showBeforeSearching="@{viewModel.response}"/>
+<!--        <TextView-->
+<!--            android:id="@+id/tv_details"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:alpha="0.7"-->
+<!--            android:text="@string/click_on_search_icon_to_start_searching"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/img_search"-->
+<!--            app:layout_constraintStart_toStartOf="@id/img_search"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_empty_search"-->
+<!--            app:showBeforeSearching="@{viewModel.response}"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_result"
@@ -79,27 +83,28 @@
             android:clipToPadding="false"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             tools:listitem="@layout/item_search"
+            android:visibility="gone"
             app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar"
-            app:items="@{viewModel.response.toData().results}"
-            />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieAnimationView2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_circle_red"
-            app:showWhenLoading="@{viewModel.response}" />
+            app:layout_constraintTop_toBottomOf="@id/searchView"
+             />
+<!--        app:items="@{viewModel.searchResults}"-->
+<!--        -->
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/lottieAnimationView2"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_loop="true"-->
+<!--            app:lottie_rawRes="@raw/loading_circle_red"-->
+<!--            app:showWhenLoading="@{viewModel.response}" />-->
 
 
 

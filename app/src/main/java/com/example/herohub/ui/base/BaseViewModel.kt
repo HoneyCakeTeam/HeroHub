@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 abstract class BaseViewModel : ViewModel() {
 
-    private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+    val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
     abstract val TAG: String
 
     override fun onCleared() {
