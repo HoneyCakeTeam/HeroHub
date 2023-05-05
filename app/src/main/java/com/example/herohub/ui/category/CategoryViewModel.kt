@@ -36,9 +36,9 @@ class CategoryViewModel : BaseViewModel() {
     private val _creators = MutableLiveData<UiState<DataResponse<Creator>>>()
     val creators: LiveData<UiState<DataResponse<Creator>>> = _creators
 
-    init {
-        getAllCharacters()
-    }
+//    init {
+//        getAllCharacters()
+//    }
 
     private fun getAllCharacters() {
         disposeObservable(repository.getAllCharacters(), ::onGetCharacterSuccess, ::onError)

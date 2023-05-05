@@ -31,11 +31,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                app:imageUrl="@{item.path}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/spiderman" />
+                app:srcCompat="@drawable/spiderman"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_category_item_title"
