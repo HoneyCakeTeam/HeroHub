@@ -35,7 +35,7 @@ class CharactersViewModel : BaseViewModel() , CharactersInteractionListener {
         log("Error : ${throwable.message.toString()}")
     }
 
-    override fun onClickCharacter(id: Int) {
+    override fun onClickItem(id: Int) {
         log("Character $id")
     }
 }
