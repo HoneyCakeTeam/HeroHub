@@ -17,7 +17,7 @@ import retrofit2.Response
 class Repository {
     private val api = MarvelApi.marvelService
     fun getAllCharacters(): Observable<UiState<DataResponse<Character>>> = wrapWithState {
-        api.getAllCharacters()
+        api.getAllCharacters(100)
     }
 
     fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {

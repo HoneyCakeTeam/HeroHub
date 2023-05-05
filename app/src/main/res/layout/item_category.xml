@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.model.Thumbnail" />
+            type="com.example.herohub.model.Character" />
 
         <variable
             name="listener"
@@ -31,12 +31,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{item.path}"
+                app:imageUrl="@{item.thumbnail.path}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/spiderman"/>
+                tools:srcCompat="@drawable/spiderman"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_category_item_title"
@@ -45,6 +45,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/josefinsans_semibold"
                 android:maxLines="1"
+                android:text="@{item.name}"
                 android:padding="@dimen/spacing_small"
                 android:textColor="@color/md_theme_light_surface"
                 android:textSize="@dimen/text_medium"

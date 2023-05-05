@@ -7,7 +7,7 @@ import com.example.herohub.ui.base.BaseInteractionListener
 
 class CharactersAdapter(listener: CharactersInteractionListener) :
     BaseAdapter<Character>(listener) {
-    override val layoutId: Int = R.layout.fragment_characters
+    override val layoutId: Int = R.layout.item_category
 }
 
 interface CharactersInteractionListener : BaseInteractionListener {
