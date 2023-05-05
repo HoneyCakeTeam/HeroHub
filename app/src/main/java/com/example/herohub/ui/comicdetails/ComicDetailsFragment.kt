@@ -11,7 +11,7 @@ class ComicDetailsFragment : BaseFragment<FragmentComicsDetailsBinding>() {
     override val viewModel: ComicDetailsViewModel by viewModels()
 
     override fun setup() {
-
+        viewModel.getComic(6)
     }
 
 
