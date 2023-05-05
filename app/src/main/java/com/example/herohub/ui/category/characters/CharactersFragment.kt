@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.chracters
+package com.example.herohub.ui.category.characters
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel

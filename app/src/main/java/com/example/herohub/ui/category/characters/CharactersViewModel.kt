@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.chracters
+package com.example.herohub.ui.category.characters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
