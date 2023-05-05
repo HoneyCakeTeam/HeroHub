@@ -27,10 +27,17 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
 
     private fun onGetEventsSuccess(state: UiState<DataResponse<Event>>) {
         _events.postValue(state)
+        log("Success : ${state.toData()?.results?.size}")
+
     }
 
     private fun onError(throwable: Throwable) {
         log("Error : ${throwable.message.toString()}")
+    }
+
+    override fun onClickItem(id: Int) {
+        log("event $id")
+
     }
 
 }
