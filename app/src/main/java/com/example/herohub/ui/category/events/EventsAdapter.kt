@@ -8,5 +8,4 @@ import com.example.herohub.ui.base.BaseInteractionListener
 class EventsAdapter(listener: EventsInteractionListener):BaseAdapter<Event>(listener) {
     override val layoutId: Int = R.layout.item_category
 }
-
 interface EventsInteractionListener : BaseInteractionListener
