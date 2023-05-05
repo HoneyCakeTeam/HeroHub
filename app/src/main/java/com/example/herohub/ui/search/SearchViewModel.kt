@@ -8,11 +8,9 @@ import com.example.herohub.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
-
-class SearchViewModel : BaseViewModel(), SearchInteractionListener {
+class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener {
     override val TAG: String = this::class.java.simpleName.toString()
     private val repository = Repository()
-
     private val _response = MutableLiveData<UiState<DataResponse<Character>?>>()
     private val response: LiveData<UiState<DataResponse<Character>?>> get() = _response
 
@@ -22,6 +20,21 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
             ::onGetCharacterSuccess , ::onGetCharacterFailure)
         log(response.toString())
     }
+
+    private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
+        _response.postValue(uiState)
+    }
+
+    private fun onGetCharacterFailure(throwable: Throwable) {
+        _response.postValue(UiState.Error(throwable.message.toString()))
+    }
+
+    override fun <T> onClickItem(item: T) {
+        TODO("Not yet implemented")
+    }
+
+}
+
 
 //    private val _searchResults = MutableLiveData<List<Character>>()
 //    val searchResults: LiveData<List<Character>> get() = _searchResults
@@ -103,18 +116,3 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 ////            }
 ////            .addTo(compositeDisposable)
 ////    }
-
-    override fun <T> onItemClick(item: T) {
-        // handle item click
-    }
-
-    private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
-        _response.postValue(uiState)
-    }
-
-    private fun onGetCharacterFailure(throwable: Throwable) {
-        _response.postValue(UiState.Error(throwable.message.toString()))
-    }
-}
-
-
