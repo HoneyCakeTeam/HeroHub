@@ -13,10 +13,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/md_theme_dark_scrim"
+        android:background="#121212"
         tools:context=".ui.home.HomeFragment">
 
         <ImageView
+            android:id="@+id/image_app_name"
             android:layout_width="124dp"
             android:layout_height="124dp"
             android:layout_marginStart="16dp"
@@ -24,6 +25,18 @@
             android:src="@drawable/app_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_home"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_app_name" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="100dp"
