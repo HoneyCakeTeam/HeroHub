@@ -41,6 +41,8 @@ data class Series(
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
 ):Category {
+    override val itemId: Int?
+        get() = id
     override val categoryTitle: String?
         get() = title
     override val categoryImage: String?

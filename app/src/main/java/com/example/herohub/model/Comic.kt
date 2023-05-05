@@ -91,6 +91,9 @@ data class Comic(
         val type: String? = null,
     )
 
+    override val itemId: Int?
+        get() = id
+
     override val categoryTitle: String?
         get() = title
     override val categoryImage: String?
