@@ -19,6 +19,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
         _response.postValue(UiState.Loading)
         disposeObservable(repository.getAllCharacters(),
             ::onGetCharacterSuccess , ::onGetCharacterFailure)
+        log(response.toString())
     }
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
