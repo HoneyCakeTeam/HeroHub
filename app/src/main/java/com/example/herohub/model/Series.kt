@@ -40,4 +40,9 @@ data class Series(
     val type: String? = "",
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
-)
+):Category {
+    override val categoryTitle: String?
+        get() = title
+    override val categoryImage: String?
+        get() = thumbnail?.path
+}

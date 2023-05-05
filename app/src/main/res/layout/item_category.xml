@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.model.Character" />
+            type="com.example.herohub.model.Category" />
 
         <variable
             name="listener"
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{item.thumbnail.path}"
+                app:imageUrl="@{item.categoryImage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/josefinsans_semibold"
                 android:maxLines="1"
-                android:text="@{item.name}"
+                android:text="@{item.categoryTitle}"
                 android:padding="@dimen/spacing_small"
                 android:textColor="@color/md_theme_light_surface"
                 android:textSize="@dimen/text_medium"
