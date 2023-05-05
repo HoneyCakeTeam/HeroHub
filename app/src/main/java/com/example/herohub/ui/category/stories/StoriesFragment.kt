@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category
+package com.example.herohub.ui.category.stories
 
 import androidx.fragment.app.Fragment
 

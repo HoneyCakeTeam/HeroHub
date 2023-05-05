@@ -4,6 +4,11 @@ import androidx.fragment.app.viewModels
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentCategoriesBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.ui.category.chracters.CharactersFragment
+import com.example.herohub.ui.category.comics.ComicsFragment
+import com.example.herohub.ui.category.events.EventsFragment
+import com.example.herohub.ui.category.series.SeriesFragment
+import com.example.herohub.ui.category.stories.StoriesFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
