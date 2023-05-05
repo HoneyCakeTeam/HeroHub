@@ -28,6 +28,10 @@ class Repository {
         api.getEvent(eventId)
     }
 
+    fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
+        api.getAllSeries()
+    }
+
     fun getAllComics(): Observable<UiState<DataResponse<Comic>>> = wrapWithState {
         api.getAllComics()
     }

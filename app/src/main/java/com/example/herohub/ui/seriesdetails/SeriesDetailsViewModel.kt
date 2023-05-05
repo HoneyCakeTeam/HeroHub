@@ -19,7 +19,7 @@ class SeriesDetailsViewModel : BaseViewModel() {
         get() = _seriesData
 
 
-    private fun getSeriesDetails(seriesId:Int) {
+    fun getSeriesDetails(seriesId:Int) {
         disposeObservable(repository.getSeriesDetails(seriesId), ::onSeriesSuccessData, ::onError)
     }
 

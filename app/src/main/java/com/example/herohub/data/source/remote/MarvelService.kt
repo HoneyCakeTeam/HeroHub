@@ -46,6 +46,9 @@ interface MarvelService {
     @GET("series{seriesId}")
     fun getSeriesDetails(@Path("seriesId") seriesId: Int): Single<Response<BaseResponse<Series>>>
 
+    @GET("series")
+    fun getAllSeries(): Single<Response<BaseResponse<Series>>>
+
     @GET("stories")
     fun getAllStories(): Single<Response<BaseResponse<Story>>>
 
