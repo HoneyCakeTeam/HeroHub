@@ -7,8 +7,8 @@ import com.example.herohub.ui.base.BaseFragment
 
 
 class ComicsFragment : BaseFragment<FragmentComicsBinding>() {
-    override val TAG: String = this::class.java.simpleName.toString()
-    override val layoutIdFragment: Int = R.id.comicsFragment
+    override val TAG: String = this::class.java.simpleName
+    override val layoutIdFragment: Int = R.layout.fragment_comics
     override val viewModel: ComicsViewModel by viewModels()
 
     override fun setup() {
