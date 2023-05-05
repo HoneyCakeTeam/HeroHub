@@ -27,7 +27,7 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
         log("Error : ${throwable.message.toString()}")
     }
 
-    override fun onClickCharacter(id: Int) {
+    override fun onClickItem(id: Int) {
         log("$id clicked")
     }
 }
