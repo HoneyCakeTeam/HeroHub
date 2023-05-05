@@ -38,9 +38,11 @@
             android:layout_height="250dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginTop="125dp"
-            android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/search_bar"/>
+            android:src="@drawable/image_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_bar"
+            app:showBeforeSearching="@{viewModel.response}"
+            />
 
         <TextView
             android:id="@+id/tv_empty_search"
@@ -53,7 +55,9 @@
             android:text="Discover Characters and comics....."
             app:layout_constraintEnd_toEndOf="@id/img_search"
             app:layout_constraintStart_toStartOf="@id/img_search"
-            app:layout_constraintTop_toBottomOf="@+id/img_search" />
+            app:layout_constraintTop_toBottomOf="@+id/img_search"
+            app:showBeforeSearching="@{viewModel.response}"
+            />
 
         <TextView
             android:id="@+id/tv_details"
@@ -64,14 +68,14 @@
             android:text="@string/click_on_search_icon_to_start_searching"
             app:layout_constraintEnd_toEndOf="@id/img_search"
             app:layout_constraintStart_toStartOf="@id/img_search"
-            app:layout_constraintTop_toBottomOf="@+id/tv_empty_search" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_empty_search"
+            app:showBeforeSearching="@{viewModel.response}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_result"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_small"
-            android:visibility="gone"
             android:clipToPadding="false"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             tools:listitem="@layout/item_search"
@@ -81,7 +85,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_bar"
+            app:items="@{viewModel.response.toData().results}"
             />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_circle_red"
+            app:showWhenLoading="@{viewModel.response}" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,15 @@ fun <T> showWhenSuccess(view: View, UiState: UiState<T>?) {
     else view.visibility = View.GONE
 }
 
+@BindingAdapter("app:showBeforeSearching")
+fun <T> showBeforeSearching(view: View, UiState: UiState<T>?) {
+    if (UiState is UiState.Success ||
+        UiState is UiState.Error ||
+        UiState is UiState.Loading
+    ) view.visibility = View.GONE
+    else view.visibility = View.VISIBLE
+}
+
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
