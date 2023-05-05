@@ -45,7 +45,7 @@ fun setImageFromUrl(view: ImageView, url: String?) {
     Glide
         .with(view)
         .load("$url.jpg")
-        .placeholder(R.drawable.logo)
-        .error(R.drawable.error)
-        .centerCrop().into(view)
+        .placeholder(R.drawable.movie_placeholder)
+        .error(R.drawable.not_found)
+        .into(view)
 }
