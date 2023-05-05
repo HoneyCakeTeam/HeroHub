@@ -23,7 +23,6 @@ class HomeViewModel : BaseViewModel() {
     }
 
     private fun getAllCharacters() {
-        _characterResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess,
