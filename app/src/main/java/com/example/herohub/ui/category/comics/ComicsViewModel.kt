@@ -9,17 +9,21 @@ import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
 class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
-    override val TAG: String = this::class.java.simpleName.toString()
+    override val TAG: String = this::class.java.simpleName
     private val repository = Repository()
     private val _comics = MutableLiveData<UiState<DataResponse<Comic>>>()
     val comics: LiveData<UiState<DataResponse<Comic>>>
         get() = _comics
 
-    private fun getAllComics() {
-        disposeObservable(repository.getAllComics(), ::onGetComicsSuccess, ::onError)
+    init{
+        getAllComics()
     }
 
-    private fun onGetComicsSuccess(state: UiState<DataResponse<Comic>>) {
+    private fun getAllComics() {
+        disposeObservable(repository.getAllComics(), ::onGetComicSuccess, ::onError)
+    }
+
+    private fun onGetComicSuccess(state: UiState<DataResponse<Comic>>) {
         _comics.postValue(state)
     }
 

@@ -35,7 +35,9 @@ interface MarvelService {
     fun getComic(@Path("comicId") comicId: Int): Single<Response<BaseResponse<Comic>>>
 
     @GET("comics")
-    fun getAllComics(): Single<Response<BaseResponse<Comic>>>
+    fun getAllComics(
+        @Query("limit") limit: Int
+    ): Single<Response<BaseResponse<Comic>>>
 
     @GET("creators")
     fun getAllCreators(): Single<Response<BaseResponse<Creator>>>
