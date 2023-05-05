@@ -20,6 +20,10 @@ class Repository {
         api.getAllCharacters()
     }
 
+    fun searchQuery(query:String):  Observable<UiState<DataResponse<Character>>> = wrapWithState {
+        api.searchQuery(query)
+    }
+
     fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
         api.getAllSeries()
     }

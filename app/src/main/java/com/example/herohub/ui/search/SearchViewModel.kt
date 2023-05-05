@@ -22,7 +22,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
-        _response.postValue(UiState.Loading)
+        _response.postValue(uiState)
 
     }
 
