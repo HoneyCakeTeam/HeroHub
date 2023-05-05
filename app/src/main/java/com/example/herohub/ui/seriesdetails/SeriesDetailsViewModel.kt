@@ -18,18 +18,13 @@ class SeriesDetailsViewModel : BaseViewModel() {
     val seriesData: LiveData<UiState<DataResponse<Series>?>>
         get() = _seriesData
 
-    init {
-        getAllSeriesList()
-    }
 
-    private fun getAllSeriesList() {
-        _seriesData.postValue(UiState.Loading)
-        disposeObservable(repository.getAllSeries(), ::onSeriesSuccessData, ::onError)
+    private fun getSeriesDetails(seriesId:Int) {
+        disposeObservable(repository.getSeriesDetails(seriesId), ::onSeriesSuccessData, ::onError)
     }
 
     private fun onSeriesSuccessData(seriesUiState: UiState<DataResponse<Series>?>) {
         _seriesData.postValue(seriesUiState)
-        log(seriesUiState.toData().toString())
     }
 
     private fun onError(errorMessage: Throwable) {
