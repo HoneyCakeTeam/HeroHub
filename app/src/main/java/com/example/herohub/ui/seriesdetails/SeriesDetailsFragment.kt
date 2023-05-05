@@ -14,7 +14,7 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding>() {
    // private val args: SeriesDetailsFragmentArgs by navArgs()
 
     override fun setup(){
-        viewModel.getSeriesDetails(269)
+        viewModel.getSeriesDetails(120)
     }
 
 

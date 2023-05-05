@@ -19,7 +19,7 @@
             android:id="@+id/text_series_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.seriesData.toData().results.get(1).toString()}"
+            android:text="@{viewModel.seriesData.toData().results.get(0).title}"
             tools:text="Series"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
