@@ -22,6 +22,7 @@ class Repository {
 
     fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
         api.getAllSeries(100)
+    }
     fun getSeriesDetails(seriesId: Int): Observable<UiState<DataResponse<Series>>> = wrapWithState {
         api.getSeriesDetails(seriesId)
     }
