@@ -17,6 +17,7 @@
         android:id="@+id/card_item_comics"
         android:layout_width="150dp"
         android:layout_height="200dp"
+        android:onClick="@{() -> listener.onMostPopularComicsItemClick(item.id)}"
         android:layout_marginHorizontal="@dimen/spacing_small"
         app:cardCornerRadius="16dp">
 
