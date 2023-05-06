@@ -1,5 +1,6 @@
 package com.example.herohub.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,9 +18,10 @@ class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener
     private val _response = MutableLiveData<UiState<DataResponse<Character>?>>()
     val response: LiveData<UiState<DataResponse<Character>?>>
         get() = _response
-    private val _searchQuery = MutableLiveData<String>()
-    val searchQuery : LiveData<String>
-        get() = _searchQuery
+
+    val searchQuery = MutableLiveData<String>()
+    private val searchQueryLiveData: LiveData<String>
+        get() = searchQuery
 
     private val _searchResult = MediatorLiveData<List<Character>>()
 
@@ -28,11 +30,13 @@ class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener
         search()
     }
 
-    private fun search(){
-        _searchResult.addSource(_searchQuery) {query ->
-            if (query.isEmpty()) {
+    private fun search() {
+        _searchResult.addSource(searchQueryLiveData) { query ->
+            log(query)
+            /*if (query.isEmpty()) {
                 _searchResult.value = _response.value?.toData()?.results!!
-            }else {
+            } else {
+                log(query)
                 repository.searchQuery(query)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -44,13 +48,14 @@ class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener
                             log(error.message!!)
                         }
                     ).dispose()
-            }
+            }*/
         }
     }
 
     fun setSearchQuery(query: String) {
-        _searchQuery.value = query
+        searchQuery.value = query
     }
+
     fun getSearchResult(): LiveData<List<Character>> = _searchResult
 
     private fun getAllCharacters() {
@@ -61,15 +66,15 @@ class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener
         )
     }
 
-        private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
-            _response.postValue(uiState)
-            log(uiState.toData().toString())
-        }
+    private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
+        _response.postValue(uiState)
+        log(uiState.toData().toString())
+    }
 
-        private fun onGetCharacterFailure(throwable: Throwable) {
-            _response.postValue(UiState.Error(throwable.message.toString()))
+    private fun onGetCharacterFailure(throwable: Throwable) {
+        _response.postValue(UiState.Error(throwable.message.toString()))
 
-        }
+    }
 
     override fun <T> onClickItem(item: T) {
         TODO("Not yet implemented")
