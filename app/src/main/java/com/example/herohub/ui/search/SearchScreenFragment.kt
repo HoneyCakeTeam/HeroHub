@@ -1,5 +1,6 @@
 package com.example.herohub.ui.search
 
+import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSearchScreenBinding
@@ -12,5 +13,21 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
 
     override fun setup() {
         viewModel.getAllCharacters()
+        initAdapter()
+
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.searchQuery.onNext(newText ?: "")
+                return true
+            }
+        })
+    }
+    private fun initAdapter(){
+        val adapter = SearchAdapter(viewModel)
+        binding.rvSearchResult.adapter = adapter
     }
 }
