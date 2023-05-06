@@ -27,11 +27,7 @@
         android:id="@+id/comics_details_fragment"
         android:name="com.example.herohub.ui.comicdetails.ComicDetailsFragment"
         android:label="@string/comics_details"
-        tools:layout="@layout/fragment_comics_details">
-        <argument
-            android:name="comicId"
-            app:argType="integer" />
-    </fragment>
+        tools:layout="@layout/fragment_comics_details"/>
     <fragment
         android:id="@+id/series_details_fragment"
         android:name="com.example.herohub.ui.seriesdetails.SeriesDetailsFragment"
