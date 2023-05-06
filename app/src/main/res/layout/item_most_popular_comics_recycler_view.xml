@@ -8,10 +8,6 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.MostPopularComicsAdapter" />
-
-        <variable
-            name="viewModel"
-            type="com.example.herohub.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
