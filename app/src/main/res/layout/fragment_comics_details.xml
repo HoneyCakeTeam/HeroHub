@@ -9,27 +9,85 @@
             name="viewModel"
             type="com.example.herohub.ui.comicdetails.ComicDetailsViewModel" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.comicdetails.ComicDetailsFragment">
-
-<!--        <ProgressBar-->
-<!--            android:id="@+id/progress_loding"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        android:scrollIndicators="none"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/spacing_medium">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/md_theme_dark_onBackground"
-            android:text="@{viewModel.comicData.title}" />
+            android:layout_height="wrap_content"
+            tools:context=".ui.comicdetails.ComicDetailsFragment">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_comic"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.comics.toData().results.get(0).thumbnail.path}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenSuccess="@{viewModel.comics}"
+                tools:src="@drawable/spiderman" />
+
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefinsans_semibold"
+                android:layout_margin="@dimen/spacing_medium"
+                android:maxLines="2"
+                android:text="@{viewModel.comics.toData().results.get(0).title}"
+                android:textSize="@dimen/text_giant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_comic"
+                app:showWhenSuccess="@{viewModel.comics}"
+                tools:text="spider man" />
+
+            <TextView
+                android:id="@+id/text_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/josefinsans_regular"
+                android:layout_marginHorizontal="@dimen/spacing_medium"
+                android:layout_marginVertical="@dimen/spacing_small"
+                android:text="@{viewModel.comics.toData().results.get(0).textObjects.get(0).text}"
+                android:textSize="@dimen/text_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_title"
+                app:showWhenSuccess="@{viewModel.comics}"
+                tools:text="spider man" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading_circle_red"
+                app:showWhenLoading="@{viewModel.comics}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/error"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenError="@{viewModel.comics}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </layout>
+

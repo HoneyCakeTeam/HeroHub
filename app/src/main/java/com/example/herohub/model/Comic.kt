@@ -70,7 +70,7 @@ data class Comic(
 
     data class Price(
         @SerializedName("price")
-        val price: Int? = null,
+        val price: Double? = null,
         @SerializedName("type")
         val type: String? = null,
     )
