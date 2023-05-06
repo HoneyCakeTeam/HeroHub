@@ -10,7 +10,7 @@
 
         <variable
             name="listener"
-            type="com.example.herohub.ui.home.MostPopularComicsInteractionListener" />
+            type="com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
