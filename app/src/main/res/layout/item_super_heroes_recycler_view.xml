@@ -7,7 +7,7 @@
 
         <variable
             name="adapterRecycler"
-            type="com.example.herohub.ui.home.SuperHeroesAdapter" />
+            type="com.example.herohub.ui.home.adapter.SuperHeroesAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
