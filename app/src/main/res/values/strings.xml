@@ -20,5 +20,5 @@
     <string name="description">Description</string>
     <string name="see_all">See all</string>
     <string name="super_hero">Super Hero</string>
-    <string name="most_popular_comics">Most popular comics</string>
+    <string name="most_popular_characters">Most popular characters</string>
 </resources>

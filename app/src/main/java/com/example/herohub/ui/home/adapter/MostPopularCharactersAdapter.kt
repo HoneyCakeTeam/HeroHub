@@ -5,13 +5,13 @@ import com.example.herohub.model.Comic
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 
-class MostPopularComicsAdapter(listener: MostPopularComicsInteractionListener) :
+class MostPopularComicsAdapter(listener: MostPopularCharactersInteractionListener) :
     BaseAdapter<Comic>(listener) {
 
     override val layoutId: Int = R.layout.item_most_popular_comics
 }
 
-interface MostPopularComicsInteractionListener : BaseInteractionListener {
+interface MostPopularCharactersInteractionListener : BaseInteractionListener {
 
-    fun onMostPopularComicsItemClick(id: Int)
+    fun onMostPopularCharactersItemClick(id: Int)
 }

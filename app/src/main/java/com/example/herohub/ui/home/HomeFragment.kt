@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun observeLiveData() {
         observeSeries()
         observeSuperHeroesResponse()
-        observeMostPopularComicsResponse()
+        observeMostPopularCharactersResponse()
     }
 
     private fun observeSeries() {
@@ -56,11 +56,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun observeMostPopularComicsResponse() {
+    private fun observeMostPopularCharactersResponse() {
         viewModel.mostPopularComicsResponse.observe(viewLifecycleOwner) { uiState ->
             uiState.toData()?.results.let { comic ->
                 if (!comic.isNullOrEmpty()) {
-                    homeItems.add(HomeItem.MostPopularComics(comic.filterNot {
+                    homeItems.add(HomeItem.MostPopularCharacters(comic.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
                     }.take(10).shuffled()))
                     homeAdapter.setItems(homeItems)

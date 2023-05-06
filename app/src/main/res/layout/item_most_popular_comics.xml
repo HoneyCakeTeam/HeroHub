@@ -10,14 +10,14 @@
 
         <variable
             name="listener"
-            type="com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener" />
+            type="com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_item_comics"
         android:layout_width="180dp"
         android:layout_height="200dp"
-        android:onClick="@{() -> listener.onMostPopularComicsItemClick(item.id)}"
+        android:onClick="@{() -> listener.onMostPopularCharactersItemClick(item.id)}"
         android:layout_marginHorizontal="@dimen/spacing_small"
         app:cardCornerRadius="16dp">
 

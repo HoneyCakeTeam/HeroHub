@@ -52,10 +52,10 @@ class HomeAdapter(
                     )
                 }
 
-                is HomeItem.MostPopularComics -> {
+                is HomeItem.MostPopularCharacters -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
+                        MostPopularComicsAdapter(listener as MostPopularCharactersInteractionListener)
                             .apply { setItems(currentItem.mostPopularComics) }
                     )
                 }
@@ -68,7 +68,7 @@ class HomeAdapter(
             return when (homeItems[position]) {
                 is HomeItem.Slider -> R.layout.item_slider_recycler_view
                 is HomeItem.SuperHeroes -> R.layout.item_super_heroes_recycler_view
-                is HomeItem.MostPopularComics -> R.layout.item_most_popular_comics_recycler_view
+                is HomeItem.MostPopularCharacters -> R.layout.item_most_popular_comics_recycler_view
             }
         }
         return -1

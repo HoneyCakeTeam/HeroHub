@@ -8,12 +8,12 @@ import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
-class HomeViewModel : BaseViewModel(), MostPopularComicsInteractionListener,
+class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     SliderInteractionListener, SuperHeroesInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
@@ -84,7 +84,7 @@ class HomeViewModel : BaseViewModel(), MostPopularComicsInteractionListener,
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onMostPopularComicsItemClick(id: Int) {
+    override fun onMostPopularCharactersItemClick(id: Int) {
 
     }
 
