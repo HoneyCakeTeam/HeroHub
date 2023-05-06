@@ -1,5 +1,6 @@
 package com.example.herohub.ui.search
 
+import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,7 @@ import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 class SearchViewModel : BaseViewModel(), SearchInteractionListener {
@@ -24,18 +26,23 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
         get() = _searchQuery
 
     private  val _searchResult = MediatorLiveData<List<Character>>()
+    val searchResult: LiveData<List<Character>>
+    get() = _searchResult
 
     init {
         getAllCharacters()
         search()
     }
 
-    fun setSearchQuery(query: String) {
+    @InverseMethod(value = "getSearchResult")
+    fun setSearchQuery(query: String): String {
         _searchQuery.value = query
+        return query
     }
+
     fun getSearchResult(): LiveData<List<Character>> = _searchResult
 
-    private fun search() {
+   fun search() {
         _searchResult.addSource(_searchQuery) { query ->
             if (query.isEmpty()) {
                 _searchResult.value = _response.value?.toData()?.results!!
@@ -47,7 +54,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
                         dataResponse.toData()?.results?.filter {
                             it.name!!.contains(query, ignoreCase = true)
                         } ?: emptyList()
-                    }
+                    }.debounce(1, TimeUnit.MILLISECONDS)
                     .subscribe(
                         { filteredResults ->
                             _searchResult.value = filteredResults
