@@ -29,7 +29,7 @@
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
             android:queryHint="@string/search"
-            app:query="@{viewModel.searchQuery}"
+            android:onQueryTextListener="@{viewModel::searchCharacters}"
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintTop_toTopOf="parent" />
 

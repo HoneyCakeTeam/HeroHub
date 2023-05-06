@@ -7,11 +7,9 @@ import com.example.herohub.model.Character
 import com.example.herohub.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
 
-class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener {
+
+class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     override val TAG: String = this::class.java.simpleName.toString()
     private val repository = Repository()
 
@@ -22,12 +20,6 @@ class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener
         _response.postValue(UiState.Loading)
         disposeObservable(repository.getAllCharacters(),
             ::onGetCharacterSuccess , ::onGetCharacterFailure)
-    }
-
-    fun searchQuery(name: String) {
-        _response.postValue(UiState.Loading)
-        disposeObservable(repository.searchQuery(name),
-            ::onGetCharacterSuccess, ::onGetCharacterFailure)
     }
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
@@ -43,4 +35,10 @@ class SearchViewModel : BaseViewModel(), SearchAdapter.SearchInteractionListener
     }
 }
 
+
+//    fun getSearchQuery(query: String) {
+//        _response.postValue(UiState.Loading)
+//        disposeObservable(repository.getSearchQuery(query),
+//            ::onGetCharacterSuccess, ::onGetCharacterFailure)
+//    }
 
