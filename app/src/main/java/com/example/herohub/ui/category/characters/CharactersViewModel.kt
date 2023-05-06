@@ -8,7 +8,7 @@ import com.example.herohub.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
-class CharactersViewModel : BaseViewModel() , CharactersInteractionListener {
+class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
     override val TAG: String = this::class.java.simpleName
 
     private val repository = Repository()
@@ -16,6 +16,11 @@ class CharactersViewModel : BaseViewModel() , CharactersInteractionListener {
     private val _characters = MutableLiveData<UiState<DataResponse<Character>>>()
     val characters: LiveData<UiState<DataResponse<Character>>>
         get() = _characters
+
+    private val _characterId = MutableLiveData<Int>()
+    val characterId: LiveData<Int>
+        get() = _characterId
+
 
     init {
         log("First time")
@@ -37,5 +42,6 @@ class CharactersViewModel : BaseViewModel() , CharactersInteractionListener {
 
     override fun onClickItem(id: Int) {
         log("Character $id")
+        _characterId.postValue(id)
     }
 }

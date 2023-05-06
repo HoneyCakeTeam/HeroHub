@@ -21,7 +21,6 @@
         tools:layout="@layout/fragment_characters_details">
         <argument
             android:name="characterId"
-            android:defaultValue="0"
             app:argType="integer" />
     </fragment>
     <fragment
@@ -63,5 +62,13 @@
         android:id="@+id/categories_fragment"
         android:name="com.example.herohub.ui.category.CategoriesFragment"
         android:label="@string/category"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories">
+
+        <action
+            android:id="@+id/action_categories_fragment_to_characters_details_fragment"
+            app:destination="@id/characters_details_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/categories_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
