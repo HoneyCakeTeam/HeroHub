@@ -13,5 +13,5 @@ class SliderAdapter(listener: SliderInteractionListener) :
 
 interface SliderInteractionListener : BaseInteractionListener {
 
-    fun onItemClick(id: Int)
+    fun onSeriesClick(id: Int)
 }
