@@ -9,30 +9,26 @@ import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
 class ComicDetailsViewModel : BaseViewModel() {
-    override val TAG = "ComicDetailsViewModel"
+    override val TAG: String = this::class.java.simpleName
     private val repository = Repository()
-    private val _comicResponse = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val comicResponse: LiveData<UiState<DataResponse<Comic>>>
-        get() = _comicResponse
-
-    private val _comicData = MutableLiveData<Comic>()
-    val comicData : LiveData<Comic>
-        get() = _comicData
+    private val _comics = MutableLiveData<UiState<DataResponse<Comic>>>()
+    val comics: LiveData<UiState<DataResponse<Comic>>>
+        get() = _comics
 
 
     fun getComic(comicId: Int) {
-        _comicResponse.postValue(UiState.Loading)
         disposeObservable(
-            repository
-                .getComic(comicId), ::onGetComicSuccess, ::onGetComicFailure
+            repository.getComic(comicId),
+            ::onGetComicSuccess,
+            ::onGetComicFailure
         )
     }
 
     private fun onGetComicSuccess(UiState: UiState<DataResponse<Comic>>) {
-        _comicResponse.postValue(UiState)
+        _comics.postValue(UiState)
     }
 
     private fun onGetComicFailure(throwable: Throwable) {
-        _comicResponse.postValue(UiState.Error(throwable.message.toString()))
+        _comics.postValue(UiState.Error(throwable.message.toString()))
     }
 }
