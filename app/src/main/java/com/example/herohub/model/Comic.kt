@@ -60,7 +60,7 @@ data class Comic(
     val variantDescription: String? = "",
     @SerializedName("variants")
     val variants: List<Item>? = listOf(),
-) {
+):Category {
     data class Image(
         @SerializedName("extension")
         val extension: String? = null,
@@ -90,4 +90,12 @@ data class Comic(
         @SerializedName("type")
         val type: String? = null,
     )
+
+    override val itemId: Int?
+        get() = id
+
+    override val categoryTitle: String?
+        get() = title
+    override val categoryImage: String?
+        get() = thumbnail?.path
 }

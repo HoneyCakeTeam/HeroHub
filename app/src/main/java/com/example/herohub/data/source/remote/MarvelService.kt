@@ -19,7 +19,7 @@ interface MarvelService {
     fun getEvent(@Path("eventId") eventId: Int): Single<Response<BaseResponse<Event>>>
 
     @GET("characters")
-    fun getAllCharacters(): Single<Response<BaseResponse<Character>>>
+    fun getAllCharacters(@Query("limit") limit: Int): Single<Response<BaseResponse<Character>>>
 
     @GET("characters/{characterId}")
     fun getCharacterDetails(
@@ -27,27 +27,25 @@ interface MarvelService {
     ): Single<Response<BaseResponse<Character>>>
 
     @GET("characters/{characterId}/comics")
-    fun getCharacterComics(
-        @Path("characterId") characterId: Int
-    ): Single<Response<BaseResponse<Comic>>>
+    fun getCharacterComics(@Path("characterId") characterId: Int): Single<Response<BaseResponse<Comic>>>
 
     @GET("comics/{comicId}")
     fun getComic(@Path("comicId") comicId: Int): Single<Response<BaseResponse<Comic>>>
 
     @GET("comics")
-    fun getAllComics(): Single<Response<BaseResponse<Comic>>>
+    fun getAllComics(@Query("limit") limit: Int): Single<Response<BaseResponse<Comic>>>
 
     @GET("creators")
     fun getAllCreators(): Single<Response<BaseResponse<Creator>>>
 
     @GET("events")
-    fun getAllEvents(): Single<Response<BaseResponse<Event>>>
+    fun getAllEvents(@Query("limit") limit: Int): Single<Response<BaseResponse<Event>>>
 
     @GET("series/{seriesId}")
     fun getSeriesDetails(@Path("seriesId") seriesId: Int): Single<Response<BaseResponse<Series>>>
 
     @GET("series")
-    fun getAllSeries(): Single<Response<BaseResponse<Series>>>
+    fun getAllSeries(@Query("limit") limit: Int): Single<Response<BaseResponse<Series>>>
 
     @GET("stories")
     fun getAllStories(): Single<Response<BaseResponse<Story>>>

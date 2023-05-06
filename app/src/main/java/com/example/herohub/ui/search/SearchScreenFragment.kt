@@ -12,5 +12,12 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
 
     override fun setup() {
         viewModel.getAllCharacters()
+        initAdapter()
     }
+
+    private fun initAdapter(){
+        val adapter = SearchAdapter(viewModel)
+        binding.rvSearchResult.adapter = adapter
+    }
+
 }

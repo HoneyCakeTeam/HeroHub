@@ -27,4 +27,11 @@ data class Character(
     val thumbnail: Thumbnail? = Thumbnail(),
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
-)
+):Category {
+    override val itemId: Int?
+        get() = id
+    override val categoryTitle: String?
+        get() = name
+    override val categoryImage: String?
+        get() = thumbnail?.path
+}
