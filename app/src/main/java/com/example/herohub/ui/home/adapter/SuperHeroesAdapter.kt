@@ -13,5 +13,5 @@ class SuperHeroesAdapter(listener: SuperHeroesInteractionListener) :
 
 interface SuperHeroesInteractionListener : BaseInteractionListener {
 
-    fun onItemClick(id: Int)
+    fun onCharacterClick(id: Int)
 }
