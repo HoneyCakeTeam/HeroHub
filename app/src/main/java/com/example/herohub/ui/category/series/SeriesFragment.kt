@@ -16,10 +16,10 @@ class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
 
     override fun setup() {
         initiateAdapter()
-        navigateToCharacterDetails()
+        navigateToSeriesDetails()
     }
 
-    private fun navigateToCharacterDetails() {
+    private fun navigateToSeriesDetails() {
         viewModel.seriesId.observe(this) { seriesId ->
             val action = CategoriesFragmentDirections
                 .actionCategoriesFragmentToSeriesDetailsFragment(seriesId)
