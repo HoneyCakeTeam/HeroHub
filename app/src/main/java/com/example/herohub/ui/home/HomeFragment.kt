@@ -62,4 +62,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        homeItems.clear()
+    }
 }
