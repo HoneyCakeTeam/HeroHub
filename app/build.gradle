@@ -85,4 +85,8 @@ dependencies {
 
     // splash api dependency
     implementation "androidx.core:core-splashscreen:1.0.1"
+
+    // Android image slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0-appcompat'
 }
