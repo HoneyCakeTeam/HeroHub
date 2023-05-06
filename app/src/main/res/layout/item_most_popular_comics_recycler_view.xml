@@ -51,6 +51,7 @@
             android:layout_marginVertical="@dimen/spacing_small"
             android:clipToPadding="false"
             android:orientation="horizontal"
+            android:adapter="@{adapterRecycler}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
