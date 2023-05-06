@@ -27,11 +27,11 @@
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
             android:queryHint="@string/search"
-
+            app:query="@{viewModel.searchQuery}"
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--            app:query="@{viewModel.searchQuery}"-->
+
 
 <!--        <ImageView-->
 <!--            android:id="@+id/img_search"-->
