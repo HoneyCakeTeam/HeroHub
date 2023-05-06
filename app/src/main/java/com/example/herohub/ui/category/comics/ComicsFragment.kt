@@ -7,7 +7,6 @@ import com.example.herohub.databinding.FragmentComicsBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.category.CategoriesFragmentDirections
 
-
 class ComicsFragment : BaseFragment<FragmentComicsBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment: Int = R.layout.fragment_comics

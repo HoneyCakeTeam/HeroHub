@@ -16,10 +16,10 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
         get() = _comics
 
     private val _comicId = MutableLiveData<Int>()
-    val comicId : LiveData<Int>
+    val comicId: LiveData<Int>
         get() = _comicId
 
-    init{
+    init {
         getAllComics()
     }
 
@@ -32,11 +32,10 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     }
 
     private fun onError(throwable: Throwable) {
-        log("Error : ${throwable.message.toString()}")
+        _comics.postValue(UiState.Error(throwable.message.toString()))
     }
 
     override fun onClickItem(id: Int) {
         _comicId.postValue(id)
-        log("$id clicked")
     }
 }

@@ -10,7 +10,6 @@ import com.example.herohub.utills.UiState
 
 class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
     override val TAG: String = this::class.java.simpleName
-
     private val repository = Repository()
 
     private val _characters = MutableLiveData<UiState<DataResponse<Character>>>()
@@ -21,9 +20,7 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
     val characterId: LiveData<Int>
         get() = _characterId
 
-
     init {
-        log("First time")
         getAllCharacters()
     }
 
@@ -33,15 +30,13 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
 
     private fun onGetCharacterSuccess(state: UiState<DataResponse<Character>>) {
         _characters.postValue(state)
-        log("Success : ${state.toData()?.results?.size}")
     }
 
     private fun onError(throwable: Throwable) {
-        log("Error : ${throwable.message.toString()}")
+        _characters.postValue(UiState.Error(throwable.message.toString()))
     }
 
     override fun onClickItem(id: Int) {
-        log("Character $id")
         _characterId.postValue(id)
     }
 }

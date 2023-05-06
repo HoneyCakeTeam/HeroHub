@@ -7,9 +7,7 @@ import com.example.herohub.databinding.FragmentSeriesBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.category.CategoriesFragmentDirections
 
-
 class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
-
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment: Int = R.layout.fragment_series
     override val viewModel: SeriesViewModel by viewModels()

@@ -9,11 +9,10 @@ import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
 class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
-    override val TAG: String
-        get() = this::class.java.simpleName
+    override val TAG: String = this::class.java.simpleName
     private val repository = Repository()
-    private val _allSeries = MutableLiveData<UiState<DataResponse<Series>>>()
 
+    private val _allSeries = MutableLiveData<UiState<DataResponse<Series>>>()
     val allSeries: LiveData<UiState<DataResponse<Series>>>
         get() = _allSeries
 
