@@ -40,6 +40,7 @@
         tools:layout="@layout/fragment_events_details">
         <argument
             android:name="eventId"
+            android:defaultValue="269"
             app:argType="integer" />
     </fragment>
     <fragment
@@ -81,6 +82,13 @@
             app:destination="@id/events_details_fragment"
             app:launchSingleTop="false"
             app:popUpTo="@id/categories_fragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_categories_fragment_to_comics_details_fragment"
+            app:destination="@id/comics_details_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/categories_fragment"
+            app:popUpToInclusive="true" />
+
     </fragment>
 </navigation>
