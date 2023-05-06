@@ -38,7 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     homeItems.add(HomeItem.SuperHeroes(character))
                     homeAdapter.setItems(homeItems)
                 }
-                Log.e("TAG", "homeItems characterResponse: $homeItems")
             }
         }
     }
@@ -50,8 +49,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     homeItems.add(HomeItem.MostPopularComics(comics))
                     homeAdapter.setItems(homeItems)
                 }
-
-                Log.e("TAG", "homeItems mostPopularComicsResponse: $homeItems")
             }
         }
     }
@@ -65,7 +62,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
             }
 
-            Log.e("TAG", "homeItems seriesResponse: $homeItems")
         }
     }
 }
