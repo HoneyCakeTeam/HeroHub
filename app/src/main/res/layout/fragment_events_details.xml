@@ -15,25 +15,47 @@
         android:layout_height="match_parent"
         tools:context=".ui.eventdetails.EventDetailsFragment">
 
-        <TextView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.event.title}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:imageUrl="@{viewModel.event.thumbnail.path}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:text="@{viewModel.event.title}"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_event_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_event" />
+
+        <TextView
+            android:id="@+id/text_view_event_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:text="@{viewModel.event.description}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_event_title" />
 
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:showWhenLoading="@{viewModel.eventResponse}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenLoading="@{viewModel.eventResponse}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
