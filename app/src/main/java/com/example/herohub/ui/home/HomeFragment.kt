@@ -11,7 +11,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val TAG: String = this::class.java.simpleName.toString()
     override val layoutIdFragment: Int = R.layout.fragment_home
     override val viewModel: HomeViewModel by viewModels()
-    lateinit var homeAdapter: HomeAdapter
+    private lateinit var homeAdapter: HomeAdapter
     private val homeItems = mutableListOf<HomeItem>()
 
     override fun setup() {
