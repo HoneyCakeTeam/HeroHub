@@ -1,7 +1,7 @@
 package com.example.herohub.ui.category.characters
 
 import com.example.herohub.R
-import com.example.herohub.ui.base.BaseCategoryInteractionListener
+import com.example.herohub.ui.category.CategoryInteractionListener
 import com.example.herohub.model.Character
 import com.example.herohub.ui.base.BaseAdapter
 
@@ -10,4 +10,4 @@ class CharactersAdapter(listener: CharactersInteractionListener) :
     override val layoutId: Int = R.layout.item_category
 }
 
-interface CharactersInteractionListener : BaseCategoryInteractionListener
+interface CharactersInteractionListener : CategoryInteractionListener
