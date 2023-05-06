@@ -40,16 +40,16 @@ class HomeAdapter(
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         SliderAdapter(listener as SliderInteractionListener)
+                            .apply { setItems(currentItem.slider) }
                     )
-                    holder.binding.setVariable(BR.item, currentItem.slider)
                 }
 
                 is HomeItem.SuperHeroes -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
+                            .apply { setItems(currentItem.superHeroes) }
                     )
-                    holder.binding.setVariable(BR.item, currentItem.superHeroes)
 
                 }
 
@@ -57,8 +57,8 @@ class HomeAdapter(
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
+                            .apply { setItems(currentItem.mostPopularComics) }
                     )
-                    holder.binding.setVariable(BR.item, currentItem.mostPopularComics)
                 }
             }
         }
