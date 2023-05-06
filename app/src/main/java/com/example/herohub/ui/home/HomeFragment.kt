@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (!series.isNullOrEmpty()) {
                     homeItems.add(HomeItem.Slider(series.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }))
+                    }.shuffled()))
                     homeAdapter.setItems(homeItems)
                 }
             }
@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (!character.isNullOrEmpty()) {
                     homeItems.add(HomeItem.SuperHeroes(character.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }))
+                    }.shuffled()))
                     homeAdapter.setItems(homeItems)
                 }
             }
@@ -62,7 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (!comic.isNullOrEmpty()) {
                     homeItems.add(HomeItem.MostPopularComics(comic.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }))
+                    }.shuffled()))
                     homeAdapter.setItems(homeItems)
                 }
             }
