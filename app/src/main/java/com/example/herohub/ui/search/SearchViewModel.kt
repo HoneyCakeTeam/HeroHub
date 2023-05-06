@@ -33,7 +33,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
         getAllCharacters()
         search()
     }
-
+////Here///
     @InverseMethod(value = "getSearchResult")
     fun setSearchQuery(query: String): String {
         _searchQuery.value = query
