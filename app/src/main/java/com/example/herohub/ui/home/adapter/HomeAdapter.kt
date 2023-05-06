@@ -73,15 +73,4 @@ class HomeAdapter(
         }
         return -1
     }
-
-    override fun areItemsSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
-        return oldItem.position == newItem.position
-    }
-
-    override fun areContentSame(
-        oldPosition: HomeItem,
-        newPosition: HomeItem,
-    ): Boolean {
-        return oldPosition == newPosition
-    }
 }
