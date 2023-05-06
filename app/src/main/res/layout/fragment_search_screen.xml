@@ -19,21 +19,23 @@
         android:windowSoftInputMode="adjustPan"
         android:fitsSystemWindows="true">
 
-        <EditText
+        <SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="@dimen/spacing_medium"
-            android:paddingStart="@dimen/spacing_giant"
             android:imeOptions="flagNoFullscreen"
             android:background="@drawable/search_rounded"
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
-            android:hint="@string/search"
+            android:queryHint="@string/search"
+            android:onQueryTextChange="@{viewModel.setSearchQuery}"
             android:text="@={viewModel.searchQuery}"
-            app:onTextChanged="@{(text) -> viewModel.updateSearchQuery(text.toString())}"
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintTop_toTopOf="parent" />
+
+<!--        android:text="@={viewModel.searchQuery}"-->
+<!--        app:onTextChanged="@{(text) -> viewModel.updateSearchQuery(text.toString())}"-->
 
 <!--        <ImageView-->
 <!--            android:id="@+id/img_search"-->
@@ -83,8 +85,11 @@
             android:clipToPadding="false"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             tools:listitem="@layout/item_search"
-            android:visibility="gone"
+            android:visibility="visible"
             app:spanCount="2"
+            app:items="@{viewModel.response.toData().results}"
+            app:showWhenSuccess="@{viewModel.response}"
+            app:itemClickListener="@{viewModel}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,19 +98,18 @@
              />
 <!--        app:items="@{viewModel.searchResults}"-->
 <!--        -->
-<!--        <com.airbnb.lottie.LottieAnimationView-->
-<!--            android:id="@+id/lottieAnimationView2"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="100dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:lottie_autoPlay="true"-->
-<!--            app:lottie_loop="true"-->
-<!--            app:lottie_rawRes="@raw/loading_circle_red"-->
-<!--            app:showWhenLoading="@{viewModel.response}" />-->
-
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_circle_red"
+            app:showWhenLoading="@{viewModel.response}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
