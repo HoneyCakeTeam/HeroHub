@@ -1,4 +1,4 @@
-package com.example.herohub.ui.home
+package com.example.herohub.ui.home.adapter
 
 import com.example.herohub.R
 import com.example.herohub.model.Comic

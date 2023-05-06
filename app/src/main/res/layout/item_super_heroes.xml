@@ -10,7 +10,7 @@
 
         <variable
             name="listener"
-            type="com.example.herohub.ui.home.SuperHeroesInteractionListener" />
+            type="com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener" />
 
     </data>
 
