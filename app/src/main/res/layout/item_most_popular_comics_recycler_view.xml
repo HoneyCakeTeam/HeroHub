@@ -48,7 +48,7 @@
             android:id="@+id/recycler_most_popular_comics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:paddingHorizontal="@dimen/spacing_medium"
             android:layout_marginVertical="@dimen/spacing_small"
             android:clipToPadding="false"
             android:orientation="horizontal"
