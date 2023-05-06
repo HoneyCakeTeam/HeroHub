@@ -25,39 +25,65 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_series_data"
+            android:id="@+id/text_series_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:fontFamily="@font/josefinsans_semibold"
+            android:fontFamily="@font/josefinsans_medium"
             android:text="@{viewModel.seriesDetails.toData().results.get(0).title}"
-            android:textSize="@dimen/text_xgiant"
+            android:textSize="@dimen/text_giant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
             tools:text="Series" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_circle_red"
-            app:showWhenLoading="@{viewModel.seriesDetails}" />
-
-        <ImageView
+        <TextView
+            android:id="@+id/text_series_description_fixed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/error"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/josefinsans_semibold"
+            android:text="@string/description"
+            android:textSize="@dimen/text_giant"
+            android:layout_marginStart="@dimen/spacing_medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showWhenError="@{viewModel.seriesDetails}" />
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintTop_toBottomOf="@+id/text_series_title"
+            />
+
+        <TextView
+            android:id="@+id/text_series_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefinsans_medium"
+            android:text='@{viewModel.seriesDetails.toData().results.get(0).description != null ? viewModel.seriesDetails.toData().results.get(0).description : "No description available"}'
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/md_theme_light_primary"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="@+id/text_series_description_fixed"
+            app:layout_constraintTop_toBottomOf="@+id/text_series_description_fixed"
+            tools:text="Description" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading_circle_red"
+                    app:showWhenLoading="@{viewModel.seriesDetails}" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/error"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:showWhenError="@{viewModel.seriesDetails}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
