@@ -28,9 +28,9 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     val seriesResponse: LiveData<UiState<DataResponse<Series>>>
         get() = _seriesResponse
 
-    private val _mostPopularComicsResponse = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val mostPopularComicsResponse: LiveData<UiState<DataResponse<Comic>>>
-        get() = _mostPopularComicsResponse
+    private val _mostPopularCharactersResponse = MutableLiveData<UiState<DataResponse<Comic>>>()
+    val mostPopularCharactersResponse: LiveData<UiState<DataResponse<Comic>>>
+        get() = _mostPopularCharactersResponse
 
     init {
         getHomeData()
@@ -38,7 +38,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
 
     private fun getHomeData() {
         getAllCharacters()
-        getMostPopularComics()
+        getMostPopularCharacters()
         getAllSeries()
     }
 
@@ -50,10 +50,10 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         )
     }
 
-    private fun getMostPopularComics() {
+    private fun getMostPopularCharacters() {
         disposeObservable(
             repository.getAllComics(),
-            ::onGetMostPopularComicsSuccess,
+            ::onGetMostPopularCharactersSuccess,
             ::onError
         )
     }
@@ -70,8 +70,8 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         _characterResponse.postValue(UiState)
     }
 
-    private fun onGetMostPopularComicsSuccess(UiState: UiState<DataResponse<Comic>>) {
-        _mostPopularComicsResponse.postValue(UiState)
+    private fun onGetMostPopularCharactersSuccess(UiState: UiState<DataResponse<Comic>>) {
+        _mostPopularCharactersResponse.postValue(UiState)
     }
 
     private fun onGetSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
@@ -80,7 +80,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
 
     private fun onError(throwable: Throwable) {
         _characterResponse.postValue(UiState.Error(throwable.message.toString()))
-        _mostPopularComicsResponse.postValue(UiState.Error(throwable.message.toString()))
+        _mostPopularCharactersResponse.postValue(UiState.Error(throwable.message.toString()))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
     }
 

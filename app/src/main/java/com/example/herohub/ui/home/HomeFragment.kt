@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeMostPopularCharactersResponse() {
-        viewModel.mostPopularComicsResponse.observe(viewLifecycleOwner) { uiState ->
+        viewModel.mostPopularCharactersResponse.observe(viewLifecycleOwner) { uiState ->
             uiState.toData()?.results.let { comic ->
                 if (!comic.isNullOrEmpty()) {
                     homeItems.add(HomeItem.MostPopularCharacters(comic.filterNot {
