@@ -47,5 +47,6 @@ fun setImageFromUrl(view: ImageView, url: String?) {
         .load("$url.jpg")
         .placeholder(R.drawable.movie_placeholder)
         .error(R.drawable.not_found)
+        .centerCrop()
         .into(view)
 }

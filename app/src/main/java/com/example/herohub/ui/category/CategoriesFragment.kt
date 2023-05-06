@@ -8,7 +8,6 @@ import com.example.herohub.ui.category.characters.CharactersFragment
 import com.example.herohub.ui.category.comics.ComicsFragment
 import com.example.herohub.ui.category.events.EventsFragment
 import com.example.herohub.ui.category.series.SeriesFragment
-import com.example.herohub.ui.category.stories.StoriesFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
