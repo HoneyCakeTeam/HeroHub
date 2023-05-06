@@ -77,10 +77,7 @@ class HomeViewModel : BaseViewModel(), MostPopularComicsInteractionListener,
 
     private fun onGetSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
         _seriesResponse.postValue(UiState)
-//        val result =  UiState.toData()?.results?.filter {
-//            it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
-//        }
-//        _seriesResponse.postValue(UiState.)
+
     }
 
     private fun onError(throwable: Throwable) {

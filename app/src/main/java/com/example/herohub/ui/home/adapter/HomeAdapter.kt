@@ -46,7 +46,6 @@ class HomeAdapter(
                     )
 
                     Log.e("HomeAdapter", "Slider ${currentItem.slider}")
-                    holder.binding.setVariable(BR.item, currentItem.slider)
                 }
 
                 is HomeItem.SuperHeroes -> {
@@ -56,8 +55,6 @@ class HomeAdapter(
                             .apply { setItems(currentItem.superHeroes) }
                     )
                     Log.e("HomeAdapter", "SuperHeroes: ${currentItem.superHeroes}")
-
-                    holder.binding.setVariable(BR.item, currentItem.superHeroes)
 
                 }
 
@@ -69,7 +66,6 @@ class HomeAdapter(
                     )
                     Log.e("HomeAdapter", "MostPopularComics: ${currentItem.mostPopularComics}")
                     Log.e("HomeAdapter", "BR.adapterRecycler: ${BR.adapterRecycler}")
-                    holder.binding.setVariable(BR.item, currentItem.mostPopularComics)
                 }
             }
         }
