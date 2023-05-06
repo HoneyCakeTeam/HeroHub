@@ -9,9 +9,13 @@ import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseInteractionListener
 import com.example.herohub.ui.base.BaseViewModel
+import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
+import com.example.herohub.ui.home.adapter.SliderInteractionListener
+import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
-class HomeViewModel : BaseViewModel(), BaseInteractionListener{
+class HomeViewModel : BaseViewModel(), MostPopularComicsInteractionListener ,
+SuperHeroesInteractionListener, SliderInteractionListener{
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -80,6 +84,18 @@ class HomeViewModel : BaseViewModel(), BaseInteractionListener{
         _characterResponse.postValue(UiState.Error(throwable.message.toString()))
         _mostPopularComicsResponse.postValue(UiState.Error(throwable.message.toString()))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
+    }
+
+    override fun onComicClick(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSeriesClick(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCharacterClick(id: Int) {
+        TODO("Not yet implemented")
     }
 
 }
