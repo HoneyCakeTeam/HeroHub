@@ -21,6 +21,11 @@ interface MarvelService {
     @GET("characters")
     fun getAllCharacters(): Single<Response<BaseResponse<Character>>>
 
+    @GET("characters")
+    fun getSearchQuery(
+        @Query("name")
+        name: String): Single<Response<BaseResponse<Character>>>
+
     @GET("characters/{characterId}")
     fun getCharacterDetails(
         @Path("characterId") characterId: Int
