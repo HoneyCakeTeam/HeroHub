@@ -8,6 +8,10 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.SliderAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.example.herohub.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
