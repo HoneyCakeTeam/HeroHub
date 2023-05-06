@@ -22,12 +22,8 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
             val action = CategoriesFragmentDirections
                 .actionCategoriesFragmentToEventsDetailsFragment(eventId)
             Navigation.findNavController(binding.root).navigate(action)
-
-
         }
     }
-
-
     private fun initiateAdapter() {
         val adapter = EventsAdapter(viewModel)
         binding.recyclerEvents.adapter = adapter
