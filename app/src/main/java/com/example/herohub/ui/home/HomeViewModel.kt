@@ -7,11 +7,14 @@ import com.example.herohub.model.Character
 import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Series
-import com.example.herohub.ui.base.BaseInteractionListener
 import com.example.herohub.ui.base.BaseViewModel
+import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
+import com.example.herohub.ui.home.adapter.SliderInteractionListener
+import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
-class HomeViewModel : BaseViewModel(), BaseInteractionListener{
+class HomeViewModel : BaseViewModel(), MostPopularComicsInteractionListener,
+    SliderInteractionListener, SuperHeroesInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -74,12 +77,28 @@ class HomeViewModel : BaseViewModel(), BaseInteractionListener{
 
     private fun onGetSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
         _seriesResponse.postValue(UiState)
+//        val result =  UiState.toData()?.results?.filter {
+//            it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
+//        }
+//        _seriesResponse.postValue(UiState.)
     }
 
     private fun onError(throwable: Throwable) {
         _characterResponse.postValue(UiState.Error(throwable.message.toString()))
         _mostPopularComicsResponse.postValue(UiState.Error(throwable.message.toString()))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
+    }
+
+    override fun onComicClick(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCharacterClick(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemClick(id: Int) {
+        TODO("Not yet implemented")
     }
 
 }
