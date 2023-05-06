@@ -16,6 +16,10 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
     private val _events = MutableLiveData<UiState<DataResponse<Event>>>()
     val events: LiveData<UiState<DataResponse<Event>>>
         get() = _events
+    private val _eventId = MutableLiveData<Int>()
+    val eventId : LiveData<Int>
+        get() = _eventId
+
 
     init {
         getAllEvents()
@@ -37,6 +41,7 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
 
     override fun onClickItem(id: Int) {
         log("event $id")
+        _eventId.postValue(id)
 
     }
 
