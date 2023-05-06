@@ -14,6 +14,7 @@
             android:id="@+id/action_home_fragment_to_characters_details_fragment2"
             app:destination="@id/characters_details_fragment" />
     </fragment>
+
     <fragment
         android:id="@+id/characters_details_fragment"
         android:name="com.example.herohub.ui.characterdetails.CharacterDetailsFragment"
@@ -23,16 +24,27 @@
             android:name="characterId"
             app:argType="integer" />
     </fragment>
+
     <fragment
         android:id="@+id/comics_details_fragment"
         android:name="com.example.herohub.ui.comicdetails.ComicDetailsFragment"
         android:label="@string/comics_details"
-        tools:layout="@layout/fragment_comics_details" />
+        tools:layout="@layout/fragment_comics_details">
+        <argument
+            android:name="comicId"
+            app:argType="integer" />
+    </fragment>
+
     <fragment
         android:id="@+id/series_details_fragment"
         android:name="com.example.herohub.ui.seriesdetails.SeriesDetailsFragment"
         android:label="@string/series_details"
-        tools:layout="@layout/fragment_series_details" />
+        tools:layout="@layout/fragment_series_details">
+        <argument
+            android:name="seriesId"
+            app:argType="integer" />
+    </fragment>
+
     <fragment
         android:id="@+id/events_details_fragment"
         android:name="com.example.herohub.ui.eventdetails.EventDetailsFragment"
@@ -42,6 +54,7 @@
             android:name="eventId"
             app:argType="integer" />
     </fragment>
+
     <fragment
         android:id="@+id/stories_details_fragment"
         android:name="com.example.herohub.ui.storydetails.StoriesDetailsFragment"
@@ -57,6 +70,7 @@
         android:name="com.example.herohub.ui.search.SearchScreenFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search_screen" />
+
     <fragment
         android:id="@+id/categories_fragment"
         android:name="com.example.herohub.ui.category.CategoriesFragment"
@@ -89,4 +103,5 @@
             app:popUpToInclusive="true" />
 
     </fragment>
+
 </navigation>
