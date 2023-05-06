@@ -69,6 +69,13 @@
             app:launchSingleTop="false"
             app:popUpTo="@id/categories_fragment"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_categories_fragment_to_series_details_fragment"
+            app:destination="@id/series_details_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/categories_fragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_categories_fragment_to_events_details_fragment"
             app:destination="@id/events_details_fragment"

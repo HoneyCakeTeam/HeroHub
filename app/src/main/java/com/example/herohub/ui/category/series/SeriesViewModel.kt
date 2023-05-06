@@ -17,6 +17,10 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
     val allSeries: LiveData<UiState<DataResponse<Series>>>
         get() = _allSeries
 
+    private val _seriesId = MutableLiveData<Int>()
+    val seriesId: LiveData<Int>
+        get() = _seriesId
+
     init {
         getAllSeries()
     }
@@ -34,7 +38,7 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
     }
 
     override fun onClickItem(id: Int) {
-        log("All Series ${id}")
+        _seriesId.postValue(id)
     }
 
 }
