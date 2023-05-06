@@ -39,7 +39,12 @@
         android:id="@+id/series_details_fragment"
         android:name="com.example.herohub.ui.seriesdetails.SeriesDetailsFragment"
         android:label="@string/series_details"
-        tools:layout="@layout/fragment_series_details" />
+        tools:layout="@layout/fragment_series_details" >
+        <argument
+            android:name="seriesId"
+            android:defaultValue="50"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/events_details_fragment"
         android:name="com.example.herohub.ui.eventdetails.EventDetailsFragment"

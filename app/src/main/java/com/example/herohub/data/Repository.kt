@@ -20,12 +20,16 @@ class Repository {
         api.getAllCharacters()
     }
 
-    fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
-        api.getAllSeries()
+    fun getSeriesDetails(seriesId: Int): Observable<UiState<DataResponse<Series>>> = wrapWithState {
+        api.getSeriesDetails(seriesId)
     }
 
     fun getEvent(eventId: Int): Observable<UiState<DataResponse<Event>>> = wrapWithState {
         api.getEvent(eventId)
+    }
+
+    fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
+        api.getAllSeries()
     }
 
     fun getAllComics(): Observable<UiState<DataResponse<Comic>>> = wrapWithState {
