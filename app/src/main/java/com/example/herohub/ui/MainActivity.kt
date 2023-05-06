@@ -27,17 +27,11 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setupNavigation() {
         val navController = findNavController(R.id.fragment_host)
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        // NavigationUI.setupActionBarWithNavController(this, navController)
         binding.bottomNav.setupWithNavController(navController)
     }
-    override fun onSupportNavigateUp(): Boolean {
+    /*override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.fragment_host)
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-
-    private fun isDarkTheme(): Boolean {
-        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return currentNightMode == Configuration.UI_MODE_NIGHT_YES
-    }
+    }*/
 }
