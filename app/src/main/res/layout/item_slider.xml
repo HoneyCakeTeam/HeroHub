@@ -19,6 +19,7 @@
         android:layout_height="178dp"
         android:layout_marginHorizontal="@dimen/spacing_small"
         android:elevation="4dp"
+        android:onClick="@{()-> listener.onSeriesSliderItemClick(item.id)}"
         app:cardCornerRadius="@dimen/elevation_semi_large">
 
         <com.google.android.material.imageview.ShapeableImageView
