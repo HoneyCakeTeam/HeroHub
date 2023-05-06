@@ -21,7 +21,7 @@ class Repository {
     }
 
     fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
-        api.getAllSeries()
+        api.getAllSeries(100)
     }
 
     fun getEvent(eventId: Int): Observable<UiState<DataResponse<Event>>> = wrapWithState {
@@ -37,7 +37,7 @@ class Repository {
     }
 
     fun getAllEvents(): Observable<UiState<DataResponse<Event>>> = wrapWithState {
-        api.getAllEvents()
+        api.getAllEvents(100)
     }
 
 
