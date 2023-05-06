@@ -7,11 +7,14 @@ import com.example.herohub.model.Character
 import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Series
-import com.example.herohub.ui.base.BaseInteractionListener
 import com.example.herohub.ui.base.BaseViewModel
+import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
+import com.example.herohub.ui.home.adapter.SliderInteractionListener
+import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
-class HomeViewModel : BaseViewModel(), BaseInteractionListener{
+class HomeViewModel : BaseViewModel(), MostPopularComicsInteractionListener,
+    SliderInteractionListener, SuperHeroesInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -63,7 +66,6 @@ class HomeViewModel : BaseViewModel(), BaseInteractionListener{
         )
     }
 
-
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
         _characterResponse.postValue(UiState)
     }
@@ -82,4 +84,15 @@ class HomeViewModel : BaseViewModel(), BaseInteractionListener{
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
     }
 
+    override fun onMostPopularComicsItemClick(id: Int) {
+
+    }
+
+    override fun onSeriesSliderItemClick(id: Int) {
+
+    }
+
+    override fun onSuperHeroesItemClick(id: Int) {
+
+    }
 }
