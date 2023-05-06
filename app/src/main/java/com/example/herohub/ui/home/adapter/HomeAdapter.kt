@@ -3,8 +3,8 @@ package com.example.herohub.ui.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.example.herohub.R
 import com.example.herohub.BR
+import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 import com.example.herohub.ui.home.HomeItem
@@ -40,25 +40,24 @@ class HomeAdapter(
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         SliderAdapter(listener as SliderInteractionListener)
+                            .apply { setItems(currentItem.slider) }
                     )
-                    holder.binding.setVariable(BR.item, currentItem.slider)
                 }
 
                 is HomeItem.SuperHeroes -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
+                            .apply { setItems(currentItem.superHeroes) }
                     )
-                    holder.binding.setVariable(BR.item, currentItem.superHeroes)
-
                 }
 
                 is HomeItem.MostPopularComics -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
+                            .apply { setItems(currentItem.mostPopularComics) }
                     )
-                    holder.binding.setVariable(BR.item, currentItem.mostPopularComics)
                 }
             }
         }
@@ -67,9 +66,9 @@ class HomeAdapter(
     override fun getItemViewType(position: Int): Int {
         if (homeItems.isNotEmpty()) {
             return when (homeItems[position]) {
-                is HomeItem.Slider -> R.layout.item_slider
-                is HomeItem.SuperHeroes -> R.layout.item_super_heroes
-                is HomeItem.MostPopularComics -> R.layout.item_most_popular_comics
+                is HomeItem.Slider -> R.layout.item_slider_recycler_view
+                is HomeItem.SuperHeroes -> R.layout.item_super_heroes_recycler_view
+                is HomeItem.MostPopularComics -> R.layout.item_most_popular_comics_recycler_view
             }
         }
         return -1
