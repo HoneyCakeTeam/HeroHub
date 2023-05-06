@@ -11,7 +11,7 @@ import com.example.herohub.ui.home.HomeItem
 
 class HomeAdapter(
     private var homeItems: MutableList<HomeItem>,
-    val listener: BaseInteractionListener
+    val listener: BaseInteractionListener,
 ) : BaseAdapter<HomeItem>(listener) {
 
     override val layoutId: Int = 0
@@ -38,8 +38,27 @@ class HomeAdapter(
             when (val currentItem = homeItems[position]) {
                 is HomeItem.Slider -> {
                     holder.binding.setVariable(
-                        BR.
+                        BR.adapterRecycler,
+                        SliderAdapter(listener as SliderInteractionListener)
                     )
+                    holder.binding.setVariable(BR.item, currentItem.slider)
+                }
+
+                is HomeItem.SuperHeroes -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler,
+                        SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
+                    )
+                    holder.binding.setVariable(BR.item, currentItem.superHeroes)
+
+                }
+
+                is HomeItem.MostPopularComics -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler,
+                        MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
+                    )
+                    holder.binding.setVariable(BR.item, currentItem.mostPopularComics)
                 }
             }
         }
