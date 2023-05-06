@@ -1,6 +1,6 @@
 package com.example.herohub.ui.search
 
-import androidx.databinding.InverseMethod
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,28 +22,27 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     val response: LiveData<UiState<DataResponse<Character>?>> get() = _response
 
     private val _searchQuery = MutableLiveData<String>()
-    val searchQuery : LiveData<String>
+    val searchQuery: LiveData<String>
         get() = _searchQuery
 
-    private  val _searchResult = MediatorLiveData<List<Character>>()
+    private val _searchResult = MutableLiveData<List<Character>>()
     val searchResult: LiveData<List<Character>>
-    get() = _searchResult
+        get() = _searchResult
 
     init {
         getAllCharacters()
-        search()
-    }
-////Here///
-    @InverseMethod(value = "getSearchResult")
-    fun setSearchQuery(query: String): String {
-        _searchQuery.value = query
-        return query
     }
 
-    fun getSearchResult(): LiveData<List<Character>> = _searchResult
+    private fun getAllCharacters() {
+        _response.postValue(UiState.Loading)
+        disposeObservable(
+            repository.getAllCharacters(),
+            ::onGetCharacterSuccess, ::onGetCharacterFailure
+        )
+    }
 
-   fun search() {
-        _searchResult.addSource(_searchQuery) { query ->
+    fun search(query: String) {
+//        _searchResult.addSource(_searchQuery) { query ->
             if (query.isEmpty()) {
                 _searchResult.value = _response.value?.toData()?.results!!
             } else {
@@ -64,14 +63,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
                         }
                     ).dispose()
             }
-        }
-    }
 
-
-    fun getAllCharacters() {
-        _response.postValue(UiState.Loading)
-        disposeObservable(repository.getAllCharacters(),
-            ::onGetCharacterSuccess , ::onGetCharacterFailure)
     }
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
@@ -86,6 +78,15 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     override fun <T> onItemClick(item: T) {
     }
 }
+
+//////Here///
+//    @InverseMethod(value = "getSearchResult")
+//    fun setSearchQuery(query: String): String {
+//        _searchQuery.value = query
+//        return query
+//    }
+//
+//    fun getSearchResult(): LiveData<List<Character>> = _searchResult
 
 
 //    fun getSearchQuery(query: String) {

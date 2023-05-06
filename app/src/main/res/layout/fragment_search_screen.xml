@@ -5,11 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.herohub.ui.search.SearchViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,9 +27,11 @@
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
             android:queryHint="@string/search"
-            android:onQueryTextListener="@{viewModel::searchCharacters}"
+
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!--            app:query="@{viewModel.searchQuery}"-->
 
 <!--        <ImageView-->
 <!--            android:id="@+id/img_search"-->
@@ -72,12 +72,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_small"
-            android:visibility="gone"
+            android:visibility="visible"
             android:clipToPadding="false"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             tools:listitem="@layout/item_search"
             app:spanCount="2"
-            app:items="@{viewModel.response.toData().results}"
+            app:items="@{viewModel.searchResult}"
             app:showWhenSuccess="@{viewModel.response}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
