@@ -15,11 +15,13 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
     override fun setup() {
         getSearchResult()
         initAdapter()
+
     }
 
     private fun getSearchResult(){
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.search(query)
                 return true
             }
 

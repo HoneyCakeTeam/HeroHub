@@ -23,16 +23,16 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     val searchQuery: LiveData<String>
         get() = _searchQuery
 
-    private val _searchResult = MutableLiveData<List<Character>>()
-    val searchResult: LiveData<List<Character>>
-        get() = _searchResult
+    val _searchResult = MutableLiveData<List<Character>>()
+//    val searchResult: LiveData<List<Character>>
+//        get() = _searchResult
 
     init {
+        _searchResult.value = mutableListOf()
         getAllCharacters()
     }
 
     private fun getAllCharacters() {
-        _response.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess, ::onGetCharacterFailure
@@ -40,10 +40,9 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 
     fun search(query: String) {
-//        _searchResult.addSource(_searchQuery) { query ->
-            if (query.isEmpty()) {
-                _searchResult.value = _response.value?.toData()?.results!!
-            } else {
+        log(query)
+
+            if (query.isNotEmpty()) {
                 repository.getAllCharacters()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -61,12 +60,13 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
                         }
                     ).dispose()
             }
-
     }
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
-        _response.postValue(uiState)
-        log(uiState.toData().toString())
+//        _response.postValue(uiState)
+//        log(uiState.toData().toString())
+        _searchResult.postValue(uiState.toData()?.results!!)
+
     }
 
     private fun onGetCharacterFailure(throwable: Throwable) {

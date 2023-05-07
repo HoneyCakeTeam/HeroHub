@@ -27,7 +27,6 @@
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
             android:queryHint="@string/search"
-            app:query="@{viewModel.searchQuery}"
             android:searchIcon="@drawable/ic_search"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,7 +76,7 @@
             android:layout_marginHorizontal="@dimen/spacing_medium"
             tools:listitem="@layout/item_search"
             app:spanCount="2"
-            app:items="@{viewModel.searchResult}"
+            app:items="@{viewModel._searchResult}"
             app:showWhenSuccess="@{viewModel.response}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

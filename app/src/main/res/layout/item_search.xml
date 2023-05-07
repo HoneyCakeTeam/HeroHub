@@ -9,13 +9,15 @@
             name="listener"
             type="com.example.herohub.ui.search.SearchInteractionListener" />
 
+        <variable
+            name="item"
+            type="com.example.herohub.model.Character" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_marginBottom="@dimen/spacing_small"
-
         app:cardCornerRadius="@dimen/spacing_medium">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,21 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                app:imageUrl="@{item.thumbnail.path}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/spiderman" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@mipmap/ic_launcher"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -51,6 +44,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/josefinsans_semibold"
                 android:lines="1"
+                android:text="@{item.name}"
                 android:paddingHorizontal="@dimen/spacing_tiny"
                 android:textColor="@color/md_theme_dark_onBackground"
                 android:textSize="@dimen/text_xgiant"
