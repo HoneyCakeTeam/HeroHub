@@ -67,9 +67,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             (comics?.available!! +
                                     series?.available!! +
                                     events?.available!! +
-                                    stories?.available!!) > 300
+                                    stories?.available!!) > 100
                         }
-                    }.take(20)))
+                    }.shuffled().take(20)))
                     homeAdapter.setItems(homeItems)
                 }
             }
