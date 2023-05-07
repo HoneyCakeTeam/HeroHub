@@ -14,6 +14,7 @@
             android:id="@+id/action_home_fragment_to_characters_details_fragment2"
             app:destination="@id/characters_details_fragment" />
     </fragment>
+
     <fragment
         android:id="@+id/characters_details_fragment"
         android:name="com.example.herohub.ui.characterdetails.CharacterDetailsFragment"
@@ -21,29 +22,39 @@
         tools:layout="@layout/fragment_characters_details">
         <argument
             android:name="characterId"
-            android:defaultValue="0"
             app:argType="integer" />
     </fragment>
+
     <fragment
         android:id="@+id/comics_details_fragment"
         android:name="com.example.herohub.ui.comicdetails.ComicDetailsFragment"
         android:label="@string/comics_details"
-        tools:layout="@layout/fragment_comics_details" />
+        tools:layout="@layout/fragment_comics_details">
+        <argument
+            android:name="comicId"
+            app:argType="integer" />
+    </fragment>
+
     <fragment
         android:id="@+id/series_details_fragment"
         android:name="com.example.herohub.ui.seriesdetails.SeriesDetailsFragment"
         android:label="@string/series_details"
-        tools:layout="@layout/fragment_series_details" />
+        tools:layout="@layout/fragment_series_details">
+        <argument
+            android:name="seriesId"
+            app:argType="integer" />
+    </fragment>
+
     <fragment
         android:id="@+id/events_details_fragment"
         android:name="com.example.herohub.ui.eventdetails.EventDetailsFragment"
-        android:label="@string/events_details"
-        tools:layout="@layout/fragment_events_details" >
+        android:label="events_details"
+        tools:layout="@layout/fragment_events_details">
         <argument
             android:name="eventId"
-            app:argType="integer"
-            android:defaultValue="269" />
+            app:argType="integer" />
     </fragment>
+
     <fragment
         android:id="@+id/stories_details_fragment"
         android:name="com.example.herohub.ui.storydetails.StoriesDetailsFragment"
@@ -59,58 +70,38 @@
         android:name="com.example.herohub.ui.search.SearchScreenFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search_screen" />
+
     <fragment
         android:id="@+id/categories_fragment"
         android:name="com.example.herohub.ui.category.CategoriesFragment"
         android:label="@string/category"
-        tools:layout="@layout/fragment_categories" >
+        tools:layout="@layout/fragment_categories">
+
         <action
-            android:id="@+id/action_categories_fragment_to_characterFragment"
-            app:destination="@id/characterFragment" />
+            android:id="@+id/action_categories_fragment_to_characters_details_fragment"
+            app:destination="@id/characters_details_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/categories_fragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_categories_fragment_to_creatorFragment"
-            app:destination="@id/creatorFragment" />
+            android:id="@+id/action_categories_fragment_to_series_details_fragment"
+            app:destination="@id/series_details_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/categories_fragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_categories_fragment_to_seriesFragment"
-            app:destination="@id/seriesFragment" />
+            android:id="@+id/action_categories_fragment_to_events_details_fragment"
+            app:destination="@id/events_details_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/categories_fragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_categories_fragment_to_eventsFragment"
-            app:destination="@id/eventsFragment" />
-        <action
-            android:id="@+id/action_categories_fragment_to_storyFragment"
-            app:destination="@id/storyFragment" />
-        <action
-            android:id="@+id/action_categories_fragment_to_comicsFragment"
-            app:destination="@id/comicsFragment" />
+            android:id="@+id/action_categories_fragment_to_comics_details_fragment"
+            app:destination="@id/comics_details_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/categories_fragment"
+            app:popUpToInclusive="true" />
+
     </fragment>
-    <fragment
-        android:id="@+id/characterFragment"
-        android:name="com.example.herohub.ui.category.character.CharacterFragment"
-        android:label="fragment_character"
-        tools:layout="@layout/fragment_character" />
-    <fragment
-        android:id="@+id/seriesFragment"
-        android:name="com.example.herohub.ui.category.series.SeriesFragment"
-        android:label="fragment_series"
-        tools:layout="@layout/fragment_series" />
-    <fragment
-        android:id="@+id/storyFragment"
-        android:name="com.example.herohub.ui.category.story.StoryFragment"
-        android:label="fragment_story"
-        tools:layout="@layout/fragment_story" />
-    <fragment
-        android:id="@+id/eventsFragment"
-        android:name="com.example.herohub.ui.category.event.EventsFragment"
-        android:label="fragment_events"
-        tools:layout="@layout/fragment_events" />
-    <fragment
-        android:id="@+id/comicsFragment"
-        android:name="com.example.herohub.ui.category.comic.ComicsFragment"
-        android:label="fragment_comics"
-        tools:layout="@layout/fragment_comics" />
-    <fragment
-        android:id="@+id/creatorFragment"
-        android:name="com.example.herohub.ui.category.creator.CreatorFragment"
-        android:label="fragment_creator"
-        tools:layout="@layout/fragment_creator" />
+
 </navigation>

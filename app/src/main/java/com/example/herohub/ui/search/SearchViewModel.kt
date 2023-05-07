@@ -1,8 +1,6 @@
 package com.example.herohub.ui.search
 
-
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
 import com.example.herohub.model.Character

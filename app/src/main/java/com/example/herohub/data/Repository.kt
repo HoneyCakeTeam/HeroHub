@@ -17,7 +17,7 @@ import retrofit2.Response
 class Repository {
     private val api = MarvelApi.marvelService
     fun getAllCharacters(): Observable<UiState<DataResponse<Character>>> = wrapWithState {
-        api.getAllCharacters()
+        api.getAllCharacters(100)
     }
 
     fun getSearchQuery(query:String):  Observable<UiState<DataResponse<Character>>> = wrapWithState {
@@ -25,7 +25,10 @@ class Repository {
     }
 
     fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
-        api.getAllSeries()
+        api.getAllSeries(100)
+    }
+    fun getSeriesDetails(seriesId: Int): Observable<UiState<DataResponse<Series>>> = wrapWithState {
+        api.getSeriesDetails(seriesId)
     }
 
     fun getEvent(eventId: Int): Observable<UiState<DataResponse<Event>>> = wrapWithState {
@@ -33,7 +36,7 @@ class Repository {
     }
 
     fun getAllComics(): Observable<UiState<DataResponse<Comic>>> = wrapWithState {
-        api.getAllComics()
+        api.getAllComics(100)
     }
 
     fun getAllCreators(): Observable<UiState<DataResponse<Creator>>> = wrapWithState {
@@ -41,7 +44,7 @@ class Repository {
     }
 
     fun getAllEvents(): Observable<UiState<DataResponse<Event>>> = wrapWithState {
-        api.getAllEvents()
+        api.getAllEvents(100)
     }
 
 
