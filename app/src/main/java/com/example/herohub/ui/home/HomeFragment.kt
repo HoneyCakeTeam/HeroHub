@@ -62,9 +62,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         it.thumbnail?.path?.contains("image_not_available")!!
                     }.filter {
                         it.run {
-                            comics?.available!! > 50
+                            comics?.available!! > 20
                         }
-                    }.shuffled().take(20)))
+                    }.takeLast(20)))
                     homeAdapter.setItems(homeItems)
                 }
             }
@@ -95,9 +95,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             (comics?.available!! +
                                     series?.available!! +
                                     events?.available!! +
-                                    stories?.available!!) > 100
+                                    stories?.available!!) > 150
                         }
-                    }.shuffled().take(20)))
+                    }.take(20)))
                     homeAdapter.setItems(homeItems)
                 }
             }
