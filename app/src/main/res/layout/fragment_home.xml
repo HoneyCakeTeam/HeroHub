@@ -14,10 +14,6 @@
             type="com.example.herohub.ui.home.HomeViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,7 +46,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:clipToPadding="false"
                 android:orientation="vertical"
@@ -85,7 +81,5 @@
                 app:showWhenError="@{viewModel.characterResponse}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
 </layout>
