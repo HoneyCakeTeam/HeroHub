@@ -43,8 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }.shuffled().take(10).map {
                         SlideModel(
                             "${it.thumbnail?.path}.jpg",
-                            it.title ?: "",
-                            ScaleTypes.FIT
+                            ScaleTypes.CENTER_CROP
                         )
                     }
                     imageList.addAll(images)
