@@ -15,9 +15,10 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_marginBottom="@dimen/spacing_small"
+        android:layout_marginHorizontal="@dimen/spacing_tiny"
         app:cardCornerRadius="@dimen/spacing_medium">
 
         <androidx.constraintlayout.widget.ConstraintLayout

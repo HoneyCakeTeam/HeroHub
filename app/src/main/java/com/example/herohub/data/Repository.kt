@@ -20,10 +20,6 @@ class Repository {
         api.getAllCharacters(100)
     }
 
-    fun getSearchQuery(query:String):  Observable<UiState<DataResponse<Character>>> = wrapWithState {
-        api.getSearchQuery(query)
-    }
-
     fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
         api.getAllSeries(100)
     }
@@ -75,9 +71,7 @@ class Repository {
             } else {
                 UiState.Error(it.message())
             }
-        }.startWithItem(UiState.Loading)
+        }
     }
-
-
 }
 
