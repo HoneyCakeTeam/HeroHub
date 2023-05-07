@@ -46,6 +46,6 @@ fun setImageFromUrl(view: ImageView, url: String?) {
         .with(view)
         .load("$url.jpg")
         .placeholder(R.drawable.slider_placeholder)
-        .error(R.drawable.error)
+        .error(R.drawable.no_image_placeholder)
         .centerCrop().into(view)
 }
