@@ -30,9 +30,11 @@
             app:strokeWidth="0dp">
 
             <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider_image"
                 android:layout_width="wrap_content"
-                android:layout_height="220dp"
+                android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
+                app:iss_no_dots="true"
                 app:iss_auto_cycle="true"
                 app:iss_delay="1000"
                 app:iss_error_image="@drawable/no_image_placeholder"

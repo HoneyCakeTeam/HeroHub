@@ -1,6 +1,8 @@
 package com.example.herohub.ui.home
 
 import androidx.fragment.app.viewModels
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentHomeBinding
 import com.example.herohub.ui.base.BaseFragment
@@ -13,6 +15,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val viewModel: HomeViewModel by viewModels()
     private lateinit var homeAdapter: HomeAdapter
     private val homeItems = mutableListOf<HomeItem>()
+    private val imageList = mutableListOf<SlideModel>()
 
     override fun setup() {
         initHomeAdapter()
@@ -26,8 +29,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun observeLiveData() {
         observeSeries()
+        observeSliderSeries()
         observeSuperHeroesResponse()
         observeMostPopularCharactersResponse()
+    }
+
+    private fun observeSliderSeries() {
+        viewModel.seriesResponse.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.results?.let { series ->
+                if (series.isNotEmpty()) {
+                    val images = series.filterNot {
+                        it.thumbnail?.path?.contains("image_not_available")!!
+                    }.shuffled().take(5).map {
+                        SlideModel(
+                            "${it.thumbnail?.path}.jpg",
+                            it.title ?: "",
+                            ScaleTypes.FIT
+                        )
+                    }
+                    imageList.addAll(images)
+                    binding.imageSliderImage.setImageList(imageList)
+                }
+            }
+        }
     }
 
     private fun observeSeries() {
@@ -78,6 +102,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onPause() {
         super.onPause()
+        imageList.clear()
         homeItems.clear()
     }
 }
