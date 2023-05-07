@@ -19,6 +19,7 @@
     <string name="click_on_search_icon_to_start_searching">Click on search icon to start searching</string>
     <string name="description">Description</string>
     <string name="see_all">See all</string>
-    <string name="super_hero">Super Hero</string>
-    <string name="most_popular_characters">Most popular characters</string>
+    <string name="super_hero">Super Heroes</string>
+    <string name="most_popular_characters">Most Popular Characters</string>
+    <string name="characters_by_appearance">Characters by Appearance</string>
 </resources>

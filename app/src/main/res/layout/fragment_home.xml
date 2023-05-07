@@ -36,9 +36,9 @@
                 android:animateLayoutChanges="true"
                 app:iss_no_dots="true"
                 app:iss_auto_cycle="true"
-                app:iss_delay="1000"
+                app:iss_delay="3000"
                 app:iss_error_image="@drawable/no_image_placeholder"
-                app:iss_period="2000"
+                app:iss_period="5000"
                 app:iss_placeholder="@drawable/slider_placeholder" />
         </com.google.android.material.card.MaterialCardView>
 

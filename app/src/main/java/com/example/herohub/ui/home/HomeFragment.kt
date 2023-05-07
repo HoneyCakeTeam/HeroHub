@@ -28,7 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeLiveData() {
-        observeSeries()
+        observeCharactersByAppearance()
         observeSliderSeries()
         observeSuperHeroesResponse()
         observeMostPopularCharactersResponse()
@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (series.isNotEmpty()) {
                     val images = series.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.shuffled().take(5).map {
+                    }.shuffled().take(10).map {
                         SlideModel(
                             "${it.thumbnail?.path}.jpg",
                             it.title ?: "",
@@ -54,13 +54,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun observeSeries() {
-        viewModel.seriesResponse.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.results.let { series ->
-                if (!series.isNullOrEmpty()) {
-                    homeItems.add(HomeItem.Slider(series.filterNot {
+    private fun observeCharactersByAppearance() {
+        viewModel.characterResponse.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.results.let { character ->
+                if (!character.isNullOrEmpty()) {
+                    homeItems.add(HomeItem.CharactersByAppearance(character.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.shuffled().take(15)))
+                    }.filter {
+                        it.run {
+                            comics?.available!! > 50
+                        }
+                    }.shuffled().take(20)))
                     homeAdapter.setItems(homeItems)
                 }
             }

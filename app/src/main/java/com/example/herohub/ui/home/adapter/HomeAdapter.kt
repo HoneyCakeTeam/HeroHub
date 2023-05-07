@@ -36,10 +36,10 @@ class HomeAdapter(
     private fun bind(holder: ItemViewHolder, position: Int) {
         if (position != -1) {
             when (val currentItem = homeItems[position]) {
-                is HomeItem.Slider -> {
+                is HomeItem.CharactersByAppearance -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        SliderAdapter(listener as SliderInteractionListener)
+                        CharactersByAppearanceAdapter(listener as CharactersByAppearanceInteractionListener)
                             .apply { setItems(currentItem.slider) }
                     )
                 }
@@ -66,7 +66,7 @@ class HomeAdapter(
     override fun getItemViewType(position: Int): Int {
         if (homeItems.isNotEmpty()) {
             return when (homeItems[position]) {
-                is HomeItem.Slider -> R.layout.item_slider_recycler_view
+                is HomeItem.CharactersByAppearance -> R.layout.item_slider_recycler_view
                 is HomeItem.SuperHeroes -> R.layout.item_super_heroes_recycler_view
                 is HomeItem.MostPopularCharacters -> R.layout.item_most_popular_comics_recycler_view
             }
