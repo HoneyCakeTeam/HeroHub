@@ -1,6 +1,8 @@
 package com.example.herohub.ui.home
 
 import androidx.fragment.app.viewModels
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentHomeBinding
 import com.example.herohub.ui.base.BaseFragment
@@ -13,6 +15,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val viewModel: HomeViewModel by viewModels()
     private lateinit var homeAdapter: HomeAdapter
     private val homeItems = mutableListOf<HomeItem>()
+    private val imageList = mutableListOf<SlideModel>()
 
     override fun setup() {
         initHomeAdapter()
@@ -25,18 +28,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeLiveData() {
-        observeSeries()
+        observeCharactersByAppearance()
+        observeSliderSeries()
         observeSuperHeroesResponse()
-        observeMostPopularComicsResponse()
+        observeMostPopularCharactersResponse()
     }
 
-    private fun observeSeries() {
+    private fun observeSliderSeries() {
         viewModel.seriesResponse.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.results.let { series ->
-                if (!series.isNullOrEmpty()) {
-                    homeItems.add(HomeItem.Slider(series.filterNot {
+            uiState.toData()?.results?.let { series ->
+                if (series.isNotEmpty()) {
+                    val images = series.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.shuffled()))
+                    }.shuffled().take(10).map {
+                        SlideModel(
+                            "${it.thumbnail?.path}.jpg",
+                            ScaleTypes.CENTER_CROP
+                        )
+                    }
+                    imageList.addAll(images)
+                    binding.imageSliderImage.setImageList(imageList)
+                }
+            }
+        }
+    }
+
+    private fun observeCharactersByAppearance() {
+        viewModel.characterResponse.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.results.let { character ->
+                if (!character.isNullOrEmpty()) {
+                    homeItems.add(HomeItem.CharactersByAppearance(character.filterNot {
+                        it.thumbnail?.path?.contains("image_not_available")!!
+                    }.filter {
+                        it.run {
+                            comics?.available!! > 20
+                        }
+                    }.takeLast(20)))
                     homeAdapter.setItems(homeItems)
                 }
             }
@@ -49,20 +76,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (!character.isNullOrEmpty()) {
                     homeItems.add(HomeItem.SuperHeroes(character.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.shuffled()))
+                    }.take(15)))
                     homeAdapter.setItems(homeItems)
                 }
             }
         }
     }
 
-    private fun observeMostPopularComicsResponse() {
-        viewModel.mostPopularComicsResponse.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.results.let { comic ->
-                if (!comic.isNullOrEmpty()) {
-                    homeItems.add(HomeItem.MostPopularComics(comic.filterNot {
+    private fun observeMostPopularCharactersResponse() {
+        viewModel.characterResponse.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.results.let { character ->
+                if (!character.isNullOrEmpty()) {
+                    homeItems.add(HomeItem.MostPopularCharacters(character.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.shuffled()))
+                    }.filter {
+                        it.run {
+                            (comics?.available!! +
+                                    series?.available!! +
+                                    events?.available!! +
+                                    stories?.available!!) > 150
+                        }
+                    }.take(20)))
                     homeAdapter.setItems(homeItems)
                 }
             }
@@ -71,6 +105,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onPause() {
         super.onPause()
+        imageList.clear()
         homeItems.clear()
     }
 }
