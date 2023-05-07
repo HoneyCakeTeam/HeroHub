@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/image_slider"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:layout_margin="@dimen/spacing_medium"
+    app:layout_constraintEnd_toEndOf="@+id/recycler_view_home"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:showWhenSuccess="@{viewModel.characterResponse}"
+    app:strokeWidth="0dp">
+
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/image_slider_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        app:iss_auto_cycle="true"
+        app:iss_delay="3000"
+        app:iss_error_image="@drawable/no_image_placeholder"
+        app:iss_no_dots="true"
+        app:iss_period="3000"
+        app:iss_placeholder="@drawable/slider_placeholder" />
+</com.google.android.material.card.MaterialCardView>
