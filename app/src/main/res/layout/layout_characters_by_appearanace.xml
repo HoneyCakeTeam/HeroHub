@@ -7,7 +7,7 @@
 
         <variable
             name="adapterRecycler"
-            type="com.example.herohub.ui.home.adapter.MostPopularCharactersAdapter" />
+            type="com.example.herohub.ui.home.adapter.CharactersByAppearanceAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_small"
             android:fontFamily="@font/josefinsans_regular"
-            android:text="@string/most_popular_characters"
+            android:text="@string/characters_by_appearance"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_giant"
             app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_comics"
@@ -44,6 +44,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_comics"
-            tools:listitem="@layout/item_most_popular_comics" />
+            tools:listitem="@layout/item_character_by_appearance" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,7 +8,7 @@ import com.example.herohub.ui.base.BaseInteractionListener
 class CharactersByAppearanceAdapter(listener: CharactersByAppearanceInteractionListener) :
     BaseAdapter<Character>(listener) {
 
-    override val layoutId: Int = R.layout.item_slider
+    override val layoutId: Int = R.layout.item_character_by_appearance
 }
 
 interface CharactersByAppearanceInteractionListener : BaseInteractionListener {

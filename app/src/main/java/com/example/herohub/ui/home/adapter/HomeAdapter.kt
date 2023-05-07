@@ -66,9 +66,9 @@ class HomeAdapter(
     override fun getItemViewType(position: Int): Int {
         if (homeItems.isNotEmpty()) {
             return when (homeItems[position]) {
-                is HomeItem.CharactersByAppearance -> R.layout.item_slider_recycler_view
-                is HomeItem.SuperHeroes -> R.layout.item_super_heroes_recycler_view
-                is HomeItem.MostPopularCharacters -> R.layout.item_most_popular_comics_recycler_view
+                is HomeItem.CharactersByAppearance -> R.layout.layout_characters_by_appearanace
+                is HomeItem.SuperHeroes -> R.layout.layout_super_heroes
+                is HomeItem.MostPopularCharacters -> R.layout.layout_most_popular_characters
             }
         }
         return -1

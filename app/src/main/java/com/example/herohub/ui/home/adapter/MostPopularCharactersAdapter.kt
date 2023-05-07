@@ -8,7 +8,7 @@ import com.example.herohub.ui.base.BaseInteractionListener
 class MostPopularCharactersAdapter(listener: MostPopularCharactersInteractionListener) :
     BaseAdapter<Character>(listener) {
 
-    override val layoutId: Int = R.layout.item_most_popular_comics
+    override val layoutId: Int = R.layout.item_most_popular_characters
 }
 
 interface MostPopularCharactersInteractionListener : BaseInteractionListener {
