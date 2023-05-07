@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (!series.isNullOrEmpty()) {
                     homeItems.add(HomeItem.Slider(series.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.take(10).shuffled()))
+                    }.shuffled().take(10)))
                     homeAdapter.setItems(homeItems)
                 }
             }
@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (!character.isNullOrEmpty()) {
                     homeItems.add(HomeItem.SuperHeroes(character.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.take(10)))
+                    }.take(15)))
                     homeAdapter.setItems(homeItems)
                 }
             }
@@ -57,12 +57,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeMostPopularCharactersResponse() {
-        viewModel.mostPopularCharactersResponse.observe(viewLifecycleOwner) { uiState ->
-            uiState.toData()?.results.let { comic ->
-                if (!comic.isNullOrEmpty()) {
-                    homeItems.add(HomeItem.MostPopularCharacters(comic.filterNot {
+        viewModel.characterResponse.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.results.let { character ->
+                if (!character.isNullOrEmpty()) {
+                    homeItems.add(HomeItem.MostPopularCharacters(character.filterNot {
                         it.thumbnail?.path?.contains("image_not_available")!!
-                    }.take(10).shuffled()))
+                    }.shuffled().take(10)))
                     homeAdapter.setItems(homeItems)
                 }
             }

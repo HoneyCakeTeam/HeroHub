@@ -55,8 +55,8 @@ class HomeAdapter(
                 is HomeItem.MostPopularCharacters -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        MostPopularComicsAdapter(listener as MostPopularCharactersInteractionListener)
-                            .apply { setItems(currentItem.mostPopularComics) }
+                        MostPopularCharactersAdapter(listener as MostPopularCharactersInteractionListener)
+                            .apply { setItems(currentItem.mostPopularCharacters) }
                     )
                 }
             }

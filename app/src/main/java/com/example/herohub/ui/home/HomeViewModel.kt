@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
 import com.example.herohub.model.Character
-import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
@@ -28,17 +27,12 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     val seriesResponse: LiveData<UiState<DataResponse<Series>>>
         get() = _seriesResponse
 
-    private val _mostPopularCharactersResponse = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val mostPopularCharactersResponse: LiveData<UiState<DataResponse<Comic>>>
-        get() = _mostPopularCharactersResponse
-
     init {
         getHomeData()
     }
 
     private fun getHomeData() {
         getAllCharacters()
-        getMostPopularCharacters()
         getAllSeries()
     }
 
@@ -46,14 +40,6 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         disposeObservable(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess,
-            ::onError
-        )
-    }
-
-    private fun getMostPopularCharacters() {
-        disposeObservable(
-            repository.getAllComics(),
-            ::onGetMostPopularCharactersSuccess,
             ::onError
         )
     }
@@ -70,17 +56,12 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         _characterResponse.postValue(UiState)
     }
 
-    private fun onGetMostPopularCharactersSuccess(UiState: UiState<DataResponse<Comic>>) {
-        _mostPopularCharactersResponse.postValue(UiState)
-    }
-
     private fun onGetSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
         _seriesResponse.postValue(UiState)
     }
 
     private fun onError(throwable: Throwable) {
         _characterResponse.postValue(UiState.Error(throwable.message.toString()))
-        _mostPopularCharactersResponse.postValue(UiState.Error(throwable.message.toString()))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
     }
 

@@ -1,12 +1,12 @@
 package com.example.herohub.ui.home.adapter
 
 import com.example.herohub.R
-import com.example.herohub.model.Comic
+import com.example.herohub.model.Character
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 
-class MostPopularComicsAdapter(listener: MostPopularCharactersInteractionListener) :
-    BaseAdapter<Comic>(listener) {
+class MostPopularCharactersAdapter(listener: MostPopularCharactersInteractionListener) :
+    BaseAdapter<Character>(listener) {
 
     override val layoutId: Int = R.layout.item_most_popular_comics
 }
