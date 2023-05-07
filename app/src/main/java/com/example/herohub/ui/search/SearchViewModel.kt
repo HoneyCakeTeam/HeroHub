@@ -37,19 +37,19 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
         log(query)
 
         if (query.isNotEmpty()) {
-            _searchResult.value = searchResult.value?.filter {
+            _searchResult.value = response.value?.toData()?.results!!.filter {
                 it.name!!.contains(query, ignoreCase = true)
             }
         } else {
-            _searchResult.postValue(response.value?.toData()?.results!!)
+            _searchResult.postValue(emptyList())
         }
-        //log(_searchResult.value!!.size.toString())
+        log(_searchResult.value!!.size.toString())
     }
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
         log(uiState.toData().toString())
         _response.postValue(uiState)
-        _searchResult.postValue(uiState.toData()?.results!!)
+        //_searchResult.postValue(uiState.toData()?.results!!)
 
     }
 

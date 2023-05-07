@@ -13,9 +13,8 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
     override val viewModel: SearchViewModel by viewModels()
 
     override fun setup() {
-        getSearchResult()
         initAdapter()
-
+        getSearchResult()
     }
 
     private fun getSearchResult(){
@@ -35,5 +34,8 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
     private fun initAdapter(){
         val adapter = SearchAdapter(viewModel)
         binding.rvSearchResult.adapter = adapter
+        /*viewModel.searchResult.observe(viewLifecycleOwner){
+            adapter.setItems(it)
+        }*/
     }
 }
