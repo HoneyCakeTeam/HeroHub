@@ -3,6 +3,7 @@ package com.example.herohub.utills
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.herohub.R
@@ -48,4 +49,10 @@ fun setImageFromUrl(view: ImageView, url: String?) {
         .placeholder(R.drawable.slider_placeholder)
         .error(R.drawable.no_image_placeholder)
         .centerCrop().into(view)
+}
+
+@BindingAdapter(value = ["app:usePagerSnapHelper"])
+fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolean = false) {
+    if (useSnapHelper)
+        PagerSnapHelper().attachToRecyclerView(recycler)
 }
