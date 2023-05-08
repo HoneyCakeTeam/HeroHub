@@ -1,5 +1,6 @@
 package com.example.herohub.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
@@ -7,8 +8,8 @@ import com.example.herohub.model.Character
 import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
 import com.example.herohub.ui.home.adapter.PopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
@@ -29,18 +30,23 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     val seriesResponse: LiveData<UiState<DataResponse<Series>>>
         get() = _seriesResponse
 
-//    val homeItems = mutableListOf<HomeItem>()
+    val homeItems = mutableListOf<HomeItem>()
+
+    val homeItemsLiveData = MutableLiveData<List<HomeItem>>()
+
 
     init {
         getHomeData()
     }
 
     private fun getHomeData() {
+        Log.e("TAG", "Home items  in getHomeData :${homeItems}")
         getAllCharacters()
         getAllSeries()
     }
 
     private fun getAllCharacters() {
+        _characterResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess,
@@ -49,6 +55,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     }
 
     private fun getAllSeries() {
+        _seriesResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllSeries(),
             ::onGetSeriesSuccess,
@@ -57,17 +64,45 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     }
 
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
-        _characterResponse.postValue(UiState)
+        _characterResponse.value = UiState
+        val character = _characterResponse.value?.toData()?.results
+        homeItems.add(HomeItem.CharactersByAppearance(character?.filterNot {
+            it.thumbnail?.path?.contains("image_not_available")!!
+        }!!.filter {
+            it.run {
+                comics?.available!! > 20
+            }
+        }.takeLast(20)))
+
+        homeItems.add(HomeItem.SuperHeroes(character.filterNot {
+            it.thumbnail?.path?.contains("image_not_available")!!
+        }.take(15)))
+
+        homeItems.add(HomeItem.MostPopularCharacters(character.filterNot {
+            it.thumbnail?.path?.contains("image_not_available")!!
+        }.filter {
+            it.run {
+                (comics?.available!! +
+                        series?.available!! +
+                        events?.available!! +
+                        stories?.available!!) > 150
+            }
+        }.take(20)))
+        homeItemsLiveData.postValue(homeItems)
+
+        Log.e("TAG", "Home items  in viewModel :${homeItems}")
     }
 
+
     private fun onGetSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
-        _seriesResponse.postValue(UiState)
-//        homeItems.add(
-//            HomeItem.PopularSeries(
-//                _seriesResponse.value?.toData()?.results ?: emptyList()
-//            )
-//        )
-//        log("Home items : ${homeItems.toString()}")
+        _seriesResponse.value = UiState
+        val images = _seriesResponse.value?.toData()?.results?.filterNot {
+            it.thumbnail?.path?.contains("image_not_available")!!
+        }?.shuffled()?.take(10)
+        homeItems.add(HomeItem.PopularSeries(images ?: emptyList()))
+        homeItemsLiveData.postValue(homeItems)
+
+        log("Home items : ${homeItems}")
     }
 
     private fun onError(throwable: Throwable) {
