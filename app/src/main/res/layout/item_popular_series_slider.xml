@@ -15,7 +15,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="230dp"
         android:layout_margin="@dimen/spacing_tiny"
         android:onClick="@{() -> listener.onPopularSeriesSliderItemClick(item.id)}"
