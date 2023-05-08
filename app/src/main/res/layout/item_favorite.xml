@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.favorite.FavoriteInteractionListener" />
+
         <variable
             name="item"
             type="com.example.herohub.model.FavoriteItem" />
@@ -38,9 +43,9 @@
                 style="@style/TextStyleCategories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.name}"
                 android:layout_marginStart="@dimen/spacing_zero"
                 android:layout_marginBottom="@dimen/spacing_large"
+                android:text="@{item.title}"
                 android:textSize="@dimen/text_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

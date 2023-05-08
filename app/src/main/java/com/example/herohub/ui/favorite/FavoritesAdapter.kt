@@ -10,4 +10,6 @@ class FavoritesAdapter(listener: FavoriteInteractionListener) : BaseAdapter<Comi
     override val layoutId: Int = R.layout.item_favorite
 }
 
-interface FavoriteInteractionListener : BaseInteractionListener
+interface FavoriteInteractionListener : BaseInteractionListener {
+    fun onClickFavorite(id: Int)
+}
