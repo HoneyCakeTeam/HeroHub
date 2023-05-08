@@ -19,30 +19,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/image_slider"
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:layout_margin="@dimen/spacing_medium"
-            app:layout_constraintEnd_toEndOf="@+id/recycler_view_home"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showWhenSuccess="@{viewModel.characterResponse}"
-            app:strokeWidth="0dp">
-
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/image_slider_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                app:iss_auto_cycle="true"
-                app:iss_delay="3000"
-                app:iss_error_image="@drawable/no_image_placeholder"
-                app:iss_no_dots="true"
-                app:iss_period="3000"
-                app:iss_placeholder="@drawable/slider_placeholder" />
-        </com.google.android.material.card.MaterialCardView>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_home"
             android:layout_width="match_parent"
@@ -54,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_slider"
+            app:layout_constraintTop_toBottomOf="parent"
             app:showWhenSuccess="@{viewModel.characterResponse}" />
 
         <com.airbnb.lottie.LottieAnimationView
