@@ -32,7 +32,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun observeSliderSeries() {
-
+        viewModel.seriesResponse.observe(viewLifecycleOwner) { uiState ->
+            uiState.toData()?.results?.let { series ->
+                if (series.isNotEmpty()) {
+                    val images = series.filterNot {
+                        it.thumbnail?.path?.contains("image_not_available")!!
+                    }.shuffled().take(10)
+                    homeItems.add(HomeItem.PopularSeries(images))
+                    homeAdapter.setItems(homeItems)
+                }
+            }
+        }
     }
 
     private fun observeCharactersByAppearance() {
