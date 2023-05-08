@@ -34,8 +34,8 @@ class SearchScreenFragment  : BaseFragment<FragmentSearchScreenBinding>() {
     private fun initAdapter(){
         val adapter = SearchAdapter(viewModel)
         binding.rvSearchResult.adapter = adapter
-        /*viewModel.searchResult.observe(viewLifecycleOwner){
+        viewModel.searchResult.observe(viewLifecycleOwner){
             adapter.setItems(it)
-        }*/
+        }
     }
 }

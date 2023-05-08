@@ -62,19 +62,24 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 }
 
-//////Here///
-//    @InverseMethod(value = "getSearchResult")
-//    fun setSearchQuery(query: String): String {
-//        _searchQuery.value = query
-//        return query
-//    }
+//private fun observeSearchQuery() {
+//    disposable = searchQuerySubject
+//        .debounce(300, TimeUnit.MILLISECONDS)
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(::onSearchQueryChange)
+//}
 //
-//    fun getSearchResult(): LiveData<List<Character>> = _searchResult
-
-
-//    fun getSearchQuery(query: String) {
-//        _response.postValue(UiState.Loading)
-//        disposeObservable(repository.getSearchQuery(query),
-//            ::onGetCharacterSuccess, ::onGetCharacterFailure)
+//private fun onSearchQueryChange(query: String) {
+//    val characters = response.value?.toData()?.results ?: emptyList()
+//    if (query.isNotEmpty()) {
+//        _searchResult.value = characters.filter {
+//            it.name!!.contains(query, ignoreCase = true)
+//        }
+//    } else {
+//        _searchResult.value = characters
 //    }
-
+//}
+//
+//fun search(query: String) {
+//    searchQuerySubject.onNext(query)
+//}
