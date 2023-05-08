@@ -27,8 +27,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showWhenSuccess="@{viewModel.characters}"
-            app:spanCount="2"
-            tools:listitem="@layout/item_category" />
+            app:spanCount="3"
+            tools:listitem="@layout/item_character" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_error"

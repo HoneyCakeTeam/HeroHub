@@ -4,10 +4,14 @@ import com.example.herohub.R
 import com.example.herohub.ui.category.CategoryInteractionListener
 import com.example.herohub.model.Character
 import com.example.herohub.ui.base.BaseAdapter
+import com.example.herohub.ui.base.BaseInteractionListener
 
 class CharactersAdapter(listener: CharactersInteractionListener) :
     BaseAdapter<Character>(listener) {
-    override val layoutId: Int = R.layout.item_category
+    override val layoutId: Int = R.layout.item_character
 }
 
-interface CharactersInteractionListener : CategoryInteractionListener
+interface CharactersInteractionListener : BaseInteractionListener{
+    fun onClickItem(id: Int)
+
+}
