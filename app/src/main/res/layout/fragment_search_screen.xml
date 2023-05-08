@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.herohub.ui.search.SearchViewModel" />
@@ -16,17 +17,19 @@
         android:windowSoftInputMode="adjustPan"
         tools:context=".ui.search.SearchScreenFragment">
 
-        <SearchView
+        <EditText
             android:id="@+id/search_bar"
+            style="@style/Widget.AppCompat.SearchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_margin="@dimen/spacing_medium"
             android:background="@drawable/search_rounded"
-            android:iconifiedByDefault="false"
-            android:imeOptions="flagNoFullscreen"
-            android:queryBackground="@null"
-            android:queryHint="@string/search"
-            android:searchIcon="@drawable/ic_search"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/spacing_small"
+            android:hint="@string/search"
+            android:paddingHorizontal="@dimen/spacing_small"
+            android:text="@={viewModel.searchQuery}"
+            app:disableIfLoading="@{viewModel.response}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
