@@ -69,6 +69,7 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxandroid:$rxJava"
     implementation "io.reactivex.rxjava3:rxandroid:$rxJava"
 
+
     // okHttp dependency
     implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11"
 
