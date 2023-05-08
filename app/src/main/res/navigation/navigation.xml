@@ -78,12 +78,6 @@
         tools:layout="@layout/fragment_categories">
 
         <action
-            android:id="@+id/action_categories_fragment_to_characters_details_fragment"
-            app:destination="@id/characters_details_fragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/categories_fragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_categories_fragment_to_series_details_fragment"
             app:destination="@id/series_details_fragment"
             app:launchSingleTop="false"
@@ -102,6 +96,16 @@
             app:popUpTo="@id/categories_fragment"
             app:popUpToInclusive="true" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/charactersFragment"
+        android:name="com.example.herohub.ui.character.CharactersFragment"
+        android:label="CharactersFragment"
+        tools:layout="@layout/fragment_characters"
+        >
+        <action
+            android:id="@+id/action_charactersFragment_to_characters_details_fragment"
+            app:destination="@id/characters_details_fragment" />
     </fragment>
 
 </navigation>

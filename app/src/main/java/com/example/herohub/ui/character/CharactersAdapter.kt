@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.characters
+package com.example.herohub.ui.character
 
 import com.example.herohub.R
 import com.example.herohub.ui.category.CategoryInteractionListener

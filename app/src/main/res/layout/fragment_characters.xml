@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.herohub.ui.category.characters.CharactersViewModel" />
+            type="com.example.herohub.ui.character.CharactersViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.category.characters.CharactersFragment">
+        tools:context=".ui.character.CharactersFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_characters"
