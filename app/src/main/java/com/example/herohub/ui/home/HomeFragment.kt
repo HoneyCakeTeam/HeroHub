@@ -82,7 +82,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
     }
-
     private fun observeMostPopularCharactersResponse() {
         viewModel.characterResponse.observe(viewLifecycleOwner) { uiState ->
             uiState.toData()?.results.let { character ->
@@ -102,7 +101,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
     }
-
     override fun onPause() {
         super.onPause()
         imageList.clear()

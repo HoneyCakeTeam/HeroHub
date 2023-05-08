@@ -9,11 +9,12 @@ import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
+import com.example.herohub.ui.home.adapter.PopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
-    CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener {
+    CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,PopularSeriesInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -26,6 +27,8 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     private val _seriesResponse = MutableLiveData<UiState<DataResponse<Series>>>()
     val seriesResponse: LiveData<UiState<DataResponse<Series>>>
         get() = _seriesResponse
+
+    val homeItems = mutableListOf<HomeItem>()
 
     init {
         getHomeData()
@@ -75,5 +78,9 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
 
     override fun onSuperHeroesItemClick(id: Int) {
 
+    }
+
+    override fun onItemClick(id: Int) {
+        log("id : $id")
     }
 }
