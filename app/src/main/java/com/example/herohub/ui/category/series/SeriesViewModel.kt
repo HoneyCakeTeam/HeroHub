@@ -25,6 +25,7 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
     }
 
     private fun getAllSeries() {
+        _allSeries.postValue(UiState.Loading)
         disposeObservable(repository.getAllSeries(), ::onGetSeriesSuccess, ::onError)
     }
 

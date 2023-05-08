@@ -24,6 +24,7 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     }
 
     private fun getAllComics() {
+        _comics.postValue(UiState.Loading)
         disposeObservable(repository.getAllComics(), ::onGetComicSuccess, ::onError)
     }
 

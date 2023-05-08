@@ -24,6 +24,7 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
     }
 
     private fun getAllEvents() {
+        _events.postValue(UiState.Loading)
         disposeObservable(repository.getAllEvents(), ::onGetEventsSuccess, ::onError)
     }
 
