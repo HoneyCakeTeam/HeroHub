@@ -5,12 +5,12 @@ import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 
-class PopularSeriesSliderAdapter(listener: PopularSeriesInteractionListener) :
+class PopularSeriesSliderAdapter(listener: PopularSeriesSliderInteractionListener) :
     BaseAdapter<Series>(listener) {
 
     override val layoutId: Int = R.layout.item_popular_series_slider
 }
 
-interface PopularSeriesInteractionListener : BaseInteractionListener {
+interface PopularSeriesSliderInteractionListener : BaseInteractionListener {
     fun onPopularSeriesSliderItemClick(id: Int)
 }

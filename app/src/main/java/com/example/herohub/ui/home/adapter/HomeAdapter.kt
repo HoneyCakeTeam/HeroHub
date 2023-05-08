@@ -63,7 +63,7 @@ class HomeAdapter(
                 is HomeItem.PopularSeries -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        PopularSeriesSliderAdapter(listener as PopularSeriesInteractionListener)
+                        PopularSeriesSliderAdapter(listener as PopularSeriesSliderInteractionListener)
                             .apply { setItems(currentItem.series) }
                     )
                 }
