@@ -23,7 +23,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         get() = this::class.java.simpleName.toString()
 
     private val repository: Repository by lazy { Repository() }
-    private val homeItems = mutableListOf<HomeItem>()
+    private val _homeItems = mutableListOf<HomeItem>()
 
     private val _characterResponse = MutableLiveData<UiState<DataResponse<Character>>>()
     val characterResponse: LiveData<UiState<DataResponse<Character>>>
@@ -50,7 +50,6 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     }
 
     private fun getHomeData() {
-        Log.e(TAG, "Home items  in getHomeData :${homeItems}")
         getAllCharacters()
         getAllSeries()
     }
@@ -74,41 +73,44 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
 
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
         _characterResponse.value = UiState
+
         val character = _characterResponse.value?.toData()?.results
-        homeItems.add(HomeItem.CharactersByAppearance(character?.filterNot {
-            it.thumbnail?.path?.contains("image_not_available")!!
-        }!!.filter {
-            it.run {
-                comics?.available!! > 20
-            }
-        }.takeLast(20)))
 
-        homeItems.add(HomeItem.SuperHeroes(character.filterNot {
-            it.thumbnail?.path?.contains("image_not_available")!!
-        }.take(15)))
+        val charactersByAppearance = character
+            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.takeLast(20)
 
-        homeItems.add(HomeItem.MostPopularCharacters(character.filterNot {
-            it.thumbnail?.path?.contains("image_not_available")!!
-        }.filter {
-            it.run {
-                (comics?.available!! +
-                        series?.available!! +
-                        events?.available!! +
-                        stories?.available!!) > 150
-            }
-        }.take(20)))
-        _homeItemsLiveData.postValue(homeItems)
+        val superHeroes = character
+            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.take(15)
+
+        val mostPopularCharacters = character
+            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.take(20)
+
+        _homeItems.addAll(
+            listOf(
+                HomeItem.CharactersByAppearance(charactersByAppearance!!),
+                HomeItem.SuperHeroes(superHeroes!!),
+                HomeItem.MostPopularCharacters(mostPopularCharacters!!)
+            )
+        )
+        _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun onGetSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
         _seriesResponse.value = UiState
-        val images = _seriesResponse.value?.toData()?.results?.filterNot {
-            it.thumbnail?.path?.contains("image_not_available")!!
-        }?.shuffled()?.take(10)
-        homeItems.add(HomeItem.PopularSeries(images ?: emptyList()))
-        _homeItemsLiveData.postValue(homeItems)
 
-        log("Home items : ${homeItems}")
+        val images = _seriesResponse.value?.toData()?.results
+            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.shuffled()
+            ?.take(10)
+
+        _homeItems.add(
+            HomeItem.PopularSeries(images ?: emptyList())
+        )
+
+        _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun onError(throwable: Throwable) {
