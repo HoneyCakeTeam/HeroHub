@@ -38,5 +38,5 @@
         <item name="android:textColor">@color/md_theme_light_shadow</item>
         <item name="android:textSize">@dimen/text_medium</item>
     </style>
-    
+
 </resources>

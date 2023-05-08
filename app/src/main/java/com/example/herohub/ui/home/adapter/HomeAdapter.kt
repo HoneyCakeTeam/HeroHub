@@ -36,10 +36,10 @@ class HomeAdapter(
     private fun bind(holder: ItemViewHolder, position: Int) {
         if (position != -1) {
             when (val currentItem = homeItems[position]) {
-                is HomeItem.Slider -> {
+                is HomeItem.CharactersByAppearance -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        SliderAdapter(listener as SliderInteractionListener)
+                        CharactersByAppearanceAdapter(listener as CharactersByAppearanceInteractionListener)
                             .apply { setItems(currentItem.slider) }
                     )
                 }
@@ -52,11 +52,11 @@ class HomeAdapter(
                     )
                 }
 
-                is HomeItem.MostPopularComics -> {
+                is HomeItem.MostPopularCharacters -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
-                            .apply { setItems(currentItem.mostPopularComics) }
+                        MostPopularCharactersAdapter(listener as MostPopularCharactersInteractionListener)
+                            .apply { setItems(currentItem.mostPopularCharacters) }
                     )
                 }
             }
@@ -66,9 +66,9 @@ class HomeAdapter(
     override fun getItemViewType(position: Int): Int {
         if (homeItems.isNotEmpty()) {
             return when (homeItems[position]) {
-                is HomeItem.Slider -> R.layout.item_slider_recycler_view
-                is HomeItem.SuperHeroes -> R.layout.item_super_heroes_recycler_view
-                is HomeItem.MostPopularComics -> R.layout.item_most_popular_comics_recycler_view
+                is HomeItem.CharactersByAppearance -> R.layout.layout_characters_by_appearanace
+                is HomeItem.SuperHeroes -> R.layout.layout_super_heroes
+                is HomeItem.MostPopularCharacters -> R.layout.layout_most_popular_characters
             }
         }
         return -1

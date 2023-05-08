@@ -10,62 +10,62 @@ import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.model.Story
 import com.example.herohub.utills.UiState
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
 class Repository {
     private val api = MarvelApi.marvelService
-    fun getAllCharacters(): Observable<UiState<DataResponse<Character>>> = wrapWithState {
+    fun getAllCharacters(): Single<UiState<DataResponse<Character>>> = wrapWithState {
         api.getAllCharacters(100)
     }
 
-    fun getAllSeries(): Observable<UiState<DataResponse<Series>>> = wrapWithState {
+    fun getAllSeries(): Single<UiState<DataResponse<Series>>> = wrapWithState {
         api.getAllSeries(100)
     }
-    fun getSeriesDetails(seriesId: Int): Observable<UiState<DataResponse<Series>>> = wrapWithState {
+
+    fun getSeriesDetails(seriesId: Int): Single<UiState<DataResponse<Series>>> = wrapWithState {
         api.getSeriesDetails(seriesId)
     }
 
-    fun getEvent(eventId: Int): Observable<UiState<DataResponse<Event>>> = wrapWithState {
+    fun getEvent(eventId: Int): Single<UiState<DataResponse<Event>>> = wrapWithState {
         api.getEvent(eventId)
     }
 
-    fun getAllComics(): Observable<UiState<DataResponse<Comic>>> = wrapWithState {
+    fun getAllComics(): Single<UiState<DataResponse<Comic>>> = wrapWithState {
         api.getAllComics(100)
     }
 
-    fun getAllCreators(): Observable<UiState<DataResponse<Creator>>> = wrapWithState {
+    fun getAllCreators(): Single<UiState<DataResponse<Creator>>> = wrapWithState {
         api.getAllCreators()
     }
 
-    fun getAllEvents(): Observable<UiState<DataResponse<Event>>> = wrapWithState {
+    fun getAllEvents(): Single<UiState<DataResponse<Event>>> = wrapWithState {
         api.getAllEvents(100)
     }
 
 
-    fun getAllStories(): Observable<UiState<DataResponse<Story>>> = wrapWithState {
+    fun getAllStories(): Single<UiState<DataResponse<Story>>> = wrapWithState {
         api.getAllStories()
     }
 
-    fun getStoryDetails(id: String): Observable<UiState<DataResponse<Story>>> = wrapWithState {
+    fun getStoryDetails(id: String): Single<UiState<DataResponse<Story>>> = wrapWithState {
         api.getStoryDetails(id)
     }
 
 
-    fun getComic(comicId: Int): Observable<UiState<DataResponse<Comic>>> = wrapWithState {
+    fun getComic(comicId: Int): Single<UiState<DataResponse<Comic>>> = wrapWithState {
         api.getComic(comicId)
     }
 
-    fun getCharacterDetails(characterId: Int): Observable<UiState<DataResponse<Character>>> =
+    fun getCharacterDetails(characterId: Int): Single<UiState<DataResponse<Character>>> =
         wrapWithState { api.getCharacterDetails(characterId) }
 
-    fun getCharacterComics(characterId: Int): Observable<UiState<DataResponse<Comic>>> =
+    fun getCharacterComics(characterId: Int): Single<UiState<DataResponse<Comic>>> =
         wrapWithState { api.getCharacterComics(characterId) }
 
     private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
-            Observable<UiState<DataResponse<T>>> {
-        return function().toObservable().map {
+            Single<UiState<DataResponse<T>>> {
+        return function().map {
             if (it.isSuccessful) {
                 UiState.Success(it.body()?.data)
             } else {

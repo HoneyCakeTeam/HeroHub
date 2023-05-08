@@ -25,11 +25,14 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
     }
 
     private fun getAllCharacters() {
+        _characters.postValue(UiState.Loading)
         disposeObservable(repository.getAllCharacters(), ::onGetCharacterSuccess, ::onError)
     }
 
     private fun onGetCharacterSuccess(state: UiState<DataResponse<Character>>) {
         _characters.postValue(state)
+        log(state.toData().toString())
+        log(state.toString())
     }
 
     private fun onError(throwable: Throwable) {
