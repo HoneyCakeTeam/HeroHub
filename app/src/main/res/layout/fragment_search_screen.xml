@@ -51,18 +51,33 @@
             tools:listitem="@layout/item_search" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/search_lottie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hideWhenSearch="@{viewModel.searchQuery}"
+            app:hideWhenNotFound="@{viewModel.searchResult}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_circle_red"
-            app:showWhenLoading="@{viewModel.response}" />
+            app:lottie_rawRes="@raw/search" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/not_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/not_found"
+            app:showIfEmpty="@{viewModel.searchResult}"
+            app:hideWhenEmptyQuery="@{viewModel.searchQuery}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
