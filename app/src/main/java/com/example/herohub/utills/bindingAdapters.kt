@@ -42,10 +42,22 @@ fun <T> setPlaceHolder(view: View, list: List<T>) {
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun setImageFromUrl(view: ImageView, url: String?) {
-    Glide
-        .with(view)
-        .load("$url.jpg")
-        .placeholder(R.drawable.slider_placeholder)
-        .error(R.drawable.no_image_placeholder)
-        .centerCrop().into(view)
+    url?.let {
+        if (url.contains("image_not_available")) {
+            Glide
+                .with(view)
+                .load(R.drawable.no_image_placeholder)
+                .placeholder(R.drawable.slider_placeholder)
+                .error(R.drawable.no_image_placeholder)
+                .centerCrop().into(view)
+        } else {
+            Glide
+                .with(view)
+                .load("$url.jpg")
+                .placeholder(R.drawable.slider_placeholder)
+                .error(R.drawable.no_image_placeholder)
+                .centerCrop().into(view)
+        }
+    }
+
 }
