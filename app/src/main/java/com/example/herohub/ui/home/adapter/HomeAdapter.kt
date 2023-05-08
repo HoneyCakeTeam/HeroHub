@@ -40,7 +40,7 @@ class HomeAdapter(
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         CharactersByAppearanceAdapter(listener as CharactersByAppearanceInteractionListener)
-                            .apply { setItems(currentItem.slider) }
+                            .apply { setItems(currentItem.charactersByAppearance) }
                     )
                 }
 
@@ -64,7 +64,7 @@ class HomeAdapter(
                     holder.binding.setVariable(
                         BR.adapterRecycler,
                         PopularSeriesSliderAdapter(listener as PopularSeriesSliderInteractionListener)
-                            .apply { setItems(currentItem.series) }
+                            .apply { setItems(currentItem.popularSeriesSlider) }
                     )
                 }
             }
