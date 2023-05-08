@@ -92,7 +92,11 @@
         <action
             android:id="@+id/action_categories_fragment_to_comics_details_fragment"
             app:destination="@id/comics_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:launchSingleTop="false"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/categories_fragment"
             app:popUpToInclusive="true" />
 
@@ -105,7 +109,12 @@
         >
         <action
             android:id="@+id/action_charactersFragment_to_characters_details_fragment"
-            app:destination="@id/characters_details_fragment" />
+            app:destination="@id/characters_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/charactersFragment" />
     </fragment>
 
 </navigation>
