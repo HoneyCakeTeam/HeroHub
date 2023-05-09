@@ -67,6 +67,13 @@ class HomeAdapter(
                             .apply { setItems(currentItem.popularSeriesSlider) }
                     )
                 }
+                is HomeItem.MostPopularComics -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler ,
+                        MostPopularComicsAdapter (listener as MostPopularComicsInteractionListener)
+                            .apply { setItems(currentItem.mostPopularComics) }
+                    )
+                }
             }
         }
     }
@@ -78,6 +85,7 @@ class HomeAdapter(
                 is HomeItem.SuperHeroes -> R.layout.layout_super_heroes
                 is HomeItem.MostPopularCharacters -> R.layout.layout_most_popular_characters
                 is HomeItem.PopularSeries -> R.layout.layout_popular_series_slider
+                is HomeItem.MostPopularComics -> R.layout.layout_most_popular_comics
             }
         }
         return -1
