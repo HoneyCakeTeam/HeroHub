@@ -2,6 +2,7 @@ package com.example.herohub.ui.home
 
 import com.example.herohub.model.Character
 import com.example.herohub.model.Event
+import com.example.herohub.model.Series
 
 sealed class HomeItem(val position: Int) {
     data class Slider(val slider: List<Event>) : HomeItem(0)
