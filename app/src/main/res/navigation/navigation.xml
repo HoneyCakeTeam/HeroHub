@@ -69,7 +69,11 @@
         android:id="@+id/search_fragment"
         android:name="com.example.herohub.ui.search.SearchScreenFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search_screen" />
+        tools:layout="@layout/fragment_search_screen" >
+        <action
+            android:id="@+id/action_search_fragment_to_characters_details_fragment"
+            app:destination="@id/characters_details_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/categories_fragment"

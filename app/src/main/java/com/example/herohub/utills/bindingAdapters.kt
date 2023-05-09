@@ -41,6 +41,11 @@ fun <T> setPlaceHolder(view: View, list: List<T>) {
     }
 }
 
+@BindingAdapter(value = ["app:disableIfLoading"])
+fun <T> disableIfLoading(view: View, UiState: UiState<T>?) {
+    view.isEnabled = UiState is UiState.Success
+}
+
 @BindingAdapter(value = ["app:imageUrl"])
 fun setImageFromUrl(view: ImageView, url: String?) {
     Glide

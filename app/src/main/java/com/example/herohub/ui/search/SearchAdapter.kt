@@ -12,5 +12,5 @@ class SearchAdapter(listener: SearchInteractionListener) :
 }
 
 interface SearchInteractionListener : BaseInteractionListener {
-    fun <T> onItemClick(item: T)
+    fun <T> onClickItem(item: T)
 }
