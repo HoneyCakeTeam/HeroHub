@@ -56,11 +56,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/stories_details_fragment"
-        android:name="com.example.herohub.ui.storydetails.StoriesDetailsFragment"
-        android:label="@string/stories_details"
-        tools:layout="@layout/fragment_stories_details" />
-    <fragment
         android:id="@+id/favourite_fragment"
         android:name="com.example.herohub.ui.favorite.FavouriteScreenFragment"
         android:label="@string/favourite"
@@ -91,18 +86,45 @@
         android:name="com.example.herohub.ui.events.EventsFragment"
         android:label="EventsFragment"
         tools:layout="@layout/fragment_events"
-        />
+        >
+        <action
+            android:id="@+id/action_eventsFragment_to_events_details_fragment"
+            app:destination="@id/events_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/eventsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/comicsFragment"
         android:name="com.example.herohub.ui.comics.ComicsFragment"
         android:label="ComicsFragment"
         tools:layout="@layout/fragment_comics"
-        />
+        >
+        <action
+            android:id="@+id/action_comicsFragment_to_comics_details_fragment"
+            app:destination="@id/comics_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/comicsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/seriesFragment"
         android:name="com.example.herohub.ui.series.SeriesFragment"
         android:label="SeriesFragment"
         tools:layout="@layout/fragment_series"
-        />
+        >
+        <action
+            android:id="@+id/action_seriesFragment_to_series_details_fragment"
+            app:destination="@id/series_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/seriesFragment" />
+    </fragment>
 
 </navigation>
