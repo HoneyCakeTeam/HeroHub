@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.herohub.model.Comic" />
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.comics.ComicInteractionListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="@dimen/spacing_tiny"
+        android:layout_marginVertical="@dimen/spacing_small"
+        android:onClick="@{() -> listener.onClickComic(item.itemId)}"
+        app:cardCornerRadius="@dimen/radius_medium"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_category_item"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{item.thumbnail.path}"
+                app:layout_constraintBottom_toTopOf="@+id/text_category_item_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/spiderman" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_category_item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/md_theme_light_secondary"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefinsans_regular"
+                android:maxLines="1"
+                android:padding="@dimen/spacing_small"
+                android:text="@{item.title}"
+                android:textColor="@color/md_theme_light_surface"
+                android:textSize="@dimen/text_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Spider man chapter 2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

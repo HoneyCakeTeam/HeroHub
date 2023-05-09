@@ -26,7 +26,7 @@
             app:strokeWidth="1dp"
             android:padding="@dimen/spacing_tiny"
             app:strokeColor="@color/md_theme_dark_secondaryContainer"
-            android:onClick="@{() -> listener.onClickItem(item.id)}"
+            android:onClick="@{() -> listener.onClickCharacter(item.id)}"
             app:imageUrl="@{item.thumbnail.path}"
             />
 
