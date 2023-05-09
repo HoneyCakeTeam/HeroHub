@@ -11,13 +11,13 @@ import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
-import com.example.herohub.ui.home.adapter.PopularSeriesSliderInteractionListener
+import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,
-    PopularSeriesSliderInteractionListener {
+    SliderInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -50,7 +50,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
 
     private fun getHomeData() {
         getAllCharacters()
-        getAllSeries()
+        getAllSliderItems()
     }
 
     private fun getAllCharacters() {
@@ -62,10 +62,10 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         )
     }
 
-    private fun getAllSeries() {
+    private fun getAllSliderItems() {
         disposeObservable(
-            repository.getAllSeries(),
-            ::onGetSeriesSuccess,
+            repository.getAllEvents(),
+            ::onGetSliderItemsSuccess,
             ::onError
         )
     }
@@ -97,16 +97,16 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
-        _seriesResponse.value = UiState
+    private fun onGetSliderItemsSuccess(UiState: UiState<DataResponse<Event>>) {
+        _eventResponse.value = UiState
 
-        val images = _seriesResponse.value?.toData()?.results
+        val images = _eventResponse.value?.toData()?.results
             ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
             ?.shuffled()
             ?.take(10)
 
         _homeItems.add(
-            HomeItem.PopularSeries(images ?: emptyList())
+            HomeItem.Slider(images ?: emptyList())
         )
 
         _homeItemsLiveData.postValue(_homeItems)
@@ -131,7 +131,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
 
     }
 
-    override fun onPopularSeriesSliderItemClick(id: Int) {
+    override fun onSliderItemClick(id: Int) {
 
     }
 }

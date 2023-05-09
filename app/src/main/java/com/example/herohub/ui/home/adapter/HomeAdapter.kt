@@ -60,11 +60,11 @@ class HomeAdapter(
                     )
                 }
 
-                is HomeItem.PopularSeries -> {
+                is HomeItem.Slider -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        PopularSeriesSliderAdapter(listener as PopularSeriesSliderInteractionListener)
-                            .apply { setItems(currentItem.popularSeriesSlider) }
+                        SliderAdapter(listener as SliderInteractionListener)
+                            .apply { setItems(currentItem.slider) }
                     )
                 }
             }
@@ -77,17 +77,9 @@ class HomeAdapter(
                 is HomeItem.CharactersByAppearance -> R.layout.layout_characters_by_appearanace
                 is HomeItem.SuperHeroes -> R.layout.layout_super_heroes
                 is HomeItem.MostPopularCharacters -> R.layout.layout_most_popular_characters
-                is HomeItem.PopularSeries -> R.layout.layout_popular_series_slider
+                is HomeItem.Slider -> R.layout.layout_slider
             }
         }
         return -1
-    }
-
-    override fun areItemsSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
-        return oldItem.position == newItem.position
-    }
-
-    override fun areContentSame(oldPosition: HomeItem, newPosition: HomeItem): Boolean {
-        return oldPosition == newPosition
     }
 }

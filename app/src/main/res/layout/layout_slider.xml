@@ -7,7 +7,7 @@
 
         <variable
             name="adapterRecycler"
-            type="com.example.herohub.ui.home.adapter.PopularSeriesSliderAdapter" />
+            type="com.example.herohub.ui.home.adapter.SliderAdapter" />
 
     </data>
 
@@ -23,6 +23,6 @@
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:usePagerSnapHelper="@{true}"
-        tools:listitem="@layout/item_popular_series_slider" />
+        tools:listitem="@layout/item_slider" />
 
 </layout>

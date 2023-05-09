@@ -7,18 +7,18 @@
 
         <variable
             name="listener"
-            type="com.example.herohub.ui.home.adapter.PopularSeriesSliderInteractionListener" />
+            type="com.example.herohub.ui.home.adapter.SliderInteractionListener" />
 
         <variable
             name="item"
-            type="com.example.herohub.model.Series" />
+            type="com.example.herohub.model.Event" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="350dp"
         android:layout_height="230dp"
         android:layout_margin="@dimen/spacing_tiny"
-        android:onClick="@{() -> listener.onPopularSeriesSliderItemClick(item.id)}"
+        android:onClick="@{() -> listener.onSliderItemClick(item.id)}"
         app:strokeWidth="0dp">
 
         <com.google.android.material.imageview.ShapeableImageView
