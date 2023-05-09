@@ -10,12 +10,12 @@ import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
-import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.PopularSeriesSliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
-class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
+class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,
     PopularSeriesSliderInteractionListener {
     override val TAG: String
@@ -51,6 +51,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     private fun getHomeData() {
         getAllCharacters()
         getAllSeries()
+        getMostPopularSeries()
     }
 
     private fun getAllCharacters() {
@@ -70,6 +71,15 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         )
     }
 
+    private fun getMostPopularSeries() {
+        disposeObservable(
+            repository.getAllSeries(),
+            ::onGetMostPopularSeriesSuccess,
+            ::onError
+        )
+    }
+
+
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
         _characterResponse.value = UiState
 
@@ -83,15 +93,10 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
             ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
             ?.take(15)
 
-        val mostPopularCharacters = character
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
-            ?.take(20)
-
         _homeItems.addAll(
             listOf(
                 HomeItem.CharactersByAppearance(charactersByAppearance!!),
-                HomeItem.SuperHeroes(superHeroes!!),
-                HomeItem.MostPopularCharacters(mostPopularCharacters!!)
+                HomeItem.SuperHeroes(superHeroes!!)
             )
         )
         _homeItemsLiveData.postValue(_homeItems)
@@ -112,6 +117,19 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
+    private fun onGetMostPopularSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
+        _seriesResponse.value = UiState
+
+        val series = _seriesResponse.value?.toData()?.results
+            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.take(10)
+
+        _homeItems.add(
+            HomeItem.MostPopularSeries(series!!)
+        )
+        _homeItemsLiveData.postValue(_homeItems)
+    }
+
     private fun onError(throwable: Throwable) {
         _characterResponse.postValue(UiState.Error(throwable.message.toString()))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
@@ -119,7 +137,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         _comicsResponse.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onMostPopularCharactersItemClick(id: Int) {
+    override fun onMostPopularSeriesItemClick(id: Int) {
 
     }
 
