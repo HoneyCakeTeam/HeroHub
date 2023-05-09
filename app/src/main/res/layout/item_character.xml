@@ -17,13 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:onClick="@{() -> listener.onClickCharacter(item.id)}"
-        android:layout_marginVertical="@dimen/spacing_tiny"
+        android:layout_margin="@dimen/spacing_tiny"
         >
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/CircleImage"
             tools:src="@drawable/spiderman"
@@ -31,18 +30,20 @@
             android:padding="@dimen/spacing_tiny"
             app:strokeColor="@color/md_theme_dark_secondaryContainer"
             app:imageUrl="@{item.thumbnail.path}"
+            android:onClick="@{() -> listener.onClickCharacter(item.id)}"
             android:layout_gravity="center"
             />
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_character_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Spider man 2 and hancook"
+            tools:text="Spider man"
             android:text="@{item.name}"
             android:layout_gravity="center"
+            android:gravity="center"
             android:fontFamily="@font/josefinsans_regular"
-            android:textSize="@dimen/text_small"
-            android:maxLines="1"
+            android:textSize="@dimen/text_tiny"
+            android:maxLines="2"
             android:ellipsize="end"
             android:layout_marginHorizontal="@dimen/spacing_small"
             />

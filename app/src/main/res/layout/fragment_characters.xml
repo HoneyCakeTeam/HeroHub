@@ -13,12 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.character.CharactersFragment">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_characters"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="@dimen/spacing_simi_medium"
             android:clipToPadding="false"
+            android:padding="@dimen/spacing_simi_medium"
             app:items="@{viewModel.characters.toData().results}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

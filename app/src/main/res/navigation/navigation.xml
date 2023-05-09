@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/home_fragment">
+    app:startDestination="@id/charactersFragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -86,5 +86,11 @@
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/charactersFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.example.herohub.ui.events.EventsFragment"
+        android:label="EventsFragment"
+        tools:layout="@layout/fragment_events"
+        />
 
 </navigation>

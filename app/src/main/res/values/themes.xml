@@ -43,4 +43,8 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="CardRadius">
+        <item name="cornerSize">@dimen/radius_medium</item>
+    </style>
+
 </resources>
