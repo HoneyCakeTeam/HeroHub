@@ -11,13 +11,14 @@ import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.PopularSeriesSliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,
-    PopularSeriesSliderInteractionListener {
+    PopularSeriesSliderInteractionListener, MostPopularEventsInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -70,6 +71,14 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         )
     }
 
+    private fun getAllEvents(){
+        disposeObservable(
+            repository.getAllEvents(),
+            ::onGetEventSuccess,
+            ::onError
+        )
+    }
+
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
         _characterResponse.value = UiState
 
@@ -112,6 +121,21 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
+    private fun onGetEventSuccess(uiState: UiState<DataResponse<Event>>) {
+        _eventResponse.value = uiState
+
+        val events = _eventResponse.value?.toData()?.results
+            ?.filterNot { it.thumbnail?.path?.contains("event_not_found") ?: false }
+            ?.shuffled()
+            ?.take(10)
+
+        _homeItems.add(
+            HomeItem.MostPopularEvents(events ?: emptyList())
+        )
+
+        _homeItemsLiveData.postValue(_homeItems)
+    }
+
     private fun onError(throwable: Throwable) {
         _characterResponse.postValue(UiState.Error(throwable.message.toString()))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
@@ -134,4 +158,9 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     override fun onPopularSeriesSliderItemClick(id: Int) {
 
     }
+
+    override fun onMostPopularEventClick(id: Int) {
+
+    }
+
 }
