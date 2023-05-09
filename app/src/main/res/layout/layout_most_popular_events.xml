@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_small"
             android:fontFamily="@font/josefinsans_regular"
-            android:text="@string/super_hero"
+            android:text="@string/most_popular_events"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_giant"
             app:layout_constraintBottom_toTopOf="@id/recycler_event"
