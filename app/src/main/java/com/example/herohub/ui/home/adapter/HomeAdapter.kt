@@ -36,14 +36,6 @@ class HomeAdapter(
     private fun bind(holder: ItemViewHolder, position: Int) {
         if (position != -1) {
             when (val currentItem = homeItems[position]) {
-                is HomeItem.CharactersByAppearance -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        CharactersByAppearanceAdapter(listener as CharactersByAppearanceInteractionListener)
-                            .apply { setItems(currentItem.charactersByAppearance) }
-                    )
-                }
-
                 is HomeItem.SuperHeroes -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
@@ -75,10 +67,11 @@ class HomeAdapter(
                             .apply { setItems(currentItem.mostPopularEvents) }
                     )
                 }
+
                 is HomeItem.MostPopularComics -> {
                     holder.binding.setVariable(
-                        BR.adapterRecycler ,
-                        MostPopularComicsAdapter (listener as MostPopularComicsInteractionListener)
+                        BR.adapterRecycler,
+                        MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
                             .apply { setItems(currentItem.mostPopularComics) }
                     )
                 }
@@ -89,7 +82,6 @@ class HomeAdapter(
     override fun getItemViewType(position: Int): Int {
         if (homeItems.isNotEmpty()) {
             return when (homeItems[position]) {
-                is HomeItem.CharactersByAppearance -> R.layout.layout_characters_by_appearanace
                 is HomeItem.SuperHeroes -> R.layout.layout_super_heroes
                 is HomeItem.MostPopularSeries -> R.layout.layout_most_popular_series
                 is HomeItem.Slider -> R.layout.layout_slider
@@ -98,13 +90,5 @@ class HomeAdapter(
             }
         }
         return -1
-    }
-
-    override fun areItemsSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
-        return oldItem.position == newItem.position
-    }
-
-    override fun areContentSame(oldPosition: HomeItem, newPosition: HomeItem): Boolean {
-        return oldPosition == newPosition
     }
 }

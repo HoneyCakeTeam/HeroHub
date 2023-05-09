@@ -10,7 +10,7 @@ import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
@@ -18,8 +18,9 @@ import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
-    CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,
-    SliderInteractionListener, MostPopularEventsInteractionListener {
+    SuperHeroesInteractionListener,
+    SliderInteractionListener, MostPopularEventsInteractionListener,
+    MostPopularComicsInteractionListener {
 
     private lateinit var state: Parcelable
     fun saveRecyclerViewState(parcelable: Parcelable) {
@@ -100,7 +101,6 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         )
     }
 
-
     private fun getAllComics() {
         disposeObservable(
             repository.getAllComics(),
@@ -128,21 +128,12 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
 
         val character = _characterResponse.value?.toData()?.results
 
-        val charactersByAppearance = character
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
-            ?.takeLast(20)
-
         val superHeroes = character
             ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
             ?.take(15)
 
-        val mostPopularCharacters = character
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
-            ?.take(20)
-
         _homeItems.addAll(
             listOf(
-                HomeItem.CharactersByAppearance(charactersByAppearance!!),
                 HomeItem.SuperHeroes(superHeroes!!)
             )
         )
@@ -204,10 +195,6 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
 
     }
 
-    override fun onSeriesSliderItemClick(id: Int) {
-
-    }
-
     override fun onSuperHeroesItemClick(id: Int) {
 
     }
@@ -217,6 +204,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onMostPopularEventClick(id: Int) {
+
+    }
+
+    override fun onMostPopularComicsItemClick(id: Int) {
 
     }
 
