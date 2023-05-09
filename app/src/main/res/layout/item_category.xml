@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.example.herohub.ui.category.CategoryInteractionListener" />
+            type="com.example.herohub.ui.CategoryInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

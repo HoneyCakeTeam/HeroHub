@@ -1,9 +1,9 @@
-package com.example.herohub.ui.category.comics
+package com.example.herohub.ui.comics
 
 import com.example.herohub.R
 import com.example.herohub.model.Comic
 import com.example.herohub.ui.base.BaseAdapter
-import com.example.herohub.ui.category.CategoryInteractionListener
+import com.example.herohub.ui.CategoryInteractionListener
 
 class ComicsAdapter(listener: ComicInteractionListener) : BaseAdapter<Comic>(listener) {
     override val layoutId: Int = R.layout.item_category

@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.events
+package com.example.herohub.ui.events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

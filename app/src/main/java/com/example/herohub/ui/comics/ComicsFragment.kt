@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.comics
+package com.example.herohub.ui.comics
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation

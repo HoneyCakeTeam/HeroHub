@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.series
+package com.example.herohub.ui.series
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

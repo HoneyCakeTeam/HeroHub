@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.herohub.ui.category.events.EventsViewModel" />
+            type="com.example.herohub.ui.events.EventsViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.category.events.EventsFragment">
+        tools:context=".ui.events.EventsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_events"

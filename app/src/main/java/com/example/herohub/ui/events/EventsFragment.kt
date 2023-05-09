@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.events
+package com.example.herohub.ui.events
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
