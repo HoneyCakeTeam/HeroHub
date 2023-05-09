@@ -51,6 +51,7 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     private fun getHomeData() {
         getAllCharacters()
         getAllSeries()
+        getAllComics()
     }
 
     private fun getAllCharacters() {
@@ -68,6 +69,28 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
             ::onGetSeriesSuccess,
             ::onError
         )
+    }
+
+    private fun getAllComics() {
+        disposeObservable(
+            repository.getAllComics(),
+            ::onGetComicsSuccess,
+            ::onError
+        )
+    }
+
+    private fun onGetComicsSuccess(UiState: UiState<DataResponse<Comic>>) {
+        _comicsResponse.value = UiState
+        val comic = _comicsResponse.value?.toData()?.results
+        val mostPopularComics = comic
+            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.take(20)
+        _homeItems.add(
+            (HomeItem.MostPopularComics(mostPopularComics!!))
+        )
+        _homeItemsLiveData.postValue(_homeItems)
+
+
     }
 
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
