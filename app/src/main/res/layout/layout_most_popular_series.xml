@@ -41,6 +41,8 @@
             android:text="@string/see_all"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_small"
+            app:drawableEndCompat="@drawable/ic_go"
+            android:drawablePadding="@dimen/spacing_tiny"
             app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_series"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

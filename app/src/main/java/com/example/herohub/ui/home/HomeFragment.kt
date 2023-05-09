@@ -31,9 +31,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             )
         }
     }
+
     override fun onPause() {
         super.onPause()
-        binding.recyclerViewHome.layoutManager?.onSaveInstanceState()?.let { viewModel.saveRecyclerViewState(it) }
+        binding.recyclerViewHome.layoutManager?.onSaveInstanceState()
+            ?.let { viewModel.saveRecyclerViewState(it) }
     }
-
 }
