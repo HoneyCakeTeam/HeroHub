@@ -37,7 +37,7 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
         _characters.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickCharacter(id: Int) {
         _characterId.postValue(id)
     }
 }

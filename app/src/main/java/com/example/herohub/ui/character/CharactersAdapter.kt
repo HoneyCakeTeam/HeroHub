@@ -11,6 +11,5 @@ class CharactersAdapter(listener: CharactersInteractionListener) :
 }
 
 interface CharactersInteractionListener : BaseInteractionListener{
-    fun onClickItem(id: Int)
-
+    fun onClickCharacter(id: Int)
 }

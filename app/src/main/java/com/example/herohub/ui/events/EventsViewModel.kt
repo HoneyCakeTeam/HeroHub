@@ -36,7 +36,7 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
         _events.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickEvent(id: Int) {
         _eventId.postValue(id)
     }
 

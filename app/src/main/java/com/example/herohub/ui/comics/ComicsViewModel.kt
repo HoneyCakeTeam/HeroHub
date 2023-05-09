@@ -36,7 +36,7 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
         _comics.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickComic(id: Int) {
         _comicId.postValue(id)
     }
 }

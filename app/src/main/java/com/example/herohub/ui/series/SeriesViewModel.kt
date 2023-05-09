@@ -37,7 +37,7 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
         _allSeries.postValue(UiState.Error(errorMessage.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickSeries(id: Int) {
         _seriesId.postValue(id)
     }
 
