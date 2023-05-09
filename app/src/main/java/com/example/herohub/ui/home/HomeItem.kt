@@ -6,6 +6,6 @@ import com.example.herohub.model.Series
 sealed class HomeItem(val position: Int) {
     data class PopularSeries(val popularSeriesSlider: List<Series>) : HomeItem(0)
     data class SuperHeroes(val superHeroes: List<Character>) : HomeItem(1)
-    data class MostPopularCharacters(val mostPopularCharacters: List<Character>) : HomeItem(2)
+    data class MostPopularSeries(val mostPopularSeries: List<Series>) : HomeItem(2)
     data class CharactersByAppearance(val charactersByAppearance: List<Character>) : HomeItem(3)
 }

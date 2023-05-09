@@ -22,4 +22,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         homeAdapter = HomeAdapter(homeItems, viewModel)
         binding.recyclerViewHome.adapter = homeAdapter
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.stateInitialized()) {
+            binding.recyclerViewHome.layoutManager?.onRestoreInstanceState(
+                viewModel.restoreRecyclerViewState()
+            )
+        }
+    }
+    override fun onPause() {
+        super.onPause()
+        binding.recyclerViewHome.layoutManager?.onSaveInstanceState()?.let { viewModel.saveRecyclerViewState(it) }
+    }
+
 }
