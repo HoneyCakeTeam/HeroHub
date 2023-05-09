@@ -1,6 +1,7 @@
 package com.example.herohub.ui.events
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentEventsBinding
 import com.example.herohub.ui.base.BaseFragment
@@ -12,16 +13,16 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     override fun setup() {
         initiateAdapter()
-//        navigationToEventDetails()
+        navigationToEventDetails()
     }
 
-//    private fun navigationToEventDetails() {
-//        viewModel.eventId.observe(this) { eventId ->
-//            val action = CategoriesFragmentDirections
-//                .actionCategoriesFragmentToEventsDetailsFragment(eventId)
-//            Navigation.findNavController(binding.root).navigate(action)
-//        }
-//    }
+    private fun navigationToEventDetails() {
+        viewModel.eventId.observe(this) { eventId ->
+            val action = EventsFragmentDirections
+                .actionEventsFragmentToEventsDetailsFragment(eventId)
+            Navigation.findNavController(binding.root).navigate(action)
+        }
+    }
 
     private fun initiateAdapter() {
         val adapter = EventsAdapter(viewModel)
