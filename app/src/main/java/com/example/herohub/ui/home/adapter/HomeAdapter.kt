@@ -75,6 +75,13 @@ class HomeAdapter(
                             .apply { setItems(currentItem.mostPopularEvents) }
                     )
                 }
+                is HomeItem.MostPopularComics -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler ,
+                        MostPopularComicsAdapter (listener as MostPopularComicsInteractionListener)
+                            .apply { setItems(currentItem.mostPopularComics) }
+                    )
+                }
             }
         }
     }
@@ -87,8 +94,17 @@ class HomeAdapter(
                 is HomeItem.MostPopularSeries -> R.layout.layout_most_popular_series
                 is HomeItem.Slider -> R.layout.layout_slider
                 is HomeItem.MostPopularEvents -> R.layout.layout_most_popular_events
+                is HomeItem.MostPopularComics -> R.layout.layout_most_popular_comics
             }
         }
         return -1
+    }
+
+    override fun areItemsSame(oldItem: HomeItem, newItem: HomeItem): Boolean {
+        return oldItem.position == newItem.position
+    }
+
+    override fun areContentSame(oldPosition: HomeItem, newPosition: HomeItem): Boolean {
+        return oldPosition == newPosition
     }
 }

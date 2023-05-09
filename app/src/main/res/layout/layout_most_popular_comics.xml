@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="adapterRecycler"
+            type="com.example.herohub.ui.home.adapter.MostPopularComicsAdapter" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_comics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="@string/most_popular_comics"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/text_giant"
+            app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_comics"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="@string/see_all"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/md_theme_light_onPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/text_comics"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_comics" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_most_popular_comics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_small"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:adapter="@{adapterRecycler}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_most_popular_comics"
+            app:layout_constraintTop_toBottomOf="@+id/text_comics"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
