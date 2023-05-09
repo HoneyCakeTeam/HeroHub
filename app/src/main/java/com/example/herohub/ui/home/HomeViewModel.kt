@@ -1,5 +1,6 @@
 package com.example.herohub.ui.home
 
+import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
@@ -18,6 +19,12 @@ import com.example.herohub.utills.UiState
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,
     PopularSeriesSliderInteractionListener {
+
+    private lateinit var state: Parcelable
+    fun saveRecyclerViewState(parcelable: Parcelable) { state = parcelable }
+    fun restoreRecyclerViewState() : Parcelable = state
+    fun stateInitialized() : Boolean = ::state.isInitialized
+
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
