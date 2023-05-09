@@ -3,6 +3,7 @@ package com.example.herohub.utills
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.herohub.R
@@ -70,4 +71,13 @@ fun setImageFromUrl(view: ImageView, url: String?) {
         }
     }
 
+    @BindingAdapter(value = ["app:usePagerSnapHelper"])
+    fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolean = false) {
+        if (useSnapHelper)
+            PagerSnapHelper().attachToRecyclerView(recycler)
+    }
+    @BindingAdapter(value = ["app:disableIfLoading"])
+    fun <T> disableIfLoading(view: View, UiState: UiState<T>?) {
+        view.isEnabled = UiState is UiState.Success
+    }
 }
