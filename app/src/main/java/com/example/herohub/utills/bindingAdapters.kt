@@ -70,14 +70,15 @@ fun setImageFromUrl(view: ImageView, url: String?) {
                 .centerCrop().into(view)
         }
     }
+}
 
-    @BindingAdapter(value = ["app:usePagerSnapHelper"])
-    fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolean = false) {
-        if (useSnapHelper)
-            PagerSnapHelper().attachToRecyclerView(recycler)
-    }
-    @BindingAdapter(value = ["app:disableIfLoading"])
-    fun <T> disableIfLoading(view: View, UiState: UiState<T>?) {
-        view.isEnabled = UiState is UiState.Success
-    }
+@BindingAdapter(value = ["app:usePagerSnapHelper"])
+fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolean = false) {
+    if (useSnapHelper)
+        PagerSnapHelper().attachToRecyclerView(recycler)
+}
+
+@BindingAdapter(value = ["app:disableIfLoading"])
+fun <T> disableIfLoading(view: View, UiState: UiState<T>?) {
+    view.isEnabled = UiState is UiState.Success
 }

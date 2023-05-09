@@ -10,6 +10,7 @@ import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
+import com.example.herohub.ui.events.EventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
@@ -20,7 +21,7 @@ import com.example.herohub.utills.UiState
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     SuperHeroesInteractionListener,
     SliderInteractionListener, MostPopularEventsInteractionListener,
-    MostPopularComicsInteractionListener {
+    MostPopularComicsInteractionListener, EventsInteractionListener {
 
     private lateinit var state: Parcelable
     fun saveRecyclerViewState(parcelable: Parcelable) {
@@ -209,6 +210,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
 
     override fun onMostPopularComicsItemClick(id: Int) {
 
+    }
+
+    override fun onClickEvent(id: Int) {
+        TODO("Not yet implemented")
     }
 
 }
