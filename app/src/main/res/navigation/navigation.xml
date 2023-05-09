@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/charactersFragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -91,6 +91,18 @@
         android:name="com.example.herohub.ui.events.EventsFragment"
         android:label="EventsFragment"
         tools:layout="@layout/fragment_events"
+        />
+    <fragment
+        android:id="@+id/comicsFragment"
+        android:name="com.example.herohub.ui.comics.ComicsFragment"
+        android:label="ComicsFragment"
+        tools:layout="@layout/fragment_comics"
+        />
+    <fragment
+        android:id="@+id/seriesFragment"
+        android:name="com.example.herohub.ui.series.SeriesFragment"
+        android:label="SeriesFragment"
+        tools:layout="@layout/fragment_series"
         />
 
 </navigation>
