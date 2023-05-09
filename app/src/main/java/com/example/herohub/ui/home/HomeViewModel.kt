@@ -11,17 +11,15 @@ import com.example.herohub.model.Event
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
-import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
-import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
-import com.example.herohub.ui.home.adapter.PopularSeriesSliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,
-    SliderInteractionListener {
+    SliderInteractionListener, MostPopularEventsInteractionListener {
 
     private lateinit var state: Parcelable
     fun saveRecyclerViewState(parcelable: Parcelable) {
@@ -31,7 +29,6 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     fun restoreRecyclerViewState(): Parcelable = state
     fun stateInitialized(): Boolean = ::state.isInitialized
 
-    PopularSeriesSliderInteractionListener, MostPopularEventsInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -66,6 +63,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         getAllCharacters()
         getSliderItems()
         getMostPopularSeries()
+        getAllEvents()
     }
 
     private fun getAllCharacters() {
@@ -93,7 +91,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         )
     }
 
-    private fun getAllEvents(){
+    private fun getAllEvents() {
         disposeObservable(
             repository.getAllEvents(),
             ::onGetEventSuccess,
