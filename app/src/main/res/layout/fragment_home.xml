@@ -26,6 +26,7 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:clipToPadding="false"
             android:orientation="vertical"
+            app:items="@{viewModel.homeItemsLiveData}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

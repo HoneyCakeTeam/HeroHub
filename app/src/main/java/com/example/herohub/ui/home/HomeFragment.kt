@@ -21,9 +21,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun initHomeAdapter() {
         homeAdapter = HomeAdapter(homeItems, viewModel)
         binding.recyclerViewHome.adapter = homeAdapter
-
-        viewModel.homeItemsLiveData.observe(viewLifecycleOwner) { homeItem ->
-            homeAdapter.setItems(homeItem)
-        }
     }
 }
