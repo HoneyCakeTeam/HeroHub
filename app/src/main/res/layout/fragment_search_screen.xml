@@ -50,19 +50,50 @@
             app:spanCount="2"
             tools:listitem="@layout/item_search" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/search_lottie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:hideWhenSearch="@{viewModel.searchQuery}"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_search"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:background="@drawable/search3"
             app:hideWhenNotFound="@{viewModel.searchResult}"
+            app:hideWhenSearch="@{viewModel.searchQuery}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/search" />
+            app:layout_constraintVertical_bias="0.362" />
+
+        <TextView
+            android:id="@+id/tv_empty_search"
+            style="@style/TextStyleCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:alpha="0.7"
+            android:textSize="@dimen/text_giant"
+            android:textColor="@color/md_theme_light_error"
+            app:hideWhenSearch="@{viewModel.searchQuery}"
+            app:hideWhenNotFound="@{viewModel.searchResult}"
+            android:text="@string/discover_more_characters"
+            app:layout_constraintEnd_toEndOf="@id/image_search"
+            app:layout_constraintStart_toStartOf="@id/image_search"
+            app:layout_constraintTop_toBottomOf="@+id/image_search" />
+
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.7"
+            app:hideWhenSearch="@{viewModel.searchQuery}"
+            app:hideWhenNotFound="@{viewModel.searchResult}"
+            android:text="@string/click_on_search_bar_to_start_searching"
+            android:textSize="@dimen/text_giant"
+            android:textColor="@color/md_theme_light_error"
+            app:layout_constraintEnd_toEndOf="@id/image_search"
+            app:layout_constraintStart_toStartOf="@id/image_search"
+            app:layout_constraintTop_toBottomOf="@+id/tv_empty_search" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/not_found"
