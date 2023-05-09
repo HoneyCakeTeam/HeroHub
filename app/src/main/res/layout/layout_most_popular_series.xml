@@ -7,7 +7,7 @@
 
         <variable
             name="adapterRecycler"
-            type="com.example.herohub.ui.home.adapter.MostPopularCharactersAdapter" />
+            type="com.example.herohub.ui.home.adapter.MostPopularSeriesAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,22 +16,37 @@
 
 
         <TextView
-            android:id="@+id/text_comics"
+            android:id="@+id/text_series"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_small"
             android:fontFamily="@font/josefinsans_regular"
-            android:text="@string/most_popular_characters"
+            android:text="@string/most_popular_series"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_giant"
-            app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_comics"
+            app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_series"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/text_see_all_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="@string/see_all"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/text_giant"
+            app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_series"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_most_popular_comics"
+            android:id="@+id/recycler_most_popular_series"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/spacing_small"
@@ -43,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_comics"
-            tools:listitem="@layout/item_most_popular_characters" />
+            app:layout_constraintTop_toBottomOf="@id/text_series"
+            tools:listitem="@layout/item_most_popular_series" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
