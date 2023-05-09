@@ -11,13 +11,14 @@ import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
 import com.example.herohub.ui.home.adapter.PopularSeriesSliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
     CharactersByAppearanceInteractionListener, SuperHeroesInteractionListener,
-    PopularSeriesSliderInteractionListener {
+    PopularSeriesSliderInteractionListener,MostPopularComicsInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -156,5 +157,8 @@ class HomeViewModel : BaseViewModel(), MostPopularCharactersInteractionListener,
 
     override fun onPopularSeriesSliderItemClick(id: Int) {
 
+    }
+
+    override fun onMostPopularComicsItemClick(id: Int) {
     }
 }
