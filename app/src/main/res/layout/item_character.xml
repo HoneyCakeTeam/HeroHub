@@ -26,6 +26,7 @@
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/CircleImage"
             tools:src="@drawable/spiderman"
+            android:background="@color/md_theme_dark_outlineVariant"
             app:strokeWidth="1dp"
             android:padding="@dimen/spacing_tiny"
             app:strokeColor="@color/md_theme_dark_secondaryContainer"
