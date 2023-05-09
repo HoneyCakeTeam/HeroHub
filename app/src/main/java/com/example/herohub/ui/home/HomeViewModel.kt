@@ -13,6 +13,9 @@ import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.CharactersByAppearanceInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularCharactersInteractionListener
+import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
+import com.example.herohub.ui.home.adapter.PopularSeriesSliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.utills.UiState
 
@@ -28,6 +31,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     fun restoreRecyclerViewState(): Parcelable = state
     fun stateInitialized(): Boolean = ::state.isInitialized
 
+    PopularSeriesSliderInteractionListener, MostPopularEventsInteractionListener {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
@@ -89,6 +93,14 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         )
     }
 
+    private fun getAllEvents(){
+        disposeObservable(
+            repository.getAllEvents(),
+            ::onGetEventSuccess,
+            ::onError
+        )
+    }
+
 
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
         _characterResponse.value = UiState
@@ -137,6 +149,22 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _homeItems.add(
             HomeItem.MostPopularSeries(series!!)
         )
+
+        _homeItemsLiveData.postValue(_homeItems)
+    }
+
+    private fun onGetEventSuccess(uiState: UiState<DataResponse<Event>>) {
+        _eventResponse.value = uiState
+
+        val events = _eventResponse.value?.toData()?.results
+            ?.filterNot { it.thumbnail?.path?.contains("event_not_found") ?: false }
+            ?.shuffled()
+            ?.take(10)
+
+        _homeItems.add(
+            HomeItem.MostPopularEvents(events ?: emptyList())
+        )
+
         _homeItemsLiveData.postValue(_homeItems)
     }
 
@@ -162,4 +190,9 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     override fun onSliderItemClick(id: Int) {
 
     }
+
+    override fun onMostPopularEventClick(id: Int) {
+
+    }
+
 }

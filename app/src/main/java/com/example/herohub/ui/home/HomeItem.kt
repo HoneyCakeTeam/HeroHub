@@ -9,4 +9,5 @@ sealed class HomeItem(val position: Int) {
     data class SuperHeroes(val superHeroes: List<Character>) : HomeItem(1)
     data class MostPopularSeries(val mostPopularSeries: List<Series>) : HomeItem(2)
     data class CharactersByAppearance(val charactersByAppearance: List<Character>) : HomeItem(3)
+    data class MostPopularEvents(val mostPopularEvents: List<Event>) : HomeItem(4)
 }

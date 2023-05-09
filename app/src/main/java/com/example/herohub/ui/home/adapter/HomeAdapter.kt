@@ -67,6 +67,14 @@ class HomeAdapter(
                             .apply { setItems(currentItem.slider) }
                     )
                 }
+
+                is HomeItem.MostPopularEvents -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler,
+                        MostPopularEventsAdapter(listener as MostPopularEventsInteractionListener)
+                            .apply { setItems(currentItem.mostPopularEvents) }
+                    )
+                }
             }
         }
     }
@@ -78,6 +86,7 @@ class HomeAdapter(
                 is HomeItem.SuperHeroes -> R.layout.layout_super_heroes
                 is HomeItem.MostPopularSeries -> R.layout.layout_most_popular_series
                 is HomeItem.Slider -> R.layout.layout_slider
+                is HomeItem.MostPopularEvents -> R.layout.layout_most_popular_events
             }
         }
         return -1
