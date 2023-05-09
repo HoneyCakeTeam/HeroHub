@@ -1,6 +1,5 @@
 package com.example.herohub.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Series(
@@ -40,11 +39,4 @@ data class Series(
     val type: String? = "",
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
-):Category {
-    override val itemId: Int?
-        get() = id
-    override val categoryTitle: String?
-        get() = title
-    override val categoryImage: String?
-        get() = thumbnail?.path
-}
+)

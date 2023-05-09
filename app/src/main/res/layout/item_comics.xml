@@ -6,11 +6,11 @@
     <data>
         <variable
             name="item"
-            type="com.example.herohub.model.Event" />
+            type="com.example.herohub.model.Comic" />
 
         <variable
             name="listener"
-            type="com.example.herohub.ui.events.EventsInteractionListener" />
+            type="com.example.herohub.ui.comics.ComicInteractionListener" />
     </data>
 
     <LinearLayout
@@ -21,8 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/spacing_tiny"
+            android:background="@color/md_theme_dark_outlineVariant"
             android:scaleType="centerCrop"
-            android:onClick="@{()->listener.onClickEvent(item.id)}"
+            android:onClick="@{()->listener.onClickComic(item.id)}"
             app:imageUrl="@{item.thumbnail.path}"
             app:shapeAppearanceOverlay="@style/CardRadius"
             tools:background="@drawable/spiderman"

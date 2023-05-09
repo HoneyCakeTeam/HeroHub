@@ -23,13 +23,13 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_comic"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="400dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.comics.toData().results.get(0).thumbnail.path}"
+                app:imageUrl="@{viewModel.comic.thumbnail.path}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:showWhenSuccess="@{viewModel.comics}"
+                app:showWhenSuccess="@{viewModel.comicsResponse}"
                 tools:src="@drawable/spiderman" />
 
 
@@ -41,12 +41,12 @@
                 android:fontFamily="@font/josefinsans_semibold"
                 android:layout_margin="@dimen/spacing_medium"
                 android:maxLines="2"
-                android:text="@{viewModel.comics.toData().results.get(0).title}"
+                android:text="@{viewModel.comic.title}"
                 android:textSize="@dimen/text_giant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_comic"
-                app:showWhenSuccess="@{viewModel.comics}"
+                app:showWhenSuccess="@{viewModel.comicsResponse}"
                 tools:text="spider man" />
 
             <TextView
@@ -56,12 +56,12 @@
                 android:fontFamily="@font/josefinsans_regular"
                 android:layout_marginHorizontal="@dimen/spacing_medium"
                 android:layout_marginVertical="@dimen/spacing_small"
-                android:text="@{viewModel.comics.toData().results.get(0).textObjects.get(0).text}"
+                android:text="@{viewModel.comic.description}"
                 android:textSize="@dimen/text_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_title"
-                app:showWhenSuccess="@{viewModel.comics}"
+                app:showWhenSuccess="@{viewModel.comicsResponse}"
                 tools:text="spider man" />
 
             <com.airbnb.lottie.LottieAnimationView
@@ -74,7 +74,7 @@
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/loading_circle_red"
-                app:showWhenLoading="@{viewModel.comics}" />
+                app:showWhenLoading="@{viewModel.comicsResponse}" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:showWhenError="@{viewModel.comics}" />
+                app:showWhenError="@{viewModel.comicsResponse}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.events
+package com.example.herohub.ui.events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,6 +24,7 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
     }
 
     private fun getAllEvents() {
+        _events.postValue(UiState.Loading)
         disposeObservable(repository.getAllEvents(), ::onGetEventsSuccess, ::onError)
     }
 
@@ -35,7 +36,7 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
         _events.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickEvent(id: Int) {
         _eventId.postValue(id)
     }
 

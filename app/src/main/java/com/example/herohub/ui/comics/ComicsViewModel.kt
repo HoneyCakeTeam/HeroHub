@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.comics
+package com.example.herohub.ui.comics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,6 +24,7 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     }
 
     private fun getAllComics() {
+        _comics.postValue(UiState.Loading)
         disposeObservable(repository.getAllComics(), ::onGetComicSuccess, ::onError)
     }
 
@@ -35,7 +36,7 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
         _comics.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickComic(id: Int) {
         _comicId.postValue(id)
     }
 }

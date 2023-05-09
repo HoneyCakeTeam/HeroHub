@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.characters
+package com.example.herohub.ui.character
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -31,15 +31,13 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
 
     private fun onGetCharacterSuccess(state: UiState<DataResponse<Character>>) {
         _characters.postValue(state)
-        log(state.toData().toString())
-        log(state.toString())
     }
 
     private fun onError(throwable: Throwable) {
         _characters.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickCharacter(id: Int) {
         _characterId.postValue(id)
     }
 }

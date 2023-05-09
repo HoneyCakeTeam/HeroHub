@@ -7,20 +7,21 @@
 
         <variable
             name="viewModel"
-            type="com.example.herohub.ui.category.comics.ComicsViewModel" />
+            type="com.example.herohub.ui.comics.ComicsViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.category.comics.ComicsFragment">
+        tools:context=".ui.comics.ComicsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_comics"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/spacing_simi_medium"
+            android:padding="@dimen/spacing_simi_medium"
+            android:clipToPadding="false"
             app:items="@{viewModel.comics.toData().results}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +29,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showWhenSuccess="@{viewModel.comics}"
-            app:spanCount="2"
-            tools:listitem="@layout/item_category" />
+            app:spanCount="3"
+            tools:listitem="@layout/item_comics" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_error"

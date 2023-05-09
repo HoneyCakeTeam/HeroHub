@@ -1,4 +1,4 @@
-package com.example.herohub.ui.category.series
+package com.example.herohub.ui.series
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +25,7 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
     }
 
     private fun getAllSeries() {
+        _allSeries.postValue(UiState.Loading)
         disposeObservable(repository.getAllSeries(), ::onGetSeriesSuccess, ::onError)
     }
 
@@ -36,7 +37,7 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
         _allSeries.postValue(UiState.Error(errorMessage.message.toString()))
     }
 
-    override fun onClickItem(id: Int) {
+    override fun onClickSeries(id: Int) {
         _seriesId.postValue(id)
     }
 
