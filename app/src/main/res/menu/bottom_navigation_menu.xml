@@ -12,10 +12,4 @@
         android:id="@+id/favourite_fragment"
         android:icon="@drawable/ic_favorite"
         android:title="@string/favourite" />
-    <item
-        android:id="@+id/categories_fragment"
-        android:icon="@drawable/ic_category"
-        android:title="@string/category" />
-
-
 </menu>

@@ -26,7 +26,6 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
         addSource(searchQuery, this@SearchViewModel::search)
     }
 
-
     init {
         getAllCharacters()
     }
@@ -40,9 +39,8 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 
     fun search(query: String) {
-        log(query)
 
-        if (query.isNotEmpty()) {
+        if (query.isNotBlank()) {
             searchResult.postValue(response.value?.toData()?.results!!.filter {
                 it.name!!.contains(query, ignoreCase = true)
             })

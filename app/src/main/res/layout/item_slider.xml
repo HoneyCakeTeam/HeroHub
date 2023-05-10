@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.adapter.SliderInteractionListener" />
+
+        <variable
+            name="item"
+            type="com.example.herohub.model.Event" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="350dp"
+        android:layout_height="230dp"
+        android:layout_margin="@dimen/spacing_tiny"
+        android:onClick="@{() -> listener.onSliderItemClick(item.id)}"
+        app:strokeWidth="0dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{item.thumbnail.path}"
+            tools:src="@drawable/spiderman" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.herohub.model.Comic" />
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener" />
+
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_item_comics"
+        android:layout_width="160dp"
+        android:layout_height="190dp"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:onClick="@{() -> listener.onMostPopularComicsItemClick(item.id)}"
+        app:cardCornerRadius="16dp"
+        app:strokeWidth="0dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_comics"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/slider_placeholder"
+            app:imageUrl="@{item.thumbnail.path}" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

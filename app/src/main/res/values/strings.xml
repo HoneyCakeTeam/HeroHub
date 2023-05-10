@@ -20,6 +20,10 @@
     <string name="description">Description</string>
     <string name="see_all">See all</string>
     <string name="super_hero">Super Heroes</string>
-    <string name="most_popular_characters">Most Popular Characters</string>
+    <string name="most_popular_series">Most Popular Series</string>
     <string name="characters_by_appearance">Characters by Appearance</string>
+    <string name="discover_more_characters">Discover more Characters....</string>
+    <string name="click_on_search_bar_to_start_searching">Click on search bar to start searching...</string>
+    <string name="most_popular_events">Most Popular Events</string>
+    <string name="most_popular_comics">Most Popular Comics</string>
 </resources>

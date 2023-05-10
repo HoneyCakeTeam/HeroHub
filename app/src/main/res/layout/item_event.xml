@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.herohub.model.Event" />
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.events.EventsInteractionListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/spacing_tiny"
+            android:scaleType="centerCrop"
+            android:onClick="@{()->listener.onClickEvent(item.id)}"
+            app:imageUrl="@{item.thumbnail.path}"
+            app:shapeAppearanceOverlay="@style/CardRadius"
+            tools:background="@drawable/spiderman"
+            />
+    </LinearLayout>
+</layout>

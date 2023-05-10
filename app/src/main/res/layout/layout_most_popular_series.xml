@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="adapterRecycler"
+            type="com.example.herohub.ui.home.adapter.MostPopularSeriesAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/text_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="@string/most_popular_series"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/text_giant"
+            app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_series"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_see_all_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="@string/see_all"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/text_small"
+            app:drawableEndCompat="@drawable/ic_go"
+            android:drawablePadding="@dimen/spacing_tiny"
+            app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_series"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_most_popular_series"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_small"
+            android:adapter="@{adapterRecycler}"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_series"
+            tools:listitem="@layout/item_most_popular_series" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
