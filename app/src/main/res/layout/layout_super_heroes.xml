@@ -44,7 +44,7 @@
             android:text="@string/see_all"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_small"
-            android:onClick="@{() -> listener.onSeeAllCharactersClicked()}"
+            android:onClick="@{() -> adapterRecycler.listener.onSeeAllCharactersClicked()}"
             app:drawableEndCompat="@drawable/ic_go"
             app:layout_constraintBottom_toBottomOf="@id/text_character"
             app:layout_constraintEnd_toEndOf="parent"
