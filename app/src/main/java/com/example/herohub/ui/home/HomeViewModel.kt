@@ -199,6 +199,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
 
     }
 
+    override fun onSeeAllCharactersClicked() {
+
+    }
+
     override fun onSliderItemClick(id: Int) {
 
     }
