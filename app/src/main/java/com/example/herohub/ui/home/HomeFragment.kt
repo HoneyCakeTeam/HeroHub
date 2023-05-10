@@ -25,6 +25,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.recyclerViewHome.adapter = homeAdapter
     }
 
+    fun navigateToEvents(){
+
+    }
+
     private fun navigateToEventDetails(){
         viewModel.eventId.observe(this) {eventId ->
             val action = HomeFragmentDirections
