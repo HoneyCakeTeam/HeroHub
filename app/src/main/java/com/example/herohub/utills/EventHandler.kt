@@ -17,10 +17,10 @@ open class EventHandler<out T>(private val content: T) {
 }
 
 class EventObserve<T>(private val onEventUnhandledContent: (T) -> Unit) :
-    Observer<EventHandler<T>> {
+    Observer<EventHandler<T>?> {
 
-    override fun onChanged(event: EventHandler<T>) {
-        event.getContentIfHandled()?.let {
+    override fun onChanged(value: EventHandler<T>?) {
+        value?.getContentIfHandled()?.let {
             onEventUnhandledContent(it)
         }
     }
