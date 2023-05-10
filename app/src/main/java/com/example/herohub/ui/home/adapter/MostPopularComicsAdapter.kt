@@ -12,5 +12,6 @@ class MostPopularComicsAdapter(listener: MostPopularComicsInteractionListener) :
 
 interface MostPopularComicsInteractionListener : BaseInteractionListener {
     fun onMostPopularComicsItemClick(id: Int)
+    fun onCLickSeeAllComics()
 
 }
