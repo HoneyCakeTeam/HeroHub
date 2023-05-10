@@ -21,7 +21,11 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_home_fragment_to_seriesFragment"
-            app:destination="@id/seriesFragment" />
+            app:destination="@id/seriesFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_home_fragment_to_eventsFragment"
             app:destination="@id/eventsFragment"
@@ -62,7 +66,11 @@
             app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_home_fragment_to_series_details_fragment"
-            app:destination="@id/series_details_fragment" />
+            app:destination="@id/series_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
