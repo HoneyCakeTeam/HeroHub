@@ -49,7 +49,7 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/home_fragment"/>
-            app:destination="@id/comicsFragment" />
+             />
         <action
             android:id="@+id/action_home_fragment_to_characters_details_fragment"
             app:destination="@id/characters_details_fragment"
