@@ -47,6 +47,13 @@
             app:popUpTo="@id/home_fragment"/>
             app:destination="@id/comicsFragment" />
         <action
+            android:id="@+id/action_home_fragment_to_characters_details_fragment"
+            app:destination="@id/characters_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
             android:id="@+id/action_home_fragment_to_events_details_fragment"
             app:destination="@id/events_details_fragment"
             app:enterAnim="@android:anim/fade_in"

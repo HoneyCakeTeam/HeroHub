@@ -64,19 +64,25 @@ class HomeAdapter(
                 }
 
                 is HomeItem.MostPopularEvents -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        MostPopularEventsAdapter(listener as MostPopularEventsInteractionListener)
-                            .apply { setItems(currentItem.mostPopularEvents) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            MostPopularEventsAdapter(listener as MostPopularEventsInteractionListener)
+                                .apply { setItems(currentItem.mostPopularEvents) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
                 }
 
                 is HomeItem.MostPopularComics -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
-                            .apply { setItems(currentItem.mostPopularComics) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
+                                .apply { setItems(currentItem.mostPopularComics) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
                 }
             }
         }

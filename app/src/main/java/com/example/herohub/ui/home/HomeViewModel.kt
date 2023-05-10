@@ -1,7 +1,6 @@
 package com.example.herohub.ui.home
 
 import android.os.Parcelable
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
@@ -133,7 +132,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
         _characterResponseEvent.value = EventHandler(UiState)
 
-        val character = characterResponseEvent.value?.getContentIfHandled()?.toData()?.results
+        val character = _characterResponseEvent.value?.getContentIfHandled()?.toData()?.results
 
         val superHeroes = character
             ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
@@ -203,7 +202,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onSuperHeroesItemClick(id: Int) {
-
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickCharacterEvent(id)))
     }
 
     override fun onSeeAllCharactersClicked() {

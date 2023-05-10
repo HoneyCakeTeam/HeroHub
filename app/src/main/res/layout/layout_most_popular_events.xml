@@ -62,7 +62,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_event"
-            tools:listitem="@layout/item_event" />
+            tools:listitem="@layout/item_most_popular_event" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
