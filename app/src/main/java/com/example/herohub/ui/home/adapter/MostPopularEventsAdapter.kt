@@ -14,4 +14,6 @@ class MostPopularEventsAdapter(listener: MostPopularEventsInteractionListener)
 interface MostPopularEventsInteractionListener : BaseInteractionListener {
 
     fun onMostPopularEventClick(id : Int)
+    fun onClickSeeAllEvents()
+
 }

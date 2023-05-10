@@ -14,4 +14,6 @@ class SuperHeroesAdapter(listener: SuperHeroesInteractionListener) :
 interface SuperHeroesInteractionListener : BaseInteractionListener {
 
     fun onSuperHeroesItemClick(id: Int)
+    fun onClickSeeAllCharacters()
+
 }

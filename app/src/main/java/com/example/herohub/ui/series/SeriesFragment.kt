@@ -2,6 +2,7 @@ package com.example.herohub.ui.series
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSeriesBinding
 import com.example.herohub.ui.base.BaseFragment
@@ -17,10 +18,12 @@ class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
     }
 
     private fun navigateToSeriesDetails() {
-        viewModel.seriesId.observe(this) { seriesId ->
-            val action = SeriesFragmentDirections
-                .actionSeriesFragmentToSeriesDetailsFragment(seriesId)
-            Navigation.findNavController(binding.root).navigate(action)
+        viewModel.clickSeries.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { seriesId ->
+                val action = SeriesFragmentDirections
+                    .actionSeriesFragmentToSeriesDetailsFragment(seriesId)
+                findNavController().navigate(action)
+            }
         }
     }
 

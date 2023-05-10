@@ -6,6 +6,7 @@ import com.example.herohub.data.Repository
 import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
+import com.example.herohub.utills.MyEvent
 import com.example.herohub.utills.UiState
 
 class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
@@ -15,9 +16,9 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     val comics: LiveData<UiState<DataResponse<Comic>>>
         get() = _comics
 
-    private val _comicId = MutableLiveData<Int>()
-    val comicId: LiveData<Int>
-        get() = _comicId
+    private val _clickComic = MutableLiveData<MyEvent<Int>>()
+    val clickComic:LiveData<MyEvent<Int>>
+        get() = _clickComic
 
     init {
         getAllComics()
@@ -37,6 +38,6 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     }
 
     override fun onClickComic(id: Int) {
-        _comicId.postValue(id)
+        _clickComic.postValue(MyEvent(id))
     }
 }

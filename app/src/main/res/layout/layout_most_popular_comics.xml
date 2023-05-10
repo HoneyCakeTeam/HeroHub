@@ -8,7 +8,9 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.MostPopularComicsAdapter" />
-
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +41,7 @@
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_small"
             app:drawableEndCompat="@drawable/ic_go"
+            android:onClick="@{() -> listener.onClickSeeAllComics()}"
             android:drawablePadding="@dimen/spacing_tiny"
             app:layout_constraintBottom_toBottomOf="@id/text_comics"
             app:layout_constraintEnd_toEndOf="parent"

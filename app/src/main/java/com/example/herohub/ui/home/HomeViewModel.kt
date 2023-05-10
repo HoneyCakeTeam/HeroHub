@@ -15,6 +15,7 @@ import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
+import com.example.herohub.utills.MyEvent
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
@@ -56,6 +57,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     val homeItemsLiveData: LiveData<List<HomeItem>>
         get() = _homeItemsLiveData
 
+    private val _homeUiEvent = MutableLiveData<MyEvent<HomeUiEvent?>>(MyEvent(null))
+    val homeUiEvent:LiveData<MyEvent<HomeUiEvent?>>
+        get() = _homeUiEvent
+
     init {
         getHomeData()
     }
@@ -78,6 +83,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getSliderItems() {
+        _eventResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllEvents(),
             ::onGetSliderItemsSuccess,
@@ -86,6 +92,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getMostPopularSeries() {
+        _seriesResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllSeries(),
             ::onGetMostPopularSeriesSuccess,
@@ -94,6 +101,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllEvents() {
+        _eventResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllEvents(),
             ::onGetEventSuccess,
@@ -102,6 +110,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllComics() {
+        _comicsResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllComics(),
             ::onGetComicsSuccess,
@@ -192,23 +201,39 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onMostPopularSeriesItemClick(id: Int) {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickSeriesEvent(id)))
+    }
 
+    override fun onClickSeeAllSeries() {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickSeeAllSeriesEvent))
     }
 
     override fun onSuperHeroesItemClick(id: Int) {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickCharacterEvent(id)))
+    }
 
+    override fun onClickSeeAllCharacters() {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickSeeAllCharactersEvent))
     }
 
     override fun onSliderItemClick(id: Int) {
-
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickEventEvent(id)))
     }
 
     override fun onMostPopularEventClick(id: Int) {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickSeriesEvent(id)))
+    }
 
+    override fun onClickSeeAllEvents() {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickSeeAllEventsEvent))
     }
 
     override fun onMostPopularComicsItemClick(id: Int) {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickComicEvent(id)))
+    }
 
+    override fun onClickSeeAllComics() {
+        _homeUiEvent.postValue(MyEvent(HomeUiEvent.ClickSeeAllComicsEvent))
     }
 
 }

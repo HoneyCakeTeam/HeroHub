@@ -16,7 +16,7 @@ abstract class BaseViewModel : ViewModel() {
     abstract val TAG: String
 
     override fun onCleared() {
-        compositeDisposable.clear()
+        compositeDisposable.dispose()
         super.onCleared()
     }
 

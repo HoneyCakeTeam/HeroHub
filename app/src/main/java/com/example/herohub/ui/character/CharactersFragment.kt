@@ -2,6 +2,7 @@ package com.example.herohub.ui.character
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentCharactersBinding
 import com.example.herohub.ui.base.BaseFragment
@@ -17,10 +18,12 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
     }
 
     private fun navigateToCharacterDetails() {
-        viewModel.characterId.observe(this) { characterId ->
-            val action = CharactersFragmentDirections
-                .actionCharactersFragmentToCharactersDetailsFragment(characterId)
-            Navigation.findNavController(binding.root).navigate(action)
+        viewModel.clickCharacter.observe(this){event->
+            event.getContentIfNotHandled()?.let {
+                val action = CharactersFragmentDirections
+                    .actionCharactersFragmentToCharactersDetailsFragment(it)
+                findNavController().navigate(action)
+            }
         }
     }
 

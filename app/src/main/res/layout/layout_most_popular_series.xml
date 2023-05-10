@@ -8,6 +8,9 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.MostPopularSeriesAdapter" />
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +41,7 @@
             android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_small"
             android:fontFamily="@font/josefinsans_regular"
+            android:onClick="@{() -> listener.onClickSeeAllSeries()}"
             android:text="@string/see_all"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_small"

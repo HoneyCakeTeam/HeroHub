@@ -65,6 +65,6 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 
     fun onCompleteNavigation() {
-        isNavigated.value = false
+        isNavigated.postValue(false)
     }
 }

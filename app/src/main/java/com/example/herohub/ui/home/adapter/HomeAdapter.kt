@@ -42,6 +42,7 @@ class HomeAdapter(
                         SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
                             .apply { setItems(currentItem.superHeroes) }
                     )
+                    holder.binding.setVariable(BR.listener, listener)
                 }
 
                 is HomeItem.MostPopularSeries -> {
@@ -50,6 +51,7 @@ class HomeAdapter(
                         MostPopularSeriesAdapter(listener as MostPopularSeriesInteractionListener)
                             .apply { setItems(currentItem.mostPopularSeries) }
                     )
+                    holder.binding.setVariable(BR.listener, listener)
                 }
 
                 is HomeItem.Slider -> {
@@ -66,6 +68,7 @@ class HomeAdapter(
                         MostPopularEventsAdapter(listener as MostPopularEventsInteractionListener)
                             .apply { setItems(currentItem.mostPopularEvents) }
                     )
+                    holder.binding.setVariable(BR.listener, listener)
                 }
 
                 is HomeItem.MostPopularComics -> {
@@ -74,6 +77,7 @@ class HomeAdapter(
                         MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
                             .apply { setItems(currentItem.mostPopularComics) }
                     )
+                    holder.binding.setVariable(BR.listener, listener)
                 }
             }
         }

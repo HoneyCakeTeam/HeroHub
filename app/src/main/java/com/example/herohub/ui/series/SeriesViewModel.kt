@@ -6,6 +6,7 @@ import com.example.herohub.data.Repository
 import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
+import com.example.herohub.utills.MyEvent
 import com.example.herohub.utills.UiState
 
 class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
@@ -20,6 +21,9 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
     val seriesId: LiveData<Int>
         get() = _seriesId
 
+    private val _clickSeries = MutableLiveData<MyEvent<Int>>()
+    val clickSeries:LiveData<MyEvent<Int>>
+        get() = _clickSeries
     init {
         getAllSeries()
     }
@@ -38,7 +42,7 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
     }
 
     override fun onClickSeries(id: Int) {
-        _seriesId.postValue(id)
+        _clickSeries.postValue(MyEvent(id))
     }
 
 }

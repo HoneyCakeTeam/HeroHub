@@ -1,10 +1,11 @@
 package com.example.herohub.ui.events
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentEventsBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.utills.EventObserve
 
 class EventsFragment : BaseFragment<FragmentEventsBinding>() {
     override val TAG: String = this::class.java.simpleName
@@ -13,15 +14,27 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>() {
 
     override fun setup() {
         initiateAdapter()
-        navigationToEventDetails()
+        observeToEvent()
     }
 
-    private fun navigationToEventDetails() {
-        viewModel.eventId.observe(this) { eventId ->
-            val action = EventsFragmentDirections
-                .actionEventsFragmentToEventsDetailsFragment(eventId)
-            Navigation.findNavController(binding.root).navigate(action)
-        }
+//    private fun navigationToEventDetails() {
+//        viewModel.clickEvent.observe(this) { event ->
+//            event.getContentIfNotHandled()?.let { eventId ->
+//                val action = EventsFragmentDirections
+//                    .actionEventsFragmentToEventsDetailsFragment(eventId)
+//                findNavController().navigate(action)
+//            }
+//        }
+//    }
+
+    private fun observeToEvent() {
+        viewModel.clickEvent.observe(this, EventObserve { eventId ->
+            navigationToEventDetails(eventId)
+        })
+    }
+    private fun navigationToEventDetails(eventId: Int) {
+        val action = EventsFragmentDirections.actionEventsFragmentToEventsDetailsFragment(eventId)
+        findNavController().navigate(action)
     }
 
     private fun initiateAdapter() {

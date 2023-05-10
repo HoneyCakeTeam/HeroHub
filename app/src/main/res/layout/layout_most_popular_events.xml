@@ -8,7 +8,9 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.MostPopularEventsAdapter" />
-
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +40,7 @@
             android:text="@string/see_all"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_small"
+            android:onClick="@{() -> listener.onClickSeeAllEvents()}"
             app:drawableEndCompat="@drawable/ic_go"
             android:drawablePadding="@dimen/spacing_tiny"
             app:layout_constraintBottom_toBottomOf="@id/text_event"
