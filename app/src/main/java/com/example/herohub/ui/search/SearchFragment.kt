@@ -7,7 +7,7 @@ import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSearchScreenBinding
 import com.example.herohub.ui.base.BaseFragment
 
-class SearchScreenFragment : BaseFragment<FragmentSearchScreenBinding>() {
+class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment = R.layout.fragment_search_screen
     override val viewModel: SearchViewModel by viewModels()
@@ -17,7 +17,7 @@ class SearchScreenFragment : BaseFragment<FragmentSearchScreenBinding>() {
         viewModel.navigateToItem.observe(viewLifecycleOwner) {
             if (viewModel.isNavigated.value == true) {
                 val action =
-                    SearchScreenFragmentDirections.actionSearchFragmentToCharactersDetailsFragment(
+                    SearchFragmentDirections.actionSearchFragmentToCharactersDetailsFragment(
                         it.id!!
                     )
                 log(it.id.toString())

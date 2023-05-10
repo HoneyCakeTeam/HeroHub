@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:windowSoftInputMode="adjustPan"
-        tools:context=".ui.search.SearchScreenFragment">
+        tools:context=".ui.search.SearchFragment">
 
         <EditText
             android:id="@+id/search_bar"
