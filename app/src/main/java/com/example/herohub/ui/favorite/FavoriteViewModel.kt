@@ -15,20 +15,6 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
     val favorites: LiveData<List<FavoriteItem>>
         get() = _favorites
 
-    init {
-        addFavorite()
-    }
-
-    private fun addFavorite() {
-        repository.addToFavorite(
-            FavoriteItem(
-                "1011334",
-                "3-D Man",
-                "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784"
-            )
-        )
-    }
-
     fun retrieveFavorites() {
         _favorites.postValue(repository.getFavorites())
         isListChanged.postValue(true)

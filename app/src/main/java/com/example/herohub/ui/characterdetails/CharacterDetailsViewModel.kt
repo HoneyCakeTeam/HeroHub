@@ -28,30 +28,28 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     private val _navigateToComicDetails = MutableLiveData(0)
     val navigateToComicDetails: LiveData<Int> = _navigateToComicDetails
 
-    val favoriteItem = characterDetails.value?.toData()?.results?.firstOrNull()
+    private val characterItem = MutableLiveData<Character>()
+    val isFavorite = MutableLiveData<Boolean>()
+
     override val TAG: String
         get() = this::class.simpleName.toString()
 
-
     fun getComicsOfCharacter(characterId: Int) {
         disposeObservable(
-            repository.getCharacterComics(characterId),
-            ::onGetCharacterComicsSuccess,
-            ::onError
+            repository.getCharacterComics(characterId), ::onGetCharacterComicsSuccess, ::onError
         )
     }
 
     fun getDetailsOfCharacter(characterId: Int) {
         disposeObservable(
-            repository.getCharacterDetails(characterId),
-            ::onGetCharacterDetailsSuccess,
-            ::onError
+            repository.getCharacterDetails(characterId), ::onGetCharacterDetailsSuccess, ::onError
         )
     }
 
     private fun onGetCharacterDetailsSuccess(state: UiState<DataResponse<Character>>) {
-        _characterDetails.postValue(state)
-
+        _characterDetails.value = state
+        characterItem.value = characterDetails.value?.toData()?.results?.firstOrNull()
+        isFavorite.value = repository.isFavorite(characterItem.value?.id.toString())
     }
 
     private fun onGetCharacterComicsSuccess(state: UiState<DataResponse<Comic>>) {
@@ -69,22 +67,18 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
 
 
     fun onFavClicked() {
+        val favoriteItem = FavoriteItem(
+            characterItem.value?.id.toString(),
+            characterItem.value?.name.toString(),
+            characterItem.value?.thumbnail?.path.toString()
+        )
 
-        val isFavorite =
-            repository.isFavorite(favoriteItem?.id.toString())
-        if (isFavorite) {
-            repository.removeFavorite()
-        }
-        favoriteItem?.let { character ->
-            if (character.name != null && character.thumbnail?.path != null) {
-                repository.addToFavorite(
-                    FavoriteItem(
-                        character.id.toString(),
-                        character.name, character.thumbnail.path
-                    )
-                )
-            }
-
+        if (isFavorite.value == true) {
+            repository.removeFavorite(favoriteItem)
+            isFavorite.postValue(false)
+        } else {
+            repository.addToFavorite(favoriteItem)
+            isFavorite.postValue(true)
         }
     }
 

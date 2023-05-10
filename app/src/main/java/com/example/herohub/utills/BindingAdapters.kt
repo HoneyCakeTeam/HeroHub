@@ -2,12 +2,14 @@ package com.example.herohub.utills
 
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
+import com.google.android.material.imageview.ShapeableImageView
 
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, uiState: UiState<T>?) {
@@ -90,4 +92,16 @@ fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolea
 @BindingAdapter(value = ["app:disableIfLoading"])
 fun <T> disableIfLoading(view: View, uiState: UiState<T>?) {
     view.isEnabled = uiState is UiState.Success
+}
+
+@BindingAdapter(value = ["app:setIconColor"])
+fun setFavoriteStateColor(image: ShapeableImageView, state: Boolean) {
+    val colorRes = if (state) {
+        R.color.md_theme_dark_inversePrimary
+    } else {
+        R.color.md_theme_light_surface
+    }
+
+    val color = ContextCompat.getColor(image.context, colorRes)
+    image.setColorFilter(color)
 }
