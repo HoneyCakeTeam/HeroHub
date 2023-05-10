@@ -1,7 +1,6 @@
 package com.example.herohub.ui.home
 
 import android.os.Parcelable
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
@@ -199,7 +198,11 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onMostPopularSeriesItemClick(id: Int) {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickMostPopularSeriesItem(id)))
+    }
 
+    override fun onSeeAllSeriesClick() {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllSeriesEvent))
     }
 
     override fun onSuperHeroesItemClick(id: Int) {

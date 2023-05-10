@@ -48,11 +48,15 @@ class HomeAdapter(
                 }
 
                 is HomeItem.MostPopularSeries -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        MostPopularSeriesAdapter(listener as MostPopularSeriesInteractionListener)
-                            .apply { setItems(currentItem.mostPopularSeries) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            MostPopularSeriesAdapter(listener as MostPopularSeriesInteractionListener)
+                                .apply { setItems(currentItem.mostPopularSeries) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
+
                 }
 
                 is HomeItem.Slider -> {

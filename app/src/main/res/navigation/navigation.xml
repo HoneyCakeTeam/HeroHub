@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_home_fragment_to_comicsFragment"
             app:destination="@id/comicsFragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_series_details_fragment"
+            app:destination="@id/series_details_fragment" />
     </fragment>
 
     <fragment
