@@ -39,6 +39,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             HomeUiEvent.ClickSeeAllCharacterEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
             }
+
+            is HomeUiEvent.ClickEventEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToEventsDetailsFragment(event.id)
+            }
+
+            HomeUiEvent.ClickSeeAllEventsEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToEventsFragment()
+            }
+
+            is HomeUiEvent.ClickComicEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToComicsDetailsFragment(event.id)
+            }
+            HomeUiEvent.ClickSeeAllComicsEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToComicsFragment()
+            }
         }
         findNavController().navigate(action)
     }

@@ -215,11 +215,20 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onMostPopularEventClick(id: Int) {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickEventEvent(id)))
+    }
 
+    override fun onClickSeeAllEvents() {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllEventsEvent))
     }
 
     override fun onMostPopularComicsItemClick(id: Int) {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickComicEvent(id)))
 
+    }
+
+    override fun onCLickSeeAllComics() {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllComicsEvent))
     }
 
 }
