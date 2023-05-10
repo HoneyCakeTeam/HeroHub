@@ -31,6 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/text_see_all_events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_medium"
@@ -38,11 +39,13 @@
             android:text="@string/see_all"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_small"
+            android:clickable="true"
             app:drawableEndCompat="@drawable/ic_go"
             android:drawablePadding="@dimen/spacing_tiny"
             app:layout_constraintBottom_toBottomOf="@id/text_event"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_event" />
+            app:layout_constraintTop_toTopOf="@id/text_event"
+            android:focusable="true" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_event"
@@ -58,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_event"
-            tools:listitem="@layout/item_event" />
+            tools:listitem="@layout/item_most_popular_event" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
