@@ -20,6 +20,7 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
     override fun setup() {
         viewModel.getComicsOfCharacter(args.characterId)
         viewModel.getDetailsOfCharacter(args.characterId)
+        viewModel.getSeriesOfCharacter(args.characterId)
         //   handleAdapter()
     }
 

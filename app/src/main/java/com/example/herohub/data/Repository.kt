@@ -27,6 +27,11 @@ class Repository {
         api.getSeriesDetails(seriesId)
     }
 
+    fun getCharacterSeries(characterId: Int): Single<UiState<DataResponse<Series>>> =
+        wrapWithState {
+            api.getCharacterSeries(characterId)
+        }
+
     fun getEvent(eventId: Int): Single<UiState<DataResponse<Event>>> = wrapWithState {
         api.getEvent(eventId)
     }
