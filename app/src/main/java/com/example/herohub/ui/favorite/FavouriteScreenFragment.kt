@@ -12,10 +12,19 @@ class FavouriteScreenFragment : BaseFragment<FragmentFavouriteScreenBinding>() {
     override val viewModel: FavoriteViewModel by viewModels()
 
     override fun setup() {
-        viewModel.initShared(requireContext())
         val adapter = FavoritesAdapter(viewModel)
         binding.recyclerFavorites.adapter = adapter
-        viewModel.addFavorite()
-        viewModel.retrieveFavorites()
+        refreshRecycle()
+    }
+
+    private fun refreshRecycle() {
+        viewModel.isListChanged.observe(viewLifecycleOwner) { it ->
+            if (it) {
+                val adapter = FavoritesAdapter(viewModel)
+                viewModel.favorites.value?.let { adapter.setItems(it) }
+                binding.recyclerFavorites.adapter = adapter
+                viewModel.resetIsListChanged()
+            }
+        }
     }
 }

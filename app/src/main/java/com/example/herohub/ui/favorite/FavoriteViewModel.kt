@@ -1,6 +1,5 @@
 package com.example.herohub.ui.favorite
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
 import com.example.herohub.model.FavoriteItem
@@ -9,12 +8,19 @@ import com.example.herohub.ui.base.BaseViewModel
 class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
 
     private val repository = Repository()
-    override val TAG = this::class.java.simpleName
+    override val TAG: String = this::class.java.simpleName
     private val _favorites = MutableLiveData<List<FavoriteItem>>()
+    val isListChanged = MutableLiveData<Boolean>()
     val favorites: MutableLiveData<List<FavoriteItem>>
         get() = _favorites
 
-    fun addFavorite() {
+    init {
+        addFavorite()
+        retrieveFavorites()
+        isListChanged.postValue(true)
+    }
+
+    private fun addFavorite() {
         repository.addToFavorite(
             FavoriteItem(
                 "1011334",
@@ -24,17 +30,22 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
         )
     }
 
-    fun initShared(context: Context) {
-        repository.initShared(context)
+    private fun retrieveFavorites() {
+        _favorites.postValue(repository.getFavorites())
     }
 
-    fun retrieveFavorites() {
-        _favorites.value = repository.getFavorites()
-        log(favorites.value.toString())
+    override fun onClickFavorite(id: String) {
+        //to do
     }
 
-    override fun onClickFavorite(id: Int) {
+    fun resetIsListChanged() {
+        isListChanged.postValue(false)
+    }
 
+    override fun onClickFavoriteIcon(favoriteItem: FavoriteItem) {
+        repository.removeFavorite(favoriteItem)
+        retrieveFavorites()
+        isListChanged.postValue(true)
     }
 
 }

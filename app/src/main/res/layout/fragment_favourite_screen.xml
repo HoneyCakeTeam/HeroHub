@@ -13,18 +13,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/spacing_simi_medium"
         tools:context=".ui.favorite.FavouriteScreenFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_favorites"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
+            android:clipToPadding="false"
+            android:paddingVertical="@dimen/spacing_small"
             app:items="@{viewModel.favorites}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
             tools:listitem="@layout/item_favorite" />

@@ -4,30 +4,30 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object SharedPreferencesUtils {
-    private var sharedPreferences: SharedPreferences? = null
-    private var editor :SharedPreferences.Editor? = null
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor :SharedPreferences.Editor
 
     fun initShared(context: Context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        editor = sharedPreferences?.edit()
+        editor = sharedPreferences.edit()
     }
 
-    fun saveItems(items: String) {
+    fun saveItems(items: String?) {
         deleteItems()
-        editor?.putString(ITEMS, items)
-        editor?.apply()
+        editor.putString(ITEMS_KEY, items)
+        editor.apply()
     }
 
     fun getItems(): String? {
-        return sharedPreferences?.getString(ITEMS, "data")
+        return sharedPreferences.getString(ITEMS_KEY, "")
     }
 
     fun deleteItems() {
-        editor?.remove(ITEMS)
-        editor?.apply()
+        editor.remove(ITEMS_KEY)
+        editor.apply()
     }
 
     private const val PREF_NAME = "pref"
-    private const val ITEMS = "items"
+    private const val ITEMS_KEY = "items"
 
 }

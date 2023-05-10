@@ -1,7 +1,5 @@
 package com.example.herohub.data
 
-import android.content.Context
-import android.util.Log
 import com.example.herohub.data.source.remote.MarvelApi
 import com.example.herohub.model.BaseResponse
 import com.example.herohub.model.Character
@@ -24,19 +22,28 @@ class Repository {
     private val sharedPreferences = SharedPreferencesUtils
     private val api = MarvelApi.marvelService
 
-    fun initShared(context: Context) {
-        sharedPreferences.initShared(context)
+    fun addToFavorite(favorite: FavoriteItem) {
+        val gson = Gson()
+        var stringFavorites = sharedPreferences.getItems()
+        val favorites = convertToList(gson, stringFavorites)
+        favorites?.let {
+            it.add(favorite)
+            stringFavorites = convertToString(gson, it)
+        } ?: kotlin.run {
+            stringFavorites = convertToString(gson, mutableListOf(favorite))
+        }
+        sharedPreferences.saveItems(stringFavorites)
     }
 
-    fun addToFavorite(favorite: FavoriteItem) {
-        var stringFavorites = sharedPreferences.getItems()
+    fun removeFavorite(favorite: FavoriteItem) {
         val gson = Gson()
-        Log.e("FavoriteViewModel r", stringFavorites.toString())
+        var stringFavorites = sharedPreferences.getItems()
         val favorites = convertToList(gson, stringFavorites)
-        favorites?.add(favorite)
-        stringFavorites = convertToString(gson, favorites)
-        Log.e("FavoriteViewModel r", stringFavorites.toString())
-        sharedPreferences.saveItems(stringFavorites)
+        favorites?.let {
+            it.remove(favorite)
+            stringFavorites = convertToString(gson, it)
+            sharedPreferences.saveItems(stringFavorites)
+        }
     }
 
     fun getFavorites(): List<FavoriteItem>? {
