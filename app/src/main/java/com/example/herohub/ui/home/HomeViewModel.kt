@@ -1,6 +1,7 @@
 package com.example.herohub.ui.home
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
@@ -15,6 +16,7 @@ import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
+import com.example.herohub.utills.EventHandler
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
@@ -36,9 +38,17 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private val repository: Repository by lazy { Repository() }
     private val _homeItems = mutableListOf<HomeItem>()
 
-    private val _characterResponse = MutableLiveData<UiState<DataResponse<Character>>>()
+    /*private val _characterResponse = MutableLiveData<UiState<DataResponse<Character>>>()
     val characterResponse: LiveData<UiState<DataResponse<Character>>>
-        get() = _characterResponse
+        get() = _characterResponse*/
+    private val _characterResponseEvent =
+        MutableLiveData<EventHandler<UiState<DataResponse<Character>>>>()
+    val characterResponseEvent: LiveData<EventHandler<UiState<DataResponse<Character>>>>
+        get() = _characterResponseEvent
+
+    private val _homeUiEvent = MutableLiveData<EventHandler<HomeUiEvent?>>(EventHandler(null))
+    val homeUIEvent: LiveData<EventHandler<HomeUiEvent?>>
+        get() = _homeUiEvent
 
     private val _seriesResponse = MutableLiveData<UiState<DataResponse<Series>>>()
     val seriesResponse: LiveData<UiState<DataResponse<Series>>>
@@ -69,7 +79,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllCharacters() {
-        _characterResponse.postValue(UiState.Loading)
+        _characterResponseEvent.postValue(EventHandler(UiState.Loading))
         disposeObservable(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess,
@@ -124,9 +134,9 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
-        _characterResponse.value = UiState
+        _characterResponseEvent.value = EventHandler(UiState)
 
-        val character = _characterResponse.value?.toData()?.results
+        val character = characterResponseEvent.value?.getContentIfHandled()?.toData()?.results
 
         val superHeroes = character
             ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
@@ -185,7 +195,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun onError(throwable: Throwable) {
-        _characterResponse.postValue(UiState.Error(throwable.message.toString()))
+        _characterResponseEvent.postValue(EventHandler(UiState.Error(throwable.message.toString())))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
         _eventResponse.postValue(UiState.Error(throwable.message.toString()))
         _comicsResponse.postValue(UiState.Error(throwable.message.toString()))
@@ -200,7 +210,11 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onSeeAllCharactersClicked() {
-
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllCharacterEvent))
+        Log.e(
+            TAG,
+            _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllCharacterEvent)).toString()
+        )
     }
 
     override fun onSliderItemClick(id: Int) {
