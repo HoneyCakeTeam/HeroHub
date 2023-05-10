@@ -37,11 +37,14 @@ class HomeAdapter(
         if (position != -1) {
             when (val currentItem = homeItems[position]) {
                 is HomeItem.SuperHeroes -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
-                            .apply { setItems(currentItem.superHeroes) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
+                                .apply { setItems(currentItem.superHeroes) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
                 }
 
                 is HomeItem.MostPopularSeries -> {
