@@ -66,6 +66,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             is HomeUiEvent.ClickMostPopularSeriesItem -> {
                 HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(event.id)
             }
+
+            is HomeUiEvent.ClickSliderItemEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(event.id)
+            }
         }
         findNavController().navigate(action)
     }
