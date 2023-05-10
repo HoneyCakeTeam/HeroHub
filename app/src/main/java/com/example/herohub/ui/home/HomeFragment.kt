@@ -1,10 +1,12 @@
 package com.example.herohub.ui.home
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentHomeBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.home.adapter.HomeAdapter
+import com.example.herohub.utills.EventObserve
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -16,11 +18,56 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setup() {
         initHomeAdapter()
+        collectEvent()
     }
 
     private fun initHomeAdapter() {
         homeAdapter = HomeAdapter(homeItems, viewModel)
         binding.recyclerViewHome.adapter = homeAdapter
+    }
+
+    private fun collectEvent() {
+        viewModel.homeUIEvent.observe(this, EventObserve {
+            if (it != null) {
+                onEvent(it)
+            }
+        })
+    }
+
+    private fun onEvent(event: HomeUiEvent) {
+        val action = when (event) {
+            is HomeUiEvent.ClickSeeAllCharacterEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
+            }
+
+            is HomeUiEvent.ClickEventEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToEventsDetailsFragment(event.id)
+            }
+
+            HomeUiEvent.ClickSeeAllEventsEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToEventsFragment()
+            }
+
+            is HomeUiEvent.ClickComicEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToComicsDetailsFragment(event.id)
+            }
+            HomeUiEvent.ClickSeeAllComicsEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToComicsFragment()
+            }
+
+            is HomeUiEvent.ClickCharacterEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToCharactersDetailsFragment(event.characterId)
+            }
+
+            is HomeUiEvent.ClickSeeAllSeriesEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToSeriesFragment()
+            }
+
+            is HomeUiEvent.ClickMostPopularSeriesItem -> {
+                HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(event.id)
+            }
+        }
+        findNavController().navigate(action)
     }
 
     override fun onResume() {

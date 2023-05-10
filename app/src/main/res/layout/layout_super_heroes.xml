@@ -8,6 +8,10 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.SuperHeroesAdapter" />
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,15 +35,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/see_all_characters_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_medium"
+            android:drawablePadding="@dimen/spacing_tiny"
             android:fontFamily="@font/josefinsans_regular"
             android:text="@string/see_all"
             android:textColor="@color/md_theme_light_onPrimary"
             android:textSize="@dimen/text_small"
+            android:onClick="@{() -> listener.onSeeAllCharactersClicked()}"
             app:drawableEndCompat="@drawable/ic_go"
-            android:drawablePadding="@dimen/spacing_tiny"
             app:layout_constraintBottom_toBottomOf="@id/text_character"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_character" />
