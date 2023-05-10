@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun onEvent(event: HomeUiEvent) {
         val action = when (event) {
-            HomeUiEvent.ClickSeeAllCharacterEvent -> {
+            is HomeUiEvent.ClickSeeAllCharacterEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
             }
 
@@ -57,6 +57,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             is HomeUiEvent.ClickCharacterEvent -> {
                 HomeFragmentDirections.actionHomeFragmentToCharactersDetailsFragment(event.characterId)
+            }
+
+            is HomeUiEvent.ClickSeeAllSeriesEvent -> {
+                HomeFragmentDirections.actionHomeFragmentToSeriesFragment()
+            }
+
+            is HomeUiEvent.ClickMostPopularSeriesItem -> {
+                HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(event.id)
             }
         }
         findNavController().navigate(action)
