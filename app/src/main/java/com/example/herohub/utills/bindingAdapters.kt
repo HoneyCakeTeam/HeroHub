@@ -10,20 +10,20 @@ import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
 
 @BindingAdapter("app:showWhenLoading")
-fun <T> showWhenLoading(view: View, UiState: UiState<T>?) {
-    if (UiState is UiState.Loading) view.visibility = View.VISIBLE
+fun <T> showWhenLoading(view: View, uiState: UiState<T>?) {
+    if (uiState is UiState.Loading) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
 
 @BindingAdapter("app:showWhenError")
-fun <T> showWhenError(view: View, UiState: UiState<T>?) {
-    if (UiState is UiState.Error) view.visibility = View.VISIBLE
+fun <T> showWhenError(view: View, uiState: UiState<T>?) {
+    if (uiState is UiState.Error) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
 
 @BindingAdapter("app:showWhenSuccess")
-fun <T> showWhenSuccess(view: View, UiState: UiState<T>?) {
-    if (UiState is UiState.Success) view.visibility = View.VISIBLE
+fun <T> showWhenSuccess(view: View, uiState: UiState<T>?) {
+    if (uiState is UiState.Success) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
 
@@ -79,6 +79,6 @@ fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolea
 }
 
 @BindingAdapter(value = ["app:disableIfLoading"])
-fun <T> disableIfLoading(view: View, UiState: UiState<T>?) {
-    view.isEnabled = UiState is UiState.Success
+fun <T> disableIfLoading(view: View, uiState: UiState<T>?) {
+    view.isEnabled = uiState is UiState.Success
 }

@@ -16,8 +16,6 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
 
     init {
         addFavorite()
-        retrieveFavorites()
-        isListChanged.postValue(true)
     }
 
     private fun addFavorite() {
@@ -30,8 +28,9 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
         )
     }
 
-    private fun retrieveFavorites() {
+    fun retrieveFavorites() {
         _favorites.postValue(repository.getFavorites())
+        isListChanged.postValue(true)
     }
 
     override fun onClickFavorite(id: String) {
@@ -45,7 +44,6 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
     override fun onClickFavoriteIcon(favoriteItem: FavoriteItem) {
         repository.removeFavorite(favoriteItem)
         retrieveFavorites()
-        isListChanged.postValue(true)
     }
 
 }

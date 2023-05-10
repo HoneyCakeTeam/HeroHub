@@ -12,8 +12,7 @@ class FavouriteScreenFragment : BaseFragment<FragmentFavouriteScreenBinding>() {
     override val viewModel: FavoriteViewModel by viewModels()
 
     override fun setup() {
-        val adapter = FavoritesAdapter(viewModel)
-        binding.recyclerFavorites.adapter = adapter
+        viewModel.retrieveFavorites()
         refreshRecycle()
     }
 
