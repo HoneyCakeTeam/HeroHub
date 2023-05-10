@@ -38,9 +38,6 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private val repository: Repository by lazy { Repository() }
     private val _homeItems = mutableListOf<HomeItem>()
 
-    /*private val _characterResponse = MutableLiveData<UiState<DataResponse<Character>>>()
-    val characterResponse: LiveData<UiState<DataResponse<Character>>>
-        get() = _characterResponse*/
     private val _characterResponseEvent =
         MutableLiveData<EventHandler<UiState<DataResponse<Character>>>>()
     val characterResponseEvent: LiveData<EventHandler<UiState<DataResponse<Character>>>>
@@ -211,10 +208,6 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
 
     override fun onSeeAllCharactersClicked() {
         _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllCharacterEvent))
-        Log.e(
-            TAG,
-            _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllCharacterEvent)).toString()
-        )
     }
 
     override fun onSliderItemClick(id: Int) {
