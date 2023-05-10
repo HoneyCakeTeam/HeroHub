@@ -56,6 +56,11 @@ class Repository {
         }
     }
 
+    fun isFavorite(id: String): Boolean {
+        val favorites = getFavorites()
+        return favorites?.any { it.id == id } == true
+    }
+
     private fun convertToString(
         gson: Gson,
         favorites: MutableList<FavoriteItem>?,

@@ -6,6 +6,7 @@ import com.example.herohub.data.Repository
 import com.example.herohub.model.Character
 import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
+import com.example.herohub.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
@@ -27,7 +28,7 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     private val _navigateToComicDetails = MutableLiveData(0)
     val navigateToComicDetails: LiveData<Int> = _navigateToComicDetails
 
-
+    val favoriteItem = characterDetails.value?.toData()?.results?.firstOrNull()
     override val TAG: String
         get() = this::class.simpleName.toString()
 
@@ -65,4 +66,26 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     override fun onClickComic(id: Int) {
         _navigateToComicDetails.postValue(id)
     }
+
+
+    fun onFavClicked() {
+
+        val isFavorite =
+            repository.isFavorite(favoriteItem?.id.toString())
+        if (isFavorite) {
+            repository.removeFavorite()
+        }
+        favoriteItem?.let { character ->
+            if (character.name != null && character.thumbnail?.path != null) {
+                repository.addToFavorite(
+                    FavoriteItem(
+                        character.id.toString(),
+                        character.name, character.thumbnail.path
+                    )
+                )
+            }
+
+        }
+    }
+
 }
