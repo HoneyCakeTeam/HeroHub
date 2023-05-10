@@ -60,7 +60,7 @@
                 android:padding="@dimen/spacing_medium"
                 app:layout_constraintEnd_toEndOf="@id/image_favorite_item"
                 app:layout_constraintTop_toTopOf="@id/image_favorite_item"
-                app:srcCompat="@drawable/ic_favorite" />
+                app:srcCompat="@drawable/ic_favorite_fielld" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

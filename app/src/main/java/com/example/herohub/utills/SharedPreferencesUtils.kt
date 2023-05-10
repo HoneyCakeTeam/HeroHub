@@ -1,4 +1,4 @@
-package com.example.herohub.utills.shared
+package com.example.herohub.utills
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -22,7 +22,7 @@ object SharedPreferencesUtils {
         return sharedPreferences.getString(ITEMS_KEY, "")
     }
 
-    fun deleteItems() {
+    private fun deleteItems() {
         editor.remove(ITEMS_KEY)
         editor.apply()
     }

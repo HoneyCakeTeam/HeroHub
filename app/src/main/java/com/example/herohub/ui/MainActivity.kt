@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.ActivityMainBinding
-import com.example.herohub.utills.shared.SharedPreferencesUtils
+import com.example.herohub.utills.SharedPreferencesUtils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
