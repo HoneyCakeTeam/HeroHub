@@ -29,5 +29,22 @@
             app:spanCount="2"
             tools:listitem="@layout/item_favorite" />
 
+        <TextView
+            android:id="@+id/tv_empty_search"
+            style="@style/TextStyleCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:alpha="0.7"
+            android:text="@string/when_you_add_items_to_favourites_nit_will_appear_here"
+            android:gravity="center"
+            android:textColor="@color/md_theme_light_error"
+            android:textSize="@dimen/text_giant"
+            app:howWhenEmptyList="@{viewModel.favorites}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

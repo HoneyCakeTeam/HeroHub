@@ -32,7 +32,7 @@ fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
 }
 
-@BindingAdapter(value = ["app:showIfEmpty" , "app:hideWhenEmptyQuery"])
+@BindingAdapter(value = ["app:showIfEmpty", "app:hideWhenEmptyQuery"])
 fun <T> setPlaceHolder(view: View, list: List<T>?, query: String?) {
     if (list == null || query!!.isEmpty()) view.visibility = View.INVISIBLE
     else if (list.isEmpty()) {
@@ -42,9 +42,18 @@ fun <T> setPlaceHolder(view: View, list: List<T>?, query: String?) {
     }
 }
 
-@BindingAdapter(value = ["app:hideWhenSearch" , "app:hideWhenNotFound"])
+@BindingAdapter(value = ["app:hideWhenSearch", "app:hideWhenNotFound"])
 fun <T> hideWhenSearch(view: View, query: String?, list: List<T>?) {
     if (query.orEmpty().isEmpty() || list == null) {
+        view.visibility = View.VISIBLE
+    } else {
+        view.visibility = View.INVISIBLE
+    }
+}
+
+@BindingAdapter(value = ["app:howWhenEmptyList"])
+fun <T> hideWhenEmptyList(view: View, list: List<T>?) {
+    if (list.isNullOrEmpty()) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.INVISIBLE

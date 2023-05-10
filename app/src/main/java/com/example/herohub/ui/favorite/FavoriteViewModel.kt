@@ -1,5 +1,6 @@
 package com.example.herohub.ui.favorite
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
 import com.example.herohub.model.FavoriteItem
@@ -11,7 +12,7 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
     override val TAG: String = this::class.java.simpleName
     private val _favorites = MutableLiveData<List<FavoriteItem>>()
     val isListChanged = MutableLiveData<Boolean>()
-    val favorites: MutableLiveData<List<FavoriteItem>>
+    val favorites: LiveData<List<FavoriteItem>>
         get() = _favorites
 
     init {
