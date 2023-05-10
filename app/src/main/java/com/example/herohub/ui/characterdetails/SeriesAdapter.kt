@@ -9,7 +9,7 @@ import com.example.herohub.ui.base.BaseInteractionListener
 class SeriesAdapter(
     listener: ComicsInteractionListener,
 ) : BaseAdapter<Series>(listener) {
-    override val layoutId: Int = R.layout.item_series
+    override val layoutId: Int = R.layout.item_character_series
 
 }
 
