@@ -56,6 +56,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     val homeItemsLiveData: LiveData<List<HomeItem>>
         get() = _homeItemsLiveData
 
+    private val _eventId = MutableLiveData<Int>()
+    val eventId: LiveData<Int>
+        get() = _eventId
+
     init {
         getHomeData()
     }

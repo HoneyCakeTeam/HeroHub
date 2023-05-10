@@ -8,7 +8,7 @@ import com.example.herohub.ui.base.BaseInteractionListener
 class MostPopularEventsAdapter(listener: MostPopularEventsInteractionListener)
     : BaseAdapter<Event>(listener){
 
-    override val layoutId: Int = R.layout.item_home_event
+    override val layoutId: Int = R.layout.item_most_popular_event
 }
 
 interface MostPopularEventsInteractionListener : BaseInteractionListener {
