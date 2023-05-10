@@ -37,10 +37,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private val repository: Repository by lazy { Repository() }
     private val _homeItems = mutableListOf<HomeItem>()
 
-    private val _characterResponseEvent =
-        MutableLiveData<EventHandler<UiState<DataResponse<Character>>>>()
-    val characterResponseEvent: LiveData<EventHandler<UiState<DataResponse<Character>>>>
-        get() = _characterResponseEvent
+    private val _characterResponse =
+        MutableLiveData<UiState<DataResponse<Character>>>()
+    val characterResponse: LiveData<UiState<DataResponse<Character>>>
+        get() = _characterResponse
 
     private val _homeUiEvent = MutableLiveData<EventHandler<HomeUiEvent?>>(EventHandler(null))
     val homeUIEvent: LiveData<EventHandler<HomeUiEvent?>>
@@ -75,7 +75,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllCharacters() {
-        _characterResponseEvent.postValue(EventHandler(UiState.Loading))
+        _characterResponse.postValue(UiState.Loading)
         disposeObservable(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess,
@@ -130,9 +130,9 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
-        _characterResponseEvent.value = EventHandler(UiState)
+        _characterResponse.value = UiState
 
-        val character = _characterResponseEvent.value?.getContentIfHandled()?.toData()?.results
+        val character = _characterResponse.value?.toData()?.results
 
         val superHeroes = character
             ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
@@ -191,7 +191,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun onError(throwable: Throwable) {
-        _characterResponseEvent.postValue(EventHandler(UiState.Error(throwable.message.toString())))
+        _characterResponse.postValue(UiState.Error(throwable.message.toString()))
         _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
         _eventResponse.postValue(UiState.Error(throwable.message.toString()))
         _comicsResponse.postValue(UiState.Error(throwable.message.toString()))

@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenSuccess="@{viewModel.eventResponse}" />
+            app:showWhenSuccess="@{viewModel.characterResponse}" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="100dp"
@@ -44,7 +44,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading_circle_red"
-            app:showWhenLoading="@{viewModel.eventResponse}" />
+            app:showWhenLoading="@{viewModel.characterResponse}" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenError="@{viewModel.eventResponse}" />
+            app:showWhenError="@{viewModel.characterResponse}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
