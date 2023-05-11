@@ -1,7 +1,6 @@
 package com.example.herohub.ui.seriesdetails
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSeriesDetailsBinding
 import com.example.herohub.ui.base.BaseFragment
