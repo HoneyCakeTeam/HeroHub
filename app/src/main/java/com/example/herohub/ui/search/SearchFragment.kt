@@ -6,14 +6,18 @@ import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSearchScreenBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.ui.favorite.FavoritesAdapter
 
 class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment = R.layout.fragment_search_screen
     override val viewModel: SearchViewModel by viewModels()
+    private val adapter: SearchAdapter by lazy {
+        SearchAdapter(viewModel)
+    }
 
     override fun setup() {
-        initAdapter()
+        binding.rvSearchResult.adapter = adapter
         viewModel.navigateToItem.observe(viewLifecycleOwner) {
             if (viewModel.isNavigated.value == true) {
                 val action =
@@ -26,14 +30,6 @@ class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
             } else {
                 log("NOT Valid")
             }
-        }
-    }
-
-    private fun initAdapter() {
-        val adapter = SearchAdapter(viewModel)
-        binding.rvSearchResult.adapter = adapter
-        viewModel.searchResult.observe(viewLifecycleOwner) {
-            adapter.setItems(it)
         }
     }
 }
