@@ -21,7 +21,7 @@ class ComicDetailsViewModel : BaseViewModel() {
         get() = _comic
 
     fun getComic(comicId: Int) {
-        disposeObservable(
+        disposeSingle(
             repository.getComic(comicId),
             ::onGetComicSuccess,
             ::onGetComicFailure

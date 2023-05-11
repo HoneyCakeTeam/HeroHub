@@ -20,7 +20,7 @@ class SeriesDetailsViewModel : BaseViewModel() {
 
 
     fun getSeriesDetails(seriesId:Int) {
-        disposeObservable(repository.getSeriesDetails(seriesId), ::onSeriesSuccessData, ::onError)
+        disposeSingle(repository.getSeriesDetails(seriesId), ::onSeriesSuccessData, ::onError)
     }
 
     private fun onSeriesSuccessData(seriesUiState: UiState<DataResponse<Series>?>) {
