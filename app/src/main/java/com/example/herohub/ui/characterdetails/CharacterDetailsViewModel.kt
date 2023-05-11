@@ -41,7 +41,7 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
 
 
     fun getComicsOfCharacter(characterId: Int) {
-        disposeObservable(
+        disposeSingle(
             repository.getCharacterComics(characterId),
             ::onGetCharacterComicsSuccess,
             ::onError
@@ -49,7 +49,7 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     }
 
     fun getSeriesOfCharacter(characterId: Int) {
-        disposeObservable(
+        disposeSingle(
             repository.getCharacterSeries(characterId),
             ::onGetCharacterSeriesSuccess,
             ::onError
@@ -61,7 +61,7 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
     }
 
     fun getDetailsOfCharacter(characterId: Int) {
-        disposeObservable(
+        disposeSingle(
             repository.getCharacterDetails(characterId),
             ::onGetCharacterDetailsSuccess,
             ::onError
