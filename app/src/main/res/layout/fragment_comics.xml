@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:showWhenSuccess="@{viewModel.comics}"
             app:spanCount="3"
-            tools:listitem="@layout/item_comics" />
+            tools:listitem="@layout/item_comic" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_error"

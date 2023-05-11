@@ -6,7 +6,7 @@ import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 
 class ComicsAdapter(listener: ComicInteractionListener) : BaseAdapter<Comic>(listener) {
-    override val layoutId: Int = R.layout.item_comics
+    override val layoutId: Int = R.layout.item_comic
 }
 
 interface ComicInteractionListener : BaseInteractionListener {

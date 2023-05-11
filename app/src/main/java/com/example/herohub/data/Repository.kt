@@ -85,6 +85,18 @@ class Repository {
         api.getSeriesDetails(seriesId)
     }
 
+    fun getCharacterDetails(characterId: Int): Single<UiState<DataResponse<Character>>> =
+        wrapWithState { api.getCharacterDetails(characterId) }
+
+    fun getCharacterComics(characterId: Int): Single<UiState<DataResponse<Comic>>> =
+        wrapWithState { api.getCharacterComics(characterId) }
+
+    fun getCharacterSeries(characterId: Int): Single<UiState<DataResponse<Series>>> =
+        wrapWithState { api.getCharacterSeries(characterId) }
+
+    fun getCharacterEvents(characterId: Int): Single<UiState<DataResponse<Event>>> =
+        wrapWithState { api.getCharacterEvents(characterId) }
+
     fun getEvent(eventId: Int): Single<UiState<DataResponse<Event>>> = wrapWithState {
         api.getEvent(eventId)
     }
@@ -115,11 +127,6 @@ class Repository {
         api.getComic(comicId)
     }
 
-    fun getCharacterDetails(characterId: Int): Single<UiState<DataResponse<Character>>> =
-        wrapWithState { api.getCharacterDetails(characterId) }
-
-    fun getCharacterComics(characterId: Int): Single<UiState<DataResponse<Comic>>> =
-        wrapWithState { api.getCharacterComics(characterId) }
 
     private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
             Single<UiState<DataResponse<T>>> {

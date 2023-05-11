@@ -1,12 +1,16 @@
 package com.example.herohub.ui.characterdetails
 
 
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentCharactersDetailsBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.ui.characterdetails.adapter.CharacterDetailsAdapter
 import com.example.herohub.ui.comics.ComicsFragmentDirections
+import com.example.herohub.ui.events.EventsFragmentDirections
+import com.example.herohub.ui.search.SearchFragmentDirections
 import com.example.herohub.utills.EventObserve
 
 
@@ -15,17 +19,19 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
     override val TAG: String = this::class.simpleName.toString()
     override val layoutIdFragment: Int = R.layout.fragment_characters_details
     override val viewModel: CharacterDetailsViewModel by viewModels()
-
-    private lateinit var comicsAdapter: ComicsAdapter
-
+    private lateinit var characterDetailsAdapter: CharacterDetailsAdapter
     override fun setup() {
         initComicAdapter()
-        //collectEvent()
+        collectEvent()
     }
 
     private fun initComicAdapter() {
-        comicsAdapter = ComicsAdapter(viewModel)
-        binding.recyclerViewComics.adapter = comicsAdapter
+        characterDetailsAdapter = CharacterDetailsAdapter(mutableListOf(), viewModel)
+        binding.recyclerViewComics.adapter = characterDetailsAdapter
+        viewModel.characterItemsLiveData.observe(this) {
+            characterDetailsAdapter.setItems(it)
+            Log.e("TAG", "setup: $it")
+        }
     }
 
     private fun collectEvent() {
@@ -40,6 +46,16 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
         val action = when (event) {
             is CharacterDetailsUiEvent.ClickCharacterComic -> {
                 ComicsFragmentDirections.actionComicsFragmentToComicsDetailsFragment(event.id)
+            }
+
+            is CharacterDetailsUiEvent.ClickCharacterEvents -> {
+                EventsFragmentDirections.actionEventsFragmentToEventsDetailsFragment(event.id)
+
+            }
+
+            is CharacterDetailsUiEvent.ClickCharacterSeries -> {
+                SearchFragmentDirections.actionSearchFragmentToCharactersDetailsFragment(event.id)
+
             }
         }
         findNavController().navigate(action)
