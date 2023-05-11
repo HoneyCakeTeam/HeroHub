@@ -214,7 +214,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onSliderItemClick(id: Int) {
-
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSliderItemEvent(id)))
     }
 
     override fun onMostPopularEventClick(id: Int) {
