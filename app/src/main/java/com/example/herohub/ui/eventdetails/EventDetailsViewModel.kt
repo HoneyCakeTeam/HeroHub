@@ -63,6 +63,9 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         if(isFavorite.value == true) {
             repository.removeFavorite(favoriteItem)
             _isFavorite.postValue(true)
+        } else {
+            repository.addToFavorite(favoriteItem)
+            _isFavorite.postValue(true)
         }
     }
 }
