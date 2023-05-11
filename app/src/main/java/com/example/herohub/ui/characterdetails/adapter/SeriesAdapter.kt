@@ -1,4 +1,4 @@
-package com.example.herohub.ui.characterdetails
+package com.example.herohub.ui.characterdetails.adapter
 
 import com.example.herohub.R
 import com.example.herohub.model.Series

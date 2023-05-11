@@ -7,11 +7,11 @@
 
         <variable
             name="listener"
-            type="com.example.herohub.ui.characterdetails.adapter.SeriesInteractionListener" />
+            type="com.example.herohub.ui.characterdetails.adapter.ComicsInteractionListener" />
 
         <variable
             name="item"
-            type="com.example.herohub.model.Series" />
+            type="com.example.herohub.model.Comic" />
     </data>
 
     <LinearLayout
@@ -19,18 +19,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_medium"
         android:background="@color/md_theme_dark_surface"
-        android:onClick="@{()-> listener.onClickSeries(item.id)}"
+        android:onClick="@{()-> listener.onClickComic(item.id)}"
         android:orientation="vertical">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_series"
+            android:id="@+id/image_comic"
             android:layout_width="200dp"
             android:layout_height="200dp"
             app:imageUrl="@{item.thumbnail.path}"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/text_view_series_title"
+            android:id="@+id/text_view_comic_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -6,6 +6,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentCharactersDetailsBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.ui.characterdetails.adapter.ComicsAdapter
 
 
 class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>() {
