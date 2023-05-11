@@ -22,7 +22,7 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
         viewModel.getComicsOfCharacter(args.characterId)
         viewModel.getDetailsOfCharacter(args.characterId)
         viewModel.getSeriesOfCharacter(args.characterId)
-        //   handleAdapter()
+        handleAdapter()
     }
 
     private fun handleAdapter() {

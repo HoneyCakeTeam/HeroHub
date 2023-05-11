@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="com.example.herohub.ui.characterdetails.CharacterDetailsViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

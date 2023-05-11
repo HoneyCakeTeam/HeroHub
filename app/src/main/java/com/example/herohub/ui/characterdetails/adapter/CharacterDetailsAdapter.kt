@@ -8,24 +8,14 @@ import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 import com.example.herohub.ui.characterdetails.CharacterDetailsItem
-import com.example.herohub.ui.home.HomeItem
-import com.example.herohub.ui.home.adapter.MostPopularComicsAdapter
-import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
-import com.example.herohub.ui.home.adapter.MostPopularEventsAdapter
-import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
-import com.example.herohub.ui.home.adapter.MostPopularSeriesAdapter
-import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
-import com.example.herohub.ui.home.adapter.SliderAdapter
-import com.example.herohub.ui.home.adapter.SliderInteractionListener
-import com.example.herohub.ui.home.adapter.SuperHeroesAdapter
-import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
+import com.example.herohub.ui.characterdetails.CharacterDetailsViewModel
 
 /**
  * Created by Aziza Helmy on 5/11/2023.
  */
 class CharacterDetailsAdapter(
     private var characterDetailsItems: MutableList<CharacterDetailsItem>,
-    listener: BaseInteractionListener
+    val listener: BaseInteractionListener,
 ) : BaseAdapter<CharacterDetailsItem>(listener) {
 
     override val layoutId: Int = 0
@@ -45,15 +35,42 @@ class CharacterDetailsAdapter(
         if (characterDetailsItems.isNotEmpty())
             bind(holder as ItemViewHolder, position)
     }
+
     private fun bind(holder: ItemViewHolder, position: Int) {
         if (position != -1) {
             when (val currentItem = characterDetailsItems[position]) {
-                is CharacterDetailsItem.CharacterComics -> {
-
+                is CharacterDetailsItem.CharacterInfo -> {
+                    holder.binding.setVariable(
+                        BR.viewModel,
+                        CharacterDetailsViewModel()
+                    )
                 }
-                is CharacterDetailsItem.CharacterEvents -> TODO()
-                is CharacterDetailsItem.CharacterInfo -> TODO()
-                is CharacterDetailsItem.CharacterSeries -> TODO()
+
+                is CharacterDetailsItem.CharacterComics -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler,
+                        ComicsAdapter(listener as ComicsInteractionListener)
+                            .setItems(currentItem.comics)
+
+                    )
+                }
+
+                is CharacterDetailsItem.CharacterEvents -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler,
+                        EventsAdapter(listener as EventsInteractionListener)
+                            .setItems(currentItem.events)
+
+                    )
+                }
+
+                is CharacterDetailsItem.CharacterSeries -> {
+                    holder.binding.setVariable(
+                        BR.adapterRecycler,
+                        SeriesAdapter(listener as SeriesInteractionListener)
+                            .setItems(currentItem.series)
+                    )
+                }
             }
         }
     }
