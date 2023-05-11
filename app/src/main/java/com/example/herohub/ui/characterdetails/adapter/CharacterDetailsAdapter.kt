@@ -8,7 +8,6 @@ import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 import com.example.herohub.ui.characterdetails.CharacterDetailsItem
-import com.example.herohub.ui.characterdetails.CharacterDetailsViewModel
 
 /**
  * Created by Aziza Helmy on 5/11/2023.
@@ -40,10 +39,10 @@ class CharacterDetailsAdapter(
         if (position != -1) {
             when (val currentItem = characterDetailsItems[position]) {
                 is CharacterDetailsItem.CharacterInfo -> {
-                    holder.binding.setVariable(
-                        BR.viewModel,
-                        CharacterDetailsViewModel()
-                    )
+//                    holder.binding.setVariable(
+//                        BR.viewModel,
+//                       CharacterDetailsViewModel()
+//                    )
                 }
 
                 is CharacterDetailsItem.CharacterComics -> {
