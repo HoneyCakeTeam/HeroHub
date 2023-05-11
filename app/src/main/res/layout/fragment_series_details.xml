@@ -84,6 +84,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:showWhenError="@{viewModel.seriesDetails}" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/icon_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_favorite_fielld"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/spacing_medium"
+            android:padding="@dimen/spacing_tiny"
+            android:onClick="@{() -> viewModel.onFavClicked()}"
+            app:setIconColor="@{viewModel.isFavorite()}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
