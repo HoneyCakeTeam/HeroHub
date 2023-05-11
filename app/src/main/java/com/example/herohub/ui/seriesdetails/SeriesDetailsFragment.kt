@@ -10,11 +10,7 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment: Int = R.layout.fragment_series_details
     override val viewModel: SeriesDetailsViewModel by viewModels()
-    private val args: SeriesDetailsFragmentArgs by navArgs()
 
-    override fun setup() {
-        viewModel.getSeriesDetails(args.seriesId)
-    }
 
 
 }
