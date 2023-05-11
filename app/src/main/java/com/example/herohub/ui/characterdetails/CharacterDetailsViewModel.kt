@@ -21,9 +21,8 @@ import com.example.herohub.utills.UiState
 /**
  * Created by Aziza Helmy on 5/3/2023.
  */
-class CharacterDetailsViewModel : BaseViewModel(),
+class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     ComicsInteractionListener, SeriesInteractionListener, EventsInteractionListener {
-    lateinit var state: SavedStateHandle
     private val repository = Repository()
 
     private val _characterEvent = MutableLiveData<UiState<DataResponse<Event>>>()
