@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.Repository
 import com.example.herohub.model.DataResponse
-import com.example.herohub.model.Event
+import com.example.herohub.model.FavoriteItem
 import com.example.herohub.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
@@ -24,6 +24,9 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     private val _series = MutableLiveData<Series>()
     val series: LiveData<Series>
         get() = _series
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean>
+        get() = _isFavorite
 
     init {
         getSeriesDetails()
@@ -47,6 +50,21 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
 
     private fun onError(errorMessage: Throwable) {
         _seriesDetails.postValue(UiState.Error(errorMessage.message.toString()))
+    }
+    fun onFavClicked() {
+        val favoriteItem = FavoriteItem(
+            _series.value?.id.toString(),
+            _series.value?.title.toString(),
+            _series.value?.thumbnail?.path.toString()
+        )
+
+        if (isFavorite.value == true) {
+            repository.removeFavorite(favoriteItem)
+            _isFavorite.postValue(false)
+        } else {
+            repository.addToFavorite(favoriteItem)
+            _isFavorite.postValue(true)
+        }
     }
 
 
