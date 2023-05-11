@@ -37,19 +37,26 @@ class HomeAdapter(
         if (position != -1) {
             when (val currentItem = homeItems[position]) {
                 is HomeItem.SuperHeroes -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
-                            .apply { setItems(currentItem.superHeroes) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            SuperHeroesAdapter(listener as SuperHeroesInteractionListener)
+                                .apply { setItems(currentItem.superHeroes) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
                 }
 
                 is HomeItem.MostPopularSeries -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        MostPopularSeriesAdapter(listener as MostPopularSeriesInteractionListener)
-                            .apply { setItems(currentItem.mostPopularSeries) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            MostPopularSeriesAdapter(listener as MostPopularSeriesInteractionListener)
+                                .apply { setItems(currentItem.mostPopularSeries) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
+
                 }
 
                 is HomeItem.Slider -> {
@@ -61,19 +68,25 @@ class HomeAdapter(
                 }
 
                 is HomeItem.MostPopularEvents -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        MostPopularEventsAdapter(listener as MostPopularEventsInteractionListener)
-                            .apply { setItems(currentItem.mostPopularEvents) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            MostPopularEventsAdapter(listener as MostPopularEventsInteractionListener)
+                                .apply { setItems(currentItem.mostPopularEvents) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
                 }
 
                 is HomeItem.MostPopularComics -> {
-                    holder.binding.setVariable(
-                        BR.adapterRecycler,
-                        MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
-                            .apply { setItems(currentItem.mostPopularComics) }
-                    )
+                    holder.binding.apply {
+                        setVariable(
+                            BR.adapterRecycler,
+                            MostPopularComicsAdapter(listener as MostPopularComicsInteractionListener)
+                                .apply { setItems(currentItem.mostPopularComics) }
+                        )
+                        setVariable(BR.listener, listener)
+                    }
                 }
             }
         }

@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:showWhenSuccess="@{viewModel.characters}"
-            app:spanCount="4"
+            app:spanCount="3"
             tools:listitem="@layout/item_character" />
 
         <com.google.android.material.imageview.ShapeableImageView

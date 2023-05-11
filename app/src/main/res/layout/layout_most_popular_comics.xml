@@ -8,6 +8,9 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.MostPopularComicsAdapter" />
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener" />
 
     </data>
 
@@ -40,6 +43,7 @@
             android:textSize="@dimen/text_small"
             app:drawableEndCompat="@drawable/ic_go"
             android:drawablePadding="@dimen/spacing_tiny"
+            android:onClick="@{()->listener.onCLickSeeAllComics()}"
             app:layout_constraintBottom_toBottomOf="@id/text_comics"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_comics" />

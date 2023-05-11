@@ -32,7 +32,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     private fun getAllCharacters() {
         _response.postValue(UiState.Loading)
-        disposeObservable(
+        disposeSingle(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess, ::onGetCharacterFailure
         )

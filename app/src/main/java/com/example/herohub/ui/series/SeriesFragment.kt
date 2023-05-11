@@ -1,10 +1,11 @@
 package com.example.herohub.ui.series
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSeriesBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.utills.EventObserve
 
 class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
     override val TAG: String = this::class.java.simpleName
@@ -13,15 +14,19 @@ class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
 
     override fun setup() {
         initiateAdapter()
-        navigateToSeriesDetails()
+        observeSeriesClick()
     }
 
-    private fun navigateToSeriesDetails() {
-        viewModel.seriesId.observe(this) { seriesId ->
-            val action = SeriesFragmentDirections
-                .actionSeriesFragmentToSeriesDetailsFragment(seriesId)
-            Navigation.findNavController(binding.root).navigate(action)
-        }
+    private fun observeSeriesClick() {
+        viewModel.seriesClick.observe(this, EventObserve { seriesId ->
+            navigateToSeriesDetails(seriesId)
+        })
+    }
+
+    private fun navigateToSeriesDetails(seriesId: Int) {
+        val action = SeriesFragmentDirections
+            .actionSeriesFragmentToSeriesDetailsFragment(seriesId)
+        findNavController().navigate(action)
     }
 
     private fun initiateAdapter() {

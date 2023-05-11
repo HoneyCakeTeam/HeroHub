@@ -7,14 +7,72 @@ import com.example.herohub.model.Comic
 import com.example.herohub.model.Creator
 import com.example.herohub.model.DataResponse
 import com.example.herohub.model.Event
+import com.example.herohub.model.FavoriteItem
 import com.example.herohub.model.Series
 import com.example.herohub.model.Story
+import com.example.herohub.utills.SharedPreferencesUtils
 import com.example.herohub.utills.UiState
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
 class Repository {
+
+    private val sharedPreferences = SharedPreferencesUtils
     private val api = MarvelApi.marvelService
+
+    fun addToFavorite(favorite: FavoriteItem) {
+        val gson = Gson()
+        var stringFavorites = sharedPreferences.getItems()
+        val favorites = convertToList(gson, stringFavorites)
+        favorites?.let {
+            it.add(favorite)
+            stringFavorites = convertToString(gson, it)
+        } ?: kotlin.run {
+            stringFavorites = convertToString(gson, mutableListOf(favorite))
+        }
+        sharedPreferences.saveItems(stringFavorites)
+    }
+
+    fun removeFavorite(favorite: FavoriteItem) {
+        val gson = Gson()
+        var stringFavorites = sharedPreferences.getItems()
+        val favorites = convertToList(gson, stringFavorites)
+        favorites?.let {
+            it.remove(favorite)
+            stringFavorites = convertToString(gson, it)
+            sharedPreferences.saveItems(stringFavorites)
+        }
+    }
+
+    fun getFavorites(): List<FavoriteItem>? {
+        val stringFavorites = sharedPreferences.getItems()
+        val gson = Gson()
+        return if (stringFavorites.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            convertToList(gson, stringFavorites)
+        }
+    }
+
+    fun isFavorite(id: String): Boolean {
+        val favorites = getFavorites()
+        return favorites?.any { it.id == id } == true
+    }
+
+    private fun convertToString(
+        gson: Gson,
+        favorites: MutableList<FavoriteItem>?,
+    ): String = gson.toJson(favorites)
+
+    private fun convertToList(
+        gson: Gson,
+        stringFavorites: String?,
+    ): MutableList<FavoriteItem>? = gson.fromJson(
+        stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
+    )
+
     fun getAllCharacters(): Single<UiState<DataResponse<Character>>> = wrapWithState {
         api.getAllCharacters(100)
     }

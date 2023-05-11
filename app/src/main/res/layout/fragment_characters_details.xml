@@ -58,5 +58,16 @@
             app:layout_constraintTop_toBottomOf="@+id/text_view_character_name"
             tools:listitem="@layout/item_comic" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_medium"
+            android:onClick="@{()->viewModel.onFavClicked()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setIconColor="@{viewModel.isFavorite}"
+            app:srcCompat="@drawable/ic_favorite_fielld" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

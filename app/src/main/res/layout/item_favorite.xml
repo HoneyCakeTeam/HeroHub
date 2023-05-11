@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.favorite.FavoriteInteractionListener" />
+
         <variable
             name="item"
             type="com.example.herohub.model.FavoriteItem" />
@@ -12,9 +17,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginHorizontal="@dimen/spacing_simi_medium"
-        android:layout_marginVertical="@dimen/spacing_small"
-        app:cardCornerRadius="@dimen/radius_medium"
+        android:layout_marginHorizontal="@dimen/spacing_tiny"
+        android:layout_marginBottom="@dimen/spacing_small"
+        app:cardCornerRadius="@dimen/radius_semi_large"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,11 +30,10 @@
                 android:id="@+id/image_favorite_item"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:onClick="@{()->listener.onClickFavorite(item.id)}"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{item.imageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@drawable/ic_launcher_background" />
 
@@ -38,9 +42,9 @@
                 style="@style/TextStyleCategories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.name}"
                 android:layout_marginStart="@dimen/spacing_zero"
                 android:layout_marginBottom="@dimen/spacing_large"
+                android:text="@{item.title}"
                 android:textSize="@dimen/text_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,11 +56,11 @@
                 android:id="@+id/image_favorite_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->listener.onClickFavoriteIcon(item)}"
                 android:padding="@dimen/spacing_medium"
-                android:tint="@color/md_theme_light_primary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/ic_favorite" />
+                app:layout_constraintEnd_toEndOf="@id/image_favorite_item"
+                app:layout_constraintTop_toTopOf="@id/image_favorite_item"
+                app:srcCompat="@drawable/ic_favorite_fielld" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

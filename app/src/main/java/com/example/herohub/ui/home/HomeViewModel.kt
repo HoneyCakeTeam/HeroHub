@@ -15,6 +15,7 @@ import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
+import com.example.herohub.utills.EventHandler
 import com.example.herohub.utills.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
@@ -36,9 +37,14 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private val repository: Repository by lazy { Repository() }
     private val _homeItems = mutableListOf<HomeItem>()
 
-    private val _characterResponse = MutableLiveData<UiState<DataResponse<Character>>>()
+    private val _characterResponse =
+        MutableLiveData<UiState<DataResponse<Character>>>()
     val characterResponse: LiveData<UiState<DataResponse<Character>>>
         get() = _characterResponse
+
+    private val _homeUiEvent = MutableLiveData<EventHandler<HomeUiEvent?>>(EventHandler(null))
+    val homeUIEvent: LiveData<EventHandler<HomeUiEvent?>>
+        get() = _homeUiEvent
 
     private val _seriesResponse = MutableLiveData<UiState<DataResponse<Series>>>()
     val seriesResponse: LiveData<UiState<DataResponse<Series>>>
@@ -70,7 +76,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
 
     private fun getAllCharacters() {
         _characterResponse.postValue(UiState.Loading)
-        disposeObservable(
+        disposeSingle(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess,
             ::onError
@@ -78,7 +84,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getSliderItems() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllEvents(),
             ::onGetSliderItemsSuccess,
             ::onError
@@ -86,7 +92,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getMostPopularSeries() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllSeries(),
             ::onGetMostPopularSeriesSuccess,
             ::onError
@@ -94,7 +100,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllEvents() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllEvents(),
             ::onGetEventSuccess,
             ::onError
@@ -102,7 +108,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllComics() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllComics(),
             ::onGetComicsSuccess,
             ::onError
@@ -192,23 +198,40 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     override fun onMostPopularSeriesItemClick(id: Int) {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickMostPopularSeriesItem(id)))
+    }
 
+    override fun onSeeAllSeriesClick() {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllSeriesEvent))
     }
 
     override fun onSuperHeroesItemClick(id: Int) {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickCharacterEvent(id)))
+    }
 
+    override fun onSeeAllCharactersClicked() {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllCharacterEvent))
     }
 
     override fun onSliderItemClick(id: Int) {
-
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSliderItemEvent(id)))
     }
 
     override fun onMostPopularEventClick(id: Int) {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickEventEvent(id)))
+    }
 
+    override fun onClickSeeAllEvents() {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllEventsEvent))
     }
 
     override fun onMostPopularComicsItemClick(id: Int) {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickComicEvent(id)))
 
+    }
+
+    override fun onCLickSeeAllComics() {
+        _homeUiEvent.postValue(EventHandler(HomeUiEvent.ClickSeeAllComicsEvent))
     }
 
 }

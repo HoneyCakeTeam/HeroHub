@@ -22,13 +22,14 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         _binding = DataBindingUtil.inflate(
             inflater,
             layoutIdFragment,
-            container, false)
+            container, false
+        )
 
         _binding.apply {
             lifecycleOwner = viewLifecycleOwner
@@ -42,7 +43,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
         setup()
     }
 
-    abstract fun setup()
+    protected open fun setup() {}
 
     protected fun log(value: Any) {
         Log.e(TAG, value.toString())

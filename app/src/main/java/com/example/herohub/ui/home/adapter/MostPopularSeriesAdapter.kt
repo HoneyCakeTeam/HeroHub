@@ -14,4 +14,6 @@ class MostPopularSeriesAdapter(listener: MostPopularSeriesInteractionListener) :
 interface MostPopularSeriesInteractionListener : BaseInteractionListener {
 
     fun onMostPopularSeriesItemClick(id: Int)
+
+    fun onSeeAllSeriesClick()
 }

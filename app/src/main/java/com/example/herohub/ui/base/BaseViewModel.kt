@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.herohub.model.DataResponse
 import com.example.herohub.utills.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -24,7 +23,7 @@ abstract class BaseViewModel : ViewModel() {
         Log.v(TAG, message)
     }
 
-    fun <T : Any> disposeObservable(
+    fun <T : Any> disposeSingle(
         response: Single<UiState<DataResponse<T>>>,
         onSuccess: (data: UiState<DataResponse<T>>) -> Unit,
         onFailed: (e: Throwable) -> Unit,
