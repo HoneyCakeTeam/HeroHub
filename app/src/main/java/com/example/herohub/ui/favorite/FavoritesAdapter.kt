@@ -12,6 +12,6 @@ class FavoritesAdapter(listener: FavoriteInteractionListener) : BaseAdapter<Favo
 }
 
 interface FavoriteInteractionListener : BaseInteractionListener {
-    fun onClickFavorite(id: String)
+    fun onClickFavorite(favoriteItem: FavoriteItem)
     fun onClickFavoriteIcon(favoriteItem: FavoriteItem)
 }

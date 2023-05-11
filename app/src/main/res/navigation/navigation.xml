@@ -32,7 +32,7 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"/>
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_home_fragment_to_comicsFragment"
             app:destination="@id/comicsFragment"
@@ -40,7 +40,7 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/home_fragment"/>
+            app:popUpTo="@id/home_fragment" />
         <action
             android:id="@+id/action_home_fragment_to_comics_details_fragment"
             app:destination="@id/comics_details_fragment"
@@ -48,8 +48,8 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/home_fragment"/>
-             />
+            app:popUpTo="@id/home_fragment" />
+        />
         <action
             android:id="@+id/action_home_fragment_to_characters_details_fragment"
             app:destination="@id/characters_details_fragment"
@@ -63,7 +63,7 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"/>
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_home_fragment_to_series_details_fragment"
             app:destination="@id/series_details_fragment"
@@ -117,12 +117,41 @@
         android:id="@+id/favourite_fragment"
         android:name="com.example.herohub.ui.favorite.FavouriteScreenFragment"
         android:label="@string/favourite"
-        tools:layout="@layout/fragment_favourite_screen" />
+        tools:layout="@layout/fragment_favourite_screen">
+        <action
+            android:id="@+id/action_favourite_fragment_to_events_details_fragment"
+            app:destination="@id/events_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_favourite_fragment_to_comics_details_fragment"
+            app:destination="@id/comics_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_favourite_fragment_to_characters_details_fragment"
+            app:destination="@id/characters_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_favourite_fragment_to_series_details_fragment"
+            app:destination="@id/series_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/search_fragment"
         android:name="com.example.herohub.ui.search.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search_screen" >
+        tools:layout="@layout/fragment_search_screen">
         <action
             android:id="@+id/action_search_fragment_to_characters_details_fragment"
             app:destination="@id/characters_details_fragment" />
@@ -132,8 +161,7 @@
         android:id="@+id/charactersFragment"
         android:name="com.example.herohub.ui.character.CharactersFragment"
         android:label="CharactersFragment"
-        tools:layout="@layout/fragment_characters"
-        >
+        tools:layout="@layout/fragment_characters">
         <action
             android:id="@+id/action_charactersFragment_to_characters_details_fragment"
             app:destination="@id/characters_details_fragment"
@@ -147,8 +175,7 @@
         android:id="@+id/eventsFragment"
         android:name="com.example.herohub.ui.events.EventsFragment"
         android:label="EventsFragment"
-        tools:layout="@layout/fragment_events"
-        >
+        tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_eventsFragment_to_events_details_fragment"
             app:destination="@id/events_details_fragment"
@@ -162,8 +189,7 @@
         android:id="@+id/comicsFragment"
         android:name="com.example.herohub.ui.comics.ComicsFragment"
         android:label="ComicsFragment"
-        tools:layout="@layout/fragment_comics"
-        >
+        tools:layout="@layout/fragment_comics">
         <action
             android:id="@+id/action_comicsFragment_to_comics_details_fragment"
             app:destination="@id/comics_details_fragment"
@@ -177,8 +203,7 @@
         android:id="@+id/seriesFragment"
         android:name="com.example.herohub.ui.series.SeriesFragment"
         android:label="SeriesFragment"
-        tools:layout="@layout/fragment_series"
-        >
+        tools:layout="@layout/fragment_series">
         <action
             android:id="@+id/action_seriesFragment_to_series_details_fragment"
             app:destination="@id/series_details_fragment"

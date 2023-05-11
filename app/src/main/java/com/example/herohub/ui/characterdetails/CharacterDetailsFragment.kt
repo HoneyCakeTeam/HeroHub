@@ -20,7 +20,7 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
 
     override fun setup() {
         initComicAdapter()
-        collectEvent()
+        //collectEvent()
     }
 
     private fun initComicAdapter() {
