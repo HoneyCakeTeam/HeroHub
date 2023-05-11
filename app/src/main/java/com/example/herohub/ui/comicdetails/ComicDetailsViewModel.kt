@@ -55,7 +55,8 @@ class ComicDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         val favoriteItem = FavoriteItem(
             _comic.value?.id.toString(),
             _comic.value?.title.toString(),
-            _comic.value?.thumbnail?.path.toString()
+            _comic.value?.thumbnail?.path.toString(),
+            FavoriteItem.Type.COMIC
         )
 
         if (isFavorite.value == true) {

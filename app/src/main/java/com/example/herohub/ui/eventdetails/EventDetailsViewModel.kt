@@ -57,7 +57,8 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         val favoriteItem = FavoriteItem(
             _event.value?.id.toString(),
             _event.value?.title.toString(),
-            _event.value?.thumbnail?.path.toString()
+            _event.value?.thumbnail?.path.toString(),
+            FavoriteItem.Type.EVENT
         )
 
         if(isFavorite.value == true) {

@@ -56,7 +56,8 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         val favoriteItem = FavoriteItem(
             _series.value?.id.toString(),
             _series.value?.title.toString(),
-            _series.value?.thumbnail?.path.toString()
+            _series.value?.thumbnail?.path.toString(),
+            FavoriteItem.Type.SERIES
         )
 
         if (isFavorite.value == true) {

@@ -103,7 +103,8 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         val favoriteItem = FavoriteItem(
             characterItem.value?.id.toString(),
             characterItem.value?.name.toString(),
-            characterItem.value?.thumbnail?.path.toString()
+            characterItem.value?.thumbnail?.path.toString(),
+            FavoriteItem.Type.CHARACTER
         )
 
         if (isFavorite.value == true) {
