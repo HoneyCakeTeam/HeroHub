@@ -94,7 +94,7 @@
                 android:layout_margin="@dimen/spacing_medium"
                 android:padding="@dimen/spacing_tiny"
                 android:onClick="@{() -> viewModel.onFavClicked()}"
-                app:setIconColor="@{viewModel.isFavorite()}"/>
+                app:setIconColor="@{viewModel.isFavorite}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
