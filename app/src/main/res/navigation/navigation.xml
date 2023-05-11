@@ -106,7 +106,7 @@
     <fragment
         android:id="@+id/events_details_fragment"
         android:name="com.example.herohub.ui.eventdetails.EventDetailsFragment"
-        android:label="events_details"
+        android:label="@string/events_details"
         tools:layout="@layout/fragment_events_details">
         <argument
             android:name="eventId"
