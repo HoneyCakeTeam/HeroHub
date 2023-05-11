@@ -22,7 +22,7 @@ class EventDetailsViewModel : BaseViewModel() {
 
     fun getEvent(eventId: Int) {
         _eventResponse.postValue(UiState.Loading)
-        disposeObservable(
+        disposeSingle(
             repository.getEvent(eventId),
             ::onGetEventSuccess,
             ::onGetEventFailure

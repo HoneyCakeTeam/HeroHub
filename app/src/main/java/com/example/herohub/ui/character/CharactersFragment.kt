@@ -1,10 +1,11 @@
 package com.example.herohub.ui.character
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentCharactersBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.utills.EventObserve
 
 class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
     override val TAG: String = this::class.java.simpleName
@@ -13,15 +14,19 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
 
     override fun setup() {
         initiateAdapter()
-        navigateToCharacterDetails()
+        observeCharacterClick()
     }
 
-    private fun navigateToCharacterDetails() {
-        viewModel.characterId.observe(this) { characterId ->
-            val action = CharactersFragmentDirections
-                .actionCharactersFragmentToCharactersDetailsFragment(characterId)
-            Navigation.findNavController(binding.root).navigate(action)
-        }
+    private fun observeCharacterClick() {
+        viewModel.characterClick.observe(this, EventObserve { characterId ->
+            navigateToCharacterDetails(characterId)
+        })
+    }
+
+    private fun navigateToCharacterDetails(characterId: Int) {
+        val action = CharactersFragmentDirections
+            .actionCharactersFragmentToCharactersDetailsFragment(characterId)
+        findNavController().navigate(action)
     }
 
     private fun initiateAdapter() {

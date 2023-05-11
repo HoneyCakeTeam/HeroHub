@@ -1,10 +1,11 @@
 package com.example.herohub.ui.comics
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentComicsBinding
 import com.example.herohub.ui.base.BaseFragment
+import com.example.herohub.utills.EventObserve
 
 class ComicsFragment : BaseFragment<FragmentComicsBinding>() {
     override val TAG: String = this::class.java.simpleName
@@ -13,7 +14,7 @@ class ComicsFragment : BaseFragment<FragmentComicsBinding>() {
 
     override fun setup() {
         initiateAdapter()
-        navigateToComicDetails()
+        observeComicClick()
     }
 
     private fun initiateAdapter() {
@@ -21,12 +22,16 @@ class ComicsFragment : BaseFragment<FragmentComicsBinding>() {
         binding.recyclerComics.adapter = adapter
     }
 
-    private fun navigateToComicDetails() {
-        viewModel.comicId.observe(this) { comicId ->
-            val action = ComicsFragmentDirections
-                .actionComicsFragmentToComicsDetailsFragment(comicId)
-            Navigation.findNavController(binding.root).navigate(action)
-        }
+    private fun observeComicClick() {
+        viewModel.comicClick.observe(this, EventObserve { comicId ->
+            navigateToComicDetails(comicId)
+        })
+    }
+
+    private fun navigateToComicDetails(comicId: Int) {
+        val action = ComicsFragmentDirections
+            .actionComicsFragmentToComicsDetailsFragment(comicId)
+        findNavController().navigate(action)
     }
 
 }

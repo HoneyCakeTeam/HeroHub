@@ -35,13 +35,13 @@ class CharacterDetailsViewModel : BaseViewModel(), ComicsInteractionListener {
         get() = this::class.simpleName.toString()
 
     fun getComicsOfCharacter(characterId: Int) {
-        disposeObservable(
+        disposeSingle(
             repository.getCharacterComics(characterId), ::onGetCharacterComicsSuccess, ::onError
         )
     }
 
     fun getDetailsOfCharacter(characterId: Int) {
-        disposeObservable(
+        disposeSingle(
             repository.getCharacterDetails(characterId), ::onGetCharacterDetailsSuccess, ::onError
         )
     }

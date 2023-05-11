@@ -10,9 +10,7 @@ class ComicDetailsFragment : BaseFragment<FragmentComicsDetailsBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment = R.layout.fragment_comics_details
     override val viewModel: ComicDetailsViewModel by viewModels()
-    private val args : ComicDetailsFragmentArgs by navArgs()
     override fun setup() {
-        viewModel.getComic(args.comicId)
     }
 
 }

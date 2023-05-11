@@ -76,7 +76,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
 
     private fun getAllCharacters() {
         _characterResponse.postValue(UiState.Loading)
-        disposeObservable(
+        disposeSingle(
             repository.getAllCharacters(),
             ::onGetCharacterSuccess,
             ::onError
@@ -84,7 +84,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getSliderItems() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllEvents(),
             ::onGetSliderItemsSuccess,
             ::onError
@@ -92,7 +92,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getMostPopularSeries() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllSeries(),
             ::onGetMostPopularSeriesSuccess,
             ::onError
@@ -100,7 +100,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllEvents() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllEvents(),
             ::onGetEventSuccess,
             ::onError
@@ -108,7 +108,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getAllComics() {
-        disposeObservable(
+        disposeSingle(
             repository.getAllComics(),
             ::onGetComicsSuccess,
             ::onError
