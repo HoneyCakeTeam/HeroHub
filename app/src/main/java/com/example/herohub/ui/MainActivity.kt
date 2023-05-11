@@ -1,9 +1,11 @@
 package com.example.herohub.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.ActivityMainBinding
@@ -28,11 +30,28 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavigation() {
         val navController = findNavController(R.id.fragment_host)
-        // NavigationUI.setupActionBarWithNavController(this, navController)
+
+        setupActionBarWithNavController(navController)
+        val topLevelDestinations = setOf(
+            R.id.home_fragment,
+            R.id.search_fragment,
+            R.id.favourite_fragment
+        )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id in topLevelDestinations) {
+                binding.bottomNav.visibility = View.VISIBLE
+                supportActionBar?.hide()
+            } else {
+                binding.bottomNav.visibility = View.GONE
+                supportActionBar?.show()
+            }
+        }
         binding.bottomNav.setupWithNavController(navController)
     }
-    /*override fun onSupportNavigateUp(): Boolean {
+
+    override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.fragment_host)
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }*/
+    }
 }
