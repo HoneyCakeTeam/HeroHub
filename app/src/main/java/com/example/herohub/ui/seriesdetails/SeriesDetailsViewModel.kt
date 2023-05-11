@@ -46,6 +46,7 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         seriesUiState.toData()?.let {
             _series.value = it.results?.get(0)
         }
+        _isFavorite.value = repository.isFavorite(series.value?.id.toString())
     }
 
     private fun onError(errorMessage: Throwable) {
