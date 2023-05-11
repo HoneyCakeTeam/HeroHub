@@ -9,12 +9,14 @@
             name="viewModel"
             type="com.example.herohub.ui.comicdetails.ComicDetailsViewModel" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollIndicators="none"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/spacing_medium">
+        android:paddingBottom="@dimen/spacing_medium"
+        android:scrollIndicators="none">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,9 +39,9 @@
                 android:id="@+id/text_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
                 android:ellipsize="end"
                 android:fontFamily="@font/josefinsans_semibold"
-                android:layout_margin="@dimen/spacing_medium"
                 android:maxLines="2"
                 android:text="@{viewModel.comic.title}"
                 android:textSize="@dimen/text_giant"
@@ -53,13 +55,13 @@
                 android:id="@+id/text_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/josefinsans_regular"
                 android:layout_marginHorizontal="@dimen/spacing_medium"
                 android:layout_marginVertical="@dimen/spacing_small"
+                android:fontFamily="@font/josefinsans_regular"
                 android:text="@{viewModel.comic.description}"
                 android:textSize="@dimen/text_medium"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_title"
                 app:showWhenSuccess="@{viewModel.comicsResponse}"
                 tools:text="spider man" />
@@ -85,6 +87,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:showWhenError="@{viewModel.comicsResponse}" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/icon_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_favorite_fielld"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="@dimen/spacing_medium"
+                android:padding="@dimen/spacing_tiny"
+                android:onClick="@{() -> viewModel.onFavClicked()}"
+                app:setIconColor="@{viewModel.isFavorite()}"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

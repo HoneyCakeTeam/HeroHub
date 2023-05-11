@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.Repository
 import com.example.herohub.model.Comic
 import com.example.herohub.model.DataResponse
+import com.example.herohub.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 
@@ -22,6 +23,10 @@ class ComicDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     val comic: LiveData<Comic>
         get() = _comic
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean>
+        get() = _isFavorite
+
     init {
         getComic()
     }
@@ -35,13 +40,30 @@ class ComicDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     }
 
     private fun onGetComicSuccess(state: UiState<DataResponse<Comic>>) {
-        _comicsResponse.postValue(state)
+        _comicsResponse.value = state
         state.toData()?.let {
-            _comic.postValue(it.results?.get(0))
+            _comic.value = it.results?.get(0)
         }
+        _isFavorite.value = repository.isFavorite(comic.value?.id.toString())
     }
 
     private fun onGetComicFailure(throwable: Throwable) {
         _comicsResponse.postValue(UiState.Error(throwable.message.toString()))
+    }
+
+    fun onFavClicked() {
+        val favoriteItem = FavoriteItem(
+            _comic.value?.id.toString(),
+            _comic.value?.title.toString(),
+            _comic.value?.thumbnail?.path.toString()
+        )
+
+        if (isFavorite.value == true) {
+            repository.removeFavorite(favoriteItem)
+            _isFavorite.postValue(false)
+        } else {
+            repository.addToFavorite(favoriteItem)
+            _isFavorite.postValue(true)
+        }
     }
 }
