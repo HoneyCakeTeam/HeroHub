@@ -160,7 +160,7 @@
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.example.herohub.ui.character.CharactersFragment"
-        android:label="CharactersFragment"
+        android:label="@string/characters"
         tools:layout="@layout/fragment_characters">
         <action
             android:id="@+id/action_charactersFragment_to_characters_details_fragment"
@@ -174,7 +174,7 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.example.herohub.ui.events.EventsFragment"
-        android:label="EventsFragment"
+        android:label="@string/events"
         tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_eventsFragment_to_events_details_fragment"
@@ -188,7 +188,7 @@
     <fragment
         android:id="@+id/comicsFragment"
         android:name="com.example.herohub.ui.comics.ComicsFragment"
-        android:label="ComicsFragment"
+        android:label="@string/comics"
         tools:layout="@layout/fragment_comics">
         <action
             android:id="@+id/action_comicsFragment_to_comics_details_fragment"
@@ -202,7 +202,7 @@
     <fragment
         android:id="@+id/seriesFragment"
         android:name="com.example.herohub.ui.series.SeriesFragment"
-        android:label="SeriesFragment"
+        android:label="@string/series"
         tools:layout="@layout/fragment_series">
         <action
             android:id="@+id/action_seriesFragment_to_series_details_fragment"
