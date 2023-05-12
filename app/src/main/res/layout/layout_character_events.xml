@@ -8,16 +8,11 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.characterdetails.adapter.EventsAdapter" />
-
-        <variable
-            name="viewModel"
-            type="com.example.herohub.ui.characterdetails.CharacterDetailsViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        app:hideWhenEmptyList="@{viewModel.characterEvent.toData().results}"
+        app:hideWhenEmptyList="@{adapterRecycler.itemCount}"
         android:layout_height="wrap_content">
 
         <TextView
