@@ -40,19 +40,19 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     private val characterItem = MutableLiveData<Character>()
 
     private val _isFavorite = MutableLiveData<Boolean>()
-    private val isFavorite: LiveData<Boolean> = _isFavorite
+    val isFavorite: LiveData<Boolean>
+        get() = _isFavorite
 
 
     private val _characterItemsLiveData = MutableLiveData<List<CharacterDetailsItem>>()
     val characterItemsLiveData: LiveData<List<CharacterDetailsItem>> = _characterItemsLiveData
 
-     var characterDetailsItem = mutableListOf<CharacterDetailsItem>()
+    var characterDetailsItem = mutableListOf<CharacterDetailsItem>()
 
     private val _characterDetailsUiEvent =
         MutableLiveData<EventHandler<CharacterDetailsUiEvent?>>(EventHandler(null))
     val characterDetailsUiEvent: LiveData<EventHandler<CharacterDetailsUiEvent?>>
         get() = _characterDetailsUiEvent
-
 
 
     init {
@@ -139,7 +139,6 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     }
 
 
-
     fun onFavClicked() {
         val favoriteItem = FavoriteItem(
             characterItem.value?.id.toString(),
@@ -150,10 +149,10 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
         if (isFavorite.value == true) {
             repository.removeFavorite(favoriteItem)
-            _isFavorite.postValue(false)
+            _isFavorite.value = repository.isFavorite(characterItem.value?.id.toString())
         } else {
             repository.addToFavorite(favoriteItem)
-            _isFavorite.postValue(true)
+            _isFavorite.value = repository.isFavorite(characterItem.value?.id.toString())
         }
     }
 

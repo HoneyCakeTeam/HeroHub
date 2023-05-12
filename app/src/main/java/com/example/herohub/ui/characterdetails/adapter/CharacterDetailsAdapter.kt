@@ -8,6 +8,7 @@ import com.example.herohub.R
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 import com.example.herohub.ui.characterdetails.CharacterDetailsItem
+import com.example.herohub.ui.characterdetails.CharacterDetailsViewModel
 
 /**
  * Created by Aziza Helmy on 5/11/2023.
@@ -15,6 +16,7 @@ import com.example.herohub.ui.characterdetails.CharacterDetailsItem
 class CharacterDetailsAdapter(
     private var characterDetailsItems: MutableList<CharacterDetailsItem>,
     val listener: BaseInteractionListener,
+    val viewModel: CharacterDetailsViewModel
 ) : BaseAdapter<CharacterDetailsItem>(listener) {
 
     override val layoutId: Int = 0
@@ -43,6 +45,7 @@ class CharacterDetailsAdapter(
                         BR.item,
                         currentItem.character
                     )
+                    holder.binding.setVariable(BR.viewModel,viewModel)
                 }
 
                 is CharacterDetailsItem.CharacterComics -> {
@@ -51,8 +54,6 @@ class CharacterDetailsAdapter(
                         ComicsAdapter(listener as ComicsInteractionListener).apply {
                             setItems(currentItem.comics)
                         }
-
-
                     )
                 }
 
