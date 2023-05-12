@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/spacing_tiny"
-            android:background="@color/md_theme_dark_outlineVariant"
+            android:background="@color/md_theme_dark_onTertiary"
             android:scaleType="centerCrop"
             android:onClick="@{()->listener.onClickSeries(item.id)}"
             app:imageUrl="@{item.thumbnail.path}"
