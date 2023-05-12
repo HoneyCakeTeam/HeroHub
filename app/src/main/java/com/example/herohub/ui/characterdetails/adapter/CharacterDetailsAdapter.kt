@@ -21,7 +21,7 @@ class CharacterDetailsAdapter(
 
     override fun setItems(newItems: List<CharacterDetailsItem>) {
         characterDetailsItems = newItems.sortedBy { it.position }.toMutableList()
-        super.setItems(newItems)
+        super.setItems(characterDetailsItems)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -39,10 +39,10 @@ class CharacterDetailsAdapter(
         if (position != -1) {
             when (val currentItem = characterDetailsItems[position]) {
                 is CharacterDetailsItem.CharacterInfo -> {
-//                    holder.binding.setVariable(
-//                        BR.viewModel,
-//                       CharacterDetailsViewModel()
-//                    )
+                    holder.binding.setVariable(
+                        BR.item,
+                        currentItem.character
+                    )
                 }
 
                 is CharacterDetailsItem.CharacterComics -> {
@@ -57,8 +57,9 @@ class CharacterDetailsAdapter(
                 is CharacterDetailsItem.CharacterEvents -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        EventsAdapter(listener as EventsInteractionListener)
-                            .setItems(currentItem.events)
+                        EventsAdapter(listener as EventsInteractionListener).setItems(
+                            currentItem.events
+                        )
 
                     )
                 }

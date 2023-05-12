@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.example.herohub.ui.characterdetails.CharacterDetailsViewModel" />
+            name="adapterRecycler"
+            type="com.example.herohub.ui.characterdetails.adapter.EventsAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
             android:orientation="horizontal"
-            app:items="@{viewModel.characterEvent.toData().results}"
+            android:adapter="@{adapterRecycler}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comics_header"
             tools:listitem="@layout/item_character_events" />

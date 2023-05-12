@@ -1,7 +1,6 @@
 package com.example.herohub.ui.characterdetails
 
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
@@ -21,17 +20,13 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
     override val viewModel: CharacterDetailsViewModel by viewModels()
     private lateinit var characterDetailsAdapter: CharacterDetailsAdapter
     override fun setup() {
-        initComicAdapter()
+        initAdapter()
         collectEvent()
     }
 
-    private fun initComicAdapter() {
+    private fun initAdapter() {
         characterDetailsAdapter = CharacterDetailsAdapter(mutableListOf(), viewModel)
         binding.recyclerViewComics.adapter = characterDetailsAdapter
-        viewModel.characterItemsLiveData.observe(this) {
-            characterDetailsAdapter.setItems(it)
-            Log.e("TAG", "setup: $it")
-        }
     }
 
     private fun collectEvent() {
