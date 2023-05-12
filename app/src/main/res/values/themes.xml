@@ -10,7 +10,7 @@
         <item name="colorSecondaryContainer">@color/md_theme_light_primary</item>
         <item name="colorOnSecondaryContainer">@color/md_theme_light_onPrimary</item>
         <item name="colorTertiary">@color/md_theme_light_onPrimary</item>
-        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_tertiaryContainer</item>
         <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainer</item>
         <item name="colorOnTertiaryContainer">@color/md_theme_light_onPrimary</item>
         <item name="android:colorBackground">@color/md_theme_dark_background</item>
