@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_medium"
+        android:layout_margin="@dimen/spacing_small"
         android:background="@color/md_theme_dark_surface"
         android:onClick="@{()-> listener.onClickComic(item.id)}"
         android:orientation="vertical">
