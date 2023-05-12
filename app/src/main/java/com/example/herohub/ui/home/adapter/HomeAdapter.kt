@@ -18,7 +18,6 @@ class HomeAdapter(
 
     override fun setItems(newItems: List<HomeItem>) {
         homeItems = newItems.sortedBy { it.position }.toMutableList()
-
         super.setItems(homeItems)
     }
 

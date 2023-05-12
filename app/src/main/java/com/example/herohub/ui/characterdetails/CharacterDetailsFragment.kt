@@ -19,19 +19,19 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
     override val TAG: String = this::class.simpleName.toString()
     override val layoutIdFragment: Int = R.layout.fragment_characters_details
     override val viewModel: CharacterDetailsViewModel by viewModels()
-    private lateinit var characterDetailsAdapter: CharacterDetailsAdapter
+//    private lateinit var characterDetailsAdapter: CharacterDetailsAdapter
     override fun setup() {
-        initComicAdapter()
+        initAdapter()
         collectEvent()
     }
 
-    private fun initComicAdapter() {
-        characterDetailsAdapter = CharacterDetailsAdapter(mutableListOf(), viewModel)
-        binding.recyclerViewComics.adapter = characterDetailsAdapter
-        viewModel.characterItemsLiveData.observe(this) {
-            characterDetailsAdapter.setItems(it)
-            Log.e("TAG", "setup: $it")
-        }
+    private fun initAdapter() {
+        val adapter = CharacterDetailsAdapter(mutableListOf(), viewModel)
+        binding.recyclerViewCharacterDetails.adapter = adapter
+//        viewModel.characterItemsLiveData.observe(this) {
+//            adapter.setItems(it)
+//            Log.e("TAG", "setup: $it")
+//        }
     }
 
     private fun collectEvent() {

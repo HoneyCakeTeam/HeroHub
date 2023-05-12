@@ -145,13 +145,8 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     }
 
     override fun onClickComic(id: Int) {
-        _characterDetailsUiEvent.postValue(
-            EventHandler(
-                CharacterDetailsUiEvent.ClickCharacterComic(
-                    id
-                )
-            )
-        )
+        _characterDetailsUiEvent
+            .postValue(EventHandler(CharacterDetailsUiEvent.ClickCharacterComic(id)))
     }
 
 
@@ -173,11 +168,9 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     }
 
     override fun onClickEvent(id: Int) {
-        TODO("Not yet implemented")
     }
 
     override fun onClickSeries(id: Int) {
-        TODO("Not yet implemented")
     }
 
 }

@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_comics"
+            android:id="@+id/recycler_view_character_details"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_large"
@@ -22,6 +22,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:items="@{viewModel.characterItemsLiveData}"
+            app:showWhenSuccess="@{viewModel.characterDetails}"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

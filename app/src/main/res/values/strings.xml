@@ -28,4 +28,6 @@
     <string name="most_popular_comics">Most Popular Comics</string>
     <string name="when_you_add_items_to_favourites_nit_will_appear_here">When you add items to favourites,\nIt will appear here..</string>
     <string name="events_details">Event Details</string>
+    <string name="character_events">Events:</string>
+    <string name="character_series">Series:</string>
 </resources>
