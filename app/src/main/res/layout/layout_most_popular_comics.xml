@@ -8,6 +8,7 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.home.adapter.MostPopularComicsAdapter" />
+
         <variable
             name="listener"
             type="com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener" />
@@ -23,12 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_marginBottom="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_small"
             android:fontFamily="@font/josefinsans_regular"
             android:text="@string/most_popular_comics"
             android:textColor="@color/md_theme_light_onPrimary"
-            android:textSize="@dimen/text_giant"
+            android:textSize="@dimen/text_large"
             app:layout_constraintBottom_toTopOf="@id/recycler_most_popular_comics"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,13 +37,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_medium"
+            android:drawablePadding="@dimen/spacing_tiny"
             android:fontFamily="@font/josefinsans_regular"
+            android:onClick="@{()->listener.onCLickSeeAllComics()}"
             android:text="@string/see_all"
-            android:textColor="@color/md_theme_light_onPrimary"
+            android:textColor="@color/seed"
             android:textSize="@dimen/text_small"
             app:drawableEndCompat="@drawable/ic_go"
-            android:drawablePadding="@dimen/spacing_tiny"
-            android:onClick="@{()->listener.onCLickSeeAllComics()}"
+            app:drawableTint="@color/seed"
             app:layout_constraintBottom_toBottomOf="@id/text_comics"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_comics" />
@@ -55,7 +56,7 @@
             android:adapter="@{adapterRecycler}"
             android:clipToPadding="false"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/spacing_medium"
+            android:paddingHorizontal="@dimen/spacing_simi_medium"
             android:paddingVertical="@dimen/spacing_small"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

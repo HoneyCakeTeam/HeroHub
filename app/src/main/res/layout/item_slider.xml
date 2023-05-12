@@ -15,10 +15,10 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="350dp"
-        android:layout_height="230dp"
-        android:layout_margin="@dimen/spacing_small"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
         android:onClick="@{() -> listener.onSliderItemClick(item.id)}"
+        android:layout_marginHorizontal="@dimen/spacing_tiny"
         app:strokeWidth="0dp">
 
         <com.google.android.material.imageview.ShapeableImageView

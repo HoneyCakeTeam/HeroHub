@@ -16,20 +16,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
 
         <TextView
             android:id="@+id/text_character"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_marginBottom="@dimen/spacing_small"
             android:fontFamily="@font/josefinsans_regular"
             android:text="@string/super_hero"
+            android:layout_marginStart="@dimen/spacing_medium"
             android:textColor="@color/md_theme_light_onPrimary"
-            android:textSize="@dimen/text_giant"
+            android:textSize="@dimen/text_large"
             app:layout_constraintBottom_toTopOf="@id/recycler_slider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,17 +37,20 @@
             android:id="@+id/see_all_characters_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_medium"
             android:drawablePadding="@dimen/spacing_tiny"
             android:fontFamily="@font/josefinsans_regular"
             android:text="@string/see_all"
-            android:textColor="@color/md_theme_light_onPrimary"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:textColor="@color/seed"
+            app:drawableTint="@color/seed"
             android:textSize="@dimen/text_small"
             android:onClick="@{() -> listener.onSeeAllCharactersClicked()}"
             app:drawableEndCompat="@drawable/ic_go"
             app:layout_constraintBottom_toBottomOf="@id/text_character"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_character" />
+            app:layout_constraintTop_toTopOf="@id/text_character"
+           />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -56,10 +58,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adapter="@{adapterRecycler}"
+            android:paddingHorizontal="@dimen/spacing_simi_medium"
+            android:layout_marginTop="@dimen/spacing_tiny"
             android:clipToPadding="false"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/spacing_medium"
-            android:paddingVertical="@dimen/spacing_small"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

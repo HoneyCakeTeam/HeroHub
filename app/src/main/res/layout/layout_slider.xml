@@ -20,7 +20,7 @@
         android:clipToPadding="false"
         android:orientation="horizontal"
         android:overScrollMode="never"
-        android:paddingHorizontal="@dimen/spacing_medium"
+        android:paddingHorizontal="@dimen/spacing_simi_medium"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:usePagerSnapHelper="@{true}"

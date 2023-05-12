@@ -15,9 +15,9 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_item_series"
-        android:layout_width="160dp"
-        android:layout_height="190dp"
-        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:layout_width="128dp"
+        android:layout_height="180dp"
+        android:layout_marginHorizontal="@dimen/spacing_tiny"
         android:onClick="@{() -> listener.onMostPopularSeriesItemClick(item.id)}"
         app:cardCornerRadius="16dp"
         app:strokeWidth="0dp">
