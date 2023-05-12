@@ -47,16 +47,11 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         get() = _homeUiEvent
 
     private val _seriesResponse = MutableLiveData<UiState<DataResponse<Series>>>()
-    val seriesResponse: LiveData<UiState<DataResponse<Series>>>
-        get() = _seriesResponse
 
     private val _eventResponse = MutableLiveData<UiState<DataResponse<Event>>>()
-    val eventResponse: LiveData<UiState<DataResponse<Event>>>
-        get() = _eventResponse
+
 
     private val _comicsResponse = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val comicsResponse: LiveData<UiState<DataResponse<Comic>>>
-        get() = _comicsResponse
 
     private val _homeItemsLiveData = MutableLiveData<List<HomeItem>>()
     val homeItemsLiveData: LiveData<List<HomeItem>>

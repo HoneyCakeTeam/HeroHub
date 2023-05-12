@@ -1,6 +1,5 @@
 package com.example.herohub.ui.characterdetails
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -28,19 +27,13 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     private val characterArgs = CharacterDetailsFragmentArgs.fromSavedStateHandle(state)
 
     private val _characterEvent = MutableLiveData<UiState<DataResponse<Event>>>()
-    val characterEvent: LiveData<UiState<DataResponse<Event>>>
-        get() = _characterEvent
 
     private val _characterComics = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val characterComics: LiveData<UiState<DataResponse<Comic>>>
-        get() = _characterComics
 
     private val _characterSeries = MutableLiveData<UiState<DataResponse<Series>>>()
-    val characterSeries: LiveData<UiState<DataResponse<Series>>>
-        get() = _characterSeries
 
     private val _characterDetails = MutableLiveData<UiState<DataResponse<Character>>>()
-    val characterDetails: LiveData<UiState<DataResponse<Character>>>
+    private val characterDetails: LiveData<UiState<DataResponse<Character>>>
         get() = _characterDetails
 
 
@@ -110,8 +103,6 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
             CharacterDetailsItem.CharacterEvents(it)
         }?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
-        Log.e(TAG, "_characterEvent.value:${_characterEvent.value} ")
-        Log.e(TAG, "EventsSuccess: $characterDetailsItem")
     }
 
     private fun onGetCharacterSeriesSuccess(uiState: UiState<DataResponse<Series>>) {
@@ -120,8 +111,6 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
             CharacterDetailsItem.CharacterSeries(it)
         }?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
-        Log.e(TAG, "_characterSeries.value:${_characterSeries.value} ")
-        Log.e(TAG, "seriesSuccess: $characterDetailsItem")
     }
 
     private fun onGetCharacterComicsSuccess(state: UiState<DataResponse<Comic>>) {
@@ -130,8 +119,6 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
             CharacterDetailsItem.CharacterComics(it)
         }?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
-        Log.e(TAG, "_characterComics.value: ${_characterComics.value}")
-        Log.e(TAG, "onGetCharacterComicsSuccess: $characterDetailsItem")
     }
 
     private fun onGetCharacterDetailsSuccess(state: UiState<DataResponse<Character>>) {
@@ -141,9 +128,6 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         characterItem.value?.let { CharacterDetailsItem.CharacterInfo(it) }
             ?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
-        Log.e(TAG, "onGetCharacterDetailsSuccess: ${_characterDetails.value}")
-        Log.e(TAG, "onGetCharacterDetailsSuccess: $characterDetailsItem")
-
     }
 
 
@@ -152,7 +136,6 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         _characterDetails.postValue(UiState.Error(throwable.message.toString()))
         _characterSeries.postValue(UiState.Error(throwable.message.toString()))
         _characterEvent.postValue(UiState.Error(throwable.message.toString()))
-        Log.e(TAG, "onError:${throwable.message.toString()} ")
     }
 
     override fun onClickComic(id: Int) {
