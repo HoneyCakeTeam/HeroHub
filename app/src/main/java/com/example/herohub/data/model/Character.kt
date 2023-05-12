@@ -1,38 +1,28 @@
-package com.example.herohub.model
+package com.example.herohub.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Event(
-    @SerializedName("characters")
-    val characters: CollectionResult<Item>? = null,
+data class Character(
     @SerializedName("comics")
     val comics: CollectionResult<Item>? = null,
-    @SerializedName("creators")
-    val creators: CollectionResult<Item>? = null,
     @SerializedName("description")
     val description: String? = "",
-    @SerializedName("end")
-    val end: String? = "",
+    @SerializedName("events")
+    val events: CollectionResult<Item>? = null,
     @SerializedName("id")
     val id: Int? = 0,
     @SerializedName("modified")
     val modified: String? = "",
-    @SerializedName("next")
-    val next: Item? = null,
-    @SerializedName("previous")
-    val previous: Item? = null,
+    @SerializedName("name")
+    val name: String? = "",
     @SerializedName("resourceURI")
     val resourceURI: String? = "",
     @SerializedName("series")
     val series: CollectionResult<Item>? = null,
-    @SerializedName("start")
-    val start: String? = "",
     @SerializedName("stories")
-    val stories: CollectionResult<Item>? = null,
+    val stories: CollectionResult<Item>?,
     @SerializedName("thumbnail")
     val thumbnail: Thumbnail? = Thumbnail(),
-    @SerializedName("title")
-    val title: String? = "",
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
 )

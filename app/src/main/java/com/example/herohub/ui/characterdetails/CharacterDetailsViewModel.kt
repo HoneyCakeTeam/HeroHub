@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.Repository
-import com.example.herohub.model.Character
-import com.example.herohub.model.Comic
-import com.example.herohub.model.DataResponse
-import com.example.herohub.model.Event
-import com.example.herohub.model.FavoriteItem
-import com.example.herohub.model.Series
+import com.example.herohub.data.model.Character
+import com.example.herohub.data.model.Comic
+import com.example.herohub.data.model.DataResponse
+import com.example.herohub.data.model.Event
+import com.example.herohub.data.model.FavoriteItem
+import com.example.herohub.data.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.characterdetails.adapter.ComicsInteractionListener
 import com.example.herohub.ui.characterdetails.adapter.EventsInteractionListener
@@ -45,7 +45,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     private val characterItem = MutableLiveData<Character>()
 
     private val _isFavorite = MutableLiveData<Boolean>()
-    val isFavorite: LiveData<Boolean> = _isFavorite
+    private val isFavorite: LiveData<Boolean> = _isFavorite
 
 
     private val _characterItemsLiveData = MutableLiveData<List<CharacterDetailsItem>>()

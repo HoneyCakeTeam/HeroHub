@@ -3,8 +3,8 @@ package com.example.herohub.ui.events
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
-import com.example.herohub.model.DataResponse
-import com.example.herohub.model.Event
+import com.example.herohub.data.model.DataResponse
+import com.example.herohub.data.model.Event
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.EventHandler
 import com.example.herohub.utills.UiState

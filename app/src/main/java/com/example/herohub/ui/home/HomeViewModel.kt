@@ -4,11 +4,11 @@ import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
-import com.example.herohub.model.Character
-import com.example.herohub.model.Comic
-import com.example.herohub.model.DataResponse
-import com.example.herohub.model.Event
-import com.example.herohub.model.Series
+import com.example.herohub.data.model.Character
+import com.example.herohub.data.model.Comic
+import com.example.herohub.data.model.DataResponse
+import com.example.herohub.data.model.Event
+import com.example.herohub.data.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener

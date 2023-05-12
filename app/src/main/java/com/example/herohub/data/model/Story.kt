@@ -1,10 +1,15 @@
-package com.example.herohub.model
+package com.example.herohub.data.model
+
 
 import com.google.gson.annotations.SerializedName
 
-data class Character(
+data class Story(
+    @SerializedName("characters")
+    val characters: CollectionResult<Item>? = null,
     @SerializedName("comics")
     val comics: CollectionResult<Item>? = null,
+    @SerializedName("creators")
+    val creators: CollectionResult<Item>? = null,
     @SerializedName("description")
     val description: String? = "",
     @SerializedName("events")
@@ -13,16 +18,16 @@ data class Character(
     val id: Int? = 0,
     @SerializedName("modified")
     val modified: String? = "",
-    @SerializedName("name")
-    val name: String? = "",
+    @SerializedName("originalIssue")
+    val originalIssue: Item? = null,
     @SerializedName("resourceURI")
     val resourceURI: String? = "",
     @SerializedName("series")
     val series: CollectionResult<Item>? = null,
-    @SerializedName("stories")
-    val stories: CollectionResult<Item>?,
     @SerializedName("thumbnail")
-    val thumbnail: Thumbnail? = Thumbnail(),
-    @SerializedName("urls")
-    val urls: List<Url>? = listOf(),
+    val thumbnail: Thumbnail? = null,
+    @SerializedName("title")
+    val title: String? = "",
+    @SerializedName("type")
+    val type: String? = "",
 )

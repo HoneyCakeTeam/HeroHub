@@ -1,15 +1,15 @@
 package com.example.herohub.data
 
+import com.example.herohub.data.model.BaseResponse
+import com.example.herohub.data.model.Character
+import com.example.herohub.data.model.Comic
+import com.example.herohub.data.model.Creator
+import com.example.herohub.data.model.DataResponse
+import com.example.herohub.data.model.Event
+import com.example.herohub.data.model.FavoriteItem
+import com.example.herohub.data.model.Series
+import com.example.herohub.data.model.Story
 import com.example.herohub.data.source.remote.MarvelApi
-import com.example.herohub.model.BaseResponse
-import com.example.herohub.model.Character
-import com.example.herohub.model.Comic
-import com.example.herohub.model.Creator
-import com.example.herohub.model.DataResponse
-import com.example.herohub.model.Event
-import com.example.herohub.model.FavoriteItem
-import com.example.herohub.model.Series
-import com.example.herohub.model.Story
 import com.example.herohub.utills.SharedPreferencesUtils
 import com.example.herohub.utills.UiState
 import com.google.gson.Gson

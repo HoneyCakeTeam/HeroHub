@@ -1,9 +1,9 @@
 package com.example.herohub.ui.home
 
-import com.example.herohub.model.Character
-import com.example.herohub.model.Comic
-import com.example.herohub.model.Event
-import com.example.herohub.model.Series
+import com.example.herohub.data.model.Character
+import com.example.herohub.data.model.Comic
+import com.example.herohub.data.model.Event
+import com.example.herohub.data.model.Series
 
 sealed class HomeItem(val position: Int) {
     data class Slider(val slider: List<Event>) : HomeItem(0)

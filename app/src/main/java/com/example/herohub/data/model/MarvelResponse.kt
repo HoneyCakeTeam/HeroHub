@@ -1,4 +1,4 @@
-package com.example.herohub.model
+package com.example.herohub.data.model
 
 
 import com.google.gson.annotations.SerializedName

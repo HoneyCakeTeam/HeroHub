@@ -3,7 +3,7 @@ package com.example.herohub.ui.favorite
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
-import com.example.herohub.model.FavoriteItem
+import com.example.herohub.data.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.EventHandler
 

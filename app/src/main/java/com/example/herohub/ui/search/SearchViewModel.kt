@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.Repository
-import com.example.herohub.model.Character
-import com.example.herohub.model.DataResponse
+import com.example.herohub.data.model.Character
+import com.example.herohub.data.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
 

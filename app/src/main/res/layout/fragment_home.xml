@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.model.Series" />
+            type="com.example.herohub.data.model.Series" />
 
         <variable
             name="viewModel"

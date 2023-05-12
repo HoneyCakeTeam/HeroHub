@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.model.Event" />
+            type="com.example.herohub.data.model.Event" />
 
         <variable
             name="listener"
