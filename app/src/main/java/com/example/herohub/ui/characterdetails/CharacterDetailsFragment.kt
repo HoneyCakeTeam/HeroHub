@@ -7,9 +7,6 @@ import com.example.herohub.R
 import com.example.herohub.databinding.FragmentCharactersDetailsBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.characterdetails.adapter.CharacterDetailsAdapter
-import com.example.herohub.ui.comics.ComicsFragmentDirections
-import com.example.herohub.ui.events.EventsFragmentDirections
-import com.example.herohub.ui.search.SearchFragmentDirections
 import com.example.herohub.utills.EventObserve
 
 
@@ -43,16 +40,19 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
     private fun onEvent(event: CharacterDetailsUiEvent) {
         val action = when (event) {
             is CharacterDetailsUiEvent.ClickCharacterComic -> {
-                ComicsFragmentDirections.actionComicsFragmentToComicsDetailsFragment(event.id)
+                CharacterDetailsFragmentDirections
+                    .actionCharactersDetailsFragmentToComicsDetailsFragment(event.id)
             }
 
             is CharacterDetailsUiEvent.ClickCharacterEvents -> {
-                EventsFragmentDirections.actionEventsFragmentToEventsDetailsFragment(event.id)
+                CharacterDetailsFragmentDirections
+                    .actionCharactersDetailsFragmentToEventsDetailsFragment(event.id)
 
             }
 
             is CharacterDetailsUiEvent.ClickCharacterSeries -> {
-                SearchFragmentDirections.actionSearchFragmentToCharactersDetailsFragment(event.id)
+                CharacterDetailsFragmentDirections
+                    .actionCharactersDetailsFragmentToSeriesDetailsFragment(event.id)
 
             }
         }

@@ -138,15 +138,6 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         _characterEvent.postValue(UiState.Error(throwable.message.toString()))
     }
 
-    override fun onClickComic(id: Int) {
-        _characterDetailsUiEvent.postValue(
-            EventHandler(
-                CharacterDetailsUiEvent.ClickCharacterComic(
-                    id
-                )
-            )
-        )
-    }
 
 
     fun onFavClicked() {
@@ -166,12 +157,34 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         }
     }
 
-    override fun onClickEvent(id: Int) {
+    override fun onClickComic(id: Int) {
+        _characterDetailsUiEvent.postValue(
+            EventHandler(
+                CharacterDetailsUiEvent.ClickCharacterComic(
+                    id
+                )
+            )
+        )
+    }
 
+    override fun onClickEvent(id: Int) {
+        _characterDetailsUiEvent.postValue(
+            EventHandler(
+                CharacterDetailsUiEvent.ClickCharacterEvents(
+                    id
+                )
+            )
+        )
     }
 
     override fun onClickSeries(id: Int) {
-
+        _characterDetailsUiEvent.postValue(
+            EventHandler(
+                CharacterDetailsUiEvent.ClickCharacterSeries(
+                    id
+                )
+            )
+        )
     }
 
 }

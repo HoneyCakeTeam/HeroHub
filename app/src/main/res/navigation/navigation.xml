@@ -81,6 +81,15 @@
         <argument
             android:name="characterId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_characters_details_fragment_to_events_details_fragment"
+            app:destination="@id/events_details_fragment" />
+        <action
+            android:id="@+id/action_characters_details_fragment_to_series_details_fragment"
+            app:destination="@id/series_details_fragment" />
+        <action
+            android:id="@+id/action_characters_details_fragment_to_comics_details_fragment"
+            app:destination="@id/comics_details_fragment" />
     </fragment>
 
     <fragment
