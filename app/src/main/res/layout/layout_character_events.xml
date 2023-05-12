@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -29,7 +30,6 @@
             android:id="@+id/recycler_view_comics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
             android:orientation="horizontal"
             android:adapter="@{adapterRecycler}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

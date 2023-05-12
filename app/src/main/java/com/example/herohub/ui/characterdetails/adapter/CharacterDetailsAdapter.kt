@@ -48,8 +48,10 @@ class CharacterDetailsAdapter(
                 is CharacterDetailsItem.CharacterComics -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        ComicsAdapter(listener as ComicsInteractionListener)
-                            .setItems(currentItem.comics)
+                        ComicsAdapter(listener as ComicsInteractionListener).apply {
+                            setItems(currentItem.comics)
+                        }
+
 
                     )
                 }
@@ -57,9 +59,9 @@ class CharacterDetailsAdapter(
                 is CharacterDetailsItem.CharacterEvents -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        EventsAdapter(listener as EventsInteractionListener).setItems(
-                            currentItem.events
-                        )
+                        EventsAdapter(listener as EventsInteractionListener).apply {
+                            setItems(currentItem.events)
+                        }
 
                     )
                 }
@@ -67,8 +69,10 @@ class CharacterDetailsAdapter(
                 is CharacterDetailsItem.CharacterSeries -> {
                     holder.binding.setVariable(
                         BR.adapterRecycler,
-                        SeriesAdapter(listener as SeriesInteractionListener)
-                            .setItems(currentItem.series)
+                        SeriesAdapter(listener as SeriesInteractionListener).apply {
+                            setItems(currentItem.series)
+                        }
+
                     )
                 }
             }

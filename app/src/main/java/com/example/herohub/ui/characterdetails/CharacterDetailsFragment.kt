@@ -18,14 +18,17 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>(
     override val TAG: String = this::class.simpleName.toString()
     override val layoutIdFragment: Int = R.layout.fragment_characters_details
     override val viewModel: CharacterDetailsViewModel by viewModels()
-    private lateinit var characterDetailsAdapter: CharacterDetailsAdapter
+    private val characterDetailsAdapter by lazy {
+        CharacterDetailsAdapter(mutableListOf(), viewModel)
+    }
+    private val characterDetailsItem = mutableListOf<CharacterDetailsItem>()
+
     override fun setup() {
         initAdapter()
         collectEvent()
     }
 
     private fun initAdapter() {
-        characterDetailsAdapter = CharacterDetailsAdapter(mutableListOf(), viewModel)
         binding.recyclerViewComics.adapter = characterDetailsAdapter
     }
 

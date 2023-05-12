@@ -53,7 +53,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     private val _characterItemsLiveData = MutableLiveData<List<CharacterDetailsItem>>()
     val characterItemsLiveData: LiveData<List<CharacterDetailsItem>> = _characterItemsLiveData
 
-    private var characterDetailsItem = mutableListOf<CharacterDetailsItem>()
+     var characterDetailsItem = mutableListOf<CharacterDetailsItem>()
 
     private val _characterDetailsUiEvent =
         MutableLiveData<EventHandler<CharacterDetailsUiEvent?>>(EventHandler(null))
@@ -152,6 +152,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         _characterDetails.postValue(UiState.Error(throwable.message.toString()))
         _characterSeries.postValue(UiState.Error(throwable.message.toString()))
         _characterEvent.postValue(UiState.Error(throwable.message.toString()))
+        Log.e(TAG, "onError:${throwable.message.toString()} ")
     }
 
     override fun onClickComic(id: Int) {
