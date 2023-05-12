@@ -53,12 +53,21 @@ fun <T> hideWhenSearch(view: View, query: String?, list: List<T>?) {
     }
 }
 
-@BindingAdapter(value = ["app:howWhenEmptyList"])
-fun <T> hideWhenEmptyList(view: View, list: List<T>?) {
+@BindingAdapter(value = ["app:showWhenEmptyList"])
+fun <T> showWhenEmptyList(view: View, list: List<T>?) {
     if (list.isNullOrEmpty()) {
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.INVISIBLE
+    }
+}
+
+@BindingAdapter(value = ["app:hideWhenEmptyList"])
+fun <T> hideWhenEmptyList(view: View, list: List<T>?) {
+    if (list.isNullOrEmpty()) {
+        view.visibility = View.GONE
+    } else {
+        view.visibility = View.VISIBLE
     }
 }
 

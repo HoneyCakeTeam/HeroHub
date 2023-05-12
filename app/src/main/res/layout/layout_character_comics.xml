@@ -8,11 +8,17 @@
         <variable
             name="adapterRecycler"
             type="com.example.herohub.ui.characterdetails.adapter.ComicsAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.example.herohub.ui.characterdetails.CharacterDetailsViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:hideWhenEmptyList="@{viewModel.characterComics.toData().results}">
 
         <TextView
             android:id="@+id/text_view_comics_header"
@@ -29,8 +35,8 @@
             android:id="@+id/recycler_view_comics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:adapter="@{adapterRecycler}"
+            android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comics_header"
             tools:listitem="@layout/item_character_comics" />
