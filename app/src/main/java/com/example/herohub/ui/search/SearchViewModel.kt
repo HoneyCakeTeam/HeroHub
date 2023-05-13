@@ -36,7 +36,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 
     fun search(query: String) {
-        if (query.isNotBlank()) {
+        if (query.isNotEmpty()) {
             getCharactersByName(query)
         } else {
             searchResult.postValue(emptyList())
@@ -51,6 +51,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     private fun onGetCharacterFailure(throwable: Throwable) {
         _response.postValue(UiState.Error(throwable.message.toString()))
+        searchResult.postValue(emptyList())
     }
 
     override fun <T> onClickItem(item: T) {
