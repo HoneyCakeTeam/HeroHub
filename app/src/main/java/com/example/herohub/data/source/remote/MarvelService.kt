@@ -15,6 +15,13 @@ import retrofit2.http.Query
 
 
 interface MarvelService {
+
+    @GET("characters")
+    fun getCharactersByName(
+        @Query("nameStartsWith")
+        name: String,
+    ): Single<Response<BaseResponse<Character>>>
+
     @GET("events/{eventId}")
     fun getEvent(@Path("eventId") eventId: Int): Single<Response<BaseResponse<Event>>>
 

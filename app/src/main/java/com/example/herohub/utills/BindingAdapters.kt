@@ -98,11 +98,6 @@ fun usePagerSnapHelperWithRecycler(recycler: RecyclerView, useSnapHelper: Boolea
         PagerSnapHelper().attachToRecyclerView(recycler)
 }
 
-@BindingAdapter(value = ["app:disableIfLoading"])
-fun <T> disableIfLoading(view: View, uiState: UiState<T>?) {
-    view.isEnabled = uiState is UiState.Success
-}
-
 @BindingAdapter(value = ["app:setIconColor"])
 fun setFavoriteStateColor(image: ShapeableImageView, state: Boolean) {
     val colorRes = if (state) {

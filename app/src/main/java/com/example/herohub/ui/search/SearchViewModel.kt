@@ -26,24 +26,18 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
         addSource(searchQuery, this@SearchViewModel::search)
     }
 
-    init {
-        getAllCharacters()
-    }
 
-    private fun getAllCharacters() {
+    private fun getCharactersByName(name: String) {
         _response.postValue(UiState.Loading)
         disposeSingle(
-            repository.getAllCharacters(),
+            repository.getCharactersByName(name),
             ::onGetCharacterSuccess, ::onGetCharacterFailure
         )
     }
 
     fun search(query: String) {
-
         if (query.isNotBlank()) {
-            searchResult.postValue(response.value?.toData()?.results!!.filter {
-                it.name!!.contains(query, ignoreCase = true)
-            })
+            getCharactersByName(query)
         } else {
             searchResult.postValue(emptyList())
         }
@@ -51,8 +45,8 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
         log(uiState.toData().toString())
-        _response.postValue(uiState)
-
+        _response.value = uiState
+        searchResult.postValue(response.value?.toData()?.results ?: emptyList())
     }
 
     private fun onGetCharacterFailure(throwable: Throwable) {

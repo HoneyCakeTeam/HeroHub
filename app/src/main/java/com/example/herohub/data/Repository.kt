@@ -77,6 +77,13 @@ class Repository {
         api.getAllCharacters(100)
     }
 
+    fun getCharactersByName(
+        name: String,
+    ): Single<UiState<DataResponse<Character>>> = wrapWithState {
+        api.getCharactersByName(name)
+    }
+
+
     fun getAllSeries(): Single<UiState<DataResponse<Series>>> = wrapWithState {
         api.getAllSeries(100)
     }
