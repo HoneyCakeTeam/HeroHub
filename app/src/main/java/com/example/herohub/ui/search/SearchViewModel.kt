@@ -7,6 +7,7 @@ import com.example.herohub.data.Repository
 import com.example.herohub.data.model.Character
 import com.example.herohub.data.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
+import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 
 
@@ -14,8 +15,9 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     override val TAG: String = this::class.java.simpleName.toString()
     private val repository = Repository()
 
-    val navigateToItem = MutableLiveData<Character>()
-    val isNavigated = MutableLiveData<Boolean>()
+    private val _eventClick = MutableLiveData<EventHandler<Character>>()
+    val eventClick: LiveData<EventHandler<Character>>
+        get() = _eventClick
 
     val searchQuery = MutableLiveData<String>()
 
@@ -55,11 +57,6 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     }
 
     override fun <T> onClickItem(item: T) {
-        isNavigated.value = true
-        navigateToItem.value = item as Character
-    }
-
-    fun onCompleteNavigation() {
-        isNavigated.value = false
+        _eventClick.postValue(EventHandler(item as Character))
     }
 }

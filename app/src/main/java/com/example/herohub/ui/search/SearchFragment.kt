@@ -7,6 +7,7 @@ import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSearchScreenBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.favorite.FavoritesAdapter
+import com.example.herohub.ui.utils.EventObserve
 
 class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
     override val TAG: String = this::class.java.simpleName
@@ -18,18 +19,13 @@ class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
 
     override fun setup() {
         binding.rvSearchResult.adapter = adapter
-        viewModel.navigateToItem.observe(viewLifecycleOwner) {
-            if (viewModel.isNavigated.value == true) {
-                val action =
-                    SearchFragmentDirections.actionSearchFragmentToCharactersDetailsFragment(
-                        it.id!!
-                    )
-                log(it.id.toString())
-                findNavController().navigate(action)
-                viewModel.onCompleteNavigation()
-            } else {
-                log("NOT Valid")
-            }
-        }
+        viewModel.eventClick.observe(this, EventObserve {
+            val action =
+                SearchFragmentDirections.actionSearchFragmentToCharactersDetailsFragment(
+                    it.id!!
+                )
+            log(it.id.toString())
+            findNavController().navigate(action)
+        })
     }
 }
