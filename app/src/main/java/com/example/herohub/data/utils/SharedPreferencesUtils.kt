@@ -1,4 +1,4 @@
-package com.example.herohub.utills
+package com.example.herohub.data.utils
 
 import android.content.Context
 import android.content.SharedPreferences

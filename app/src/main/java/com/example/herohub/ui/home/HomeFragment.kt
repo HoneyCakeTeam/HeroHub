@@ -6,7 +6,7 @@ import com.example.herohub.R
 import com.example.herohub.databinding.FragmentHomeBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.home.adapter.HomeAdapter
-import com.example.herohub.utills.EventObserve
+import com.example.herohub.ui.utils.EventObserve
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 

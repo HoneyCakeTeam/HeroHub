@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.ActivityMainBinding
-import com.example.herohub.utills.SharedPreferencesUtils
+import com.example.herohub.data.utils.SharedPreferencesUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

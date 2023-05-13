@@ -5,7 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSeriesBinding
 import com.example.herohub.ui.base.BaseFragment
-import com.example.herohub.utills.EventObserve
+import com.example.herohub.ui.utils.EventObserve
 
 class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
     override val TAG: String = this::class.java.simpleName

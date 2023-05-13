@@ -7,7 +7,7 @@ import com.example.herohub.data.Repository
 import com.example.herohub.data.model.Character
 import com.example.herohub.data.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.utills.UiState
+import com.example.herohub.ui.utils.UiState
 
 
 class SearchViewModel : BaseViewModel(), SearchInteractionListener {

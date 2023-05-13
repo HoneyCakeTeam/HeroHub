@@ -1,4 +1,4 @@
-package com.example.herohub.utills
+package com.example.herohub.ui.utils
 
 sealed class UiState<out T> {
 

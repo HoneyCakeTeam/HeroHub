@@ -14,8 +14,8 @@ import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.characterdetails.adapter.ComicsInteractionListener
 import com.example.herohub.ui.characterdetails.adapter.EventsInteractionListener
 import com.example.herohub.ui.characterdetails.adapter.SeriesInteractionListener
-import com.example.herohub.utills.EventHandler
-import com.example.herohub.utills.UiState
+import com.example.herohub.ui.utils.EventHandler
+import com.example.herohub.ui.utils.UiState
 
 
 /**

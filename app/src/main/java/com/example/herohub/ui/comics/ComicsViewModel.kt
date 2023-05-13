@@ -6,8 +6,8 @@ import com.example.herohub.data.Repository
 import com.example.herohub.data.model.Comic
 import com.example.herohub.data.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.utills.EventHandler
-import com.example.herohub.utills.UiState
+import com.example.herohub.ui.utils.EventHandler
+import com.example.herohub.ui.utils.UiState
 
 class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     override val TAG: String = this::class.java.simpleName

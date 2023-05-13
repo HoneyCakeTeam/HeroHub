@@ -10,8 +10,8 @@ import com.example.herohub.data.model.FavoriteItem
 import com.example.herohub.data.model.Series
 import com.example.herohub.data.model.Story
 import com.example.herohub.data.source.remote.MarvelApi
-import com.example.herohub.utills.SharedPreferencesUtils
-import com.example.herohub.utills.UiState
+import com.example.herohub.data.utils.SharedPreferencesUtils
+import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.core.Single

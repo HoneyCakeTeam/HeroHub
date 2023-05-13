@@ -7,7 +7,7 @@ import com.example.herohub.R
 import com.example.herohub.data.model.FavoriteItem
 import com.example.herohub.databinding.FragmentFavouriteScreenBinding
 import com.example.herohub.ui.base.BaseFragment
-import com.example.herohub.utills.EventObserve
+import com.example.herohub.ui.utils.EventObserve
 
 class FavouriteScreenFragment : BaseFragment<FragmentFavouriteScreenBinding>() {
     override val TAG: String = this::class.java.simpleName

@@ -1,4 +1,4 @@
-package com.example.herohub.utills
+package com.example.herohub.ui.utils
 
 import android.view.View
 import android.widget.ImageView

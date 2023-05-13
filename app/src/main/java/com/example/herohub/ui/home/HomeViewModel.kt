@@ -15,8 +15,8 @@ import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
-import com.example.herohub.utills.EventHandler
-import com.example.herohub.utills.UiState
+import com.example.herohub.ui.utils.EventHandler
+import com.example.herohub.ui.utils.UiState
 
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     SuperHeroesInteractionListener,

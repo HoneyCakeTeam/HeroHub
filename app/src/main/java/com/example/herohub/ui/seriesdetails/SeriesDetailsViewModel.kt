@@ -8,7 +8,7 @@ import com.example.herohub.data.model.DataResponse
 import com.example.herohub.data.model.FavoriteItem
 import com.example.herohub.data.model.Series
 import com.example.herohub.ui.base.BaseViewModel
-import com.example.herohub.utills.UiState
+import com.example.herohub.ui.utils.UiState
 
 class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     override val TAG: String
