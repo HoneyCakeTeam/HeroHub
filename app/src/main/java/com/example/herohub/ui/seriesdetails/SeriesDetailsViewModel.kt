@@ -32,7 +32,6 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         getSeriesDetails()
     }
 
-
     private fun getSeriesDetails() {
         disposeSingle(
             repository.getSeriesDetails(seriesArgs.seriesId),
@@ -68,6 +67,5 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
             _isFavorite.postValue(true)
         }
     }
-
 
 }

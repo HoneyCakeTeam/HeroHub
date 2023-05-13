@@ -10,92 +10,95 @@
             type="com.example.herohub.ui.seriesdetails.SeriesDetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.seriesdetails.SeriesDetailsFragment">
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/spacing_medium"
+        android:scrollIndicators="none">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/shapeableImageView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:imageUrl ="@{viewModel.seriesDetails.toData().results.get(0).thumbnail.path}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_series_title"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:fontFamily="@font/josefinsans_medium"
-            android:text="@{viewModel.seriesDetails.toData().results.get(0).title}"
-            android:textSize="@dimen/text_giant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
-            tools:text="Series" />
+            tools:context=".ui.comicdetails.ComicDetailsFragment">
 
-        <TextView
-            android:id="@+id/text_series_description_fixed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/josefinsans_semibold"
-            android:text="@string/description"
-            android:textSize="@dimen/text_giant"
-            android:layout_marginStart="@dimen/spacing_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/spacing_large"
-            app:layout_constraintTop_toBottomOf="@+id/text_series_title"
-            />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_comic"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.series.thumbnail.path}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenSuccess="@{viewModel.seriesDetails}"
+                tools:src="@drawable/spiderman" />
 
-        <TextView
-            android:id="@+id/text_series_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/josefinsans_medium"
-            android:text='@{viewModel.seriesDetails.toData().results.get(0).description != null ? viewModel.seriesDetails.toData().results.get(0).description : "No description available"}'
-            android:textSize="@dimen/text_medium"
-            android:textColor="@color/md_theme_light_primary"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:layout_constraintStart_toStartOf="@+id/text_series_description_fixed"
-            app:layout_constraintTop_toBottomOf="@+id/text_series_description_fixed"
-            tools:text="Description" />
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:ellipsize="end"
+                android:fontFamily="@font/josefinsans_semibold"
+                android:maxLines="2"
+                android:text="@{viewModel.series.title}"
+                android:textSize="@dimen/text_giant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_comic"
+                app:showWhenSuccess="@{viewModel.seriesDetails}"
+                tools:text="spider man" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/loading_circle_red"
-                    app:showWhenLoading="@{viewModel.seriesDetails}" />
+            <TextView
+                android:id="@+id/text_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_medium"
+                android:layout_marginVertical="@dimen/spacing_small"
+                android:fontFamily="@font/josefinsans_regular"
+                android:text="@{viewModel.series.description}"
+                android:textSize="@dimen/text_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_title"
+                app:showWhenSuccess="@{viewModel.seriesDetails}"
+                tools:text="spider man" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/error"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:showWhenError="@{viewModel.seriesDetails}" />
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/icon_favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_favorite_fielld"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="@dimen/spacing_medium"
-            android:padding="@dimen/spacing_tiny"
-            android:onClick="@{() -> viewModel.onFavClicked()}"
-            app:setIconColor="@{viewModel.isFavorite()}"
-            />
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading_circle_red"
+                app:showWhenLoading="@{viewModel.seriesDetails}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/error"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenError="@{viewModel.seriesDetails}" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/icon_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:onClick="@{() -> viewModel.onFavClicked()}"
+                android:padding="@dimen/spacing_tiny"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setIconColor="@{viewModel.isFavorite()}"
+                app:srcCompat="@drawable/ic_favorite_fielld" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

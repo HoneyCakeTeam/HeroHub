@@ -62,8 +62,8 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     }
 
     private fun getHomeData() {
-        getAllCharacters()
         getSliderItems()
+        getAllCharacters()
         getMostPopularSeries()
         getAllEvents()
         getAllComics()
