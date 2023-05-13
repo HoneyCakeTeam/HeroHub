@@ -1,5 +1,6 @@
 package com.example.herohub.ui.search
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +9,10 @@ import com.example.herohub.data.model.Character
 import com.example.herohub.data.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.utills.UiState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 class SearchViewModel : BaseViewModel(), SearchInteractionListener {
@@ -22,10 +27,44 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     private val _response = MutableLiveData<UiState<DataResponse<Character>>>()
     val response: LiveData<UiState<DataResponse<Character>>> get() = _response
 
-    val searchResult = MediatorLiveData<List<Character>>().apply {
-        addSource(searchQuery, this@SearchViewModel::search)
+    val searchResult = MutableLiveData<List<Character>>()
+
+    private val _searchQuery = MediatorLiveData<String>()
+
+    private val searchObservable = Observable.create { emitter ->
+        _searchQuery.addSource(
+            searchQuery,
+            emitter::onNext
+        )
     }
 
+    init {
+        search()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun search() {
+        searchObservable
+            .debounce(
+                500,
+                TimeUnit.MILLISECONDS
+            )
+            .distinctUntilChanged()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { query ->
+                log(query)
+                performSearch(query)
+            }
+    }
+
+    private fun performSearch(query: String) {
+        if (query.isNotEmpty()) {
+            getCharactersByName(query)
+        } else {
+            searchResult.postValue(emptyList())
+        }
+    }
 
     private fun getCharactersByName(name: String) {
         _response.postValue(UiState.Loading)
@@ -33,14 +72,6 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
             repository.getCharactersByName(name),
             ::onGetCharacterSuccess, ::onGetCharacterFailure
         )
-    }
-
-    fun search(query: String) {
-        if (query.isNotEmpty()) {
-            getCharactersByName(query)
-        } else {
-            searchResult.postValue(emptyList())
-        }
     }
 
     private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
@@ -51,7 +82,6 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     private fun onGetCharacterFailure(throwable: Throwable) {
         _response.postValue(UiState.Error(throwable.message.toString()))
-        searchResult.postValue(emptyList())
     }
 
     override fun <T> onClickItem(item: T) {
