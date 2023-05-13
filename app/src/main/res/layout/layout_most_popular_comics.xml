@@ -41,10 +41,10 @@
             android:fontFamily="@font/josefinsans_regular"
             android:onClick="@{()->listener.onCLickSeeAllComics()}"
             android:text="@string/see_all"
-            android:textColor="@color/seed"
+            android:textColor="@color/md_theme_light_background"
             android:textSize="@dimen/text_small"
             app:drawableEndCompat="@drawable/ic_go"
-            app:drawableTint="@color/seed"
+            app:drawableTint="@color/md_theme_light_background"
             app:layout_constraintBottom_toBottomOf="@id/text_comics"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_comics" />
