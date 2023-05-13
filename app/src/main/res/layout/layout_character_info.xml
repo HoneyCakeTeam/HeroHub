@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="item"
             type="com.example.herohub.data.model.Character" />
@@ -17,14 +16,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_medium">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_character"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:scaleType="centerCrop"
+            android:layout_margin="@dimen/spacing_medium"
             app:imageUrl="@{item.thumbnail.path}"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/CardRadius"
@@ -38,6 +37,7 @@
             android:text="@{item.name}"
             android:textColor="@color/md_theme_light_onSecondary"
             android:textSize="@dimen/text_large"
+            android:fontFamily="@font/josefinsans_semibold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_character"

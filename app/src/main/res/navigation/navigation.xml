@@ -76,7 +76,7 @@
     <fragment
         android:id="@+id/characters_details_fragment"
         android:name="com.example.herohub.ui.characterdetails.CharacterDetailsFragment"
-        android:label="@string/characters"
+        android:label="@string/character_details"
         tools:layout="@layout/fragment_characters_details">
         <argument
             android:name="characterId"

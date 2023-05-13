@@ -12,28 +12,39 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        app:hideWhenEmptyList="@{adapterRecycler.itemCount}"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <TextView
-            android:id="@+id/text_view_comics_header"
+            android:id="@+id/text_event"
+            app:hideWhenEmptyList="@{adapterRecycler.itemCount}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:text="Comics:"
-            android:textSize="@dimen/text_giant"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_view_comics"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="@dimen/spacing_small"
+            android:fontFamily="@font/josefinsans_regular"
+            android:text="@string/comics"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/text_large"
+            app:layout_constraintBottom_toTopOf="@id/recycler_event"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_comics"
+            android:id="@+id/recycler_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adapter="@{adapterRecycler}"
+            android:clipToPadding="false"
             android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/spacing_simi_medium"
+            android:paddingVertical="@dimen/spacing_small"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_comics_header"
-            tools:listitem="@layout/item_character_comics" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_event"
+            tools:listitem="@layout/item_most_popular_event" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
