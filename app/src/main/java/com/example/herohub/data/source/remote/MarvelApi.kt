@@ -1,5 +1,6 @@
 package com.example.herohub.data.source.remote
 
+import com.example.herohub.MyApplication
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +13,8 @@ object MarvelApi {
     private const val BASE_URL = "https://gateway.marvel.com/v1/public/"
     private const val HTTP_CACHE = "http-cache"
     private const val MAX_SIZE = 10L * 1024L * 1024L// 10 MiB
-    private val CACHE_DIRECTORY = File("/data/data/com.example.herohub/cache", HTTP_CACHE)
+    private val CACHE_DIRECTORY = File(MyApplication.getInstance().cacheDir, HTTP_CACHE)
+    //private val CACHE_DIRECTORY = File("/data/data/com.example.herohub/cache", HTTP_CACHE)
     private val CACHE = Cache(CACHE_DIRECTORY, MAX_SIZE)
 
     private val logInterceptor = HttpLoggingInterceptor().apply {
@@ -23,6 +25,7 @@ object MarvelApi {
         addInterceptor(logInterceptor)
         addInterceptor(MarvelInterceptor())
         addNetworkInterceptor(CacheInterceptor())
+        addInterceptor(OfflineInterceptor())
     }.build()
 
     private val retrofit = Retrofit.Builder()
