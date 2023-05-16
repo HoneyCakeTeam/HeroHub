@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.model.Series" />
+            type="com.example.herohub.data.remote.model.Series" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

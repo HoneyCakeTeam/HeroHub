@@ -2,16 +2,16 @@ package com.example.herohub.ui.comics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.Repository
-import com.example.herohub.data.model.Comic
-import com.example.herohub.data.model.DataResponse
+import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.remote.model.Comic
+import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 
 class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val repository = Repository()
+    private val marvelRepository = MarvelRepository()
 
     private val _comics = MutableLiveData<UiState<DataResponse<Comic>>>()
     val comics: LiveData<UiState<DataResponse<Comic>>>
@@ -27,7 +27,7 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
 
     private fun getAllComics() {
         _comics.postValue(UiState.Loading)
-        disposeSingle(repository.getAllComics(), ::onGetComicSuccess, ::onError)
+        disposeSingle(marvelRepository.getAllComics(), ::onGetComicSuccess, ::onError)
     }
 
     private fun onGetComicSuccess(state: UiState<DataResponse<Comic>>) {

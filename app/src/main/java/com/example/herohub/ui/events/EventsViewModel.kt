@@ -2,16 +2,16 @@ package com.example.herohub.ui.events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.Repository
-import com.example.herohub.data.model.DataResponse
-import com.example.herohub.data.model.Event
+import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.remote.model.Event
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 
 class EventsViewModel : BaseViewModel(), EventsInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val repository = Repository()
+    private val marvelRepository = MarvelRepository()
 
     private val _events = MutableLiveData<UiState<DataResponse<Event>>>()
     val events: LiveData<UiState<DataResponse<Event>>>
@@ -27,7 +27,7 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
 
     private fun getAllEvents() {
         _events.postValue(UiState.Loading)
-        disposeSingle(repository.getAllEvents(), ::onGetEventsSuccess, ::onError)
+        disposeSingle(marvelRepository.getAllEvents(), ::onGetEventsSuccess, ::onError)
     }
 
     private fun onGetEventsSuccess(state: UiState<DataResponse<Event>>) {

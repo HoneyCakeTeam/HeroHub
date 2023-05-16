@@ -1,4 +1,4 @@
-package com.example.herohub.data.source.remote
+package com.example.herohub.data.remote
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
