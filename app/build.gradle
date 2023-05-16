@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+    id 'com.google.dagger.hilt.android'
 }
 
 def apikeyPropertiesFile = rootProject.file("secret.properties")
@@ -47,6 +48,7 @@ android {
 dependencies {
     def retrofit = '2.9.0'
     def rxJava = '3.0.2'
+    def room_version = "2.5.1"
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -86,4 +88,14 @@ dependencies {
 
     // splash api dependency
     implementation "androidx.core:core-splashscreen:1.0.1"
+
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+    // room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // optional - RxJava3 support for Room
+    implementation "androidx.room:room-rxjava3:$room_version"
+
 }
