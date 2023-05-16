@@ -89,13 +89,12 @@ dependencies {
     // splash api dependency
     implementation "androidx.core:core-splashscreen:1.0.1"
 
-    //Hilt
+    // hilt dependency
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
-    // room
+
+    // room dependency
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-    // optional - RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"
-
 }
