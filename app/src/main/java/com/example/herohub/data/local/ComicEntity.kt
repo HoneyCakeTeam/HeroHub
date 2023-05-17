@@ -11,5 +11,5 @@ data class ComicEntity(
     val title: String,
     val description: String,
     val modified: String,
-    @ColumnInfo("imagePath") val thumbnail: Thumbnail
+    val imageUrl: String
 )

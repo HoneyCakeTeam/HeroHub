@@ -8,8 +8,8 @@ import com.example.herohub.data.remote.model.Thumbnail
 @Entity(tableName = "CHARACTER_TABLE")
 data class CharacterEntity(
     @PrimaryKey val id: Int,
-    val name: String,
+    val title: String,
     val description: String,
     val modified: String,
-    @ColumnInfo("imagePath") val thumbnail: Thumbnail
+    val imageUrl: String
 )
