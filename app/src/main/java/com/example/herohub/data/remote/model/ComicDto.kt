@@ -100,3 +100,4 @@ fun ComicDto.asComicEntity(): ComicEntity {
         imageUrl = "${thumbnail?.path}.${thumbnail?.extension}"
     )
 }
+

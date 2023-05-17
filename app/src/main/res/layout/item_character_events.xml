@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.domain.model.Event" />
+            type="com.example.herohub.domain.model.Event" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

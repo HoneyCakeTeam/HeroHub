@@ -2,7 +2,6 @@ package com.example.herohub.ui.base
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.herohub.domin.model.DataResponse
 import com.example.herohub.ui.utils.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single

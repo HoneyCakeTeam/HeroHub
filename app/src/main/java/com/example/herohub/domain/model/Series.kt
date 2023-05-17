@@ -1,10 +1,13 @@
-package com.example.herohub.data.domain.model
+package com.example.herohub.domain.model
 
-
-data class Story(
+data class Series(
     val description: String = "",
     val id: Int? = 0,
     val modified: String = "",
     val title: String = "",
     val imageUrl: String = "",
 )
+//dto -> domain
+
+
+//entity -> domain

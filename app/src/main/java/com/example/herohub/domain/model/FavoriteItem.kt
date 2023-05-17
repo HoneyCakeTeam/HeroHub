@@ -1,4 +1,4 @@
-package com.example.herohub.data.domain.model
+package com.example.herohub.domain.model
 
 import com.example.herohub.data.local.FavoriteEntity
 

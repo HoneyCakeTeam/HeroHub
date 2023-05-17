@@ -1,4 +1,4 @@
-package com.example.herohub.domin
+package com.example.herohub.domain
 
 /**
  * Created by Asia sama on 5/17/2023.

@@ -2,9 +2,9 @@ package com.example.herohub.ui.series
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.remote.model.DataResponse
-import com.example.herohub.data.domain.model.Series
+import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState

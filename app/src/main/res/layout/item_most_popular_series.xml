@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.domain.model.Series" />
+            type="com.example.herohub.domain.model.Series" />
 
         <variable
             name="listener"
