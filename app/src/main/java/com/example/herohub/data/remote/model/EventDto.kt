@@ -1,5 +1,6 @@
 package com.example.herohub.data.remote.model
 
+import com.example.herohub.data.local.EventEntity
 import com.google.gson.annotations.SerializedName
 
 data class EventDto(
@@ -36,3 +37,12 @@ data class EventDto(
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
 )
+fun EventDto.asEventEntity(): EventEntity {
+    return EventEntity(
+        id = id?:0,
+        title = title?:"" ,
+        description = description?:"",
+        modified = modified?:"",
+        imageUrl = "${thumbnail?.path}.${thumbnail?.extension}"
+    )
+}
