@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.herohub.data.model.Character" />
+            type="com.example.herohub.data.remote.model.Character" />
 
         <variable
             name="viewModel"

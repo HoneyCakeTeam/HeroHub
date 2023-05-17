@@ -3,13 +3,13 @@ package com.example.herohub.ui.characterdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.Repository
-import com.example.herohub.data.model.Character
-import com.example.herohub.data.model.Comic
-import com.example.herohub.data.model.DataResponse
-import com.example.herohub.data.model.Event
-import com.example.herohub.data.model.FavoriteItem
-import com.example.herohub.data.model.Series
+import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.remote.model.Character
+import com.example.herohub.data.remote.model.Comic
+import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.remote.model.Event
+import com.example.herohub.data.remote.model.FavoriteItem
+import com.example.herohub.data.remote.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.characterdetails.adapter.ComicsInteractionListener
 import com.example.herohub.ui.characterdetails.adapter.EventsInteractionListener
@@ -23,7 +23,7 @@ import com.example.herohub.ui.utils.UiState
  */
 class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     ComicsInteractionListener, SeriesInteractionListener, EventsInteractionListener {
-    private val repository = Repository()
+    private val marvelRepository = MarvelRepository()
     private val characterArgs = CharacterDetailsFragmentArgs.fromSavedStateHandle(state)
 
     private val _characterEvent = MutableLiveData<UiState<DataResponse<Event>>>()
@@ -67,7 +67,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getComicsOfCharacter() {
         disposeSingle(
-            repository.getCharacterComics(characterArgs.characterId),
+            marvelRepository.getCharacterComics(characterArgs.characterId),
             ::onGetCharacterComicsSuccess,
             ::onError
         )
@@ -75,7 +75,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getEventOfCharacter() {
         disposeSingle(
-            repository.getCharacterEvents(characterArgs.characterId),
+            marvelRepository.getCharacterEvents(characterArgs.characterId),
             ::onGetCharacterEventsSuccess,
             ::onError
         )
@@ -83,7 +83,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getSeriesOfCharacter() {
         disposeSingle(
-            repository.getCharacterSeries(characterArgs.characterId),
+            marvelRepository.getCharacterSeries(characterArgs.characterId),
             ::onGetCharacterSeriesSuccess,
             ::onError
         )
@@ -91,7 +91,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getDetailsOfCharacter() {
         disposeSingle(
-            repository.getCharacterDetails(characterArgs.characterId),
+            marvelRepository.getCharacterDetails(characterArgs.characterId),
             ::onGetCharacterDetailsSuccess,
             ::onError
         )
@@ -124,7 +124,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     private fun onGetCharacterDetailsSuccess(state: UiState<DataResponse<Character>>) {
         _characterDetails.value = state
         characterItem.value = characterDetails.value?.toData()?.results?.firstOrNull()
-        _isFavorite.value = repository.isFavorite(characterItem.value?.id.toString())
+        _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
         characterItem.value?.let { CharacterDetailsItem.CharacterInfo(it) }
             ?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
@@ -148,11 +148,11 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         )
 
         if (isFavorite.value == true) {
-            repository.removeFavorite(favoriteItem)
-            _isFavorite.value = repository.isFavorite(characterItem.value?.id.toString())
+            marvelRepository.removeFavorite(favoriteItem)
+            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
         } else {
-            repository.addToFavorite(favoriteItem)
-            _isFavorite.value = repository.isFavorite(characterItem.value?.id.toString())
+            marvelRepository.addToFavorite(favoriteItem)
+            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
         }
     }
 

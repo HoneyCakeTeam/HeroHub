@@ -2,14 +2,14 @@ package com.example.herohub.ui.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.Repository
-import com.example.herohub.data.model.FavoriteItem
+import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.remote.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 
 class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
 
-    private val repository = Repository()
+    private val marvelRepository = MarvelRepository()
     override val TAG: String = this::class.java.simpleName
     private val _favorites = MutableLiveData<List<FavoriteItem>>()
     val favorites: LiveData<List<FavoriteItem>>
@@ -20,7 +20,7 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
         get() = _favoriteClick
 
     fun retrieveFavorites() {
-        _favorites.postValue(repository.getFavorites())
+        _favorites.postValue(marvelRepository.getFavorites())
     }
 
     override fun onClickFavorite(favoriteItem: FavoriteItem) {
@@ -28,7 +28,7 @@ class FavoriteViewModel : BaseViewModel(), FavoriteInteractionListener {
     }
 
     override fun onClickFavoriteIcon(favoriteItem: FavoriteItem) {
-        repository.removeFavorite(favoriteItem)
+        marvelRepository.removeFavorite(favoriteItem)
         retrieveFavorites()
     }
 

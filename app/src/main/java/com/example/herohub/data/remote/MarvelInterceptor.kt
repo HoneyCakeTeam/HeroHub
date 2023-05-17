@@ -1,4 +1,4 @@
-package com.example.herohub.data.source.remote
+package com.example.herohub.data.remote
 
 import com.example.herohub.BuildConfig
 import okhttp3.Interceptor

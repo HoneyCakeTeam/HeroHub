@@ -6,16 +6,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSearchScreenBinding
 import com.example.herohub.ui.base.BaseFragment
-import com.example.herohub.ui.favorite.FavoritesAdapter
 import com.example.herohub.ui.utils.EventObserve
 
 class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment = R.layout.fragment_search_screen
     override val viewModel: SearchViewModel by viewModels()
-    private val adapter: SearchAdapter by lazy {
-        SearchAdapter(viewModel)
-    }
+    private val adapter: SearchAdapter by lazy { SearchAdapter(viewModel) }
 
     override fun setup() {
         binding.rvSearchResult.adapter = adapter

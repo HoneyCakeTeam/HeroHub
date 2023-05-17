@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.model.Character" />
+            type="com.example.herohub.data.remote.model.Character" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

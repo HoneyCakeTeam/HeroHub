@@ -3,15 +3,15 @@ package com.example.herohub.ui.eventdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.Repository
-import com.example.herohub.data.model.DataResponse
-import com.example.herohub.data.model.Event
-import com.example.herohub.data.model.FavoriteItem
+import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.remote.model.Event
+import com.example.herohub.data.remote.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
 
 class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
-    private val repository = Repository()
+    private val marvelRepository = MarvelRepository()
     override val TAG = "EVENT_DETAILS_VIEW_MODEL"
     private val eventArgs = EventDetailsFragmentArgs.fromSavedStateHandle(state)
 
@@ -34,7 +34,7 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     private fun getEvent() {
         _eventResponse.postValue(UiState.Loading)
         disposeSingle(
-            repository.getEvent(eventArgs.eventId),
+            marvelRepository.getEvent(eventArgs.eventId),
             ::onGetEventSuccess,
             ::onGetEventFailure
         )
@@ -46,7 +46,7 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         uiState.toData()?.let {
             _event.value = it.results?.get(0)
         }
-        _isFavorite.value = repository.isFavorite(event.value?.id.toString())
+        _isFavorite.value = marvelRepository.isFavorite(event.value?.id.toString())
     }
 
     private fun onGetEventFailure(throwable: Throwable) {
@@ -62,10 +62,10 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         )
 
         if(isFavorite.value == true) {
-            repository.removeFavorite(favoriteItem)
+            marvelRepository.removeFavorite(favoriteItem)
             _isFavorite.postValue(false)
         } else {
-            repository.addToFavorite(favoriteItem)
+            marvelRepository.addToFavorite(favoriteItem)
             _isFavorite.postValue(true)
         }
     }

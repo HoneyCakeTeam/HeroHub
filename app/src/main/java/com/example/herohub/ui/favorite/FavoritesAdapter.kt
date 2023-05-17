@@ -1,7 +1,7 @@
 package com.example.herohub.ui.favorite
 
 import com.example.herohub.R
-import com.example.herohub.data.model.FavoriteItem
+import com.example.herohub.data.remote.model.FavoriteItem
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 

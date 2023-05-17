@@ -3,10 +3,10 @@ package com.example.herohub.ui.seriesdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.Repository
-import com.example.herohub.data.model.DataResponse
-import com.example.herohub.data.model.FavoriteItem
-import com.example.herohub.data.model.Series
+import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.remote.model.FavoriteItem
+import com.example.herohub.data.remote.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
 
@@ -15,7 +15,7 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         get() = this::class.java.simpleName.toString()
     private val seriesArgs = SeriesDetailsFragmentArgs.fromSavedStateHandle(state)
 
-    private val repository: Repository by lazy { Repository() }
+    private val marvelRepository: MarvelRepository by lazy { MarvelRepository() }
 
     private val _seriesDetails = MutableLiveData<UiState<DataResponse<Series>?>>()
     val seriesDetails: LiveData<UiState<DataResponse<Series>?>>
@@ -34,7 +34,7 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
 
     private fun getSeriesDetails() {
         disposeSingle(
-            repository.getSeriesDetails(seriesArgs.seriesId),
+            marvelRepository.getSeriesDetails(seriesArgs.seriesId),
             ::onSeriesSuccessData,
             ::onError
         )
@@ -45,7 +45,7 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         seriesUiState.toData()?.let {
             _series.value = it.results?.get(0)
         }
-        _isFavorite.value = repository.isFavorite(series.value?.id.toString())
+        _isFavorite.value = marvelRepository.isFavorite(series.value?.id.toString())
     }
 
     private fun onError(errorMessage: Throwable) {
@@ -60,10 +60,10 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         )
 
         if (isFavorite.value == true) {
-            repository.removeFavorite(favoriteItem)
+            marvelRepository.removeFavorite(favoriteItem)
             _isFavorite.postValue(false)
         } else {
-            repository.addToFavorite(favoriteItem)
+            marvelRepository.addToFavorite(favoriteItem)
             _isFavorite.postValue(true)
         }
     }
