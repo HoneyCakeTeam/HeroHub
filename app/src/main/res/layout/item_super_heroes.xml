@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.remote.model.Character" />
+            type="com.example.herohub.data.domain.model.Character" />
 
         <variable
             name="listener"
@@ -27,7 +27,7 @@
             android:onClick="@{()->listener.onSuperHeroesItemClick(item.id)}"
             android:scaleType="centerCrop"
             android:padding="@dimen/spacing_tiny"
-            app:imageUrl="@{item.thumbnail.path}"
+            app:imageUrl="@{item.imageUrl}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,7 +1,7 @@
 package com.example.herohub.ui.home.adapter
 
 import com.example.herohub.R
-import com.example.herohub.data.remote.model.Event
+import com.example.herohub.data.domain.model.Event
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 
