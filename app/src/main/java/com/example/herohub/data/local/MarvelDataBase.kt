@@ -15,19 +15,21 @@ import androidx.room.RoomDatabase
 )
 abstract class MarvelDataBase : RoomDatabase() {
 
-    companion object{
-        private const val DATABASE_NAME ="MarvelDataBase"
-        @Volatile private var instance : MarvelDataBase? = null
+    companion object {
+        private const val DATABASE_NAME = "MarvelDataBase"
+        @Volatile
+        private var instance: MarvelDataBase? = null
 
-        fun getInstance(context: Context) :MarvelDataBase{
-            return instance ?: synchronized(this){ buildDatabase(context).also{ instance = it} }
+        fun getInstance(context: Context): MarvelDataBase {
+            return instance ?: synchronized(this) { buildDatabase(context).also { instance = it } }
         }
 
-        fun getInstanceWithOutContext() :MarvelDataBase{
-            return instance!! }
+        fun getInstanceWithOutContext(): MarvelDataBase {
+            return instance!!
+        }
 
-        private fun buildDatabase(context: Context) :MarvelDataBase{
-            return Room.databaseBuilder(context ,MarvelDataBase::class.java , DATABASE_NAME).build()
+        private fun buildDatabase(context: Context): MarvelDataBase {
+            return Room.databaseBuilder(context, MarvelDataBase::class.java, DATABASE_NAME).build()
         }
     }
 }
