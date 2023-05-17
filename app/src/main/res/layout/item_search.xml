@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.domin.model.Character" />
+            type="com.example.herohub.data.domain.model.Character" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{item.thumbnail.path}"
+                app:imageUrl="@{item.imageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

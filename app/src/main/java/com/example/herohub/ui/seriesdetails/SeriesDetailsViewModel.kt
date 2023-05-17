@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.domin.model.DataResponse
-import com.example.herohub.domin.model.FavoriteItem
-import com.example.herohub.domin.model.Series
+import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.domain.model.FavoriteItem
+import com.example.herohub.data.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
 
@@ -55,7 +55,7 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         val favoriteItem = FavoriteItem(
             _series.value?.id.toString(),
             _series.value?.title.toString(),
-            _series.value?.thumbnail?.path.toString(),
+            _series.value?.imageUrl.toString(),
             FavoriteItem.Type.SERIES
         )
 

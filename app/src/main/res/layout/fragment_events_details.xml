@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="400dp"
                 android:scaleType="centerInside"
-                app:imageUrl="@{viewModel.event.thumbnail.path}"
+                app:imageUrl="@{viewModel.event.imageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

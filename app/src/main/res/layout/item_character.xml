@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.domin.model.Character" />
+            type="com.example.herohub.data.domain.model.Character" />
 
         <variable
             name="listener"
@@ -28,7 +28,7 @@
             android:background="@color/md_theme_dark_tertiaryContainer"
             android:onClick="@{()->listener.onClickCharacter(item.id)}"
             android:scaleType="centerCrop"
-            app:imageUrl="@{item.thumbnail.path}"
+            app:imageUrl="@{item.imageUrl}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

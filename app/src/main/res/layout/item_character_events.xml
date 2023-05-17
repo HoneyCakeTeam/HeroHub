@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.domin.model.Event" />
+            type="com.example.herohub.data.domain.model.Event" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/slider_placeholder"
-            app:imageUrl="@{item.thumbnail.path}" />
+            app:imageUrl="@{item.imageUrl}" />
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

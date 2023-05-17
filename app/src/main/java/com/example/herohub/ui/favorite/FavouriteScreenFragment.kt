@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
+import com.example.herohub.data.domain.model.FavoriteItem
 import com.example.herohub.databinding.FragmentFavouriteScreenBinding
 import com.example.herohub.domin.model.FavoriteItem
 import com.example.herohub.ui.base.BaseFragment

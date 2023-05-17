@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.domin.model.FavoriteItem" />
+            type="com.example.herohub.data.domain.model.FavoriteItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

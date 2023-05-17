@@ -1,16 +1,15 @@
 package com.example.herohub.data.repository
 
+import com.example.herohub.data.remote.model.BaseResponse
+import com.example.herohub.data.domain.model.Character
+import com.example.herohub.data.domain.model.Comic
+import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.domain.model.Event
+import com.example.herohub.data.domain.model.FavoriteItem
+import com.example.herohub.data.domain.model.Series
+import com.example.herohub.data.domain.model.Story
 import com.example.herohub.data.remote.MarvelApi
 import com.example.herohub.data.utils.SharedPreferencesUtils
-import com.example.herohub.domin.model.BaseResponse
-import com.example.herohub.domin.model.Character
-import com.example.herohub.domin.model.Comic
-import com.example.herohub.domin.model.Creator
-import com.example.herohub.domin.model.DataResponse
-import com.example.herohub.domin.model.Event
-import com.example.herohub.domin.model.FavoriteItem
-import com.example.herohub.domin.model.Series
-import com.example.herohub.domin.model.Story
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -110,10 +109,6 @@ class MarvelRepository {
 
     fun getAllComics(): Single<UiState<DataResponse<Comic>>> = wrapWithState {
         api.getAllComics(100)
-    }
-
-    fun getAllCreators(): Single<UiState<DataResponse<Creator>>> = wrapWithState {
-        api.getAllCreators()
     }
 
     fun getAllEvents(): Single<UiState<DataResponse<Event>>> = wrapWithState {

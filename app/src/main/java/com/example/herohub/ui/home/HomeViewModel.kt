@@ -4,11 +4,11 @@ import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.domin.model.Character
-import com.example.herohub.domin.model.Comic
-import com.example.herohub.domin.model.DataResponse
-import com.example.herohub.domin.model.Event
-import com.example.herohub.domin.model.Series
+import com.example.herohub.data.domain.model.Character
+import com.example.herohub.data.domain.model.Comic
+import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.domain.model.Event
+import com.example.herohub.data.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.home.adapter.MostPopularComicsInteractionListener
 import com.example.herohub.ui.home.adapter.MostPopularEventsInteractionListener
@@ -118,7 +118,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _comicsResponse.value = UiState
         val comic = _comicsResponse.value?.toData()?.results
         val mostPopularComics = comic
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.filterNot { it.imageUrl.contains("image_not_available") }
             ?.take(20)
         _homeItems.add(
             (HomeItem.MostPopularComics(mostPopularComics!!))
@@ -132,7 +132,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         val character = _characterResponse.value?.toData()?.results
 
         val superHeroes = character
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.filterNot { it.imageUrl.contains("image_not_available") }
             ?.take(15)
 
         _homeItems.addAll(
@@ -146,7 +146,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun onGetSliderItemsSuccess(UiState: UiState<DataResponse<Event>>) {
         _eventResponse.value = UiState
         val images = _eventResponse.value?.toData()?.results
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.filterNot { it.imageUrl.contains("image_not_available") }
             ?.shuffled()
             ?.take(10)
         _homeItems.add(
@@ -158,7 +158,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun onGetMostPopularSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
         _seriesResponse.value = UiState
         val series = _seriesResponse.value?.toData()?.results
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.filterNot { it.imageUrl.contains("image_not_available") }
             ?.take(10)
         _homeItems.add(
             HomeItem.MostPopularSeries(series!!)
@@ -169,7 +169,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun onGetEventSuccess(uiState: UiState<DataResponse<Event>>) {
         _eventResponse.value = uiState
         val events = _eventResponse.value?.toData()?.results
-            ?.filterNot { it.thumbnail?.path?.contains("event_not_found") ?: false }
+            ?.filterNot { it.imageUrl.contains("event_not_found") }
             ?.shuffled()
             ?.take(10)
 

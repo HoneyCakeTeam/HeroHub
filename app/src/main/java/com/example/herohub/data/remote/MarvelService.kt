@@ -1,12 +1,11 @@
 package com.example.herohub.data.remote
 
-import com.example.herohub.domin.model.BaseResponse
-import com.example.herohub.domin.model.Character
-import com.example.herohub.domin.model.Comic
-import com.example.herohub.domin.model.Creator
-import com.example.herohub.domin.model.Event
-import com.example.herohub.domin.model.Series
-import com.example.herohub.domin.model.Story
+import com.example.herohub.data.remote.model.BaseResponse
+import com.example.herohub.data.domain.model.Character
+import com.example.herohub.data.domain.model.Comic
+import com.example.herohub.data.domain.model.Event
+import com.example.herohub.data.domain.model.Series
+import com.example.herohub.data.domain.model.Story
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET
@@ -50,9 +49,6 @@ interface MarvelService {
 
     @GET("comics")
     fun getAllComics(@Query("limit") limit: Int): Single<Response<BaseResponse<Comic>>>
-
-    @GET("creators")
-    fun getAllCreators(): Single<Response<BaseResponse<Creator>>>
 
     @GET("events")
     fun getAllEvents(@Query("limit") limit: Int): Single<Response<BaseResponse<Event>>>
