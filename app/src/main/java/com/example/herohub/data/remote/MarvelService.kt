@@ -58,9 +58,4 @@ interface MarvelService {
     @GET("series")
     fun getAllSeries(@Query("limit") limit: Int): Single<Response<BaseResponse<Series>>>
 
-    @GET("stories")
-    fun getAllStories(): Single<Response<BaseResponse<Story>>>
-
-    @GET("stories")
-    fun getStoryDetails(@Query("id") id: String): Single<Response<BaseResponse<Story>>>
 }
