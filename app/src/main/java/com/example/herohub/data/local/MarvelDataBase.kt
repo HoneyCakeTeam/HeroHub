@@ -19,6 +19,9 @@ abstract class MarvelDataBase : RoomDatabase() {
         private const val DATABASE_NAME ="MarvelDataBase"
         @Volatile private var instance : MarvelDataBase? = null
 
+        fun getInstance(context: Context) :MarvelDataBase{
+            return instance ?: synchronized(this){ buildDatabase(context).also{ instance = it} }
+        }
 
         private fun buildDatabase(context: Context) :MarvelDataBase{
             return Room.databaseBuilder(context ,MarvelDataBase::class.java , DATABASE_NAME).build()
