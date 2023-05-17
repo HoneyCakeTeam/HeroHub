@@ -23,6 +23,9 @@ abstract class MarvelDataBase : RoomDatabase() {
             return instance ?: synchronized(this){ buildDatabase(context).also{ instance = it} }
         }
 
+        fun getInstanceWithOutContext() :MarvelDataBase{
+            return instance!! }
+
         private fun buildDatabase(context: Context) :MarvelDataBase{
             return Room.databaseBuilder(context ,MarvelDataBase::class.java , DATABASE_NAME).build()
         }
