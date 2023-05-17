@@ -12,8 +12,6 @@ data class EventEntity(
     val modified: String,
     val imageUrl: String
 )
-
-//entity -> domain
 fun EventEntity.asEvent(): Event {
     return Event(
         id = id,
