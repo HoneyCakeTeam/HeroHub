@@ -11,7 +11,6 @@ data class FavoriteEntity(
     val imageUrl: String,
     val type: String,
 )
-
 fun FavoriteEntity.asFavoriteItem(): FavoriteItem {
     return FavoriteItem(
         id = id.toString(),
