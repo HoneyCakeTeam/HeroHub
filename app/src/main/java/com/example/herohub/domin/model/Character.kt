@@ -1,4 +1,4 @@
-package com.example.herohub.data.remote.model
+package com.example.herohub.domin.model
 
 import com.google.gson.annotations.SerializedName
 

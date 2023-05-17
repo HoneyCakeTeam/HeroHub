@@ -1,12 +1,12 @@
 package com.example.herohub.data.remote
 
-import com.example.herohub.data.remote.model.BaseResponse
-import com.example.herohub.data.remote.model.Character
-import com.example.herohub.data.remote.model.Comic
-import com.example.herohub.data.remote.model.Creator
-import com.example.herohub.data.remote.model.Event
-import com.example.herohub.data.remote.model.Series
-import com.example.herohub.data.remote.model.Story
+import com.example.herohub.domin.model.BaseResponse
+import com.example.herohub.domin.model.Character
+import com.example.herohub.domin.model.Comic
+import com.example.herohub.domin.model.Creator
+import com.example.herohub.domin.model.Event
+import com.example.herohub.domin.model.Series
+import com.example.herohub.domin.model.Story
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET

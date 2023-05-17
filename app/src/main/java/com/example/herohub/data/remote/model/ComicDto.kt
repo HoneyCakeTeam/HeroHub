@@ -2,7 +2,7 @@ package com.example.herohub.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Comic(
+data class ComicDto(
     @SerializedName("characters")
     val characters: CollectionResult<Item>? = null,
     @SerializedName("collectedIssues")

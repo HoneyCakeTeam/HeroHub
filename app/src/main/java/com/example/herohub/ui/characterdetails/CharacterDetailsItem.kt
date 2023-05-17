@@ -1,9 +1,9 @@
 package com.example.herohub.ui.characterdetails
 
-import com.example.herohub.data.remote.model.Character
-import com.example.herohub.data.remote.model.Comic
-import com.example.herohub.data.remote.model.Event
-import com.example.herohub.data.remote.model.Series
+import com.example.herohub.domin.model.Character
+import com.example.herohub.domin.model.Comic
+import com.example.herohub.domin.model.Event
+import com.example.herohub.domin.model.Series
 
 /**
  * Created by Aziza Helmy on 5/11/2023.
