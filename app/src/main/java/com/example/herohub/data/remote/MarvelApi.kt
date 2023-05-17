@@ -1,5 +1,7 @@
 package com.example.herohub.data.remote
 
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.herohub.HeroHub
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,6 +16,7 @@ object MarvelApi {
     private val client = OkHttpClient.Builder().apply {
         addInterceptor(logInterceptor)
         addInterceptor(MarvelInterceptor())
+        addInterceptor(ChuckerInterceptor(HeroHub.instance!!.applicationContext))
     }.build()
 
     private val retrofit = Retrofit.Builder()
