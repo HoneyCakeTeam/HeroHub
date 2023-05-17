@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.Character
+import com.example.herohub.data.domain.model.Character
 import com.example.herohub.data.remote.model.Comic
 import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.remote.model.Event
@@ -132,7 +132,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         val character = _characterResponse.value?.toData()?.results
 
         val superHeroes = character
-            ?.filterNot { it.thumbnail?.path?.contains("image_not_available") ?: false }
+            ?.filterNot { it.imageUrl.contains("image_not_available") ?: false }
             ?.take(15)
 
         _homeItems.addAll(

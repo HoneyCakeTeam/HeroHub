@@ -2,7 +2,7 @@ package com.example.herohub.ui.search
 
 
 import com.example.herohub.R
-import com.example.herohub.data.remote.model.Character
+import com.example.herohub.data.domain.model.Character
 import com.example.herohub.ui.base.BaseAdapter
 import com.example.herohub.ui.base.BaseInteractionListener
 

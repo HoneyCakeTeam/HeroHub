@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.Character
+import com.example.herohub.data.domain.model.Character
 import com.example.herohub.data.remote.model.Comic
 import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.remote.model.Event
@@ -143,7 +143,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         val favoriteItem = FavoriteItem(
             characterItem.value?.id.toString(),
             characterItem.value?.name.toString(),
-            characterItem.value?.thumbnail?.path.toString(),
+            characterItem.value?.imageUrl.toString(),
             FavoriteItem.Type.CHARACTER
         )
 
