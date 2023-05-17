@@ -27,4 +27,7 @@ interface CharacterDao {
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE id = :characterId")
     fun getCharacterById(characterId: Int): Observable<CharacterEntity>
+
+    @Query("SELECT * FROM CHARACTER_TABLE WHERE name LIKE :query")
+    fun getCharactersByName(query: String): Observable<List<CharacterEntity>>
 }
