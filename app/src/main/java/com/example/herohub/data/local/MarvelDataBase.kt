@@ -19,6 +19,5 @@ abstract class MarvelDataBase : RoomDatabase() {
         private const val DATABASE_NAME ="MarvelDataBase"
         @Volatile private var instance : MarvelDataBase? = null
 
-
     }
 }
