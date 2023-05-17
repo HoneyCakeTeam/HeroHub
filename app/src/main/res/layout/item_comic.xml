@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.remote.model.Comic" />
+            type="com.example.herohub.data.domain.model.Comic" />
 
         <variable
             name="listener"
@@ -25,7 +25,7 @@
             android:background="@color/md_theme_dark_tertiaryContainer"
             android:onClick="@{()->listener.onClickComic(item.id)}"
             android:scaleType="centerCrop"
-            app:imageUrl="@{item.thumbnail.path}"
+            app:imageUrl="@{item.imageUrl}"
             app:shapeAppearanceOverlay="@style/CardRadius"
             tools:background="@drawable/spiderman" />
     </LinearLayout>
