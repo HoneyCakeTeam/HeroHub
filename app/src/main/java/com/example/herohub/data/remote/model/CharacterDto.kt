@@ -1,6 +1,7 @@
 package com.example.herohub.data.remote.model
 
 import com.example.herohub.data.local.CharacterEntity
+import com.example.herohub.domain.model.Character
 import com.google.gson.annotations.SerializedName
 
 data class CharacterDto(
@@ -27,12 +28,24 @@ data class CharacterDto(
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
 )
+
 fun CharacterDto.asCharacterEntity(): CharacterEntity {
     return CharacterEntity(
-        id = id?:0,
-        title = name?:"" ,
-        description =description?:"",
-        modified = modified?:"",
+        id = id ?: 0,
+        title = name ?: "",
+        description = description ?: "",
+        modified = modified ?: "",
         imageUrl = "${thumbnail?.path}.${thumbnail?.extension}"
+    )
+}
+
+//dto -> domain
+fun CharacterDto.asCharacter(): Character {
+    return Character(
+        id = id ?: 0,
+        name = name ?: "",
+        description = description ?: "",
+        modified = modified ?: "",
+        imageUrl = "${thumbnail?.path}.${thumbnail?.extension}",
     )
 }

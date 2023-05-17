@@ -7,7 +7,3 @@ data class Series(
     val title: String = "",
     val imageUrl: String = "",
 )
-//dto -> domain
-
-
-//entity -> domain

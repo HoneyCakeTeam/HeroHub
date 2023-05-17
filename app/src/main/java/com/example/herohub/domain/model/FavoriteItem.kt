@@ -1,7 +1,5 @@
 package com.example.herohub.domain.model
 
-import com.example.herohub.data.local.FavoriteEntity
-
 data class FavoriteItem(
     var id: String,
     var title: String,
@@ -12,13 +10,3 @@ data class FavoriteItem(
         CHARACTER, EVENT, COMIC, SERIES
     }
 }
-
-fun FavoriteEntity.asFavoriteItem(): FavoriteItem {
-    return FavoriteItem(
-        id = id.toString(),
-        title = title,
-        imageUrl = imageUrl,
-        type = FavoriteItem.Type.valueOf(type)
-    )
-}
-
