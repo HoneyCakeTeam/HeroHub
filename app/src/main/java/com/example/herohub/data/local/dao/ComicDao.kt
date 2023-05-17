@@ -24,6 +24,6 @@ interface ComicDao {
     @Query("SELECT * FROM COMIC_TABLE")
     fun getAllComics(): Observable<List<ComicEntity>>
 
-    @Query("SELECT * FROM COMIC_TABLE WHERE id = :ComicId")
-    fun getComicById(ComicId: Int): Observable<ComicEntity>
+    @Query("SELECT * FROM COMIC_TABLE WHERE id = :comicId")
+    fun getComicById(comicId: Int): Observable<ComicEntity>
 }
