@@ -1,5 +1,6 @@
 package com.example.herohub.data.remote.model
 
+import com.example.herohub.data.local.ComicEntity
 import com.google.gson.annotations.SerializedName
 
 data class ComicDto(
@@ -88,5 +89,14 @@ data class ComicDto(
         val text: String? = null,
         @SerializedName("type")
         val type: String? = null,
+    )
+}
+fun ComicDto.asComicEntity(): ComicEntity {
+    return ComicEntity(
+        id = id?:0,
+        title = title?:"" ,
+        description = description?:"",
+        modified = modified?:"",
+        imageUrl = "${thumbnail?.path}.${thumbnail?.extension}"
     )
 }
