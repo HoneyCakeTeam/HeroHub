@@ -39,7 +39,6 @@ fun CharacterDto.asCharacterEntity(): CharacterEntity {
     )
 }
 
-//dto -> domain
 fun CharacterDto.asCharacter(): Character {
     return Character(
         id = id ?: 0,
