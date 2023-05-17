@@ -1,6 +1,6 @@
-package com.example.herohub.data.remote
+package com.example.herohub.data.source.remote
 
-import com.example.herohub.data.remote.model.BaseResponse
+import com.example.herohub.data.source.remote.model.BaseResponse
 import com.example.herohub.data.domain.model.Character
 import com.example.herohub.data.domain.model.Comic
 import com.example.herohub.data.domain.model.Event

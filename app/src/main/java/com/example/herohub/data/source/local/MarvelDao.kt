@@ -1,7 +1,7 @@
-package com.example.herohub.data.local.dao
+package com.example.herohub.data.source.local
 
 import androidx.room.*
-import com.example.herohub.data.local.*
+import com.example.herohub.data.source.local.*
 import io.reactivex.rxjava3.core.*
 
 @Dao

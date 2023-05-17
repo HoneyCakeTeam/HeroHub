@@ -1,4 +1,4 @@
-package com.example.herohub.data.local
+package com.example.herohub.data.source.local
 
 import android.content.Context
 import androidx.room.Database

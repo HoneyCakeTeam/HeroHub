@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.domain.model.Character
 import com.example.herohub.data.domain.model.Comic
-import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.source.remote.model.DataResponse
 import com.example.herohub.data.domain.model.Event
 import com.example.herohub.data.domain.model.FavoriteItem
 import com.example.herohub.data.domain.model.Series

@@ -1,10 +1,10 @@
-package com.example.herohub.data.local
+package com.example.herohub.data.source.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "CHARACTER_TABLE")
-data class CharacterEntity(
+@Entity(tableName = "SERIES_TABLE")
+data class SeriesEntity(
     @PrimaryKey val id: Int,
     val title: String,
     val description: String,

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.source.remote.model.DataResponse
 import com.example.herohub.data.domain.model.FavoriteItem
 import com.example.herohub.data.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel

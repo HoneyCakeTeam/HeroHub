@@ -1,4 +1,4 @@
-package com.example.herohub.data.remote
+package com.example.herohub.data.source.remote
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.herohub.HeroHub
