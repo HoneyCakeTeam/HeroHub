@@ -102,7 +102,6 @@ fun ComicDto.asComicEntity(): ComicEntity {
         imageUrl = "${thumbnail?.path}.${thumbnail?.extension}"
     )
 }
-//dto -> domain
 
 fun ComicDto.asComic(): Comic {
     return Comic(
@@ -113,4 +112,3 @@ fun ComicDto.asComic(): Comic {
         imageUrl = "${thumbnail?.path}.${thumbnail?.extension}",
     )
 }
-
