@@ -1,4 +1,4 @@
-package com.example.herohub.data.local.dao
+package com.example.herohub.data.local
 
 import androidx.room.*
 import com.example.herohub.data.local.*
