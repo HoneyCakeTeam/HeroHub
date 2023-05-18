@@ -3,7 +3,6 @@ package com.example.herohub.data.repository
 import com.example.herohub.data.remote.MarvelApi
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.remote.model.DataResponse
-import com.example.herohub.data.remote.model.StoryDto
 import com.example.herohub.data.utils.SharedPreferencesUtils
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
@@ -75,6 +74,7 @@ class MarvelRepository {
     fun getAllCharacters(): Single<UiState<DataResponse<Character>>> = wrapWithState {
         api.getAllCharacters(100)
     }
+
 
     fun getCharactersByName(
         name: String,
