@@ -2,7 +2,7 @@ package com.example.herohub.ui.events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Event
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
@@ -10,7 +10,7 @@ import com.example.herohub.ui.utils.UiState
 
 class EventsViewModel : BaseViewModel(), EventsInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val marvelRepository = MarvelRepository()
+    private val marvelRepositoryImp = MarvelRepositoryImp()
 
     private val _events = MutableLiveData<UiState<List<Event>>>()
     val events: LiveData<UiState<List<Event>>>
@@ -26,7 +26,7 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
 
     private fun getAllEvents() {
         _events.postValue(UiState.Loading)
-        disposeSingle(marvelRepository.getAllEvents(), ::onGetEventsSuccess, ::onError)
+        disposeSingle(marvelRepositoryImp.getAllEvents(), ::onGetEventsSuccess, ::onError)
     }
 
     private fun onGetEventsSuccess(state: UiState<List<Event>>) {

@@ -3,7 +3,7 @@ package com.example.herohub.ui.characterdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -22,7 +22,7 @@ import com.example.herohub.ui.utils.UiState
  */
 class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     ComicsInteractionListener, SeriesInteractionListener, EventsInteractionListener {
-    private val marvelRepository = MarvelRepository()
+    private val marvelRepositoryImp = MarvelRepositoryImp()
     private val characterArgs = CharacterDetailsFragmentArgs.fromSavedStateHandle(state)
 
     private val _characterEvent = MutableLiveData<UiState<List<Event>>>()
@@ -66,7 +66,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getComicsOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterComics(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterComics(characterArgs.characterId),
             ::onGetCharacterComicsSuccess,
             ::onError
         )
@@ -74,7 +74,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getEventOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterEvents(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterEvents(characterArgs.characterId),
             ::onGetCharacterEventsSuccess,
             ::onError
         )
@@ -82,7 +82,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getSeriesOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterSeries(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterSeries(characterArgs.characterId),
             ::onGetCharacterSeriesSuccess,
             ::onError
         )
@@ -90,7 +90,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getDetailsOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterDetails(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterDetails(characterArgs.characterId),
             ::onGetCharacterDetailsSuccess,
             ::onError
         )
@@ -123,7 +123,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     private fun onGetCharacterDetailsSuccess(state: UiState<List<Character>>) {
         _characterDetails.value = state
         characterItem.value = characterDetails.value?.toData()?.firstOrNull()
-        _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+        _isFavorite.value = marvelRepositoryImp.isFavorite(characterItem.value?.id.toString())
         characterItem.value?.let { CharacterDetailsItem.CharacterInfo(it) }
             ?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
@@ -147,11 +147,11 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         )
 
         if (isFavorite.value == true) {
-            marvelRepository.removeFavorite(favoriteItem)
-            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+            marvelRepositoryImp.removeFavorite(favoriteItem)
+            _isFavorite.value = marvelRepositoryImp.isFavorite(characterItem.value?.id.toString())
         } else {
-            marvelRepository.addToFavorite(favoriteItem)
-            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+            marvelRepositoryImp.addToFavorite(favoriteItem)
+            _isFavorite.value = marvelRepositoryImp.isFavorite(characterItem.value?.id.toString())
         }
     }
 

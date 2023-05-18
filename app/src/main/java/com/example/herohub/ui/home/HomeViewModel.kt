@@ -3,7 +3,7 @@ package com.example.herohub.ui.home
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -33,7 +33,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
-    private val marvelRepository: MarvelRepository by lazy { MarvelRepository() }
+    private val marvelRepositoryImp: MarvelRepositoryImp by lazy { MarvelRepositoryImp() }
     private val _homeItems = mutableListOf<HomeItem>()
 
     private val _characterResponse =
@@ -71,7 +71,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun getAllCharacters() {
         _characterResponse.postValue(UiState.Loading)
         disposeSingle(
-            marvelRepository.getAllCharacters(),
+            marvelRepositoryImp.getAllCharacters(),
             ::onGetCharacterSuccess,
             ::onError
         )
@@ -80,7 +80,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun getSliderItems() {
         _characterResponse.postValue(UiState.Loading)
         disposeSingle(
-            marvelRepository.getAllEvents(),
+            marvelRepositoryImp.getAllEvents(),
             ::onGetSliderItemsSuccess,
             ::onError
         )
@@ -89,7 +89,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun getMostPopularSeries() {
         _characterResponse.postValue(UiState.Loading)
         disposeSingle(
-            marvelRepository.getAllSeries(),
+            marvelRepositoryImp.getAllSeries(),
             ::onGetMostPopularSeriesSuccess,
             ::onError
         )
@@ -98,7 +98,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun getAllEvents() {
         _characterResponse.postValue(UiState.Loading)
         disposeSingle(
-            marvelRepository.getAllEvents(),
+            marvelRepositoryImp.getAllEvents(),
             ::onGetEventSuccess,
             ::onError
         )
@@ -107,7 +107,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun getAllComics() {
         _characterResponse.postValue(UiState.Loading)
         disposeSingle(
-            marvelRepository.getAllComics(),
+            marvelRepositoryImp.getAllComics(),
             ::onGetComicsSuccess,
             ::onError
         )

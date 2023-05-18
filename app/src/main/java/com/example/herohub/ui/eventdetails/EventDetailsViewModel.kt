@@ -3,14 +3,14 @@ package com.example.herohub.ui.eventdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
 
 class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
-    private val marvelRepository = MarvelRepository()
+    private val marvelRepositoryImp = MarvelRepositoryImp()
     override val TAG = "EVENT_DETAILS_VIEW_MODEL"
     private val eventArgs = EventDetailsFragmentArgs.fromSavedStateHandle(state)
 
@@ -33,7 +33,7 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     private fun getEvent() {
         _eventResponse.postValue(UiState.Loading)
         disposeSingle(
-            marvelRepository.getEvent(eventArgs.eventId),
+            marvelRepositoryImp.getEvent(eventArgs.eventId),
             ::onGetEventSuccess,
             ::onGetEventFailure
         )
@@ -45,7 +45,7 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         uiState.toData()?.let {
             _event.value = it[0]
         }
-        _isFavorite.value = marvelRepository.isFavorite(event.value?.id.toString())
+        _isFavorite.value = marvelRepositoryImp.isFavorite(event.value?.id.toString())
     }
 
     private fun onGetEventFailure(throwable: Throwable) {
@@ -61,10 +61,10 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         )
 
         if(isFavorite.value == true) {
-            marvelRepository.removeFavorite(favoriteItem)
+            marvelRepositoryImp.removeFavorite(favoriteItem)
             _isFavorite.postValue(false)
         } else {
-            marvelRepository.addToFavorite(favoriteItem)
+            marvelRepositoryImp.addToFavorite(favoriteItem)
             _isFavorite.postValue(true)
         }
     }

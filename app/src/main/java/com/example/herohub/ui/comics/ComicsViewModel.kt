@@ -2,7 +2,7 @@ package com.example.herohub.ui.comics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
@@ -10,7 +10,7 @@ import com.example.herohub.ui.utils.UiState
 
 class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val marvelRepository = MarvelRepository()
+    private val marvelRepositoryImp = MarvelRepositoryImp()
 
     private val _comics = MutableLiveData<UiState<List<Comic>>>()
     val comics: LiveData<UiState<List<Comic>>>
@@ -26,7 +26,7 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
 
     private fun getAllComics() {
         _comics.postValue(UiState.Loading)
-        disposeSingle(marvelRepository.getAllComics(), ::onGetComicSuccess, ::onError)
+        disposeSingle(marvelRepositoryImp.getAllComics(), ::onGetComicSuccess, ::onError)
     }
 
     private fun onGetComicSuccess(state: UiState<List<Comic>>) {
