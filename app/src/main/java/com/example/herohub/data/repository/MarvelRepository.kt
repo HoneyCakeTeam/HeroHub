@@ -16,12 +16,12 @@ import com.google.gson.reflect.TypeToken
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
-class MarvelRepository {
+class MarvelRepository : RepositoryInterface{
 
     private val sharedPreferences = SharedPreferencesUtils
     private val api = MarvelApi.marvelService
 
-    fun addToFavorite(favorite: FavoriteItem) {
+    override fun addToFavorite(favorite: FavoriteItem) {
         val gson = Gson()
         var stringFavorites = sharedPreferences.getItems()
         val favorites = convertToList(gson, stringFavorites)
@@ -34,7 +34,7 @@ class MarvelRepository {
         sharedPreferences.saveItems(stringFavorites)
     }
 
-    fun removeFavorite(favorite: FavoriteItem) {
+    override fun removeFavorite(favorite: FavoriteItem) {
         val gson = Gson()
         var stringFavorites = sharedPreferences.getItems()
         val favorites = convertToList(gson, stringFavorites)
@@ -45,7 +45,7 @@ class MarvelRepository {
         }
     }
 
-    fun getFavorites(): List<FavoriteItem>? {
+    override fun getFavorites(): List<FavoriteItem>? {
         val stringFavorites = sharedPreferences.getItems()
         val gson = Gson()
         return if (stringFavorites.isNullOrEmpty()) {
@@ -55,72 +55,72 @@ class MarvelRepository {
         }
     }
 
-    fun isFavorite(id: String): Boolean {
+    override fun isFavorite(id: String): Boolean {
         val favorites = getFavorites()
         return favorites?.any { it.id == id } == true
     }
 
-    private fun convertToString(
+    override fun convertToString(
         gson: Gson,
         favorites: MutableList<FavoriteItem>?,
     ): String = gson.toJson(favorites)
 
-    private fun convertToList(
+    override fun convertToList(
         gson: Gson,
         stringFavorites: String?,
     ): MutableList<FavoriteItem>? = gson.fromJson(
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
 
-    fun getAllCharacters(): Single<UiState<DataResponse<Character>>> = wrapWithState {
+    override fun getAllCharacters(): Single<UiState<DataResponse<Character>>> = wrapWithState {
         api.getAllCharacters(100)
     }
 
-    fun getCharactersByName(
+    override fun getCharactersByName(
         name: String,
     ): Single<UiState<DataResponse<Character>>> = wrapWithState {
         api.getCharactersByName(name)
     }
 
 
-    fun getAllSeries(): Single<UiState<DataResponse<Series>>> = wrapWithState {
+    override fun getAllSeries(): Single<UiState<DataResponse<Series>>> = wrapWithState {
         api.getAllSeries(100)
     }
 
-    fun getSeriesDetails(seriesId: Int): Single<UiState<DataResponse<Series>>> = wrapWithState {
+    override fun getSeriesDetails(seriesId: Int): Single<UiState<DataResponse<Series>>> = wrapWithState {
         api.getSeriesDetails(seriesId)
     }
 
-    fun getCharacterDetails(characterId: Int): Single<UiState<DataResponse<Character>>> =
+    override fun getCharacterDetails(characterId: Int): Single<UiState<DataResponse<Character>>> =
         wrapWithState { api.getCharacterDetails(characterId) }
 
-    fun getCharacterComics(characterId: Int): Single<UiState<DataResponse<Comic>>> =
+    override fun getCharacterComics(characterId: Int): Single<UiState<DataResponse<Comic>>> =
         wrapWithState { api.getCharacterComics(characterId) }
 
-    fun getCharacterSeries(characterId: Int): Single<UiState<DataResponse<Series>>> =
+    override fun getCharacterSeries(characterId: Int): Single<UiState<DataResponse<Series>>> =
         wrapWithState { api.getCharacterSeries(characterId) }
 
-    fun getCharacterEvents(characterId: Int): Single<UiState<DataResponse<Event>>> =
+    override fun getCharacterEvents(characterId: Int): Single<UiState<DataResponse<Event>>> =
         wrapWithState { api.getCharacterEvents(characterId) }
 
-    fun getEvent(eventId: Int): Single<UiState<DataResponse<Event>>> = wrapWithState {
+    override fun getEvent(eventId: Int): Single<UiState<DataResponse<Event>>> = wrapWithState {
         api.getEvent(eventId)
     }
 
-    fun getAllComics(): Single<UiState<DataResponse<Comic>>> = wrapWithState {
+    override fun getAllComics(): Single<UiState<DataResponse<Comic>>> = wrapWithState {
         api.getAllComics(100)
     }
 
-    fun getAllEvents(): Single<UiState<DataResponse<Event>>> = wrapWithState {
+    override fun getAllEvents(): Single<UiState<DataResponse<Event>>> = wrapWithState {
         api.getAllEvents(100)
     }
 
-    fun getComic(comicId: Int): Single<UiState<DataResponse<Comic>>> = wrapWithState {
+    override fun getComic(comicId: Int): Single<UiState<DataResponse<Comic>>> = wrapWithState {
         api.getComic(comicId)
     }
 
 
-    private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
+    override fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
             Single<UiState<DataResponse<T>>> {
         return function().map {
             if (it.isSuccessful) {
