@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.remote.model.DataResponse
-import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImpl
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 
 class SearchViewModel : BaseViewModel(), SearchInteractionListener {
     override val TAG: String = this::class.java.simpleName.toString()
-    private val marvelRepository = MarvelRepository()
+    private val marvelRepositoryImpl = MarvelRepositoryImpl()
 
     private val _eventClick = MutableLiveData<EventHandler<Character>>()
     val eventClick: LiveData<EventHandler<Character>>
@@ -50,7 +50,7 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     private fun findCharacters(name: String) {
         disposeSingle(
-            marvelRepository.getCharactersByName(name),
+            marvelRepositoryImpl.getCharactersByName(name),
             ::onGetCharacterSuccess, ::onGetCharacterFailure
         )
     }

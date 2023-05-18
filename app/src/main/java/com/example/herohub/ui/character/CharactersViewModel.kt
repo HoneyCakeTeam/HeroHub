@@ -3,18 +3,20 @@ package com.example.herohub.ui.character
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImpl
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
+class CharactersViewModel @Inject constructor(
+    private val marvelRepositoryImpl: MarvelRepository
+) : BaseViewModel(), CharactersInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val marvelRepository = MarvelRepository()
 
     private val _characters = MutableLiveData<UiState<List<Character>>>()
     val characters: LiveData<UiState<List<Character>>>
@@ -31,7 +33,7 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
     @SuppressLint("CheckResult")
     private fun getAllCharacters() {
         _characters.postValue(UiState.Loading)
-        marvelRepository.getAllCharacters()
+        marvelRepositoryImpl.getAllCharacters()
             .observeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::onGetCharacterSuccess, ::onError)

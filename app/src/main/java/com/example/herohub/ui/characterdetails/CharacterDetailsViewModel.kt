@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.remote.model.DataResponse
-import com.example.herohub.data.repository.MarvelRepository
+import com.example.herohub.data.repository.MarvelRepositoryImpl
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -23,7 +23,7 @@ import com.example.herohub.ui.utils.UiState
  */
 class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     ComicsInteractionListener, SeriesInteractionListener, EventsInteractionListener {
-    private val marvelRepository = MarvelRepository()
+    private val marvelRepositoryImpl = MarvelRepositoryImpl()
     private val characterArgs = CharacterDetailsFragmentArgs.fromSavedStateHandle(state)
 
     private val _characterEvent = MutableLiveData<UiState<DataResponse<Event>>>()
@@ -67,7 +67,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getComicsOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterComics(characterArgs.characterId),
+            marvelRepositoryImpl.getCharacterComics(characterArgs.characterId),
             ::onGetCharacterComicsSuccess,
             ::onError
         )
@@ -75,7 +75,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getEventOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterEvents(characterArgs.characterId),
+            marvelRepositoryImpl.getCharacterEvents(characterArgs.characterId),
             ::onGetCharacterEventsSuccess,
             ::onError
         )
@@ -83,7 +83,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getSeriesOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterSeries(characterArgs.characterId),
+            marvelRepositoryImpl.getCharacterSeries(characterArgs.characterId),
             ::onGetCharacterSeriesSuccess,
             ::onError
         )
@@ -91,7 +91,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getDetailsOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterDetails(characterArgs.characterId),
+            marvelRepositoryImpl.getCharacterDetails(characterArgs.characterId),
             ::onGetCharacterDetailsSuccess,
             ::onError
         )
@@ -124,7 +124,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
     private fun onGetCharacterDetailsSuccess(state: UiState<DataResponse<Character>>) {
         _characterDetails.value = state
         characterItem.value = characterDetails.value?.toData()?.results?.firstOrNull()
-        _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+        _isFavorite.value = marvelRepositoryImpl.isFavorite(characterItem.value?.id.toString())
         characterItem.value?.let { CharacterDetailsItem.CharacterInfo(it) }
             ?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
@@ -148,11 +148,11 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         )
 
         if (isFavorite.value == true) {
-            marvelRepository.removeFavorite(favoriteItem)
-            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+            marvelRepositoryImpl.removeFavorite(favoriteItem)
+            _isFavorite.value = marvelRepositoryImpl.isFavorite(characterItem.value?.id.toString())
         } else {
-            marvelRepository.addToFavorite(favoriteItem)
-            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+            marvelRepositoryImpl.addToFavorite(favoriteItem)
+            _isFavorite.value = marvelRepositoryImpl.isFavorite(characterItem.value?.id.toString())
         }
     }
 
