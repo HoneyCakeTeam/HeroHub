@@ -114,7 +114,7 @@ class MarvelRepositoryImpl @Inject constructor(private val api: MarvelService):M
 
     fun getComic(comicId: Int): Single<UiState<DataResponse<Comic>>> = wrapWithState {
         api.getComic(comicId)
-    }
+    }.map { it.toData().results.map { it } }
 
    override fun getAllCharacters(): Single<UiState<List<Character>>> {
         return api.getAllCharacters(100).map { response ->
@@ -134,11 +134,13 @@ class MarvelRepositoryImpl @Inject constructor(private val api: MarvelService):M
             Single<UiState<DataResponse<T>>> {
         return function().map {
             if (it.isSuccessful) {
-                UiState.Success(it.body()?.data)
+                val result = it.body()?.data
+                UiState.Success(result)
             } else {
                 UiState.Error(it.message())
             }
         }
     }
+
 }
 

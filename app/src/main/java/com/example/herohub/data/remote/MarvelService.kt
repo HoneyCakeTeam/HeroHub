@@ -2,6 +2,7 @@ package com.example.herohub.data.remote
 
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.remote.model.CharacterDto
+import com.example.herohub.data.remote.model.ComicDto
 import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
@@ -46,7 +47,7 @@ interface MarvelService {
 
 
     @GET("comics/{comicId}")
-    fun getComic(@Path("comicId") comicId: Int): Single<Response<BaseResponse<Comic>>>
+    fun getComic(@Path("comicId") comicId: Int): Single<Response<BaseResponse<ComicDto>>>
 
     @GET("comics")
     fun getAllComics(@Query("limit") limit: Int): Single<Response<BaseResponse<Comic>>>
