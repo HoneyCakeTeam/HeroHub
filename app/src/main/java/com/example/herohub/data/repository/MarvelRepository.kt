@@ -132,10 +132,10 @@ class MarvelRepository {
 
 
     private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
-            Single<UiState<List<T>>> {
+            Single<UiState<DataResponse<T>>> {
         return function().map {
             if (it.isSuccessful) {
-                UiState.Success(it.body()?.data?.results)
+                UiState.Success(it.body()?.data)
             } else {
                 UiState.Error(it.message())
             }
