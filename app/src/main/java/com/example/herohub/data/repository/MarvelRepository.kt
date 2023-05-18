@@ -4,6 +4,7 @@ import com.example.herohub.data.remote.MarvelApi
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
+import com.example.herohub.domain.mapper.CharacterMapper
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -18,6 +19,7 @@ import retrofit2.Response
 class MarvelRepository {
 
     private val sharedPreferences = SharedPreferencesUtils
+    private val characterMapper = CharacterMapper()
     private val api = MarvelApi.marvelService
 
     fun addToFavorite(favorite: FavoriteItem) {
@@ -71,10 +73,6 @@ class MarvelRepository {
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
 
-    fun getAllCharacters(): Single<UiState<DataResponse<Character>>> = wrapWithState {
-        api.getAllCharacters(100)
-    }
-
 
     fun getCharactersByName(
         name: String,
@@ -119,12 +117,17 @@ class MarvelRepository {
         api.getComic(comicId)
     }
 
+    fun getAllCharacters(): Single<UiState<List<Character>>> =
+        wrapWithState { api.getAllCharacters(100), characterMapper }
 
-    private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
-            Single<UiState<DataResponse<T>>> {
+    private fun <I, O> wrapWithState(
+        function: () -> Single<Response<BaseResponse<I>>>,
+        mapper: (List<I>) -> O,
+    ):
+            Single<UiState<O>> {
         return function().map {
             if (it.isSuccessful) {
-                UiState.Success(it.body()?.data)
+                UiState.Success(mapper(it.body()?.data?.results ?: emptyList()))
             } else {
                 UiState.Error(it.message())
             }
