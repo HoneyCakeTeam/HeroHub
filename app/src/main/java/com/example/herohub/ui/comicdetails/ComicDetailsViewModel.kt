@@ -3,7 +3,6 @@ package com.example.herohub.ui.comicdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.FavoriteItem
@@ -15,8 +14,8 @@ class ComicDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     private val marvelRepository = MarvelRepository()
     private val comicArgs = ComicDetailsFragmentArgs.fromSavedStateHandle(state)
 
-    private val _comicsResponse = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val comicsResponse: LiveData<UiState<DataResponse<Comic>>>
+    private val _comicsResponse = MutableLiveData<UiState<List<Comic>>>()
+    val comicsResponse: LiveData<UiState<List<Comic>>>
         get() = _comicsResponse
 
     private val _comic = MutableLiveData<Comic>()
@@ -39,10 +38,10 @@ class ComicDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         )
     }
 
-    private fun onGetComicSuccess(state: UiState<DataResponse<Comic>>) {
+    private fun onGetComicSuccess(state: UiState<List<Comic>>) {
         _comicsResponse.value = state
         state.toData()?.let {
-            _comic.value = it.results?.get(0)
+            _comic.value = it.get(0)
         }
         _isFavorite.value = marvelRepository.isFavorite(comic.value?.id.toString())
     }

@@ -3,7 +3,6 @@ package com.example.herohub.ui.eventdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
@@ -15,8 +14,8 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     override val TAG = "EVENT_DETAILS_VIEW_MODEL"
     private val eventArgs = EventDetailsFragmentArgs.fromSavedStateHandle(state)
 
-    private val _eventResponse = MutableLiveData<UiState<DataResponse<Event>>>()
-    val eventResponse: LiveData<UiState<DataResponse<Event>>>
+    private val _eventResponse = MutableLiveData<UiState<List<Event>>>()
+    val eventResponse: LiveData<UiState<List<Event>>>
         get() = _eventResponse
 
     private val _event = MutableLiveData<Event>()
@@ -41,10 +40,10 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
 
     }
 
-    private fun onGetEventSuccess(uiState: UiState<DataResponse<Event>>) {
+    private fun onGetEventSuccess(uiState: UiState<List<Event>>) {
         _eventResponse.value = uiState
         uiState.toData()?.let {
-            _event.value = it.results?.get(0)
+            _event.value = it[0]
         }
         _isFavorite.value = marvelRepository.isFavorite(event.value?.id.toString())
     }

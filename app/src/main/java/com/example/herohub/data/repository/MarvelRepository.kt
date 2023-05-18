@@ -2,9 +2,11 @@ package com.example.herohub.data.repository
 
 import com.example.herohub.data.remote.MarvelApi
 import com.example.herohub.data.remote.model.BaseResponse
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
 import com.example.herohub.domain.mapper.CharacterMapper
+import com.example.herohub.domain.mapper.ComicMapper
+import com.example.herohub.domain.mapper.EventMapper
+import com.example.herohub.domain.mapper.SeriesMapper
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -20,6 +22,9 @@ class MarvelRepository {
 
     private val sharedPreferences = SharedPreferencesUtils
     private val characterMapper = CharacterMapper()
+    private val comicMapper = ComicMapper()
+    private val eventMapper = EventMapper()
+    private val seriesMapper = SeriesMapper()
     private val api = MarvelApi.marvelService
 
     fun addToFavorite(favorite: FavoriteItem) {
@@ -76,58 +81,53 @@ class MarvelRepository {
 
     fun getCharactersByName(
         name: String,
-    ): Single<UiState<DataResponse<Character>>> = wrapWithState {
-        api.getCharactersByName(name)
-    }
+    ): Single<UiState<List<Character>>> =
+        wrapWithState({ api.getCharactersByName(name) }, { characterMapper.map(it) })
+
+    fun getAllSeries(): Single<UiState<List<Series>>> =
+        wrapWithState({ api.getAllSeries(100) }, { seriesMapper.map(it) })
+
+    fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>> =
+        wrapWithState({ api.getSeriesDetails(seriesId) }, { seriesMapper.map(it) })
+
+    fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>> =
+        wrapWithState({ api.getCharacterDetails(characterId) }, { characterMapper.map(it) })
+
+    fun getCharacterComics(characterId: Int): Single<UiState<List<Comic>>> =
+        wrapWithState({ api.getCharacterComics(characterId) }, { comicMapper.map(it) })
+
+    fun getCharacterSeries(characterId: Int): Single<UiState<List<Series>>> =
+        wrapWithState({ api.getCharacterSeries(characterId) }, { seriesMapper.map(it) })
+
+    fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>> =
+        wrapWithState({ api.getCharacterEvents(characterId) }, { eventMapper.map(it) })
+
+    fun getEvent(eventId: Int): Single<UiState<List<Event>>> =
+        wrapWithState({ api.getEvent(eventId) }, { eventMapper.map(it) })
 
 
-    fun getAllSeries(): Single<UiState<DataResponse<Series>>> = wrapWithState {
-        api.getAllSeries(100)
-    }
+    fun getAllComics(): Single<UiState<List<Comic>>> =
+        wrapWithState({ api.getAllComics(100) }, { comicMapper.map(it) })
 
-    fun getSeriesDetails(seriesId: Int): Single<UiState<DataResponse<Series>>> = wrapWithState {
-        api.getSeriesDetails(seriesId)
-    }
 
-    fun getCharacterDetails(characterId: Int): Single<UiState<DataResponse<Character>>> =
-        wrapWithState { api.getCharacterDetails(characterId) }
+    fun getAllEvents(): Single<UiState<List<Event>>> =
+        wrapWithState({ api.getAllEvents(100) }, { eventMapper.map(it) })
 
-    fun getCharacterComics(characterId: Int): Single<UiState<DataResponse<Comic>>> =
-        wrapWithState { api.getCharacterComics(characterId) }
 
-    fun getCharacterSeries(characterId: Int): Single<UiState<DataResponse<Series>>> =
-        wrapWithState { api.getCharacterSeries(characterId) }
+    fun getComic(comicId: Int): Single<UiState<List<Comic>>> =
+        wrapWithState({ api.getComic(comicId) }, { comicMapper.map(it) })
 
-    fun getCharacterEvents(characterId: Int): Single<UiState<DataResponse<Event>>> =
-        wrapWithState { api.getCharacterEvents(characterId) }
-
-    fun getEvent(eventId: Int): Single<UiState<DataResponse<Event>>> = wrapWithState {
-        api.getEvent(eventId)
-    }
-
-    fun getAllComics(): Single<UiState<DataResponse<Comic>>> = wrapWithState {
-        api.getAllComics(100)
-    }
-
-    fun getAllEvents(): Single<UiState<DataResponse<Event>>> = wrapWithState {
-        api.getAllEvents(100)
-    }
-
-    fun getComic(comicId: Int): Single<UiState<DataResponse<Comic>>> = wrapWithState {
-        api.getComic(comicId)
-    }
 
     fun getAllCharacters(): Single<UiState<List<Character>>> =
-        wrapWithState { api.getAllCharacters(100), characterMapper }
+        wrapWithState({ api.getAllCharacters(100) }, characterMapper::map)
 
     private fun <I, O> wrapWithState(
         function: () -> Single<Response<BaseResponse<I>>>,
-        mapper: (List<I>) -> O,
-    ):
-            Single<UiState<O>> {
+        azizaMap: (List<I>) -> O,
+    ): Single<UiState<O>> {
         return function().map {
             if (it.isSuccessful) {
-                UiState.Success(mapper(it.body()?.data?.results ?: emptyList()))
+                UiState.Success(azizaMap(it.body()?.data?.results ?: emptyList()))
             } else {
                 UiState.Error(it.message())
             }

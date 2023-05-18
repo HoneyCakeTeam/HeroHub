@@ -3,7 +3,6 @@ package com.example.herohub.ui.seriesdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
@@ -17,8 +16,8 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
 
     private val marvelRepository: MarvelRepository by lazy { MarvelRepository() }
 
-    private val _seriesDetails = MutableLiveData<UiState<DataResponse<Series>?>>()
-    val seriesDetails: LiveData<UiState<DataResponse<Series>?>>
+    private val _seriesDetails = MutableLiveData<UiState<List<Series>?>>()
+    val seriesDetails: LiveData<UiState<List<Series>?>>
         get() = _seriesDetails
 
     private val _series = MutableLiveData<Series>()
@@ -40,10 +39,10 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         )
     }
 
-    private fun onSeriesSuccessData(seriesUiState: UiState<DataResponse<Series>?>) {
-        _seriesDetails.value =seriesUiState
+    private fun onSeriesSuccessData(seriesUiState: UiState<List<Series>?>) {
+        _seriesDetails.value = seriesUiState
         seriesUiState.toData()?.let {
-            _series.value = it.results?.get(0)
+            _series.value = it.get(0)
         }
         _isFavorite.value = marvelRepository.isFavorite(series.value?.id.toString())
     }
@@ -51,6 +50,7 @@ class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     private fun onError(errorMessage: Throwable) {
         _seriesDetails.postValue(UiState.Error(errorMessage.message.toString()))
     }
+
     fun onFavClicked() {
         val favoriteItem = FavoriteItem(
             _series.value?.id.toString(),

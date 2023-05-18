@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
@@ -24,8 +23,8 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     val searchQuery = MutableLiveData<String>()
 
-    private val _response = MutableLiveData<UiState<DataResponse<Character>>>()
-    val response: LiveData<UiState<DataResponse<Character>>> get() = _response
+    private val _response = MutableLiveData<UiState<List<Character>>>()
+    val response: LiveData<UiState<List<Character>>> get() = _response
 
     val searchResult = MediatorLiveData<List<Character>>()
 
@@ -55,10 +54,10 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
         )
     }
 
-    private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
+    private fun onGetCharacterSuccess(uiState: UiState<List<Character>>) {
         log(uiState.toData().toString())
         _response.value = uiState
-        searchResult.postValue(response.value?.toData()?.results ?: emptyList())
+        searchResult.postValue(response.value?.toData() ?: emptyList())
     }
 
     private fun onGetCharacterFailure(throwable: Throwable) {

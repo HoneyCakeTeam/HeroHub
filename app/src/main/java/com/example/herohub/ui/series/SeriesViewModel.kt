@@ -2,7 +2,6 @@ package com.example.herohub.ui.series
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel
@@ -13,8 +12,8 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
     override val TAG: String = this::class.java.simpleName
     private val marvelRepository = MarvelRepository()
 
-    private val _allSeries = MutableLiveData<UiState<DataResponse<Series>>>()
-    val allSeries: LiveData<UiState<DataResponse<Series>>>
+    private val _allSeries = MutableLiveData<UiState<List<Series>>>()
+    val allSeries: LiveData<UiState<List<Series>>>
         get() = _allSeries
 
     private val _seriesClick = MutableLiveData<EventHandler<Int>>()
@@ -30,7 +29,7 @@ class SeriesViewModel : BaseViewModel(), SeriesInteractionListener {
         disposeSingle(marvelRepository.getAllSeries(), ::onGetSeriesSuccess, ::onError)
     }
 
-    private fun onGetSeriesSuccess(state: UiState<DataResponse<Series>>) {
+    private fun onGetSeriesSuccess(state: UiState<List<Series>>) {
         _allSeries.postValue(state)
     }
 

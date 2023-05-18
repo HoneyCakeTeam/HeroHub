@@ -2,7 +2,6 @@ package com.example.herohub.ui.character
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
@@ -13,8 +12,8 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
     override val TAG: String = this::class.java.simpleName
     private val marvelRepository = MarvelRepository()
 
-    private val _characters = MutableLiveData<UiState<DataResponse<Character>>>()
-    val characters: LiveData<UiState<DataResponse<Character>>>
+    private val _characters = MutableLiveData<UiState<List<Character>>>()
+    val characters: LiveData<UiState<List<Character>>>
         get() = _characters
 
     private val _characterClick = MutableLiveData<EventHandler<Int>>()
@@ -30,7 +29,7 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
         disposeSingle(marvelRepository.getAllCharacters(), ::onGetCharacterSuccess, ::onError)
     }
 
-    private fun onGetCharacterSuccess(state: UiState<DataResponse<Character>>) {
+    private fun onGetCharacterSuccess(state: UiState<List<Character>>) {
         _characters.postValue(state)
     }
 

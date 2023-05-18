@@ -3,7 +3,6 @@ package com.example.herohub.ui.home
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
@@ -38,20 +37,20 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private val _homeItems = mutableListOf<HomeItem>()
 
     private val _characterResponse =
-        MutableLiveData<UiState<DataResponse<Character>>>()
-    val characterResponse: LiveData<UiState<DataResponse<Character>>>
+        MutableLiveData<UiState<List<Character>>>()
+    val characterResponse: LiveData<UiState<List<Character>>>
         get() = _characterResponse
 
     private val _homeUiEvent = MutableLiveData<EventHandler<HomeUiEvent?>>(EventHandler(null))
     val homeUIEvent: LiveData<EventHandler<HomeUiEvent?>>
         get() = _homeUiEvent
 
-    private val _seriesResponse = MutableLiveData<UiState<DataResponse<Series>>>()
+    private val _seriesResponse = MutableLiveData<UiState<List<Series>>>()
 
-    private val _eventResponse = MutableLiveData<UiState<DataResponse<Event>>>()
+    private val _eventResponse = MutableLiveData<UiState<List<Event>>>()
 
 
-    private val _comicsResponse = MutableLiveData<UiState<DataResponse<Comic>>>()
+    private val _comicsResponse = MutableLiveData<UiState<List<Comic>>>()
 
     private val _homeItemsLiveData = MutableLiveData<List<HomeItem>>()
     val homeItemsLiveData: LiveData<List<HomeItem>>
@@ -114,9 +113,9 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         )
     }
 
-    private fun onGetComicsSuccess(UiState: UiState<DataResponse<Comic>>) {
+    private fun onGetComicsSuccess(UiState: UiState<List<Comic>>) {
         _comicsResponse.value = UiState
-        val comic = _comicsResponse.value?.toData()?.results
+        val comic = _comicsResponse.value?.toData()
         val mostPopularComics = comic
             ?.filterNot { it.imageUrl.contains("image_not_available") }
             ?.take(20)
@@ -126,10 +125,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
+    private fun onGetCharacterSuccess(UiState: UiState<List<Character>>) {
         _characterResponse.value = UiState
 
-        val character = _characterResponse.value?.toData()?.results
+        val character = _characterResponse.value?.toData()
 
         val superHeroes = character
             ?.filterNot { it.imageUrl.contains("image_not_available") }
@@ -143,9 +142,9 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetSliderItemsSuccess(UiState: UiState<DataResponse<Event>>) {
+    private fun onGetSliderItemsSuccess(UiState: UiState<List<Event>>) {
         _eventResponse.value = UiState
-        val images = _eventResponse.value?.toData()?.results
+        val images = _eventResponse.value?.toData()
             ?.filterNot { it.imageUrl.contains("image_not_available") }
             ?.shuffled()
             ?.take(10)
@@ -155,9 +154,9 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetMostPopularSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
+    private fun onGetMostPopularSeriesSuccess(UiState: UiState<List<Series>>) {
         _seriesResponse.value = UiState
-        val series = _seriesResponse.value?.toData()?.results
+        val series = _seriesResponse.value?.toData()
             ?.filterNot { it.imageUrl.contains("image_not_available") }
             ?.take(10)
         _homeItems.add(
@@ -166,9 +165,9 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetEventSuccess(uiState: UiState<DataResponse<Event>>) {
+    private fun onGetEventSuccess(uiState: UiState<List<Event>>) {
         _eventResponse.value = uiState
-        val events = _eventResponse.value?.toData()?.results
+        val events = _eventResponse.value?.toData()
             ?.filterNot { it.imageUrl.contains("event_not_found") }
             ?.shuffled()
             ?.take(10)
