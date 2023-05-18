@@ -1,6 +1,8 @@
 package com.example.herohub.data.remote
 
 import com.example.herohub.data.remote.model.BaseResponse
+import com.example.herohub.data.remote.model.CharacterDto
+import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -24,7 +26,7 @@ interface MarvelService {
     fun getEvent(@Path("eventId") eventId: Int): Single<Response<BaseResponse<Event>>>
 
     @GET("characters")
-    fun getAllCharacters(@Query("limit") limit: Int): Single<Response<BaseResponse<Character>>>
+    fun getAllCharacters(@Query("limit") limit: Int): Single<Response<BaseResponse<CharacterDto>>>
 
     @GET("characters/{characterId}")
     fun getCharacterDetails(

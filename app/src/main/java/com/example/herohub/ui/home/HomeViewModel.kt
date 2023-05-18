@@ -1,5 +1,6 @@
 package com.example.herohub.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +18,8 @@ import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     SuperHeroesInteractionListener,
@@ -38,8 +41,8 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private val _homeItems = mutableListOf<HomeItem>()
 
     private val _characterResponse =
-        MutableLiveData<UiState<DataResponse<Character>>>()
-    val characterResponse: LiveData<UiState<DataResponse<Character>>>
+        MutableLiveData<UiState<List<Character>>>()
+    val characterResponse: LiveData<UiState<List<Character>>>
         get() = _characterResponse
 
     private val _homeUiEvent = MutableLiveData<EventHandler<HomeUiEvent?>>(EventHandler(null))
@@ -69,13 +72,13 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         getAllComics()
     }
 
+    @SuppressLint("CheckResult")
     private fun getAllCharacters() {
         _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepository.getAllCharacters(),
-            ::onGetCharacterSuccess,
-            ::onError
-        )
+            marvelRepository.getAllCharacters()
+                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::onGetCharacterSuccess, ::onError)
     }
 
     private fun getSliderItems() {
@@ -118,7 +121,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _comicsResponse.value = UiState
         val comic = _comicsResponse.value?.toData()?.results
         val mostPopularComics = comic
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
+            ?.filterNot { it.imageUrl!!.contains("image_not_available") }
             ?.take(20)
         _homeItems.add(
             (HomeItem.MostPopularComics(mostPopularComics!!))
@@ -126,10 +129,10 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetCharacterSuccess(UiState: UiState<DataResponse<Character>>) {
+    private fun onGetCharacterSuccess(UiState: UiState<List<Character>>) {
         _characterResponse.value = UiState
 
-        val character = _characterResponse.value?.toData()?.results
+        val character = _characterResponse.value?.toData()
 
         val superHeroes = character
             ?.filterNot { it.imageUrl.contains("image_not_available") }
@@ -146,7 +149,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun onGetSliderItemsSuccess(UiState: UiState<DataResponse<Event>>) {
         _eventResponse.value = UiState
         val images = _eventResponse.value?.toData()?.results
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
+            ?.filterNot { it.imageUrl!!.contains("image_not_available") }
             ?.shuffled()
             ?.take(10)
         _homeItems.add(
@@ -158,7 +161,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun onGetMostPopularSeriesSuccess(UiState: UiState<DataResponse<Series>>) {
         _seriesResponse.value = UiState
         val series = _seriesResponse.value?.toData()?.results
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
+            ?.filterNot { it.imageUrl!!.contains("image_not_available") }
             ?.take(10)
         _homeItems.add(
             HomeItem.MostPopularSeries(series!!)
@@ -169,7 +172,7 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     private fun onGetEventSuccess(uiState: UiState<DataResponse<Event>>) {
         _eventResponse.value = uiState
         val events = _eventResponse.value?.toData()?.results
-            ?.filterNot { it.imageUrl.contains("event_not_found") }
+            ?.filterNot { it.imageUrl!!.contains("event_not_found") }
             ?.shuffled()
             ?.take(10)
 

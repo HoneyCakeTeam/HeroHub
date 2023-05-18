@@ -4,6 +4,7 @@ import com.example.herohub.data.remote.MarvelApi
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.remote.model.DataResponse
 import com.example.herohub.data.remote.model.StoryDto
+import com.example.herohub.data.remote.model.asCharacter
 import com.example.herohub.data.utils.SharedPreferencesUtils
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
@@ -72,9 +73,6 @@ class MarvelRepository {
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
 
-    fun getAllCharacters(): Single<UiState<DataResponse<Character>>> = wrapWithState {
-        api.getAllCharacters(100)
-    }
 
     fun getCharactersByName(
         name: String,
@@ -119,12 +117,25 @@ class MarvelRepository {
         api.getComic(comicId)
     }
 
+    fun getAllCharacters(): Single<UiState<List<Character>>> {
+        return api.getAllCharacters(100).map { response ->
+            UiState.Loading
+            if (response.isSuccessful) {
+                UiState.Success(response.body()?.data?.results?.map { characterDto ->
+                    characterDto.asCharacter()
+                })
+            } else {
+                UiState.Error(response.message())
+            }
+        }
+    }
+
 
     private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
-            Single<UiState<DataResponse<T>>> {
+            Single<UiState<List<T>>> {
         return function().map {
             if (it.isSuccessful) {
-                UiState.Success(it.body()?.data)
+                UiState.Success(it.body()?.data?.results)
             } else {
                 UiState.Error(it.message())
             }
