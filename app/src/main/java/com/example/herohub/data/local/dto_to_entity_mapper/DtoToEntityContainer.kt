@@ -5,6 +5,6 @@ import javax.inject.Inject
 data class DtoToEntityContainer @Inject constructor(
     val characterMapper: CharacterDtoToCharterEntity,
     val comicMapper: ComicDtoToComicEntity,
-    val eventMapper: EventMapper,
-    val seriesMapper: SeriesMapper,
+    val eventMapper: EventDtoToEventEntity,
+    val seriesMapper: SeriesDtoToSeriesEntity,
 )

@@ -126,7 +126,7 @@ class MarvelRepositoryImp @Inject constructor(
 
     //endregion
     override fun getAllSeries(): Single<UiState<List<Series>>> =
-        wrapWithState({ api.getAllSeries(100) }, { dtoToEntityContainer.seriesMapper.map(it) })
+        wrapWithState({ api.getAllSeries(100) }, { dtoToDomainContainer.seriesDtoToSeries.map(it) })
 
 
     override fun getAllComics(): Single<List<Comic>> =
@@ -140,14 +140,14 @@ class MarvelRepositoryImp @Inject constructor(
         dao.getAllCharacters().map { entityToDomainContainer.characterMapper.map(it) }
 
     @SuppressLint("CheckResult")
-    override fun refreshCharacters() {
+    override fun refreshCharacters() =
         wrapWithState(
             { api.getAllCharacters(100) },
             dtoToEntityContainer.characterMapper::map
         ).doAfterSuccess {
             it.toData()?.let { characterEntities -> dao.insertAllCharacters(characterEntities) }
         }
-    }
+
 
     private fun <I, O> wrapWithState(
         function: () -> Single<Response<BaseResponse<I>>>,
