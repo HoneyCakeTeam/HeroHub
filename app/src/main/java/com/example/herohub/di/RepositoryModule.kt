@@ -1,5 +1,6 @@
 package com.example.herohub.di
 
+import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
@@ -22,9 +23,10 @@ object RepositoryModule {
     @Provides
     fun provideMarvelRepository(
         mapperContainer: MapperContainer,
-        apiService: MarvelService
+        apiService: MarvelService,
+        dao: MarvelDao
     ): MarvelRepository {
-        return MarvelRepositoryImp(mapperContainer, apiService)
+        return MarvelRepositoryImp(mapperContainer, apiService ,dao)
     }
 
     @Singleton

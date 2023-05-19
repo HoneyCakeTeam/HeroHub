@@ -11,6 +11,7 @@ import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -46,6 +47,7 @@ class SearchViewModel @Inject constructor(
             .debounce(500, TimeUnit.MILLISECONDS)
             .subscribe { name ->
                 findCharacters(name)
+                saveSearchHistory(name)
             }
         searchResult.addSource(searchQuery) { query ->
             searchQuerySubject.onNext(query)
@@ -62,12 +64,17 @@ class SearchViewModel @Inject constructor(
     private fun onGetCharacterSuccess(uiState: UiState<List<Character>>) {
         log(uiState.toData().toString())
         _response.value = uiState
+       // saveSearchHistory(response.value?.toData()?.first()?.name)
         searchResult.postValue(response.value?.toData() ?: emptyList())
     }
 
     private fun onGetCharacterFailure(throwable: Throwable) {
         _response.postValue(UiState.Error(throwable.message.toString()))
         searchResult.postValue(emptyList())
+    }
+
+    private fun saveSearchHistory(keyword : String ) {
+       marvelRepositoryImp.saveSearchKeyword(keyword)
     }
 
     override fun <T> onClickItem(item: T) {
