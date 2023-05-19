@@ -2,7 +2,7 @@ package com.example.herohub.di
 
 import com.example.herohub.data.remote.MarvelInterceptor
 import com.example.herohub.data.remote.MarvelService
-import com.example.herohub.ui.utils.Constant
+import com.example.herohub.data.utils.Constant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
