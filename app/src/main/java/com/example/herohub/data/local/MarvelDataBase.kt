@@ -12,7 +12,8 @@ import com.example.herohub.data.local.dao.MarvelDao
         FavoriteEntity::class,
         EventEntity::class,
         ComicEntity::class,
-        CharacterEntity::class
+        CharacterEntity::class,
+        SearchEntity::class
     ],
     version = 1
 )
@@ -25,9 +26,10 @@ abstract class MarvelDataBase : RoomDatabase() {
         @Volatile
         private var instance: MarvelDataBase? = null
 
-        fun getInstance(context: Context): MarvelDataBase {
+        fun init(context: Context): MarvelDataBase {
             return instance ?: synchronized(this) { buildDatabase(context).also { instance = it } }
         }
+        fun getInstance() = instance!!
 
         private fun buildDatabase(context: Context): MarvelDataBase {
             return Room.databaseBuilder(context, MarvelDataBase::class.java, DATABASE_NAME).build()

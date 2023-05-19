@@ -18,6 +18,14 @@ interface MarvelDao {
     fun getCharactersByName(query: String): Observable<List<CharacterEntity>>
     // endregion
 
+    // region Search
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addCharacters(characters: List<CharacterEntity>): Completable
+
+    @Query("SELECT * FROM SEARCH_TABLE WHERE title LIKE :query")
+    fun getCharactersResultByName(query: String): Observable<List<CharacterEntity>>
+    // endregion
+
     // region Comics
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllComics(Comics: List<ComicEntity>): Completable
