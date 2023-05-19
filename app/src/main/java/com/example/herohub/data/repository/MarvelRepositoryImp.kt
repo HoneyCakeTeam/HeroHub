@@ -1,11 +1,13 @@
 package com.example.herohub.data.repository
 
+import android.annotation.SuppressLint
 import com.example.herohub.data.local.dao.MarvelDao
-import com.example.herohub.data.local.dto_to_entity_mapper.MapperEntityContainer
+import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
-import com.example.herohub.domain.entity_to_domain_mapper.MapperUiContainer
+import com.example.herohub.domain.mapper.dto_to_domain_mapper.DtoToDomainContainer
+import com.example.herohub.domain.mapper.entity_to_domain_mapper.EntityToDomainContainer
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -14,14 +16,14 @@ import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
 
 class MarvelRepositoryImp @Inject constructor(
-    private val mapperEntityContainer: MapperEntityContainer,
-    private val mapperUiContainer: MapperUiContainer,
+    private val dtoToEntityContainer: DtoToEntityContainer,
+    private val entityToDomainContainer: EntityToDomainContainer,
+    private val dtoToDomainContainer: DtoToDomainContainer,
     private val api: MarvelService,
     private val dao: MarvelDao
 ) : MarvelRepository {
@@ -84,58 +86,67 @@ class MarvelRepositoryImp @Inject constructor(
     ): Single<UiState<List<Character>>> =
         wrapWithState(
             { api.getCharactersByName(name) },
-            { mapperEntityContainer.characterMapper.map(it) })
+            { dtoToDomainContainer.characterDtoToCharacter.map(it) })
 
-    override fun getAllSeries(): Single<UiState<List<Series>>> =
-        wrapWithState({ api.getAllSeries(100) }, { mapperEntityContainer.seriesMapper.map(it) })
+
+    //region call from api
+    override fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>> =
+        wrapWithState(
+            { api.getCharacterDetails(characterId) },
+            { dtoToDomainContainer.characterDtoToCharacter.map(it) })
+
+    override fun getEventDetails(eventId: Int): Single<UiState<List<Event>>> =
+        wrapWithState({ api.getEvent(eventId) },
+            { dtoToDomainContainer.eventDtoToEvent.map(it) })
+
+
+    override fun getComicDetails(comicId: Int): Single<UiState<List<Comic>>> =
+        wrapWithState({ api.getComic(comicId) },
+            { dtoToDomainContainer.comicDtoToComic.map(it) })
 
     override fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>> =
         wrapWithState(
             { api.getSeriesDetails(seriesId) },
-            { mapperEntityContainer.seriesMapper.map(it) })
-
-    override fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>> =
-        wrapWithState(
-            { api.getCharacterDetails(characterId) },
-            { mapperEntityContainer.characterMapper.map(it) })
+            { dtoToDomainContainer.seriesDtoToSeries.map(it) })
 
     override fun getCharacterComics(characterId: Int): Single<UiState<List<Comic>>> =
         wrapWithState(
             { api.getCharacterComics(characterId) },
-            { mapperEntityContainer.comicMapper.map(it) })
+            { dtoToDomainContainer.comicDtoToComic.map(it) })
 
     override fun getCharacterSeries(characterId: Int): Single<UiState<List<Series>>> =
         wrapWithState(
             { api.getCharacterSeries(characterId) },
-            { mapperEntityContainer.seriesMapper.map(it) })
+            { dtoToDomainContainer.seriesDtoToSeries.map(it) })
 
     override fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>> =
         wrapWithState(
             { api.getCharacterEvents(characterId) },
-            { mapperEntityContainer.eventMapper.map(it) })
+            { dtoToDomainContainer.eventDtoToEvent.map(it) })
 
-    override fun getEvent(eventId: Int): Single<UiState<List<Event>>> =
-        wrapWithState({ api.getEvent(eventId) }, { mapperEntityContainer.eventMapper.map(it) })
-
-
-    override fun getAllComics(): Single<UiState<List<Comic>>> =
-        wrapWithState({ api.getAllComics(100) }, { mapperEntityContainer.comicMapper.map(it) })
+    //endregion
+    override fun getAllSeries(): Single<UiState<List<Series>>> =
+        wrapWithState({ api.getAllSeries(100) }, { dtoToEntityContainer.seriesMapper.map(it) })
 
 
-    override fun getAllEvents(): Single<UiState<List<Event>>> =
-        wrapWithState({ api.getAllEvents(100) }, { mapperEntityContainer.eventMapper.map(it) })
+    override fun getAllComics(): Single<List<Comic>> =
+        dao.getAllComics().map { entityToDomainContainer.comicMapper.map(it) }
 
 
-    override fun getComic(comicId: Int): Single<UiState<List<Comic>>> =
-        wrapWithState({ api.getComic(comicId) }, { mapperEntityContainer.comicMapper.map(it) })
+    override fun getAllEvents(): Single<List<Event>> =
+        dao.getAllEvents().map { entityToDomainContainer.eventMapper.map(it) }
 
+    override fun getAllCharacters(): Single<List<Character>> =
+        dao.getAllCharacters().map { entityToDomainContainer.characterMapper.map(it) }
 
-    override fun getAllCharacters(): Observable<List<Character>> =
-        dao.getAllCharacters().map { mapperEntityContainer.characterMapper.map { it } }
-
+    @SuppressLint("CheckResult")
     override fun refreshCharacters() {
-        wrapWithState({ api.getAllCharacters(100) }, mapperEntityContainer.characterMapper::map)
-        dao.insertAllCharacters()
+        wrapWithState(
+            { api.getAllCharacters(100) },
+            dtoToEntityContainer.characterMapper::map
+        ).doAfterSuccess {
+            it.toData()?.let { characterEntities -> dao.insertAllCharacters(characterEntities) }
+        }
     }
 
     private fun <I, O> wrapWithState(

@@ -1,4 +1,4 @@
-package com.example.herohub.domain
+package com.example.herohub.domain.mapper
 
 /**
  * Created by Asia sama on 5/19/2023.

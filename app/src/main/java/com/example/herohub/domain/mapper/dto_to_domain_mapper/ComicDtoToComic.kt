@@ -1,7 +1,7 @@
-package com.example.herohub.domain.dto_to_domain_mapper
+package com.example.herohub.domain.mapper.dto_to_domain_mapper
 
 import com.example.herohub.data.remote.model.ComicDto
-import com.example.herohub.domain.Mapper
+import com.example.herohub.domain.mapper.Mapper
 import com.example.herohub.domain.model.Comic
 import javax.inject.Inject
 

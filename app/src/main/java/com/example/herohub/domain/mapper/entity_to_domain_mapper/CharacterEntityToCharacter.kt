@@ -1,7 +1,7 @@
-package com.example.herohub.domain.entity_to_domain_mapper
+package com.example.herohub.domain.mapper.entity_to_domain_mapper
 
 import com.example.herohub.data.local.CharacterEntity
-import com.example.herohub.domain.Mapper
+import com.example.herohub.domain.mapper.Mapper
 import com.example.herohub.domain.model.Character
 import javax.inject.Inject
 
