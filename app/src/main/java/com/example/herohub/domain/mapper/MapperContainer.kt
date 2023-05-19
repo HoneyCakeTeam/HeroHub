@@ -7,4 +7,6 @@ data class MapperContainer @Inject constructor(
     val comicMapper: ComicMapper,
     val eventMapper: EventMapper,
     val seriesMapper: SeriesMapper,
-)
+    val searchHistoryMapper: SearchHistoryMapper,
+
+    )

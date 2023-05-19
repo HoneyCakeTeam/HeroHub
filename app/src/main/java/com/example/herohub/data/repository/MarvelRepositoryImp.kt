@@ -1,27 +1,28 @@
 package com.example.herohub.data.repository
 
+import com.example.herohub.data.local.SearchHistoryEntity
+import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
-import com.example.herohub.domain.mapper.CharacterMapper
-import com.example.herohub.domain.mapper.ComicMapper
-import com.example.herohub.domain.mapper.EventMapper
 import com.example.herohub.domain.mapper.MapperContainer
-import com.example.herohub.domain.mapper.SeriesMapper
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
+import com.example.herohub.domain.model.SearchHistory
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
 
 class MarvelRepositoryImp @Inject constructor(
     private val mapperContainer: MapperContainer,
+    private val dao: MarvelDao,
     private val api: MarvelService,
 ) : MarvelRepository {
 
@@ -59,6 +60,17 @@ class MarvelRepositoryImp @Inject constructor(
             convertToList(gson, stringFavorites)
         }
     }
+
+    override fun saveCharacterNameLocal(name: String, id: Long): Completable {
+        return dao.insertCharacterName(
+            SearchHistoryEntity(id = id, name = name)
+        )
+    }
+
+    override fun getSearchHistory(): Single<List<SearchHistory>> {
+        return dao.getSearchHistory().map { mapperContainer.searchHistoryMapper.map(it) }
+    }
+
 
     override fun isFavorite(id: String): Boolean {
         val favorites = getFavorites()

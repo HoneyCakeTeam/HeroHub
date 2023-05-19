@@ -11,6 +11,12 @@ interface MarvelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllCharacters(characters: List<CharacterEntity>): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCharacterName(character: SearchHistoryEntity): Completable
+
+    @Query("SELECT * FROM SEARCH_HISTORY_TABLE")
+    fun getSearchHistory(): Single<List<SearchHistoryEntity>>
+
     @Query("SELECT * FROM CHARACTER_TABLE")
     fun getAllCharacters(): Observable<List<CharacterEntity>>
 

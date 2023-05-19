@@ -17,7 +17,9 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Singleton
     @Provides
-    fun provideRoomDatabase(@ApplicationContext context: Context): MarvelDataBase =
+    fun provideRoomDatabase(
+        @ApplicationContext context: Context,
+    ): MarvelDataBase =
         Room.databaseBuilder(context, MarvelDataBase::class.java, Constant.DATABASE_NAME).build()
 
     @Singleton

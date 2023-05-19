@@ -4,9 +4,11 @@ import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
+import com.example.herohub.domain.model.SearchHistory
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface MarvelRepository {
@@ -17,6 +19,7 @@ interface MarvelRepository {
     fun removeFavorite(favorite: FavoriteItem)
 
     fun getFavorites(): List<FavoriteItem>?
+    fun saveCharacterNameLocal(name: String, id: Long = 0): Completable
 
     fun isFavorite(id: String): Boolean
 
@@ -58,6 +61,7 @@ interface MarvelRepository {
     fun getAllEvents(): Single<UiState<List<Event>>>
 
     fun getComic(comicId: Int): Single<UiState<List<Comic>>>
+    fun getSearchHistory(): Single<List<SearchHistory>>
 
     //endregion
 }

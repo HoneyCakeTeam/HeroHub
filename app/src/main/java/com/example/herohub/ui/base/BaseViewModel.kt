@@ -2,7 +2,6 @@ package com.example.herohub.ui.base
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.herohub.ui.utils.UiState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -23,8 +22,8 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun <T : Any> disposeSingle(
-        response: Single<UiState<List<T>>>,
-        onSuccess: (data: UiState<List<T>>) -> Unit,
+        response: Single<T>,
+        onSuccess: (data: T) -> Unit,
         onFailed: (e: Throwable) -> Unit,
     ) {
         compositeDisposable.add(

@@ -1,5 +1,6 @@
 package com.example.herohub.di
 
+import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
@@ -7,6 +8,7 @@ import com.example.herohub.domain.mapper.CharacterMapper
 import com.example.herohub.domain.mapper.ComicMapper
 import com.example.herohub.domain.mapper.EventMapper
 import com.example.herohub.domain.mapper.MapperContainer
+import com.example.herohub.domain.mapper.SearchHistoryMapper
 import com.example.herohub.domain.mapper.SeriesMapper
 import dagger.Module
 import dagger.Provides
@@ -22,9 +24,10 @@ object RepositoryModule {
     @Provides
     fun provideMarvelRepository(
         mapperContainer: MapperContainer,
-        apiService: MarvelService
+        apiService: MarvelService,
+        marvelDao: MarvelDao,
     ): MarvelRepository {
-        return MarvelRepositoryImp(mapperContainer, apiService)
+        return MarvelRepositoryImp(mapperContainer, marvelDao, apiService)
     }
 
     @Singleton
@@ -34,6 +37,13 @@ object RepositoryModule {
         comicMapper: ComicMapper,
         eventMapper: EventMapper,
         seriesMapper: SeriesMapper,
-    ):MapperContainer = MapperContainer(characterMapper , comicMapper , eventMapper , seriesMapper)
+        searchHistoryMapper: SearchHistoryMapper,
+    ): MapperContainer = MapperContainer(
+        characterMapper,
+        comicMapper,
+        eventMapper,
+        seriesMapper,
+        searchHistoryMapper
+    )
 
 }
