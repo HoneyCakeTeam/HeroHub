@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by Aziza Helmy on 5/19/2023.
  */
-class SeriesMapper @Inject constructor() : Mapper<List<SeriesDto>, List<Series>> {
+class SeriesDtoToSeries @Inject constructor() : Mapper<List<SeriesDto>, List<Series>> {
     override fun map(input: List<SeriesDto>): List<Series> {
         return input.map {
             Series(

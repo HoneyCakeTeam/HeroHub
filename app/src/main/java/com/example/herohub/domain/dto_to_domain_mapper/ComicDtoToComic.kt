@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Created by Asia sama on 5/19/2023.
  * sehunexo710@gmail.com
  */
-class ComicMapper @Inject constructor() : Mapper<List<ComicDto>, List<Comic>> {
+class ComicDtoToComic @Inject constructor() : Mapper<List<ComicDto>, List<Comic>> {
     override fun map(input: List<ComicDto>): List<Comic> {
         return input.map {
             Comic(
