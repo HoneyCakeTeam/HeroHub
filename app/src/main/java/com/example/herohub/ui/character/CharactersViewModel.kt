@@ -31,7 +31,7 @@ class CharactersViewModel @Inject constructor(
 
     private fun refreshCharacters() {
         _characters.postValue(UiState.Loading)
-        disposeSingle(marvelRepositoryImp.refreshCharacters(), ::onGetCharacterSuccess, ::onError)
+     //   disposeSingle(marvelRepositoryImp.refreshCharacters(), ::onGetCharacterSuccess, ::onError)
     }
 
     @SuppressLint("CheckResult")

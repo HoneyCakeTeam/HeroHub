@@ -140,14 +140,14 @@ class MarvelRepositoryImp @Inject constructor(
         dao.getAllCharacters().map { entityToDomainContainer.characterMapper.map(it) }
 
     @SuppressLint("CheckResult")
-    override fun refreshCharacters() =
+    override fun refreshCharacters() {
         wrapWithState(
             { api.getAllCharacters(100) },
             dtoToEntityContainer.characterMapper::map
         ).doAfterSuccess {
             it.toData()?.let { characterEntities -> dao.insertAllCharacters(characterEntities) }
         }
-
+    }
 
     private fun <I, O> wrapWithState(
         function: () -> Single<Response<BaseResponse<I>>>,
