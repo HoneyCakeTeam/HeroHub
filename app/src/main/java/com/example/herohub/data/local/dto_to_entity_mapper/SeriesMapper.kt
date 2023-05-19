@@ -2,6 +2,7 @@ package com.example.herohub.data.local.dto_to_entity_mapper
 
 import com.example.herohub.data.local.SeriesEntity
 import com.example.herohub.data.remote.model.SeriesDto
+import com.example.herohub.domain.Mapper
 import javax.inject.Inject
 
 /**
