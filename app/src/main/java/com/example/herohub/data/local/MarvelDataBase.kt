@@ -12,7 +12,8 @@ import com.example.herohub.data.local.dao.MarvelDao
         FavoriteEntity::class,
         EventEntity::class,
         ComicEntity::class,
-        CharacterEntity::class
+        CharacterEntity::class,
+        SearchHistoryEntity::class
     ],
     version = 1
 )

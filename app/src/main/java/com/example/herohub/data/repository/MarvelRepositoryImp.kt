@@ -1,5 +1,7 @@
 package com.example.herohub.data.repository
 
+import com.example.herohub.data.local.SearchHistoryEntity
+import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
@@ -16,6 +18,7 @@ import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
@@ -23,6 +26,7 @@ import javax.inject.Inject
 class MarvelRepositoryImp @Inject constructor(
     private val mapperContainer: MapperContainer,
     private val api: MarvelService,
+    private val dao: MarvelDao
 ) : MarvelRepository {
 
     private val sharedPreferences = SharedPreferencesUtils
@@ -76,6 +80,12 @@ class MarvelRepositoryImp @Inject constructor(
     ): MutableList<FavoriteItem>? = gson.fromJson(
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
+
+    override fun saveSearchKeyword(keyword: String): Completable {
+       return dao.insertSearchKeyword(
+           SearchHistoryEntity(name = keyword)
+       )
+    }
 
 
     override fun getCharactersByName(

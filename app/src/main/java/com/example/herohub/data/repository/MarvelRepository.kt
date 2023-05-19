@@ -1,5 +1,6 @@
 package com.example.herohub.data.repository
 
+import com.example.herohub.data.local.SearchHistoryEntity
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -7,6 +8,7 @@ import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface MarvelRepository {
@@ -29,6 +31,8 @@ interface MarvelRepository {
         gson: Gson,
         stringFavorites: String?,
     ): MutableList<FavoriteItem>?
+
+    fun saveSearchKeyword(keyword: String):Completable
 
     //endregion
 
