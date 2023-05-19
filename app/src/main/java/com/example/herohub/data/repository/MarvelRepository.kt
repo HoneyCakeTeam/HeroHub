@@ -7,6 +7,7 @@ import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 interface MarvelRepository {
@@ -33,7 +34,8 @@ interface MarvelRepository {
     //endregion
 
     //region remote db
-    fun getAllCharacters(): Single<UiState<List<Character>>>
+    fun getAllCharacters(): Observable<List<Character>>
+    fun refreshCharacters()
 
     fun getCharactersByName(
         name: String,

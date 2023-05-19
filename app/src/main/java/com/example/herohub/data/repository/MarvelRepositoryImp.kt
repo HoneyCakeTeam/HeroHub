@@ -1,13 +1,11 @@
 package com.example.herohub.data.repository
 
+import com.example.herohub.data.local.dao.MarvelDao
+import com.example.herohub.data.local.dto_to_entity_mapper.MapperEntityContainer
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
-import com.example.herohub.domain.mapper.CharacterMapper
-import com.example.herohub.domain.mapper.ComicMapper
-import com.example.herohub.domain.mapper.EventMapper
-import com.example.herohub.domain.mapper.MapperContainer
-import com.example.herohub.domain.mapper.SeriesMapper
+import com.example.herohub.domain.entity_to_domain_mapper.MapperUiContainer
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -16,13 +14,16 @@ import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
 
 class MarvelRepositoryImp @Inject constructor(
-    private val mapperContainer: MapperContainer,
+    private val mapperEntityContainer: MapperEntityContainer,
+    private val mapperUiContainer: MapperUiContainer,
     private val api: MarvelService,
+    private val dao: MarvelDao
 ) : MarvelRepository {
 
     private val sharedPreferences = SharedPreferencesUtils
@@ -83,52 +84,59 @@ class MarvelRepositoryImp @Inject constructor(
     ): Single<UiState<List<Character>>> =
         wrapWithState(
             { api.getCharactersByName(name) },
-            { mapperContainer.characterMapper.map(it) })
+            { mapperEntityContainer.characterMapper.map(it) })
 
     override fun getAllSeries(): Single<UiState<List<Series>>> =
-        wrapWithState({ api.getAllSeries(100) }, { mapperContainer.seriesMapper.map(it) })
+        wrapWithState({ api.getAllSeries(100) }, { mapperEntityContainer.seriesMapper.map(it) })
 
     override fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>> =
-        wrapWithState({ api.getSeriesDetails(seriesId) }, { mapperContainer.seriesMapper.map(it) })
+        wrapWithState(
+            { api.getSeriesDetails(seriesId) },
+            { mapperEntityContainer.seriesMapper.map(it) })
 
     override fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>> =
         wrapWithState(
             { api.getCharacterDetails(characterId) },
-            { mapperContainer.characterMapper.map(it) })
+            { mapperEntityContainer.characterMapper.map(it) })
 
     override fun getCharacterComics(characterId: Int): Single<UiState<List<Comic>>> =
         wrapWithState(
             { api.getCharacterComics(characterId) },
-            { mapperContainer.comicMapper.map(it) })
+            { mapperEntityContainer.comicMapper.map(it) })
 
     override fun getCharacterSeries(characterId: Int): Single<UiState<List<Series>>> =
         wrapWithState(
             { api.getCharacterSeries(characterId) },
-            { mapperContainer.seriesMapper.map(it) })
+            { mapperEntityContainer.seriesMapper.map(it) })
 
     override fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>> =
         wrapWithState(
             { api.getCharacterEvents(characterId) },
-            { mapperContainer.eventMapper.map(it) })
+            { mapperEntityContainer.eventMapper.map(it) })
 
     override fun getEvent(eventId: Int): Single<UiState<List<Event>>> =
-        wrapWithState({ api.getEvent(eventId) }, { mapperContainer.eventMapper.map(it) })
+        wrapWithState({ api.getEvent(eventId) }, { mapperEntityContainer.eventMapper.map(it) })
 
 
     override fun getAllComics(): Single<UiState<List<Comic>>> =
-        wrapWithState({ api.getAllComics(100) }, { mapperContainer.comicMapper.map(it) })
+        wrapWithState({ api.getAllComics(100) }, { mapperEntityContainer.comicMapper.map(it) })
 
 
     override fun getAllEvents(): Single<UiState<List<Event>>> =
-        wrapWithState({ api.getAllEvents(100) }, { mapperContainer.eventMapper.map(it) })
+        wrapWithState({ api.getAllEvents(100) }, { mapperEntityContainer.eventMapper.map(it) })
 
 
     override fun getComic(comicId: Int): Single<UiState<List<Comic>>> =
-        wrapWithState({ api.getComic(comicId) }, { mapperContainer.comicMapper.map(it) })
+        wrapWithState({ api.getComic(comicId) }, { mapperEntityContainer.comicMapper.map(it) })
 
 
-    override fun getAllCharacters(): Single<UiState<List<Character>>> =
-        wrapWithState({ api.getAllCharacters(100) }, mapperContainer.characterMapper::map)
+    override fun getAllCharacters(): Observable<List<Character>> =
+        dao.getAllCharacters().map { mapperEntityContainer.characterMapper.map { it } }
+
+    override fun refreshCharacters() {
+        wrapWithState({ api.getAllCharacters(100) }, mapperEntityContainer.characterMapper::map)
+        dao.insertAllCharacters()
+    }
 
     private fun <I, O> wrapWithState(
         function: () -> Single<Response<BaseResponse<I>>>,
