@@ -1,8 +1,8 @@
-package com.example.herohub.domain.mapper
+package com.example.herohub.data.local.dto_to_entity_mapper
 
 import javax.inject.Inject
 
-data class MapperContainer @Inject constructor(
+data class MapperEntityContainer @Inject constructor(
     val characterMapper: CharacterMapper,
     val comicMapper: ComicMapper,
     val eventMapper: EventMapper,

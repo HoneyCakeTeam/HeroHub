@@ -1,6 +1,7 @@
-package com.example.herohub.domain.mapper
+package com.example.herohub.domain.dto_to_domain_mapper
 
 import com.example.herohub.data.remote.model.EventDto
+import com.example.herohub.domain.Mapper
 import com.example.herohub.domain.model.Event
 import javax.inject.Inject
 
