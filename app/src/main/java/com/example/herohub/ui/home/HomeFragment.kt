@@ -7,9 +7,10 @@ import com.example.herohub.databinding.FragmentHomeBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.home.adapter.HomeAdapter
 import com.example.herohub.ui.utils.EventObserve
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-
     override val TAG: String = this::class.java.simpleName.toString()
     override val layoutIdFragment: Int = R.layout.fragment_home
     override val viewModel: HomeViewModel by viewModels()

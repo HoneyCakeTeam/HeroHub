@@ -12,7 +12,9 @@ import com.example.herohub.R
 import com.example.herohub.databinding.ActivityMainBinding
 import com.example.herohub.data.utils.SharedPreferencesUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupNavigation()
     }
-
 
     private fun setupNavigation() {
         val navView: BottomNavigationView = binding.bottomNav

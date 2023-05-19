@@ -2,11 +2,12 @@ package com.example.herohub.domain.mapper
 
 import com.example.herohub.data.remote.model.EventDto
 import com.example.herohub.domain.model.Event
+import javax.inject.Inject
 
 /**
  * Created by Aziza Helmy on 5/19/2023.
  */
-class EventMapper : Mapper<List<EventDto>, List<Event>> {
+class EventMapper @Inject constructor() : Mapper<List<EventDto>, List<Event>> {
     override fun map(input: List<EventDto>): List<Event> {
         return input.map {
             Event(

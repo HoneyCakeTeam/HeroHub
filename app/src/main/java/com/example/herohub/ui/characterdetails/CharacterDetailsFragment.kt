@@ -8,8 +8,9 @@ import com.example.herohub.databinding.FragmentCharactersDetailsBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.characterdetails.adapter.CharacterDetailsAdapter
 import com.example.herohub.ui.utils.EventObserve
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CharacterDetailsFragment : BaseFragment<FragmentCharactersDetailsBinding>() {
 
     override val TAG: String = this::class.simpleName.toString()

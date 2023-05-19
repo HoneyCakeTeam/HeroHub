@@ -2,15 +2,18 @@ package com.example.herohub.ui.comics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.herohub.data.repository.MarvelRepositoryImp
+import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
+@HiltViewModel
+class ComicsViewModel @Inject constructor(private val marvelRepositoryImp: MarvelRepository) :
+    BaseViewModel(), ComicInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val marvelRepositoryImp = MarvelRepositoryImp()
 
     private val _comics = MutableLiveData<UiState<List<Comic>>>()
     val comics: LiveData<UiState<List<Comic>>>

@@ -3,6 +3,7 @@ package com.example.herohub.ui.characterdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
@@ -15,14 +16,20 @@ import com.example.herohub.ui.characterdetails.adapter.EventsInteractionListener
 import com.example.herohub.ui.characterdetails.adapter.SeriesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 /**
  * Created by Aziza Helmy on 5/3/2023.
  */
-class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
+@HiltViewModel
+class CharacterDetailsViewModel @Inject constructor(
+    private val marvelRepositoryImp: MarvelRepository,
+    state: SavedStateHandle
+) : BaseViewModel(),
     ComicsInteractionListener, SeriesInteractionListener, EventsInteractionListener {
-    private val marvelRepositoryImp = MarvelRepositoryImp()
+
     private val characterArgs = CharacterDetailsFragmentArgs.fromSavedStateHandle(state)
 
     private val _characterEvent = MutableLiveData<UiState<List<Event>>>()

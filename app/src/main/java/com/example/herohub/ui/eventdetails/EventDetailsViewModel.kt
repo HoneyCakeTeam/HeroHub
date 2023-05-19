@@ -3,14 +3,21 @@ package com.example.herohub.ui.eventdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
-    private val marvelRepositoryImp = MarvelRepositoryImp()
+@HiltViewModel
+class EventDetailsViewModel @Inject constructor(
+    private val marvelRepositoryImp: MarvelRepository,
+    state: SavedStateHandle
+) : BaseViewModel() {
+
     override val TAG = "EVENT_DETAILS_VIEW_MODEL"
     private val eventArgs = EventDetailsFragmentArgs.fromSavedStateHandle(state)
 
@@ -52,7 +59,7 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
         _eventResponse.value = UiState.Error(throwable.message.toString())
     }
 
-    fun onFavClicked(){
+    fun onFavClicked() {
         val favoriteItem = FavoriteItem(
             _event.value?.id.toString(),
             _event.value?.title.toString(),
@@ -60,7 +67,7 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
             FavoriteItem.Type.EVENT
         )
 
-        if(isFavorite.value == true) {
+        if (isFavorite.value == true) {
             marvelRepositoryImp.removeFavorite(favoriteItem)
             _isFavorite.postValue(false)
         } else {

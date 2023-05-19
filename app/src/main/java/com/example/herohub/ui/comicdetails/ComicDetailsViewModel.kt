@@ -3,15 +3,20 @@ package com.example.herohub.ui.comicdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
+import javax.inject.Inject
 
-class ComicDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
+class ComicDetailsViewModel @Inject constructor(
+    private val marvelRepositoryImp:MarvelRepository,
+    state: SavedStateHandle
+) : BaseViewModel() {
     override val TAG: String = this::class.java.simpleName
-    private val marvelRepositoryImp = MarvelRepositoryImp()
+
     private val comicArgs = ComicDetailsFragmentArgs.fromSavedStateHandle(state)
 
     private val _comicsResponse = MutableLiveData<UiState<List<Comic>>>()

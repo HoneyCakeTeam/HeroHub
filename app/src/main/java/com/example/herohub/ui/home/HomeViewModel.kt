@@ -3,6 +3,7 @@ package com.example.herohub.ui.home
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
@@ -16,8 +17,12 @@ import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelRepository) :
+    BaseViewModel(), MostPopularSeriesInteractionListener,
     SuperHeroesInteractionListener,
     SliderInteractionListener, MostPopularEventsInteractionListener,
     MostPopularComicsInteractionListener {
@@ -33,7 +38,6 @@ class HomeViewModel : BaseViewModel(), MostPopularSeriesInteractionListener,
     override val TAG: String
         get() = this::class.java.simpleName.toString()
 
-    private val marvelRepositoryImp: MarvelRepositoryImp by lazy { MarvelRepositoryImp() }
     private val _homeItems = mutableListOf<HomeItem>()
 
     private val _characterResponse =

@@ -3,18 +3,23 @@ package com.example.herohub.ui.seriesdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
+@HiltViewModel
+class SeriesDetailsViewModel @Inject constructor(
+    private val marvelRepositoryImp: MarvelRepository,
+    state: SavedStateHandle
+) : BaseViewModel() {
     override val TAG: String
         get() = this::class.java.simpleName.toString()
     private val seriesArgs = SeriesDetailsFragmentArgs.fromSavedStateHandle(state)
-
-    private val marvelRepositoryImp: MarvelRepositoryImp by lazy { MarvelRepositoryImp() }
 
     private val _seriesDetails = MutableLiveData<UiState<List<Series>?>>()
     val seriesDetails: LiveData<UiState<List<Series>?>>

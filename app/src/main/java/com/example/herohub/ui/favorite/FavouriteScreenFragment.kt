@@ -8,7 +8,9 @@ import com.example.herohub.databinding.FragmentFavouriteScreenBinding
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.utils.EventObserve
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavouriteScreenFragment : BaseFragment<FragmentFavouriteScreenBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment = R.layout.fragment_favourite_screen
