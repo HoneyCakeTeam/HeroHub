@@ -2,15 +2,14 @@ package com.example.herohub.data.repository
 
 import android.annotation.SuppressLint
 import android.util.Log
+import com.example.herohub.data.local.SearchHistoryEntity
 import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
-import com.example.herohub.data.local.SearchHistoryEntity
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
 import com.example.herohub.domain.mapper.dto_to_domain_mapper.DtoToDomainContainer
 import com.example.herohub.domain.mapper.entity_to_domain_mapper.EntityToDomainContainer
-import com.example.herohub.domain.mapper.MapperContainer
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
