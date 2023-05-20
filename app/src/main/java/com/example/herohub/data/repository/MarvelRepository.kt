@@ -1,5 +1,6 @@
 package com.example.herohub.data.repository
 
+import com.example.herohub.data.local.CharacterEntity
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -33,8 +34,8 @@ interface MarvelRepository {
     //endregion
 
     //region remote db
-    fun getAllCharacters(): Single<List<Character>>
-    fun refreshCharacters()
+    fun getAllCharacters(): List<Character>
+    fun refreshCharacters():Single<UiState<List<CharacterEntity>>>
 
     fun getEventDetails(eventId: Int): Single<UiState<List<Event>>>
     fun getAllSeries(): Single<UiState<List<Series>>>

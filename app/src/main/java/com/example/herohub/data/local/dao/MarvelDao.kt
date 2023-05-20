@@ -12,7 +12,7 @@ interface MarvelDao {
     fun insertAllCharacters(characters: List<CharacterEntity>): Completable
 
     @Query("SELECT * FROM CHARACTER_TABLE")
-    fun getAllCharacters(): Single<List<CharacterEntity>>
+    fun getAllCharacters(): List<CharacterEntity>
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE title LIKE :query")
     fun getCharactersByName(query: String): Observable<List<CharacterEntity>>

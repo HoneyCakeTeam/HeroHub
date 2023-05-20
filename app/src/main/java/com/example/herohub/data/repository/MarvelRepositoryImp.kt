@@ -1,6 +1,7 @@
 package com.example.herohub.data.repository
 
 import android.annotation.SuppressLint
+import com.example.herohub.data.local.CharacterEntity
 import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
 import com.example.herohub.data.remote.MarvelService
@@ -136,18 +137,31 @@ class MarvelRepositoryImp @Inject constructor(
     override fun getAllEvents(): Single<List<Event>> =
         dao.getAllEvents().map { entityToDomainContainer.eventMapper.map(it) }
 
-    override fun getAllCharacters(): Single<List<Character>> =
-        dao.getAllCharacters().map { entityToDomainContainer.characterMapper.map(it) }
+    override fun getAllCharacters(): List<Character> =
+        dao.getAllCharacters().let { entityToDomainContainer.characterMapper.map(it) }
+
+    /*    @SuppressLint("CheckResult")
+        override fun refreshCharacters() {
+            wrapWithState(
+                { api.getAllCharacters(100) },
+                dtoToEntityContainer.characterMapper::map
+            ).doAfterSuccess {
+                it.toData()?.let { characterEntities -> dao.insertAllCharacters(characterEntities) }
+            }
+        }*/
 
     @SuppressLint("CheckResult")
-    override fun refreshCharacters() {
-        wrapWithState(
+    override fun refreshCharacters(): Single<UiState<List<CharacterEntity>>> {
+        return wrapWithState(
             { api.getAllCharacters(100) },
             dtoToEntityContainer.characterMapper::map
         ).doAfterSuccess {
-            it.toData()?.let { characterEntities -> dao.insertAllCharacters(characterEntities) }
+            it.toData()?.let { characterEntities ->
+                dao.insertAllCharacters(characterEntities)
+            }
         }
     }
+
 
     private fun <I, O> wrapWithState(
         function: () -> Single<Response<BaseResponse<I>>>,
