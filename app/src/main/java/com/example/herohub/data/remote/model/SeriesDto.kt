@@ -1,7 +1,5 @@
 package com.example.herohub.data.remote.model
 
-import com.example.herohub.data.local.SeriesEntity
-import com.example.herohub.domain.model.Series
 import com.google.gson.annotations.SerializedName
 
 data class SeriesDto(
@@ -42,21 +40,3 @@ data class SeriesDto(
     @SerializedName("urls")
     val urls: List<Url>? = listOf(),
 )
-fun SeriesDto.asSeriesEntity(): SeriesEntity {
-    return SeriesEntity(
-        id = id ?: 0,
-        title = title ?: "",
-        description = description ?: "",
-        modified = modified ?: "",
-        imageUrl = "${thumbnail?.path}.${thumbnail?.extension}"
-    )
-}
-fun SeriesDto.asSeries(): Series {
-    return Series(
-        id = id ?: 0,
-        title = title ?: "",
-        description = description ?: "",
-        modified = modified ?: "",
-        imageUrl = "${thumbnail?.path}.${thumbnail?.extension}",
-    )
-}

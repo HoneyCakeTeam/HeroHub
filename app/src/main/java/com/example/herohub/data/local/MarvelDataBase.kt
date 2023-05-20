@@ -1,6 +1,5 @@
 package com.example.herohub.data.local
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.herohub.data.local.dao.MarvelDao
