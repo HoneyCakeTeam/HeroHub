@@ -38,7 +38,7 @@ interface MarvelRepository {
     fun getAllCharacters(): Single<UiState<List<Character>>>// 4 see all
 
     fun getAllCharactersFromDB(): Observable<List<Character>>
-    fun refreshCharacters(): Completable
+    fun refreshCharacters()
     fun refreshComics()
     fun refreshEvents()
     fun refreshSeries()

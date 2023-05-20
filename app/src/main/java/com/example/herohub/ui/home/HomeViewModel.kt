@@ -96,7 +96,13 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     @SuppressLint("CheckResult")
     private fun onGetCharacterSuccess(state: List<Character>) {
         _characterResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.SuperHeroes(state)
+            )
+        )
         _homeItems.addAll(listOf(HomeItem.SuperHeroes(state)))
+        _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun refreshSeries() {
@@ -116,12 +122,17 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     @SuppressLint("CheckResult")
     private fun onGetSeriesSuccess(state: List<Series>) {
         _seriesResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.MostPopularSeries(state)
+            )
+        )
         _homeItems.addAll(listOf(HomeItem.MostPopularSeries(state)))
-
+        _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun refreshComics() {
-        marvelRepositoryImp.refreshSeries()
+        marvelRepositoryImp.refreshComics()
     }
 
     @SuppressLint("CheckResult")
@@ -137,11 +148,17 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     @SuppressLint("CheckResult")
     private fun onGetComicsSuccess(state: List<Comic>) {
         _comicsResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.MostPopularComics(state)
+            )
+        )
         _homeItems.addAll(
             listOf(
                 HomeItem.MostPopularComics(state)
             )
         )
+        _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun refreshEvents() {
@@ -161,11 +178,17 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     @SuppressLint("CheckResult")
     private fun onGetEventsSuccess(state: List<Event>) {
         _eventResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.MostPopularEvents(state)
+            )
+        )
         _homeItems.addAll(
             listOf(
                 HomeItem.MostPopularEvents(state)
             )
         )
+        _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun refreshSlider() {
@@ -185,11 +208,17 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     @SuppressLint("CheckResult")
     private fun onGetSliderSuccess(state: List<Event>) {
         _eventResponse.postValue(state)
-        _homeItems.addAll(
+        _homeItems.removeAll(
             listOf(
-                HomeItem.MostPopularEvents(state)
+                HomeItem.Slider(state)
             )
         )
+        _homeItems.addAll(
+            listOf(
+                HomeItem.Slider(state)
+            )
+        )
+        _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun onError(throwable: Throwable) {

@@ -1,6 +1,7 @@
 package com.example.herohub.data.repository
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
 import com.example.herohub.data.remote.MarvelService
@@ -27,7 +28,7 @@ class MarvelRepositoryImp @Inject constructor(
     private val entityToDomainContainer: EntityToDomainContainer,
     private val dtoToDomainContainer: DtoToDomainContainer,
     private val api: MarvelService,
-    private val dao: MarvelDao
+    private val dao: MarvelDao,
 ) : MarvelRepository {
 
     private val sharedPreferences = SharedPreferencesUtils
@@ -150,61 +151,82 @@ class MarvelRepositoryImp @Inject constructor(
 
     //region refresh
     @SuppressLint("CheckResult")
-    override fun refreshCharacters(): Completable {
-        return wrapWithState(
+    override fun refreshCharacters() {
+        wrapWithState(
             { api.getAllCharacters(100) }, dtoToEntityContainer.characterMapper::map
-        ).doAfterSuccess {
-            it.toData()?.let { characterEntities ->
-                dao.insertAllCharacters(characterEntities).subscribeOn(Schedulers.io()).subscribe()
+        ).subscribe(
+            {
+                it.toData()?.let { characterEntities ->
+                    dao.insertAllCharacters(characterEntities).subscribeOn(Schedulers.io())
+                        .subscribe()
+                }
+            }, {
+                Log.e("Repository", "Repository")
             }
-        }
+        )
     }
 
     @SuppressLint("CheckResult")
     override fun refreshComics() {
         wrapWithState(
             { api.getAllComics(100) }, dtoToEntityContainer.comicMapper::map
-        ).doAfterSuccess {
-            it.toData()?.let { comicEntity ->
-                dao.insertAllComics(comicEntity).subscribeOn(Schedulers.io()).subscribe()
+        ).subscribe(
+            {
+                it.toData()?.let { comicEntity ->
+                    dao.insertAllComics(comicEntity).subscribeOn(Schedulers.io()).subscribe()
+                }
+            }, {
+                Log.e("Repository", "Repository")
             }
-        }
+        )
     }
 
     @SuppressLint("CheckResult")
     override fun refreshEvents() {
         wrapWithState(
             { api.getAllEvents(100) }, dtoToEntityContainer.eventMapper::map
-        ).doAfterSuccess {
-            it.toData()?.let { eventEntity ->
-                dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
+        ).subscribe(
+            {
+                it.toData()?.let { eventEntity ->
+                    dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
+                }
+            }, {
+                Log.e("Repository", "Repository")
             }
-        }
+        )
     }
 
     @SuppressLint("CheckResult")
     override fun refreshSeries() {
         wrapWithState(
             { api.getAllSeries(100) }, dtoToEntityContainer.seriesMapper::map
-        ).doAfterSuccess {
-            it.toData()?.let { seriesEntity ->
-                dao.insertAllSeries(seriesEntity).subscribeOn(Schedulers.io()).subscribe()
+        ).subscribe(
+            {
+                it.toData()?.let { seriesEntity ->
+                    dao.insertAllSeries(seriesEntity).subscribeOn(Schedulers.io()).subscribe()
+                }
+            }, {
+                Log.e("Repository", "Repository")
             }
-        }
+        )
     }
 
     @SuppressLint("CheckResult")
     override fun refreshSlider() {
         wrapWithState(
             { api.getAllEvents(100) }, dtoToEntityContainer.eventMapper::map
-        ).doAfterSuccess {
-            it.toData()?.let { eventEntity ->
-                dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
+        ).subscribe(
+            {
+                it.toData()?.let { eventEntity ->
+                    dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
+                }
+            }, {
+                Log.e("Repository", "Repository")
             }
-        }
+        )
     }
 
-    //endregion
+//endregion
 
     //region cashing (get from Room DB)
     override fun getAllCharactersFromDB(): Observable<List<Character>> =
