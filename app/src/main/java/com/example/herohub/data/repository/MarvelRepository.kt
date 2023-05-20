@@ -31,6 +31,8 @@ interface MarvelRepository {
         stringFavorites: String?,
     ): MutableList<FavoriteItem>?
 
+    fun saveSearchKeyword(keyword: String):Completable
+
     //endregion
     //region remote db
     fun refreshCharacters()

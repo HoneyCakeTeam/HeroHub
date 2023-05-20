@@ -36,7 +36,7 @@ object RepositoryModule {
         entityToDomainContainer: EntityToDomainContainer,
         dtoToDomainContainer: DtoToDomainContainer,
         apiService: MarvelService,
-        marvelDao: MarvelDao
+        marvelDao: MarvelDao,
     ): MarvelRepository {
         return MarvelRepositoryImp(
             dtoToEntityContainer,

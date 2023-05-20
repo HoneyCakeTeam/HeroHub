@@ -1,6 +1,8 @@
 package com.example.herohub.data.local
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.herohub.data.local.dao.MarvelDao
 
@@ -10,11 +12,10 @@ import com.example.herohub.data.local.dao.MarvelDao
         FavoriteEntity::class,
         EventEntity::class,
         ComicEntity::class,
-        CharacterEntity::class
+        CharacterEntity::class,
+        SearchHistoryEntity::class
     ],
-    version = 1,
-  //  exportSchema = true,
-  //  autoMigrations = [AutoMigration(from = 1, to = 2)]
+    version = 1
 )
 abstract class MarvelDataBase : RoomDatabase() {
     abstract fun marvelDao(): MarvelDao

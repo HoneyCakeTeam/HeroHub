@@ -1,6 +1,7 @@
 package com.example.herohub.ui.search
 
 
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.herohub.R
@@ -26,5 +27,15 @@ class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
             log(it.id.toString())
             findNavController().navigate(action)
         })
+
+        binding.searchBar.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.saveSearchHistory(viewModel.searchQuery.value.toString())
+                log(viewModel.searchQuery.value.toString())
+                true
+            } else {
+                false
+            }
+        }
     }
 }

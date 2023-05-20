@@ -23,7 +23,7 @@ object NetworkModule {
     fun provideRetrofit(
         client: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory,
-        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory
+        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constant.BASE_URL)

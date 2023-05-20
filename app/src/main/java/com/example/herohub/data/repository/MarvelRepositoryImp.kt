@@ -2,6 +2,7 @@ package com.example.herohub.data.repository
 
 import android.annotation.SuppressLint
 import android.util.Log
+import com.example.herohub.data.local.SearchHistoryEntity
 import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
 import com.example.herohub.data.remote.MarvelService
@@ -17,6 +18,7 @@ import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -31,6 +33,7 @@ class MarvelRepositoryImp @Inject constructor(
     private val dao: MarvelDao,
 ) : MarvelRepository {
 
+    // private val dao = MarvelDataBase.getInstance().marvelDao()
     private val sharedPreferences = SharedPreferencesUtils
     override fun addToFavorite(favorite: FavoriteItem) {
         val gson = Gson()
@@ -77,12 +80,14 @@ class MarvelRepositoryImp @Inject constructor(
     ): String = gson.toJson(favorites)
 
     override fun convertToList(
-        gson: Gson,
-        stringFavorites: String?,
+        gson: Gson, stringFavorites: String?,
     ): MutableList<FavoriteItem>? = gson.fromJson(
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
 
+    override fun saveSearchKeyword(keyword: String): Completable {
+        return dao.insertSearchKeyword(SearchHistoryEntity(name = keyword))
+    }
 
     override fun getCharactersByName(
         name: String,
