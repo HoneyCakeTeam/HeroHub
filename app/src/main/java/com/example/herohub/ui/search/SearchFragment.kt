@@ -29,8 +29,9 @@ class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
         })
 
         binding.searchBar.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEND) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.saveSearchHistory(viewModel.searchQuery.value.toString())
+                log(viewModel.searchQuery.value.toString())
                 true
             } else {
                 false
