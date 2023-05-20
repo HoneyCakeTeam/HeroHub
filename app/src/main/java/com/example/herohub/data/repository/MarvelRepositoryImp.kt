@@ -1,6 +1,6 @@
 package com.example.herohub.data.repository
 
-import com.example.herohub.data.local.CharacterEntity
+import android.annotation.SuppressLint
 import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
 import com.example.herohub.data.remote.MarvelService
@@ -149,12 +149,57 @@ class MarvelRepositoryImp @Inject constructor(
     //endregion
 
     //region refresh
-    override fun refreshCharacters(): Single<UiState<List<CharacterEntity>>> {
+    @SuppressLint("CheckResult")
+    override fun refreshCharacters(): Completable {
         return wrapWithState(
             { api.getAllCharacters(100) }, dtoToEntityContainer.characterMapper::map
         ).doAfterSuccess {
             it.toData()?.let { characterEntities ->
                 dao.insertAllCharacters(characterEntities).subscribeOn(Schedulers.io()).subscribe()
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    override fun refreshComics() {
+        wrapWithState(
+            { api.getAllComics(100) }, dtoToEntityContainer.comicMapper::map
+        ).doAfterSuccess {
+            it.toData()?.let { comicEntity ->
+                dao.insertAllComics(comicEntity).subscribeOn(Schedulers.io()).subscribe()
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    override fun refreshEvents() {
+        wrapWithState(
+            { api.getAllEvents(100) }, dtoToEntityContainer.eventMapper::map
+        ).doAfterSuccess {
+            it.toData()?.let { eventEntity ->
+                dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    override fun refreshSeries() {
+        wrapWithState(
+            { api.getAllSeries(100) }, dtoToEntityContainer.seriesMapper::map
+        ).doAfterSuccess {
+            it.toData()?.let { seriesEntity ->
+                dao.insertAllSeries(seriesEntity).subscribeOn(Schedulers.io()).subscribe()
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    override fun refreshSlider() {
+        wrapWithState(
+            { api.getAllEvents(100) }, dtoToEntityContainer.eventMapper::map
+        ).doAfterSuccess {
+            it.toData()?.let { eventEntity ->
+                dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
             }
         }
     }
