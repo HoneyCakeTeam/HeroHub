@@ -7,7 +7,9 @@ import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSearchScreenBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.utils.EventObserve
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment = R.layout.fragment_search_screen

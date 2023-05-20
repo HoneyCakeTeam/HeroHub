@@ -1,15 +1,10 @@
 package com.example.herohub.data.remote.model
 
-
 import com.google.gson.annotations.SerializedName
 
-data class Story(
-    @SerializedName("characters")
-    val characters: CollectionResult<Item>? = null,
+data class CharacterDto(
     @SerializedName("comics")
     val comics: CollectionResult<Item>? = null,
-    @SerializedName("creators")
-    val creators: CollectionResult<Item>? = null,
     @SerializedName("description")
     val description: String? = "",
     @SerializedName("events")
@@ -18,16 +13,16 @@ data class Story(
     val id: Int? = 0,
     @SerializedName("modified")
     val modified: String? = "",
-    @SerializedName("originalIssue")
-    val originalIssue: Item? = null,
+    @SerializedName("name")
+    val name: String? = "",
     @SerializedName("resourceURI")
     val resourceURI: String? = "",
     @SerializedName("series")
     val series: CollectionResult<Item>? = null,
+    @SerializedName("stories")
+    val stories: CollectionResult<Item>?,
     @SerializedName("thumbnail")
-    val thumbnail: Thumbnail? = null,
-    @SerializedName("title")
-    val title: String? = "",
-    @SerializedName("type")
-    val type: String? = "",
+    val thumbnail: Thumbnail? = Thumbnail(),
+    @SerializedName("urls")
+    val urls: List<Url>? = listOf(),
 )

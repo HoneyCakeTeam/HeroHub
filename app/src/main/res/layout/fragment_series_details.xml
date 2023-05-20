@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.series.thumbnail.path}"
+                app:imageUrl="@{viewModel.series.imageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

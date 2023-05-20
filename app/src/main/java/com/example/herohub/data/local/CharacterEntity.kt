@@ -9,5 +9,6 @@ data class CharacterEntity(
     val title: String,
     val description: String,
     val modified: String,
-    val imageUrl: String
+    val imageUrl: String,
 )
+

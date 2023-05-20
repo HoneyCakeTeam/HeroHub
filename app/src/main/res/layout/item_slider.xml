@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.remote.model.Event" />
+            type="com.example.herohub.domain.model.Event" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:imageUrl="@{item.thumbnail.path}"
+            app:imageUrl="@{item.imageUrl}"
             tools:src="@drawable/spiderman" />
 
     </com.google.android.material.card.MaterialCardView>

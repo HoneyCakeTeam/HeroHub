@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.example.herohub.data.remote.model.Event" />
+            type="com.example.herohub.domain.model.Event" />
 
         <variable
             name="listener"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/slider_placeholder"
-            app:imageUrl="@{item.thumbnail.path}" />
+            app:imageUrl="@{item.imageUrl}" />
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

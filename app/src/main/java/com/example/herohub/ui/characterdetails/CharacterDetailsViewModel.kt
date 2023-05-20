@@ -4,36 +4,42 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.Character
-import com.example.herohub.data.remote.model.Comic
-import com.example.herohub.data.remote.model.DataResponse
-import com.example.herohub.data.remote.model.Event
-import com.example.herohub.data.remote.model.FavoriteItem
-import com.example.herohub.data.remote.model.Series
+import com.example.herohub.data.repository.MarvelRepositoryImp
+import com.example.herohub.domain.model.Character
+import com.example.herohub.domain.model.Comic
+import com.example.herohub.domain.model.Event
+import com.example.herohub.domain.model.FavoriteItem
+import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.characterdetails.adapter.ComicsInteractionListener
 import com.example.herohub.ui.characterdetails.adapter.EventsInteractionListener
 import com.example.herohub.ui.characterdetails.adapter.SeriesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 /**
  * Created by Aziza Helmy on 5/3/2023.
  */
-class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
+@HiltViewModel
+class CharacterDetailsViewModel @Inject constructor(
+    private val marvelRepositoryImp: MarvelRepository,
+    state: SavedStateHandle
+) : BaseViewModel(),
     ComicsInteractionListener, SeriesInteractionListener, EventsInteractionListener {
-    private val marvelRepository = MarvelRepository()
+
     private val characterArgs = CharacterDetailsFragmentArgs.fromSavedStateHandle(state)
 
-    private val _characterEvent = MutableLiveData<UiState<DataResponse<Event>>>()
+    private val _characterEvent = MutableLiveData<UiState<List<Event>>>()
 
-    private val _characterComics = MutableLiveData<UiState<DataResponse<Comic>>>()
+    private val _characterComics = MutableLiveData<UiState<List<Comic>>>()
 
-    private val _characterSeries = MutableLiveData<UiState<DataResponse<Series>>>()
+    private val _characterSeries = MutableLiveData<UiState<List<Series>>>()
 
-    private val _characterDetails = MutableLiveData<UiState<DataResponse<Character>>>()
-    private val characterDetails: LiveData<UiState<DataResponse<Character>>>
+    private val _characterDetails = MutableLiveData<UiState<List<Character>>>()
+    private val characterDetails: LiveData<UiState<List<Character>>>
         get() = _characterDetails
 
 
@@ -67,7 +73,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getComicsOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterComics(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterComics(characterArgs.characterId),
             ::onGetCharacterComicsSuccess,
             ::onError
         )
@@ -75,7 +81,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getEventOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterEvents(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterEvents(characterArgs.characterId),
             ::onGetCharacterEventsSuccess,
             ::onError
         )
@@ -83,7 +89,7 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getSeriesOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterSeries(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterSeries(characterArgs.characterId),
             ::onGetCharacterSeriesSuccess,
             ::onError
         )
@@ -91,40 +97,40 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
 
     private fun getDetailsOfCharacter() {
         disposeSingle(
-            marvelRepository.getCharacterDetails(characterArgs.characterId),
+            marvelRepositoryImp.getCharacterDetails(characterArgs.characterId),
             ::onGetCharacterDetailsSuccess,
             ::onError
         )
     }
 
-    private fun onGetCharacterEventsSuccess(uiState: UiState<DataResponse<Event>>) {
+    private fun onGetCharacterEventsSuccess(uiState: UiState<List<Event>>) {
         _characterEvent.value = uiState
-        _characterEvent.value?.toData()?.results?.let {
+        _characterEvent.value?.toData()?.let {
             CharacterDetailsItem.CharacterEvents(it)
         }?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
     }
 
-    private fun onGetCharacterSeriesSuccess(uiState: UiState<DataResponse<Series>>) {
+    private fun onGetCharacterSeriesSuccess(uiState: UiState<List<Series>>) {
         _characterSeries.value = uiState
-        _characterSeries.value?.toData()?.results?.let {
+        _characterSeries.value?.toData()?.let {
             CharacterDetailsItem.CharacterSeries(it)
         }?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
     }
 
-    private fun onGetCharacterComicsSuccess(state: UiState<DataResponse<Comic>>) {
+    private fun onGetCharacterComicsSuccess(state: UiState<List<Comic>>) {
         _characterComics.value = state
-        _characterComics.value?.toData()?.results?.let {
+        _characterComics.value?.toData()?.let {
             CharacterDetailsItem.CharacterComics(it)
         }?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
     }
 
-    private fun onGetCharacterDetailsSuccess(state: UiState<DataResponse<Character>>) {
+    private fun onGetCharacterDetailsSuccess(state: UiState<List<Character>>) {
         _characterDetails.value = state
-        characterItem.value = characterDetails.value?.toData()?.results?.firstOrNull()
-        _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+        characterItem.value = characterDetails.value?.toData()?.firstOrNull()
+        _isFavorite.value = marvelRepositoryImp.isFavorite(characterItem.value?.id.toString())
         characterItem.value?.let { CharacterDetailsItem.CharacterInfo(it) }
             ?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
@@ -143,16 +149,16 @@ class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel(),
         val favoriteItem = FavoriteItem(
             characterItem.value?.id.toString(),
             characterItem.value?.name.toString(),
-            characterItem.value?.thumbnail?.path.toString(),
+            characterItem.value?.imageUrl.toString(),
             FavoriteItem.Type.CHARACTER
         )
 
         if (isFavorite.value == true) {
-            marvelRepository.removeFavorite(favoriteItem)
-            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+            marvelRepositoryImp.removeFavorite(favoriteItem)
+            _isFavorite.value = marvelRepositoryImp.isFavorite(characterItem.value?.id.toString())
         } else {
-            marvelRepository.addToFavorite(favoriteItem)
-            _isFavorite.value = marvelRepository.isFavorite(characterItem.value?.id.toString())
+            marvelRepositoryImp.addToFavorite(favoriteItem)
+            _isFavorite.value = marvelRepositoryImp.isFavorite(characterItem.value?.id.toString())
         }
     }
 

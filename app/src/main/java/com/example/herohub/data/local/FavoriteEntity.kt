@@ -8,5 +8,6 @@ data class FavoriteEntity(
     @PrimaryKey val id: Int,
     val title: String,
     val imageUrl: String,
-    val type: String
+    val type: String,
 )
+

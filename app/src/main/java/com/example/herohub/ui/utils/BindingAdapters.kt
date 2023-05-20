@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.example.herohub.ui.utils
 
 import android.view.View
@@ -63,7 +65,7 @@ fun <T> showWhenEmptyList(view: View, list: List<T>?) {
 }
 
 @BindingAdapter(value = ["app:hideWhenEmptyList"])
-fun <T> hideWhenEmptyList(view: View, listSize: Int) {
+fun hideWhenEmptyList(view: View, listSize: Int) {
     if (listSize == 0) {
         view.visibility = View.GONE
     } else {
@@ -84,7 +86,7 @@ fun setImageFromUrl(view: ImageView, url: String?) {
         } else {
             Glide
                 .with(view)
-                .load("$url.jpg")
+                .load(url)
                 .placeholder(R.drawable.slider_placeholder)
                 .error(R.drawable.no_image_placeholder)
                 .centerCrop().into(view)

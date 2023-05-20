@@ -3,18 +3,20 @@ package com.example.herohub.ui.events
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.DataResponse
-import com.example.herohub.data.remote.model.Event
+import com.example.herohub.domain.model.Event
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class EventsViewModel : BaseViewModel(), EventsInteractionListener {
+@HiltViewModel
+class EventsViewModel @Inject constructor(
+    private val marvelRepositoryImp: MarvelRepository
+) : BaseViewModel(), EventsInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val marvelRepository = MarvelRepository()
-
-    private val _events = MutableLiveData<UiState<DataResponse<Event>>>()
-    val events: LiveData<UiState<DataResponse<Event>>>
+    private val _events = MutableLiveData<UiState<List<Event>>>()
+    val events: LiveData<UiState<List<Event>>>
         get() = _events
 
     private val _eventClick = MutableLiveData<EventHandler<Int>>()
@@ -27,10 +29,10 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
 
     private fun getAllEvents() {
         _events.postValue(UiState.Loading)
-        disposeSingle(marvelRepository.getAllEvents(), ::onGetEventsSuccess, ::onError)
+        disposeSingle(marvelRepositoryImp.getAllEvents(), ::onGetEventsSuccess, ::onError)
     }
 
-    private fun onGetEventsSuccess(state: UiState<DataResponse<Event>>) {
+    private fun onGetEventsSuccess(state: UiState<List<Event>>) {
         _events.postValue(state)
     }
 

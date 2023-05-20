@@ -4,8 +4,9 @@ import com.example.herohub.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.security.MessageDigest
+import javax.inject.Inject
 
-class MarvelInterceptor : Interceptor {
+class MarvelInterceptor @Inject constructor() : Interceptor {
     private val timeStamp = System.currentTimeMillis().toString()
     private val hash = getMarvelHash(timeStamp)
 

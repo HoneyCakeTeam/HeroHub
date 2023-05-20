@@ -5,18 +5,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.Character
-import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.data.repository.MarvelRepositoryImp
+import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
-class SearchViewModel : BaseViewModel(), SearchInteractionListener {
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val marvelRepositoryImp: MarvelRepository
+) : BaseViewModel(), SearchInteractionListener {
     override val TAG: String = this::class.java.simpleName.toString()
-    private val marvelRepository = MarvelRepository()
 
     private val _eventClick = MutableLiveData<EventHandler<Character>>()
     val eventClick: LiveData<EventHandler<Character>>
@@ -24,8 +28,8 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     val searchQuery = MutableLiveData<String>()
 
-    private val _response = MutableLiveData<UiState<DataResponse<Character>>>()
-    val response: LiveData<UiState<DataResponse<Character>>> get() = _response
+    private val _response = MutableLiveData<UiState<List<Character>>>()
+    val response: LiveData<UiState<List<Character>>> get() = _response
 
     val searchResult = MediatorLiveData<List<Character>>()
 
@@ -50,15 +54,15 @@ class SearchViewModel : BaseViewModel(), SearchInteractionListener {
 
     private fun findCharacters(name: String) {
         disposeSingle(
-            marvelRepository.getCharactersByName(name),
+            marvelRepositoryImp.getCharactersByName(name),
             ::onGetCharacterSuccess, ::onGetCharacterFailure
         )
     }
 
-    private fun onGetCharacterSuccess(uiState: UiState<DataResponse<Character>>) {
+    private fun onGetCharacterSuccess(uiState: UiState<List<Character>>) {
         log(uiState.toData().toString())
         _response.value = uiState
-        searchResult.postValue(response.value?.toData()?.results ?: emptyList())
+        searchResult.postValue(response.value?.toData() ?: emptyList())
     }
 
     private fun onGetCharacterFailure(throwable: Throwable) {

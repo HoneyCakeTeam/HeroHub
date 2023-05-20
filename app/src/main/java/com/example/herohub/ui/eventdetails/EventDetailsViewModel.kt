@@ -4,19 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.DataResponse
-import com.example.herohub.data.remote.model.Event
-import com.example.herohub.data.remote.model.FavoriteItem
+import com.example.herohub.data.repository.MarvelRepositoryImp
+import com.example.herohub.domain.model.Event
+import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
-    private val marvelRepository = MarvelRepository()
+@HiltViewModel
+class EventDetailsViewModel @Inject constructor(
+    private val marvelRepositoryImp: MarvelRepository,
+    state: SavedStateHandle
+) : BaseViewModel() {
+
     override val TAG = "EVENT_DETAILS_VIEW_MODEL"
     private val eventArgs = EventDetailsFragmentArgs.fromSavedStateHandle(state)
 
-    private val _eventResponse = MutableLiveData<UiState<DataResponse<Event>>>()
-    val eventResponse: LiveData<UiState<DataResponse<Event>>>
+    private val _eventResponse = MutableLiveData<UiState<List<Event>>>()
+    val eventResponse: LiveData<UiState<List<Event>>>
         get() = _eventResponse
 
     private val _event = MutableLiveData<Event>()
@@ -34,38 +40,38 @@ class EventDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
     private fun getEvent() {
         _eventResponse.postValue(UiState.Loading)
         disposeSingle(
-            marvelRepository.getEvent(eventArgs.eventId),
+            marvelRepositoryImp.getEventDetails(eventArgs.eventId),
             ::onGetEventSuccess,
             ::onGetEventFailure
         )
 
     }
 
-    private fun onGetEventSuccess(uiState: UiState<DataResponse<Event>>) {
+    private fun onGetEventSuccess(uiState: UiState<List<Event>>) {
         _eventResponse.value = uiState
         uiState.toData()?.let {
-            _event.value = it.results?.get(0)
+            _event.value = it[0]
         }
-        _isFavorite.value = marvelRepository.isFavorite(event.value?.id.toString())
+        _isFavorite.value = marvelRepositoryImp.isFavorite(event.value?.id.toString())
     }
 
     private fun onGetEventFailure(throwable: Throwable) {
         _eventResponse.value = UiState.Error(throwable.message.toString())
     }
 
-    fun onFavClicked(){
+    fun onFavClicked() {
         val favoriteItem = FavoriteItem(
             _event.value?.id.toString(),
             _event.value?.title.toString(),
-            _event.value?.thumbnail?.path.toString(),
+            _event.value?.imageUrl.toString(),
             FavoriteItem.Type.EVENT
         )
 
-        if(isFavorite.value == true) {
-            marvelRepository.removeFavorite(favoriteItem)
+        if (isFavorite.value == true) {
+            marvelRepositoryImp.removeFavorite(favoriteItem)
             _isFavorite.postValue(false)
         } else {
-            marvelRepository.addToFavorite(favoriteItem)
+            marvelRepositoryImp.addToFavorite(favoriteItem)
             _isFavorite.postValue(true)
         }
     }

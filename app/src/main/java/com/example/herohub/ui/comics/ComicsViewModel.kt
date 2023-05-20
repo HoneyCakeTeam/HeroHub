@@ -3,18 +3,20 @@ package com.example.herohub.ui.comics
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.remote.model.Comic
-import com.example.herohub.data.remote.model.DataResponse
+import com.example.herohub.domain.model.Comic
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
+@HiltViewModel
+class ComicsViewModel @Inject constructor(private val marvelRepositoryImp: MarvelRepository) :
+    BaseViewModel(), ComicInteractionListener {
     override val TAG: String = this::class.java.simpleName
-    private val marvelRepository = MarvelRepository()
 
-    private val _comics = MutableLiveData<UiState<DataResponse<Comic>>>()
-    val comics: LiveData<UiState<DataResponse<Comic>>>
+    private val _comics = MutableLiveData<UiState<List<Comic>>>()
+    val comics: LiveData<UiState<List<Comic>>>
         get() = _comics
 
     private val _comicClick = MutableLiveData<EventHandler<Int>>()
@@ -27,10 +29,10 @@ class ComicsViewModel : BaseViewModel(), ComicInteractionListener {
 
     private fun getAllComics() {
         _comics.postValue(UiState.Loading)
-        disposeSingle(marvelRepository.getAllComics(), ::onGetComicSuccess, ::onError)
+       disposeSingle(marvelRepositoryImp.getAllComics(), ::onGetComicSuccess, ::onError)
     }
 
-    private fun onGetComicSuccess(state: UiState<DataResponse<Comic>>) {
+    private fun onGetComicSuccess(state: UiState<List<Comic>>) {
         _comics.postValue(state)
     }
 

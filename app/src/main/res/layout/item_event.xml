@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.herohub.data.remote.model.Event" />
+            type="com.example.herohub.domain.model.Event" />
 
         <variable
             name="listener"
@@ -24,7 +24,7 @@
             android:background="@color/md_theme_dark_tertiaryContainer"
             android:scaleType="centerCrop"
             android:onClick="@{()->listener.onClickEvent(item.id)}"
-            app:imageUrl="@{item.thumbnail.path}"
+            app:imageUrl="@{item.imageUrl}"
             app:shapeAppearanceOverlay="@style/CardRadius"
             tools:background="@drawable/spiderman"
             />

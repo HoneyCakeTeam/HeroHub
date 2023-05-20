@@ -6,7 +6,9 @@ import com.example.herohub.R
 import com.example.herohub.databinding.FragmentSeriesBinding
 import com.example.herohub.ui.base.BaseFragment
 import com.example.herohub.ui.utils.EventObserve
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SeriesFragment : BaseFragment<FragmentSeriesBinding>() {
     override val TAG: String = this::class.java.simpleName
     override val layoutIdFragment: Int = R.layout.fragment_series
