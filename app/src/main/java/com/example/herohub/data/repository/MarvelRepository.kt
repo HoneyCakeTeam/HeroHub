@@ -7,6 +7,7 @@ import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
@@ -31,7 +32,7 @@ interface MarvelRepository {
         stringFavorites: String?,
     ): MutableList<FavoriteItem>?
 
-    fun saveSearchKeyword(keyword: String):Completable
+    fun saveSearchKeyword(keyword: String): Completable
 
     //endregion
     //region remote db
