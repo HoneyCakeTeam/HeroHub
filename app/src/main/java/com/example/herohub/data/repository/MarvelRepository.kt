@@ -1,6 +1,5 @@
 package com.example.herohub.data.repository
 
-import com.example.herohub.data.local.SearchHistoryEntity
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -39,9 +38,7 @@ interface MarvelRepository {
     //region remote db
     fun getAllCharacters(): Single<UiState<List<Character>>>
 
-    fun getCharactersByName(
-        name: String,
-    ): Single<UiState<List<Character>>>
+    fun getCharactersByName(name: String): Single<UiState<List<Character>>>
 
     fun getAllSeries(): Single<UiState<List<Series>>>
 

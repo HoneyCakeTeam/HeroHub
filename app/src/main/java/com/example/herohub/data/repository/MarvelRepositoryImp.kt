@@ -5,11 +5,7 @@ import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.remote.MarvelService
 import com.example.herohub.data.remote.model.BaseResponse
 import com.example.herohub.data.utils.SharedPreferencesUtils
-import com.example.herohub.domain.mapper.CharacterMapper
-import com.example.herohub.domain.mapper.ComicMapper
-import com.example.herohub.domain.mapper.EventMapper
 import com.example.herohub.domain.mapper.MapperContainer
-import com.example.herohub.domain.mapper.SeriesMapper
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -26,9 +22,10 @@ import javax.inject.Inject
 class MarvelRepositoryImp @Inject constructor(
     private val mapperContainer: MapperContainer,
     private val api: MarvelService,
-    private val dao: MarvelDao
+    private val dao: MarvelDao,
 ) : MarvelRepository {
 
+    // private val dao = MarvelDataBase.getInstance().marvelDao()
     private val sharedPreferences = SharedPreferencesUtils
     override fun addToFavorite(favorite: FavoriteItem) {
         val gson = Gson()
@@ -75,25 +72,20 @@ class MarvelRepositoryImp @Inject constructor(
     ): String = gson.toJson(favorites)
 
     override fun convertToList(
-        gson: Gson,
-        stringFavorites: String?,
+        gson: Gson, stringFavorites: String?,
     ): MutableList<FavoriteItem>? = gson.fromJson(
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
 
     override fun saveSearchKeyword(keyword: String): Completable {
-       return dao.insertSearchKeyword(
-           SearchHistoryEntity(name = keyword)
-       )
+        return dao.insertSearchKeyword(SearchHistoryEntity(name = keyword))
     }
 
-
-    override fun getCharactersByName(
-        name: String,
-    ): Single<UiState<List<Character>>> =
-        wrapWithState(
+    override fun getCharactersByName(name: String): Single<UiState<List<Character>>> {
+        return wrapWithState(
             { api.getCharactersByName(name) },
             { mapperContainer.characterMapper.map(it) })
+    }
 
     override fun getAllSeries(): Single<UiState<List<Series>>> =
         wrapWithState({ api.getAllSeries(100) }, { mapperContainer.seriesMapper.map(it) })
