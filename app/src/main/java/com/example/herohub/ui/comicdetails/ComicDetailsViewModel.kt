@@ -9,8 +9,9 @@ import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
+@HiltViewModel
 class ComicDetailsViewModel @Inject constructor(
     private val marvelRepositoryImp:MarvelRepository,
     state: SavedStateHandle
@@ -37,7 +38,7 @@ class ComicDetailsViewModel @Inject constructor(
 
     private fun getComic() {
         disposeSingle(
-            marvelRepositoryImp.getComic(comicArgs.comicId),
+            marvelRepositoryImp.getComicDetails(comicArgs.comicId),
             ::onGetComicSuccess,
             ::onGetComicFailure
         )

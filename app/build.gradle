@@ -25,6 +25,12 @@ android {
         buildConfigField("String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {

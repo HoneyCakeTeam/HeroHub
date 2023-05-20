@@ -3,14 +3,13 @@ package com.example.herohub.ui.character
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
+
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
     private val marvelRepositoryImp: MarvelRepository

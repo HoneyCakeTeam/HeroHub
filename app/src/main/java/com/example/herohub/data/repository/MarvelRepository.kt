@@ -8,6 +8,7 @@ import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 interface MarvelRepository {
@@ -36,12 +37,22 @@ interface MarvelRepository {
     //endregion
 
     //region remote db
-    fun getAllCharacters(): Single<UiState<List<Character>>>
+    fun getAllCharacters(): Single<UiState<List<Character>>>// 4 see all
 
-    fun getCharactersByName(name: String): Single<UiState<List<Character>>>
-
-    fun getAllSeries(): Single<UiState<List<Series>>>
-
+    fun getAllCharactersFromDB(): Observable<List<Character>>
+    fun refreshCharacters()
+    fun refreshComics()
+    fun refreshEvents()
+    fun refreshSeries()
+    fun refreshSlider()
+    fun getEventDetails(eventId: Int): Single<UiState<List<Event>>>
+    fun getAllSeries(): Single<UiState<List<Series>>>// 4 see all
+    fun getAllSeriesFromDB(): Observable<List<Series>>
+    fun getAllComics(): Single<UiState<List<Comic>>>// 4 see all
+    fun getAllComicsFromDB(): Observable<List<Comic>>
+    fun getAllEvents(): Single<UiState<List<Event>>>// 4 see all
+    fun getAllEventsFromDB(): Observable<List<Event>>
+    fun getComicDetails(comicId: Int): Single<UiState<List<Comic>>>
     fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>>
 
     fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>>
@@ -52,13 +63,10 @@ interface MarvelRepository {
 
     fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>>
 
-    fun getEvent(eventId: Int): Single<UiState<List<Event>>>
+    fun getCharactersByName(
+        name: String,
+    ): Single<UiState<List<Character>>>
 
-    fun getAllComics(): Single<UiState<List<Comic>>>
-
-    fun getAllEvents(): Single<UiState<List<Event>>>
-
-    fun getComic(comicId: Int): Single<UiState<List<Comic>>>
 
     //endregion
 }

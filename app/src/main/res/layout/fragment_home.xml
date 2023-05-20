@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="item"
-            type="com.example.herohub.domain.model.Series" />
-
         <variable
             name="viewModel"
             type="com.example.herohub.ui.home.HomeViewModel" />
@@ -32,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenSuccess="@{viewModel.characterResponse}" />
+           />
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="100dp"
@@ -42,9 +37,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
+            android:visibility="gone"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_circle_red"
-            app:showWhenLoading="@{viewModel.characterResponse}" />
+            app:lottie_rawRes="@raw/loading_circle_red" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -55,7 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenError="@{viewModel.characterResponse}" />
+            android:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

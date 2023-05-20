@@ -1,10 +1,11 @@
 package com.example.herohub.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -16,7 +17,6 @@ import com.example.herohub.ui.home.adapter.MostPopularSeriesInteractionListener
 import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
-import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -41,20 +41,19 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     private val _homeItems = mutableListOf<HomeItem>()
 
     private val _characterResponse =
-        MutableLiveData<UiState<List<Character>>>()
-    val characterResponse: LiveData<UiState<List<Character>>>
+        MutableLiveData<List<Character>>()
+    val characterResponse: LiveData<List<Character>>
         get() = _characterResponse
 
     private val _homeUiEvent = MutableLiveData<EventHandler<HomeUiEvent?>>(EventHandler(null))
     val homeUIEvent: LiveData<EventHandler<HomeUiEvent?>>
         get() = _homeUiEvent
 
-    private val _seriesResponse = MutableLiveData<UiState<List<Series>>>()
+    private val _seriesResponse = MutableLiveData<List<Series>>()
 
-    private val _eventResponse = MutableLiveData<UiState<List<Event>>>()
+    private val _eventResponse = MutableLiveData<List<Event>>()
 
-
-    private val _comicsResponse = MutableLiveData<UiState<List<Comic>>>()
+    private val _comicsResponse = MutableLiveData<List<Comic>>()
 
     private val _homeItemsLiveData = MutableLiveData<List<HomeItem>>()
     val homeItemsLiveData: LiveData<List<HomeItem>>
@@ -65,128 +64,170 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     }
 
     private fun getHomeData() {
-        getSliderItems()
-        getAllCharacters()
-        getMostPopularSeries()
-        getAllEvents()
-        getAllComics()
+
+        refreshSlider()
+        refreshCharacters()
+        refreshComics()
+        refreshEvents()
+        refreshSeries()
+
+        getSliderFromDB()
+        getCharactersFromDB()
+        getSeriesFromDB()
+        getComicsFromDB()
+        getEventsFromDB()
+
+
     }
 
-    private fun getAllCharacters() {
-        _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepositoryImp.getAllCharacters(),
-            ::onGetCharacterSuccess,
-            ::onError
+    private fun refreshCharacters() {
+        marvelRepositoryImp.refreshCharacters()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getCharactersFromDB() {
+        disposeObservable(
+            marvelRepositoryImp.getAllCharactersFromDB(),
+            this::onGetCharacterSuccess,
+            this::onError
         )
     }
 
-    private fun getSliderItems() {
-        _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepositoryImp.getAllEvents(),
-            ::onGetSliderItemsSuccess,
-            ::onError
+    @SuppressLint("CheckResult")
+    private fun onGetCharacterSuccess(state: List<Character>) {
+        _characterResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.SuperHeroes(state)
+            )
         )
-    }
-
-    private fun getMostPopularSeries() {
-        _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepositoryImp.getAllSeries(),
-            ::onGetMostPopularSeriesSuccess,
-            ::onError
-        )
-    }
-
-    private fun getAllEvents() {
-        _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepositoryImp.getAllEvents(),
-            ::onGetEventSuccess,
-            ::onError
-        )
-    }
-
-    private fun getAllComics() {
-        _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepositoryImp.getAllComics(),
-            ::onGetComicsSuccess,
-            ::onError
-        )
-    }
-
-    private fun onGetComicsSuccess(UiState: UiState<List<Comic>>) {
-        _comicsResponse.value = UiState
-        val comic = _comicsResponse.value?.toData()
-        val mostPopularComics = comic
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
-            ?.take(20)
-        _homeItems.add(
-            (HomeItem.MostPopularComics(mostPopularComics!!))
-        )
+        _homeItems.addAll(listOf(HomeItem.SuperHeroes(state)))
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetCharacterSuccess(UiState: UiState<List<Character>>) {
-        _characterResponse.value = UiState
+    private fun refreshSeries() {
+        marvelRepositoryImp.refreshSeries()
+    }
 
-        val character = _characterResponse.value?.toData()
+    @SuppressLint("CheckResult")
+    private fun getSeriesFromDB() {
+        disposeObservable(
+            marvelRepositoryImp.getAllSeriesFromDB(),
+            this::onGetSeriesSuccess,
+            this::onError
+        )
 
-        val superHeroes = character
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
-            ?.take(15)
+    }
 
+    @SuppressLint("CheckResult")
+    private fun onGetSeriesSuccess(state: List<Series>) {
+        _seriesResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.MostPopularSeries(state)
+            )
+        )
+        _homeItems.addAll(listOf(HomeItem.MostPopularSeries(state)))
+        _homeItemsLiveData.postValue(_homeItems)
+    }
+
+    private fun refreshComics() {
+        marvelRepositoryImp.refreshComics()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getComicsFromDB() {
+        disposeObservable(
+            marvelRepositoryImp.getAllComicsFromDB(),
+            this::onGetComicsSuccess,
+            this::onError
+        )
+
+    }
+
+    @SuppressLint("CheckResult")
+    private fun onGetComicsSuccess(state: List<Comic>) {
+        _comicsResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.MostPopularComics(state)
+            )
+        )
         _homeItems.addAll(
             listOf(
-                HomeItem.SuperHeroes(superHeroes!!)
+                HomeItem.MostPopularComics(state)
             )
         )
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetSliderItemsSuccess(UiState: UiState<List<Event>>) {
-        _eventResponse.value = UiState
-        val images = _eventResponse.value?.toData()
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
-            ?.shuffled()
-            ?.take(10)
-        _homeItems.add(
-            HomeItem.Slider(images ?: emptyList())
+    private fun refreshEvents() {
+        marvelRepositoryImp.refreshEvents()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getEventsFromDB() {
+        disposeObservable(
+            marvelRepositoryImp.getAllEventsFromDB(),
+            this::onGetEventsSuccess,
+            this::onError
+        )
+
+    }
+
+    @SuppressLint("CheckResult")
+    private fun onGetEventsSuccess(state: List<Event>) {
+        _eventResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.MostPopularEvents(state)
+            )
+        )
+        _homeItems.addAll(
+            listOf(
+                HomeItem.MostPopularEvents(state)
+            )
         )
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetMostPopularSeriesSuccess(UiState: UiState<List<Series>>) {
-        _seriesResponse.value = UiState
-        val series = _seriesResponse.value?.toData()
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
-            ?.take(10)
-        _homeItems.add(
-            HomeItem.MostPopularSeries(series!!)
-        )
-        _homeItemsLiveData.postValue(_homeItems)
+    private fun refreshSlider() {
+        marvelRepositoryImp.refreshSlider()
     }
 
-    private fun onGetEventSuccess(uiState: UiState<List<Event>>) {
-        _eventResponse.value = uiState
-        val events = _eventResponse.value?.toData()
-            ?.filterNot { it.imageUrl.contains("event_not_found") }
-            ?.shuffled()
-            ?.take(10)
+    @SuppressLint("CheckResult")
+    private fun getSliderFromDB() {
+        disposeObservable(
+            marvelRepositoryImp.getAllEventsFromDB(),
+            this::onGetSliderSuccess,
+            this::onError
+        )
 
-        _homeItems.add(
-            HomeItem.MostPopularEvents(events ?: emptyList())
+    }
+
+    @SuppressLint("CheckResult")
+    private fun onGetSliderSuccess(state: List<Event>) {
+        _eventResponse.postValue(state)
+        _homeItems.removeAll(
+            listOf(
+                HomeItem.Slider(state)
+            )
+        )
+        _homeItems.addAll(
+            listOf(
+                HomeItem.Slider(state)
+            )
         )
         _homeItemsLiveData.postValue(_homeItems)
     }
 
     private fun onError(throwable: Throwable) {
-        _characterResponse.postValue(UiState.Error(throwable.message.toString()))
-        _seriesResponse.postValue(UiState.Error(throwable.message.toString()))
-        _eventResponse.postValue(UiState.Error(throwable.message.toString()))
-        _comicsResponse.postValue(UiState.Error(throwable.message.toString()))
+        Log.e("TAG", "onError: ${throwable.message.toString()}")
+
+//        _characterResponse.postValue(emptyList())
+//        _seriesResponse.postValue(emptyList())
+//        _eventResponse.postValue(emptyList())
+//        _comicsResponse.postValue(emptyList())
     }
 
     override fun onMostPopularSeriesItemClick(id: Int) {
