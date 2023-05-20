@@ -29,7 +29,9 @@ class EventsViewModel @Inject constructor(
 
     private fun getAllEvents() {
         _events.postValue(UiState.Loading)
+/*
         disposeSingle(marvelRepositoryImp.getAllEvents(), ::onGetEventsSuccess, ::onError)
+*/
     }
 
     private fun onGetEventsSuccess(state: UiState<List<Event>>) {

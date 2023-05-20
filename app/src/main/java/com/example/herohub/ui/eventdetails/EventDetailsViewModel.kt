@@ -39,11 +39,11 @@ class EventDetailsViewModel @Inject constructor(
 
     private fun getEvent() {
         _eventResponse.postValue(UiState.Loading)
-        disposeSingle(
+       /* disposeSingle(
             marvelRepositoryImp.getEvent(eventArgs.eventId),
             ::onGetEventSuccess,
             ::onGetEventFailure
-        )
+        )*/
 
     }
 

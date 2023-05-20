@@ -1,8 +1,10 @@
 package com.example.herohub.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.herohub.data.local.CharacterEntity
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
@@ -18,6 +20,8 @@ import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,9 +45,13 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     private val _homeItems = mutableListOf<HomeItem>()
 
     private val _characterResponse =
-        MutableLiveData<UiState<List<Character>>>()
-    val characterResponse: LiveData<UiState<List<Character>>>
+        MutableLiveData<UiState<List<CharacterEntity>>>()
+    val characterResponse: LiveData<UiState<List<CharacterEntity>>>
         get() = _characterResponse
+
+    private val _naserCharacter = MutableLiveData<List<Character>>()
+    val naserCharacter: LiveData<List<Character>>
+        get() = _naserCharacter
 
     private val _homeUiEvent = MutableLiveData<EventHandler<HomeUiEvent?>>(EventHandler(null))
     val homeUIEvent: LiveData<EventHandler<HomeUiEvent?>>
@@ -66,28 +74,64 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
 
     private fun getHomeData() {
         getSliderItems()
-        getAllCharacters()
+        /*getAllCharacters()*/
+        refreshCharacters()
         getMostPopularSeries()
         getAllEvents()
         getAllComics()
     }
 
-    private fun getAllCharacters() {
+/*    private fun getAllCharacters() {
         _characterResponse.postValue(UiState.Loading)
         disposeSingle(
             marvelRepositoryImp.getAllCharacters(),
             ::onGetCharacterSuccess,
             ::onError
         )
+    }*/
+    private fun refreshCharacters() {
+        _characterResponse.postValue(UiState.Loading)
+        disposeSingle(marvelRepositoryImp.refreshCharacters(), ::onGetCharacterSuccessD, ::onError)
     }
 
+    @SuppressLint("CheckResult")
+    private fun onGetCharacterSuccessD(state: UiState<List<CharacterEntity>>) {
+        _characterResponse.value = state
+
+       //disposeSingle(marvelRepositoryImp.getAllCharactersDb())
+       marvelRepositoryImp.getAllCharactersDb().subscribeOn(Schedulers.io())
+           .observeOn(AndroidSchedulers.mainThread())
+           .subscribe { character ->
+               _naserCharacter.postValue(character)
+               _homeItems.addAll(
+                   listOf(
+                       HomeItem.SuperHeroes(character)
+                   )
+               )
+               _homeItemsLiveData.postValue(_homeItems)
+           }
+
+    }
+/*    private fun onGetCharacterSuccess(UiState: UiState<List<CharacterEntity>>) {
+        _characterResponse.value = UiState
+        val character = _characterResponse.value?.toData()
+        val superHeroes = character
+            ?.filterNot { it.imageUrl.contains("image_not_available") }
+            ?.take(15)
+        _homeItems.addAll(
+            listOf(
+                HomeItem.SuperHeroes(marvelRepositoryImp.getAllCharactersDb())
+            )
+        )
+        _homeItemsLiveData.postValue(_homeItems)
+    }*/
     private fun getSliderItems() {
         _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
+/*        disposeSingle(
             marvelRepositoryImp.getAllEvents(),
             ::onGetSliderItemsSuccess,
             ::onError
-        )
+        )*/
     }
 
     private fun getMostPopularSeries() {
@@ -101,20 +145,20 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
 
     private fun getAllEvents() {
         _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
+/*        disposeSingle(
             marvelRepositoryImp.getAllEvents(),
             ::onGetEventSuccess,
             ::onError
-        )
+        )*/
     }
 
     private fun getAllComics() {
         _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
+/*        disposeSingle(
             marvelRepositoryImp.getAllComics(),
             ::onGetComicsSuccess,
             ::onError
-        )
+        )*/
     }
 
     private fun onGetComicsSuccess(UiState: UiState<List<Comic>>) {
@@ -129,22 +173,7 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun onGetCharacterSuccess(UiState: UiState<List<Character>>) {
-        _characterResponse.value = UiState
 
-        val character = _characterResponse.value?.toData()
-
-        val superHeroes = character
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
-            ?.take(15)
-
-        _homeItems.addAll(
-            listOf(
-                HomeItem.SuperHeroes(superHeroes!!)
-            )
-        )
-        _homeItemsLiveData.postValue(_homeItems)
-    }
 
     private fun onGetSliderItemsSuccess(UiState: UiState<List<Event>>) {
         _eventResponse.value = UiState

@@ -34,7 +34,9 @@ interface MarvelRepository {
     //endregion
 
     //region remote db
-    fun getAllCharacters(): List<Character>
+    fun getAllCharacters(): Single<UiState<List<Character>>>
+
+    fun getAllCharactersDb(): Single<List<Character>>
     fun refreshCharacters():Single<UiState<List<CharacterEntity>>>
 
     fun getEventDetails(eventId: Int): Single<UiState<List<Event>>>

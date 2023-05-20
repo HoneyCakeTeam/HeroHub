@@ -20,7 +20,7 @@
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:padding="@dimen/spacing_simi_medium"
-            app:items="@{viewModel.naserCharacter}"
+            app:items="@{viewModel.characters.toData()}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

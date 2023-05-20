@@ -137,8 +137,10 @@ class MarvelRepositoryImp @Inject constructor(
     override fun getAllEvents(): Single<List<Event>> =
         dao.getAllEvents().map { entityToDomainContainer.eventMapper.map(it) }
 
-    override fun getAllCharacters(): List<Character> =
-        dao.getAllCharacters().let { entityToDomainContainer.characterMapper.map(it) }
+    override fun getAllCharacters(): Single<UiState<List<Character>>> =
+        wrapWithState({ api.getAllCharacters(100) }, {dtoToDomainContainer.characterDtoToCharacter.map(it)})
+    override fun getAllCharactersDb(): Single<List<Character>> =
+        dao.getAllCharacters().map { entityToDomainContainer.characterMapper.map(it) }
 
     /*    @SuppressLint("CheckResult")
         override fun refreshCharacters() {

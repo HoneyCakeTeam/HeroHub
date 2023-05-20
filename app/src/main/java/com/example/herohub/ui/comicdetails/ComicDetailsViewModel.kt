@@ -36,11 +36,11 @@ class ComicDetailsViewModel @Inject constructor(
     }
 
     private fun getComic() {
-        disposeSingle(
+/*        disposeSingle(
             marvelRepositoryImp.getComic(comicArgs.comicId),
             ::onGetComicSuccess,
             ::onGetComicFailure
-        )
+        )*/
     }
 
     private fun onGetComicSuccess(state: UiState<List<Comic>>) {

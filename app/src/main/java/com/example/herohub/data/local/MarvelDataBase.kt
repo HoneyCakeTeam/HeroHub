@@ -13,9 +13,9 @@ import com.example.herohub.data.local.dao.MarvelDao
         ComicEntity::class,
         CharacterEntity::class
     ],
-    version = 2,
-    exportSchema = true,
-    autoMigrations = [AutoMigration(from = 1, to = 2)]
+    version = 1,
+  //  exportSchema = true,
+  //  autoMigrations = [AutoMigration(from = 1, to = 2)]
 )
 abstract class MarvelDataBase : RoomDatabase() {
     abstract fun marvelDao(): MarvelDao
