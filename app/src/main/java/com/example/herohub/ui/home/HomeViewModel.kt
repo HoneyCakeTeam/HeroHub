@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.local.CharacterEntity
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -70,68 +69,50 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
 
     init {
         getHomeData()
+
+
     }
 
     private fun getHomeData() {
-        getSliderItems()
-        /*getAllCharacters()*/
+
         refreshCharacters()
-        getMostPopularSeries()
-        getAllEvents()
-        getAllComics()
+        getCharactersFromDB()
+
     }
 
-/*    private fun getAllCharacters() {
-        _characterResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepositoryImp.getAllCharacters(),
-            ::onGetCharacterSuccess,
-            ::onError
-        )
-    }*/
     private fun refreshCharacters() {
-        _characterResponse.postValue(UiState.Loading)
-        disposeSingle(marvelRepositoryImp.refreshCharacters(), ::onGetCharacterSuccessD, ::onError)
+        disposeSingle(marvelRepositoryImp.refreshCharacters(), ::onGetCharacterSuccess, ::onError)
     }
 
     @SuppressLint("CheckResult")
-    private fun onGetCharacterSuccessD(state: UiState<List<CharacterEntity>>) {
-        _characterResponse.value = state
-
-       //disposeSingle(marvelRepositoryImp.getAllCharactersDb())
-       marvelRepositoryImp.getAllCharactersDb().subscribeOn(Schedulers.io())
-           .observeOn(AndroidSchedulers.mainThread())
-           .subscribe { character ->
-               _naserCharacter.postValue(character)
-               _homeItems.addAll(
-                   listOf(
-                       HomeItem.SuperHeroes(character)
-                   )
-               )
-               _homeItemsLiveData.postValue(_homeItems)
-           }
+    private fun onGetCharacterSuccess(state: UiState<List<CharacterEntity>>) {
+        _characterResponse.postValue(state)
 
     }
-/*    private fun onGetCharacterSuccess(UiState: UiState<List<CharacterEntity>>) {
-        _characterResponse.value = UiState
-        val character = _characterResponse.value?.toData()
-        val superHeroes = character
-            ?.filterNot { it.imageUrl.contains("image_not_available") }
-            ?.take(15)
-        _homeItems.addAll(
-            listOf(
-                HomeItem.SuperHeroes(marvelRepositoryImp.getAllCharactersDb())
-            )
-        )
-        _homeItemsLiveData.postValue(_homeItems)
-    }*/
+
+    @SuppressLint("CheckResult")
+    private fun getCharactersFromDB() {
+        marvelRepositoryImp.getAllCharactersFromDB().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { character ->
+                _naserCharacter.postValue(character)
+                _homeItems.addAll(
+                    listOf(
+                        HomeItem.SuperHeroes(character)
+                    )
+                )
+            }
+
+    }
+
+
     private fun getSliderItems() {
         _characterResponse.postValue(UiState.Loading)
-/*        disposeSingle(
+        disposeSingle(
             marvelRepositoryImp.getAllEvents(),
             ::onGetSliderItemsSuccess,
             ::onError
-        )*/
+        )
     }
 
     private fun getMostPopularSeries() {
@@ -145,20 +126,20 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
 
     private fun getAllEvents() {
         _characterResponse.postValue(UiState.Loading)
-/*        disposeSingle(
+        disposeSingle(
             marvelRepositoryImp.getAllEvents(),
             ::onGetEventSuccess,
             ::onError
-        )*/
+        )
     }
 
     private fun getAllComics() {
         _characterResponse.postValue(UiState.Loading)
-/*        disposeSingle(
+        disposeSingle(
             marvelRepositoryImp.getAllComics(),
             ::onGetComicsSuccess,
             ::onError
-        )*/
+        )
     }
 
     private fun onGetComicsSuccess(UiState: UiState<List<Comic>>) {

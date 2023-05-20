@@ -12,7 +12,7 @@ interface MarvelDao {
     fun insertAllCharacters(characters: List<CharacterEntity>): Completable
 
     @Query("SELECT * FROM CHARACTER_TABLE")
-    fun getAllCharacters(): Single<List<CharacterEntity>>
+    fun getAllCharacters(): Observable<List<CharacterEntity>>
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE title LIKE :query")
     fun getCharactersByName(query: String): Observable<List<CharacterEntity>>
@@ -23,7 +23,7 @@ interface MarvelDao {
     fun insertAllComics(Comics: List<ComicEntity>): Completable
 
     @Query("SELECT * FROM COMIC_TABLE")
-    fun getAllComics(): Single<List<ComicEntity>>
+    fun getAllComics(): Observable<List<ComicEntity>>
     // endregion
 
     // region Events
@@ -31,7 +31,7 @@ interface MarvelDao {
     fun insertAllEvents(Events: List<EventEntity>): Completable
 
     @Query("SELECT * FROM EVENT_TABLE")
-    fun getAllEvents(): Single<List<EventEntity>>
+    fun getAllEvents(): Observable<List<EventEntity>>
     // endregion
 
     // region Favorite
@@ -50,6 +50,6 @@ interface MarvelDao {
     fun insertAllSeries(Series: List<SeriesEntity>): Completable
 
     @Query("SELECT * FROM SERIES_TABLE")
-    fun getAllSeries(): Single<List<SeriesEntity>>
+    fun getAllSeries(): Observable<List<SeriesEntity>>
     // endregion
 }

@@ -5,9 +5,7 @@
 
     <data>
 
-        <variable
-            name="item"
-            type="com.example.herohub.domain.model.Series" />
+        <import type="com.example.herohub.ui.home.HomeViewModel" />
 
         <variable
             name="viewModel"
