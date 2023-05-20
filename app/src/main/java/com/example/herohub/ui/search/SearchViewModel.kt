@@ -1,16 +1,17 @@
 package com.example.herohub.ui.search
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val marvelRepositoryImp: MarvelRepository
+    private val marvelRepositoryImp: MarvelRepository,
 ) : BaseViewModel(), SearchInteractionListener {
     override val TAG: String = this::class.java.simpleName.toString()
 
@@ -59,6 +60,13 @@ class SearchViewModel @Inject constructor(
         )
     }
 
+    fun saveSearchHistory(keyword: String) {
+        marvelRepositoryImp.saveSearchKeyword(keyword)
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+        Log.e("TAG", "saveSearchHistory: $keyword")
+    }
+
     private fun onGetCharacterSuccess(uiState: UiState<List<Character>>) {
         log(uiState.toData().toString())
         _response.value = uiState
@@ -69,6 +77,7 @@ class SearchViewModel @Inject constructor(
         _response.postValue(UiState.Error(throwable.message.toString()))
         searchResult.postValue(emptyList())
     }
+
 
     override fun <T> onClickItem(item: T) {
         _eventClick.postValue(EventHandler(item as Character))

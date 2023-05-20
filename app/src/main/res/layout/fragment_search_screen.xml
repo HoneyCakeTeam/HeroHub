@@ -27,6 +27,9 @@
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/spacing_small"
             android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:singleLine="true"
             android:paddingHorizontal="@dimen/spacing_small"
             android:text="@={viewModel.searchQuery}"
             app:layout_constraintTop_toTopOf="parent" />
