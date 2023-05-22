@@ -256,11 +256,11 @@ class MarvelRepositoryImp @Inject constructor(
     //endregion
     private fun <I, O> wrapWithState(
         function: () -> Single<Response<BaseResponse<I>>>,
-        azizaMap: (List<I>) -> O,
+        map: (List<I>) -> O,
     ): Single<UiState<O>> {
         return function().map {
             if (it.isSuccessful) {
-                UiState.Success(azizaMap(it.body()?.data?.results ?: emptyList()))
+                UiState.Success(map(it.body()?.data?.results ?: emptyList()))
             } else {
                 UiState.Error(it.message())
             }

@@ -8,7 +8,6 @@ import com.example.herohub.domain.model.SearchHistory
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
@@ -37,16 +36,16 @@ interface MarvelRepository {
     fun getSearchHistory(): Observable<List<SearchHistory>>
 
     //endregion
-
     //region remote db
-    fun getAllCharacters(): Single<UiState<List<Character>>>// 4 see all
-
-    fun getAllCharactersFromDB(): Observable<List<Character>>
     fun refreshCharacters()
     fun refreshComics()
     fun refreshEvents()
     fun refreshSeries()
     fun refreshSlider()
+    fun getAllCharacters(): Single<UiState<List<Character>>>// 4 see all
+
+    fun getAllCharactersFromDB(): Observable<List<Character>>
+
     fun getEventDetails(eventId: Int): Single<UiState<List<Event>>>
     fun getAllSeries(): Single<UiState<List<Series>>>// 4 see all
     fun getAllSeriesFromDB(): Observable<List<Series>>
