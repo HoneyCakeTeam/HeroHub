@@ -7,4 +7,5 @@ data class EntityToDomainContainer @Inject constructor(
     val comicMapper: ComicEntityToComic,
     val eventMapper: EventEntityToEvent,
     val seriesMapper: SeriesEntityToSeries,
+    val searchHistoryMapper: SearchHistoryMapper,
 )
