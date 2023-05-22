@@ -35,6 +35,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_history"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="@dimen/spacing_tiny"
+            android:fitsSystemWindows="true"
+            android:visibility="visible"
+            app:items="@{viewModel.searchHistory}"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_bar"
+            app:spanCount="4"
+            tools:listitem="@layout/item_search_history" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_result"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -42,12 +61,13 @@
             android:layout_marginTop="@dimen/spacing_small"
             android:clipToPadding="false"
             android:visibility="visible"
+            android:elevation="@dimen/spacing_tiny"
             app:items="@{viewModel.searchResult}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar"
+            app:layout_constraintTop_toBottomOf="@id/rv_search_history"
             app:showWhenSuccess="@{viewModel.response}"
             app:spanCount="2"
             tools:listitem="@layout/item_search" />
@@ -56,6 +76,7 @@
             android:id="@+id/image_search"
             android:layout_width="300dp"
             android:layout_height="400dp"
+            android:alpha="0.4"
             android:background="@drawable/search3"
             app:hideWhenNotFound="@{viewModel.searchResult}"
             app:hideWhenSearch="@{viewModel.searchQuery}"

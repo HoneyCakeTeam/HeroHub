@@ -14,6 +14,7 @@ import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
+import com.example.herohub.domain.model.SearchHistory
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
@@ -85,8 +86,12 @@ class MarvelRepositoryImp @Inject constructor(
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
 
-    override fun saveSearchKeyword(keyword: String): Completable {
-        return dao.insertSearchKeyword(SearchHistoryEntity(name = keyword))
+    override fun saveSearchKeyword(keyword: String, id: Long): Completable {
+        return dao.insertSearchKeyword(SearchHistoryEntity(name = keyword, id = id))
+    }
+
+    override fun getSearchHistory(): Observable<List<SearchHistory>> {
+        return dao.getSearchHistory().map { entityToDomainContainer.searchHistoryMapper.map(it) }
     }
 
     override fun getCharactersByName(

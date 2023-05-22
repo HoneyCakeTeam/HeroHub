@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.herohub.domain.model.SearchHistory" />
+
+        <variable
+            name="listener"
+            type="com.example.herohub.ui.search.SearchHistoryInteractionListener" />
+    </data>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/text_search_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_small"
+        android:clickable="true"
+        android:onClick="@{() -> listener.onClickItemHistory(item.name)}"
+        android:text="@{item.name}"
+        android:textAlignment="center"
+        android:textColor="?attr/colorOnSurface"
+        tools:text="3-D MAN" />
+
+</layout>

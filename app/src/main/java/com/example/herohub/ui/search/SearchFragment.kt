@@ -16,9 +16,11 @@ class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
     override val layoutIdFragment = R.layout.fragment_search_screen
     override val viewModel: SearchViewModel by viewModels()
     private val adapter: SearchAdapter by lazy { SearchAdapter(viewModel) }
+    private val searchHistoryAdapter: SearchHistoryAdapter by lazy { SearchHistoryAdapter(viewModel) }
 
     override fun setup() {
         binding.rvSearchResult.adapter = adapter
+        binding.rvSearchHistory.adapter = searchHistoryAdapter
         viewModel.eventClick.observe(this, EventObserve {
             val action =
                 SearchFragmentDirections.actionSearchFragmentToCharactersDetailsFragment(
@@ -30,7 +32,7 @@ class SearchFragment : BaseFragment<FragmentSearchScreenBinding>() {
 
         binding.searchBar.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.saveSearchHistory(viewModel.searchQuery.value.toString())
+                viewModel.saveSearchHistory(viewModel.searchQuery.value.toString(), 0)
                 log(viewModel.searchQuery.value.toString())
                 true
             } else {

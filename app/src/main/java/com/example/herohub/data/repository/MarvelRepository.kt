@@ -4,9 +4,11 @@ import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
+import com.example.herohub.domain.model.SearchHistory
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
@@ -31,7 +33,8 @@ interface MarvelRepository {
         stringFavorites: String?,
     ): MutableList<FavoriteItem>?
 
-    fun saveSearchKeyword(keyword: String):Completable
+    fun saveSearchKeyword(keyword: String, id: Long = 0): Completable
+    fun getSearchHistory(): Observable<List<SearchHistory>>
 
     //endregion
     //region remote db

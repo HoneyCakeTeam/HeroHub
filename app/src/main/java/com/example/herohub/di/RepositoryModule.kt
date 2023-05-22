@@ -18,6 +18,7 @@ import com.example.herohub.domain.mapper.entity_to_domain_mapper.CharacterEntity
 import com.example.herohub.domain.mapper.entity_to_domain_mapper.ComicEntityToComic
 import com.example.herohub.domain.mapper.entity_to_domain_mapper.EntityToDomainContainer
 import com.example.herohub.domain.mapper.entity_to_domain_mapper.EventEntityToEvent
+import com.example.herohub.domain.mapper.entity_to_domain_mapper.SearchHistoryMapper
 import com.example.herohub.domain.mapper.entity_to_domain_mapper.SeriesEntityToSeries
 import dagger.Module
 import dagger.Provides
@@ -64,8 +65,15 @@ object RepositoryModule {
         comicMapper: ComicEntityToComic,
         eventMapper: EventEntityToEvent,
         seriesMapper: SeriesEntityToSeries,
+        searchHistoryMapper: SearchHistoryMapper,
     ): EntityToDomainContainer =
-        EntityToDomainContainer(characterMapper, comicMapper, eventMapper, seriesMapper)
+        EntityToDomainContainer(
+            characterMapper,
+            comicMapper,
+            eventMapper,
+            seriesMapper,
+            searchHistoryMapper
+        )
 
     @Singleton
     @Provides
