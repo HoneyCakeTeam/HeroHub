@@ -28,7 +28,6 @@ class ComicsViewModel @Inject constructor(private val marvelRepositoryImp: Marve
     }
 
     private fun getAllComics() {
-        _comics.postValue(UiState.Loading)
        disposeSingle(marvelRepositoryImp.getAllComics(), ::onGetComicSuccess, ::onError)
     }
 

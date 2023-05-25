@@ -42,7 +42,6 @@ class SearchViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     private fun searchByMediatorLiveData() {
-        _response.postValue(UiState.Loading)
         searchQuerySubject
             .debounce(500, TimeUnit.MILLISECONDS)
             .subscribe { name ->

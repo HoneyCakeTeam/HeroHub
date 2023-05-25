@@ -7,8 +7,8 @@ import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 
 interface MarvelRepository {
 
@@ -31,7 +31,7 @@ interface MarvelRepository {
         stringFavorites: String?,
     ): MutableList<FavoriteItem>?
 
-    fun saveSearchKeyword(keyword: String):Completable
+    fun saveSearchKeyword(keyword: String): Completable
 
     //endregion
     //region remote db
@@ -40,31 +40,31 @@ interface MarvelRepository {
     fun refreshEvents()
     fun refreshSeries()
     fun refreshSlider()
-    fun getAllCharacters(): Single<UiState<List<Character>>>// 4 see all
+    fun getAllCharacters(): Observable<UiState<List<Character>>>// 4 see all
 
     fun getAllCharactersFromDB(): Observable<List<Character>>
 
-    fun getEventDetails(eventId: Int): Single<UiState<List<Event>>>
-    fun getAllSeries(): Single<UiState<List<Series>>>// 4 see all
+    fun getEventDetails(eventId: Int): Observable<UiState<List<Event>>>
+    fun getAllSeries(): Observable<UiState<List<Series>>>// 4 see all
     fun getAllSeriesFromDB(): Observable<List<Series>>
-    fun getAllComics(): Single<UiState<List<Comic>>>// 4 see all
+    fun getAllComics(): Observable<UiState<List<Comic>>>// 4 see all
     fun getAllComicsFromDB(): Observable<List<Comic>>
-    fun getAllEvents(): Single<UiState<List<Event>>>// 4 see all
+    fun getAllEvents(): Observable<UiState<List<Event>>>// 4 see all
     fun getAllEventsFromDB(): Observable<List<Event>>
-    fun getComicDetails(comicId: Int): Single<UiState<List<Comic>>>
-    fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>>
+    fun getComicDetails(comicId: Int): Observable<UiState<List<Comic>>>
+    fun getSeriesDetails(seriesId: Int): Observable<UiState<List<Series>>>
 
-    fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>>
+    fun getCharacterDetails(characterId: Int): Observable<UiState<List<Character>>>
 
-    fun getCharacterComics(characterId: Int): Single<UiState<List<Comic>>>
+    fun getCharacterComics(characterId: Int): Observable<UiState<List<Comic>>>
 
-    fun getCharacterSeries(characterId: Int): Single<UiState<List<Series>>>
+    fun getCharacterSeries(characterId: Int): Observable<UiState<List<Series>>>
 
-    fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>>
+    fun getCharacterEvents(characterId: Int): Observable<UiState<List<Event>>>
 
     fun getCharactersByName(
         name: String,
-    ): Single<UiState<List<Character>>>
+    ): Observable<UiState<List<Character>>>
 
 
     //endregion

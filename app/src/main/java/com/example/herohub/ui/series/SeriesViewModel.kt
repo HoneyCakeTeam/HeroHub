@@ -29,7 +29,6 @@ class SeriesViewModel @Inject constructor(
     }
 
     private fun getAllSeries() {
-        _allSeries.postValue(UiState.Loading)
         disposeSingle(marvelRepositoryImp.getAllSeries(), ::onGetSeriesSuccess, ::onError)
     }
 

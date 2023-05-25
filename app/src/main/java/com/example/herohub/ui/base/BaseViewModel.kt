@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -23,7 +22,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun <T : Any> disposeSingle(
-        response: Single<T>,
+        response: Observable<T>,
         onSuccess: (data: T) -> Unit,
         onFailed: (e: Throwable) -> Unit,
     ) {

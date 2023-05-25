@@ -29,7 +29,7 @@ class CharactersViewModel @Inject constructor(
     }
 
     private fun getAllCharacters() {
-        _characters.postValue(UiState.Loading)
+       // _characters.postValue(UiState.Loading)
         disposeSingle(marvelRepositoryImp.getAllCharacters(), ::onGetCharacterSuccess, ::onError)
     }
 

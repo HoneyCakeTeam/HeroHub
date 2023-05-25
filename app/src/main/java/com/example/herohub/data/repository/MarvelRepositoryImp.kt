@@ -91,63 +91,63 @@ class MarvelRepositoryImp @Inject constructor(
 
     override fun getCharactersByName(
         name: String,
-    ): Single<UiState<List<Character>>> =
+    ): Observable<UiState<List<Character>>> =
         wrapWithState(
             { api.getCharactersByName(name) },
             { dtoToDomainContainer.characterDtoToCharacter.map(it) })
 
 
     //region call from api
-    override fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>> =
+    override fun getCharacterDetails(characterId: Int): Observable<UiState<List<Character>>> =
         wrapWithState(
             { api.getCharacterDetails(characterId) },
             { dtoToDomainContainer.characterDtoToCharacter.map(it) })
 
-    override fun getEventDetails(eventId: Int): Single<UiState<List<Event>>> =
+    override fun getEventDetails(eventId: Int): Observable<UiState<List<Event>>> =
         wrapWithState({ api.getEvent(eventId) },
             { dtoToDomainContainer.eventDtoToEvent.map(it) })
 
 
-    override fun getComicDetails(comicId: Int): Single<UiState<List<Comic>>> =
+    override fun getComicDetails(comicId: Int): Observable<UiState<List<Comic>>> =
         wrapWithState({ api.getComic(comicId) },
             { dtoToDomainContainer.comicDtoToComic.map(it) })
 
-    override fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>> =
+    override fun getSeriesDetails(seriesId: Int): Observable<UiState<List<Series>>> =
         wrapWithState(
             { api.getSeriesDetails(seriesId) },
             { dtoToDomainContainer.seriesDtoToSeries.map(it) })
 
-    override fun getCharacterComics(characterId: Int): Single<UiState<List<Comic>>> =
+    override fun getCharacterComics(characterId: Int): Observable<UiState<List<Comic>>> =
         wrapWithState(
             { api.getCharacterComics(characterId) },
             { dtoToDomainContainer.comicDtoToComic.map(it) })
 
-    override fun getCharacterSeries(characterId: Int): Single<UiState<List<Series>>> =
+    override fun getCharacterSeries(characterId: Int): Observable<UiState<List<Series>>> =
         wrapWithState({ api.getCharacterSeries(characterId) },
             { dtoToDomainContainer.seriesDtoToSeries.map(it) })
 
-    override fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>> = wrapWithState(
+    override fun getCharacterEvents(characterId: Int): Observable<UiState<List<Event>>> = wrapWithState(
         { api.getCharacterEvents(characterId) },
         { dtoToDomainContainer.eventDtoToEvent.map(it) })
 
     //endregion
 
     //region see all ( from API)
-    override fun getAllCharacters(): Single<UiState<List<Character>>> =
+    override fun getAllCharacters(): Observable<UiState<List<Character>>> =
         wrapWithState({ api.getAllCharacters(100) },
             { dtoToDomainContainer.characterDtoToCharacter.map(it) })
 
-    override fun getAllSeries(): Single<UiState<List<Series>>> {
+    override fun getAllSeries(): Observable<UiState<List<Series>>> {
         return wrapWithState({ api.getAllSeries(100) },
             { dtoToDomainContainer.seriesDtoToSeries.map(it) })
     }
 
-    override fun getAllComics(): Single<UiState<List<Comic>>> {
+    override fun getAllComics(): Observable<UiState<List<Comic>>> {
         return wrapWithState({ api.getAllComics(100) },
             { dtoToDomainContainer.comicDtoToComic.map(it) })
     }
 
-    override fun getAllEvents(): Single<UiState<List<Event>>> {
+    override fun getAllEvents(): Observable<UiState<List<Event>>> {
         return wrapWithState({ api.getAllEvents(100) },
             { dtoToDomainContainer.eventDtoToEvent.map(it) })
     }
@@ -249,17 +249,32 @@ class MarvelRepositoryImp @Inject constructor(
         dao.getAllEvents().map { entityToDomainContainer.eventMapper.map(it) }
 
     //endregion
+    @SuppressLint("CheckResult")
     private fun <I, O> wrapWithState(
         function: () -> Single<Response<BaseResponse<I>>>,
-        map: (List<I>) -> O,
-    ): Single<UiState<O>> {
-        return function().map {
-            if (it.isSuccessful) {
-                UiState.Success(map(it.body()?.data?.results ?: emptyList()))
-            } else {
-                UiState.Error(it.message())
+        map: (List<I>) -> O
+    ): Observable<UiState<O>> {
+        return Observable.create { emitter ->
+            emitter.onNext(UiState.Loading)
+            try {
+                function().subscribe { response ->
+                    if (response.isSuccessful) {
+                        emitter.onNext(
+                            UiState.Success(
+                                map(
+                                    response.body()?.data?.results ?: emptyList()
+                                )
+                            )
+                        )
+                    } else {
+                        emitter.onNext(UiState.Error(response.message()))
+                    }
+                }
+            } catch (e: Exception) {
+                emitter.onNext(UiState.Error(e.message ?: "Unknown error occurred"))
             }
         }
     }
+
 }
 
