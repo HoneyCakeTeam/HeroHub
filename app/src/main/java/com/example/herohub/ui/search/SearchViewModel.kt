@@ -5,15 +5,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -34,7 +37,7 @@ class SearchViewModel @Inject constructor(
 
     val searchResult = MediatorLiveData<List<Character>>()
 
-    private val searchQuerySubject = PublishSubject.create<String>()
+    private val searchQueryChannel = Channel<String>()
 
     init {
         searchByMediatorLiveData()
@@ -42,42 +45,50 @@ class SearchViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     private fun searchByMediatorLiveData() {
-        _response.postValue(UiState.Loading)
-        searchQuerySubject
-            .debounce(500, TimeUnit.MILLISECONDS)
-            .subscribe { name ->
-                findCharacters(name)
-            }
+        /* _response.postValue(UiState.Loading)
+         searchQuerySubject
+             .debounce(500, TimeUnit.MILLISECONDS)
+             .subscribe { name ->
+                 findCharacters(name)
+             }
+         searchResult.addSource(searchQuery) { query ->
+             searchQuerySubject.onNext(query)
+         }*/
+        viewModelScope.launch {
+            searchQueryChannel.consumeAsFlow()
+                .debounce(500)
+                .collect { name ->
+                    findCharacters(name)
+                }
+        }
+
         searchResult.addSource(searchQuery) { query ->
-            searchQuerySubject.onNext(query)
+            viewModelScope.launch {
+                searchQueryChannel.send(query)
+            }
         }
     }
 
     private fun findCharacters(name: String) {
-        disposeSingle(
-            marvelRepositoryImp.getCharactersByName(name),
-            ::onGetCharacterSuccess, ::onGetCharacterFailure
-        )
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getCharactersByName(name).collect {
+                onGetCharacter(it)
+            }
+        }
     }
 
     fun saveSearchHistory(keyword: String) {
-        marvelRepositoryImp.saveSearchKeyword(keyword)
-            .subscribeOn(Schedulers.io())
-            .subscribe()
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.saveSearchKeyword(keyword)
+        }
         Log.e("TAG", "saveSearchHistory: $keyword")
     }
 
-    private fun onGetCharacterSuccess(uiState: UiState<List<Character>>) {
+    private fun onGetCharacter(uiState: UiState<List<Character>>) {
         log(uiState.toData().toString())
         _response.value = uiState
         searchResult.postValue(response.value?.toData() ?: emptyList())
     }
-
-    private fun onGetCharacterFailure(throwable: Throwable) {
-        _response.postValue(UiState.Error(throwable.message.toString()))
-        searchResult.postValue(emptyList())
-    }
-
 
     override fun <T> onClickItem(item: T) {
         _eventClick.postValue(EventHandler(item as Character))

@@ -3,13 +3,15 @@ package com.example.herohub.ui.seriesdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,23 +39,19 @@ class SeriesDetailsViewModel @Inject constructor(
     }
 
     private fun getSeriesDetails() {
-        disposeSingle(
-            marvelRepositoryImp.getSeriesDetails(seriesArgs.seriesId),
-            ::onSeriesSuccessData,
-            ::onError
-        )
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getSeriesDetails(seriesArgs.seriesId).collect {
+                onSeriesData(it)
+            }
+        }
     }
 
-    private fun onSeriesSuccessData(seriesUiState: UiState<List<Series>?>) {
+    private fun onSeriesData(seriesUiState: UiState<List<Series>?>) {
         _seriesDetails.value = seriesUiState
         seriesUiState.toData()?.let {
             _series.value = it.get(0)
         }
         _isFavorite.value = marvelRepositoryImp.isFavorite(series.value?.id.toString())
-    }
-
-    private fun onError(errorMessage: Throwable) {
-        _seriesDetails.postValue(UiState.Error(errorMessage.message.toString()))
     }
 
     fun onFavClicked() {
