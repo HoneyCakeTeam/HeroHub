@@ -3,8 +3,8 @@ package com.example.herohub.ui.characterdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.Event
@@ -17,6 +17,8 @@ import com.example.herohub.ui.characterdetails.adapter.SeriesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -72,54 +74,14 @@ class CharacterDetailsViewModel @Inject constructor(
         get() = this::class.simpleName.toString()
 
     private fun getComicsOfCharacter() {
-        disposeSingle(
-            marvelRepositoryImp.getCharacterComics(characterArgs.characterId),
-            ::onGetCharacterComicsSuccess,
-            ::onError
-        )
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getCharacterComics(characterArgs.characterId).collect {
+                onGetCharacterComics(it)
+            }
+        }
     }
 
-    private fun getEventOfCharacter() {
-        disposeSingle(
-            marvelRepositoryImp.getCharacterEvents(characterArgs.characterId),
-            ::onGetCharacterEventsSuccess,
-            ::onError
-        )
-    }
-
-    private fun getSeriesOfCharacter() {
-        disposeSingle(
-            marvelRepositoryImp.getCharacterSeries(characterArgs.characterId),
-            ::onGetCharacterSeriesSuccess,
-            ::onError
-        )
-    }
-
-    private fun getDetailsOfCharacter() {
-        disposeSingle(
-            marvelRepositoryImp.getCharacterDetails(characterArgs.characterId),
-            ::onGetCharacterDetailsSuccess,
-            ::onError
-        )
-    }
-
-    private fun onGetCharacterEventsSuccess(uiState: UiState<List<Event>>) {
-        _characterEvent.value = uiState
-        _characterEvent.value?.toData()?.let {
-            CharacterDetailsItem.CharacterEvents(it)
-        }?.let { characterDetailsItem.add(it) }
-        _characterItemsLiveData.postValue(characterDetailsItem)
-    }
-
-    private fun onGetCharacterSeriesSuccess(uiState: UiState<List<Series>>) {
-        _characterSeries.value = uiState
-        _characterSeries.value?.toData()?.let {
-            CharacterDetailsItem.CharacterSeries(it)
-        }?.let { characterDetailsItem.add(it) }
-        _characterItemsLiveData.postValue(characterDetailsItem)
-    }
-
-    private fun onGetCharacterComicsSuccess(state: UiState<List<Comic>>) {
+    private fun onGetCharacterComics(state: UiState<List<Comic>>) {
         _characterComics.value = state
         _characterComics.value?.toData()?.let {
             CharacterDetailsItem.CharacterComics(it)
@@ -127,7 +89,50 @@ class CharacterDetailsViewModel @Inject constructor(
         _characterItemsLiveData.postValue(characterDetailsItem)
     }
 
-    private fun onGetCharacterDetailsSuccess(state: UiState<List<Character>>) {
+
+    private fun getEventOfCharacter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getCharacterEvents(characterArgs.characterId).collect {
+                onGetCharacterEvents(it)
+            }
+        }
+    }
+
+    private fun onGetCharacterEvents(uiState: UiState<List<Event>>) {
+        _characterEvent.value = uiState
+        _characterEvent.value?.toData()?.let {
+            CharacterDetailsItem.CharacterEvents(it)
+        }?.let { characterDetailsItem.add(it) }
+        _characterItemsLiveData.postValue(characterDetailsItem)
+    }
+
+
+    private fun getSeriesOfCharacter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getCharacterSeries(characterArgs.characterId).collect {
+                onGetCharacterSeries(it)
+            }
+        }
+    }
+
+    private fun onGetCharacterSeries(uiState: UiState<List<Series>>) {
+        _characterSeries.value = uiState
+        _characterSeries.value?.toData()?.let {
+            CharacterDetailsItem.CharacterSeries(it)
+        }?.let { characterDetailsItem.add(it) }
+        _characterItemsLiveData.postValue(characterDetailsItem)
+    }
+
+
+    private fun getDetailsOfCharacter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getCharacterDetails(characterArgs.characterId).collect {
+                onGetCharacterDetails(it)
+            }
+        }
+    }
+
+    private fun onGetCharacterDetails(state: UiState<List<Character>>) {
         _characterDetails.value = state
         characterItem.value = characterDetails.value?.toData()?.firstOrNull()
         _isFavorite.value = marvelRepositoryImp.isFavorite(characterItem.value?.id.toString())
@@ -136,13 +141,6 @@ class CharacterDetailsViewModel @Inject constructor(
         _characterItemsLiveData.postValue(characterDetailsItem)
     }
 
-
-    private fun onError(throwable: Throwable) {
-        _characterComics.postValue(UiState.Error(throwable.message.toString()))
-        _characterDetails.postValue(UiState.Error(throwable.message.toString()))
-        _characterSeries.postValue(UiState.Error(throwable.message.toString()))
-        _characterEvent.postValue(UiState.Error(throwable.message.toString()))
-    }
 
 
     fun onFavClicked() {
@@ -175,20 +173,14 @@ class CharacterDetailsViewModel @Inject constructor(
     override fun onClickEvent(id: Int) {
         _characterDetailsUiEvent.postValue(
             EventHandler(
-                CharacterDetailsUiEvent.ClickCharacterEvents(
-                    id
-                )
+                CharacterDetailsUiEvent.ClickCharacterEvents(id)
             )
         )
     }
 
     override fun onClickSeries(id: Int) {
         _characterDetailsUiEvent.postValue(
-            EventHandler(
-                CharacterDetailsUiEvent.ClickCharacterSeries(
-                    id
-                )
-            )
+            EventHandler(CharacterDetailsUiEvent.ClickCharacterSeries(id))
         )
     }
 

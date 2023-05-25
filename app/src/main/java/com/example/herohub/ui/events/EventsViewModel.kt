@@ -2,12 +2,15 @@ package com.example.herohub.ui.events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Event
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,16 +31,15 @@ class EventsViewModel @Inject constructor(
     }
 
     private fun getAllEvents() {
-        _events.postValue(UiState.Loading)
-        disposeSingle(marvelRepositoryImp.getAllEvents(), ::onGetEventsSuccess, ::onError)
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllEvents().collect {
+                onGetEvents(it)
+            }
+        }
     }
 
-    private fun onGetEventsSuccess(state: UiState<List<Event>>) {
+    private fun onGetEvents(state: UiState<List<Event>>) {
         _events.postValue(state)
-    }
-
-    private fun onError(throwable: Throwable) {
-        _events.postValue(UiState.Error(throwable.message.toString()))
     }
 
     override fun onClickEvent(id: Int) {

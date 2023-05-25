@@ -3,13 +3,15 @@ package com.example.herohub.ui.comicdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
 class ComicDetailsViewModel @Inject constructor(
@@ -37,23 +39,17 @@ class ComicDetailsViewModel @Inject constructor(
     }
 
     private fun getComic() {
-        disposeSingle(
-            marvelRepositoryImp.getComicDetails(comicArgs.comicId),
-            ::onGetComicSuccess,
-            ::onGetComicFailure
-        )
-    }
-
-    private fun onGetComicSuccess(state: UiState<List<Comic>>) {
-        _comicsResponse.value = state
-        state.toData()?.let {
-            _comic.value = it.get(0)
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getComicDetails(comicArgs.comicId).collect {
+                onGetComic(it)
+            }
         }
-        _isFavorite.value = marvelRepositoryImp.isFavorite(comic.value?.id.toString())
     }
 
-    private fun onGetComicFailure(throwable: Throwable) {
-        _comicsResponse.postValue(UiState.Error(throwable.message.toString()))
+    private fun onGetComic(state: UiState<List<Comic>>) {
+        _comicsResponse.value = state
+        state.toData()?.let { _comic.value = it.first() }
+        _isFavorite.value = marvelRepositoryImp.isFavorite(comic.value?.id.toString())
     }
 
     fun onFavClicked() {

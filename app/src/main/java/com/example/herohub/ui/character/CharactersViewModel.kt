@@ -2,17 +2,20 @@ package com.example.herohub.ui.character
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Character
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
-    private val marvelRepositoryImp: MarvelRepository
+    private val marvelRepositoryImp: MarvelRepository,
 ) : BaseViewModel(), CharactersInteractionListener {
     override val TAG: String = this::class.java.simpleName
 
@@ -29,16 +32,15 @@ class CharactersViewModel @Inject constructor(
     }
 
     private fun getAllCharacters() {
-        _characters.postValue(UiState.Loading)
-        disposeSingle(marvelRepositoryImp.getAllCharacters(), ::onGetCharacterSuccess, ::onError)
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllCharacters().collect {
+                onGetCharacter(it)
+            }
+        }
     }
 
-    private fun onGetCharacterSuccess(state: UiState<List<Character>>) {
+    private fun onGetCharacter(state: UiState<List<Character>>) {
         _characters.postValue(state)
-    }
-
-    private fun onError(throwable: Throwable) {
-        _characters.postValue(UiState.Error(throwable.message.toString()))
     }
 
     override fun onClickCharacter(id: Int) {

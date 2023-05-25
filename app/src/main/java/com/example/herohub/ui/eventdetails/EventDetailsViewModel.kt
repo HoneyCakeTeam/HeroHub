@@ -3,13 +3,15 @@ package com.example.herohub.ui.eventdetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
-import com.example.herohub.data.repository.MarvelRepositoryImp
 import com.example.herohub.domain.model.Event
 import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,25 +40,19 @@ class EventDetailsViewModel @Inject constructor(
     }
 
     private fun getEvent() {
-        _eventResponse.postValue(UiState.Loading)
-        disposeSingle(
-            marvelRepositoryImp.getEventDetails(eventArgs.eventId),
-            ::onGetEventSuccess,
-            ::onGetEventFailure
-        )
-
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getEventDetails(eventArgs.eventId).collect {
+                onGetEvent(it)
+            }
+        }
     }
 
-    private fun onGetEventSuccess(uiState: UiState<List<Event>>) {
+    private fun onGetEvent(uiState: UiState<List<Event>>) {
         _eventResponse.value = uiState
         uiState.toData()?.let {
-            _event.value = it[0]
+            _event.value = it.first()
         }
         _isFavorite.value = marvelRepositoryImp.isFavorite(event.value?.id.toString())
-    }
-
-    private fun onGetEventFailure(throwable: Throwable) {
-        _eventResponse.value = UiState.Error(throwable.message.toString())
     }
 
     fun onFavClicked() {

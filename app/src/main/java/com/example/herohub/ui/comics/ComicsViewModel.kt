@@ -2,12 +2,15 @@ package com.example.herohub.ui.comics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Comic
 import com.example.herohub.ui.base.BaseViewModel
 import com.example.herohub.ui.utils.EventHandler
 import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,16 +31,15 @@ class ComicsViewModel @Inject constructor(private val marvelRepositoryImp: Marve
     }
 
     private fun getAllComics() {
-        _comics.postValue(UiState.Loading)
-       disposeSingle(marvelRepositoryImp.getAllComics(), ::onGetComicSuccess, ::onError)
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllComics().collect {
+                onGetComic(it)
+            }
+        }
     }
 
-    private fun onGetComicSuccess(state: UiState<List<Comic>>) {
+    private fun onGetComic(state: UiState<List<Comic>>) {
         _comics.postValue(state)
-    }
-
-    private fun onError(throwable: Throwable) {
-        _comics.postValue(UiState.Error(throwable.message.toString()))
     }
 
     override fun onClickComic(id: Int) {

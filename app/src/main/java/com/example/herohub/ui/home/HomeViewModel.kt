@@ -1,10 +1,9 @@
 package com.example.herohub.ui.home
 
-import android.annotation.SuppressLint
 import android.os.Parcelable
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.herohub.data.repository.MarvelRepository
 import com.example.herohub.domain.model.Character
 import com.example.herohub.domain.model.Comic
@@ -18,6 +17,9 @@ import com.example.herohub.ui.home.adapter.SliderInteractionListener
 import com.example.herohub.ui.home.adapter.SuperHeroesInteractionListener
 import com.example.herohub.ui.utils.EventHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -60,66 +62,48 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
         get() = _homeItemsLiveData
 
     init {
-        getHomeData()
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.refreshSlider()
+            marvelRepositoryImp.refreshCharacters()
+            marvelRepositoryImp.refreshSeries()
+            marvelRepositoryImp.refreshComics()
+            marvelRepositoryImp.refreshEvents()
+        }
+        getFromLocal()
     }
 
-    private fun getHomeData() {
-
-        refreshSlider()
-        refreshCharacters()
-        refreshComics()
-        refreshEvents()
-        refreshSeries()
-
+    private fun getFromLocal() {
         getSliderFromDB()
         getCharactersFromDB()
         getSeriesFromDB()
         getComicsFromDB()
         getEventsFromDB()
-
-
     }
 
-    private fun refreshCharacters() {
-        marvelRepositoryImp.refreshCharacters()
-    }
-
-    @SuppressLint("CheckResult")
     private fun getCharactersFromDB() {
-        disposeObservable(
-            marvelRepositoryImp.getAllCharactersFromDB(),
-            this::onGetCharacterSuccess,
-            this::onError
-        )
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllCharactersFromDB().collectLatest {
+                onGetCharacterSuccess(it)
+            }
+        }
     }
 
-    @SuppressLint("CheckResult")
     private fun onGetCharacterSuccess(state: List<Character>) {
         _characterResponse.postValue(state)
-        _homeItems.removeAll(
-            listOf(
-                HomeItem.SuperHeroes(state)
-            )
-        )
+        _homeItems.removeAll(listOf(HomeItem.SuperHeroes(state)))
         _homeItems.addAll(listOf(HomeItem.SuperHeroes(state)))
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun refreshSeries() {
-        marvelRepositoryImp.refreshSeries()
-    }
-
-    @SuppressLint("CheckResult")
     private fun getSeriesFromDB() {
-        disposeObservable(
-            marvelRepositoryImp.getAllSeriesFromDB(),
-            this::onGetSeriesSuccess,
-            this::onError
-        )
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllSeriesFromDB().collectLatest {
+                onGetSeriesSuccess(it)
+            }
+        }
 
     }
 
-    @SuppressLint("CheckResult")
     private fun onGetSeriesSuccess(state: List<Series>) {
         _seriesResponse.postValue(state)
         _homeItems.removeAll(
@@ -131,21 +115,17 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun refreshComics() {
-        marvelRepositoryImp.refreshComics()
-    }
 
-    @SuppressLint("CheckResult")
     private fun getComicsFromDB() {
-        disposeObservable(
-            marvelRepositoryImp.getAllComicsFromDB(),
-            this::onGetComicsSuccess,
-            this::onError
-        )
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllComicsFromDB().collectLatest {
+                onGetComicsSuccess(it)
+            }
+        }
+
 
     }
 
-    @SuppressLint("CheckResult")
     private fun onGetComicsSuccess(state: List<Comic>) {
         _comicsResponse.postValue(state)
         _homeItems.removeAll(
@@ -161,21 +141,14 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun refreshEvents() {
-        marvelRepositoryImp.refreshEvents()
-    }
-
-    @SuppressLint("CheckResult")
     private fun getEventsFromDB() {
-        disposeObservable(
-            marvelRepositoryImp.getAllEventsFromDB(),
-            this::onGetEventsSuccess,
-            this::onError
-        )
-
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllEventsFromDB().collectLatest {
+                onGetEventsSuccess(it)
+            }
+        }
     }
 
-    @SuppressLint("CheckResult")
     private fun onGetEventsSuccess(state: List<Event>) {
         _eventResponse.postValue(state)
         _homeItems.removeAll(
@@ -191,21 +164,15 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
         _homeItemsLiveData.postValue(_homeItems)
     }
 
-    private fun refreshSlider() {
-        marvelRepositoryImp.refreshSlider()
-    }
 
-    @SuppressLint("CheckResult")
     private fun getSliderFromDB() {
-        disposeObservable(
-            marvelRepositoryImp.getAllEventsFromDB(),
-            this::onGetSliderSuccess,
-            this::onError
-        )
-
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllEventsFromDB().collectLatest {
+                onGetSliderSuccess(it)
+            }
+        }
     }
 
-    @SuppressLint("CheckResult")
     private fun onGetSliderSuccess(state: List<Event>) {
         _eventResponse.postValue(state)
         _homeItems.removeAll(
@@ -219,15 +186,6 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
             )
         )
         _homeItemsLiveData.postValue(_homeItems)
-    }
-
-    private fun onError(throwable: Throwable) {
-        Log.e("TAG", "onError: ${throwable.message.toString()}")
-
-//        _characterResponse.postValue(emptyList())
-//        _seriesResponse.postValue(emptyList())
-//        _eventResponse.postValue(emptyList())
-//        _comicsResponse.postValue(emptyList())
     }
 
     override fun onMostPopularSeriesItemClick(id: Int) {
