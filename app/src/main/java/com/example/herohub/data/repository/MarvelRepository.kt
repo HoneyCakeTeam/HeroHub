@@ -7,8 +7,7 @@ import com.example.herohub.domain.model.FavoriteItem
 import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 interface MarvelRepository {
 
@@ -31,41 +30,39 @@ interface MarvelRepository {
         stringFavorites: String?,
     ): MutableList<FavoriteItem>?
 
-    fun saveSearchKeyword(keyword: String):Completable
+    suspend fun saveSearchKeyword(keyword: String)
 
     //endregion
     //region remote db
-    fun refreshCharacters()
-    fun refreshComics()
-    fun refreshEvents()
-    fun refreshSeries()
-    fun refreshSlider()
-    fun getAllCharacters(): Single<UiState<List<Character>>>// 4 see all
+    suspend fun refreshCharacters()
+    suspend fun refreshComics()
+    suspend fun refreshEvents()
+    suspend fun refreshSeries()
+    suspend fun refreshSlider()
 
-    fun getAllCharactersFromDB(): Observable<List<Character>>
+    fun getAllCharacters(): Flow<UiState<List<Character>>>// 4 see all
+    fun getAllCharactersFromDB(): Flow<List<Character>>
+    fun getAllSeries(): Flow<UiState<List<Series>>>// 4 see all
+    fun getAllSeriesFromDB(): Flow<List<Series>>
+    fun getAllComics(): Flow<UiState<List<Comic>>> // 4 see all
+    fun getAllComicsFromDB(): Flow<List<Comic>>
+    fun getAllEvents(): Flow<UiState<List<Event>>> // 4 see all
+    fun getAllEventsFromDB(): Flow<List<Event>>
 
-    fun getEventDetails(eventId: Int): Single<UiState<List<Event>>>
-    fun getAllSeries(): Single<UiState<List<Series>>>// 4 see all
-    fun getAllSeriesFromDB(): Observable<List<Series>>
-    fun getAllComics(): Single<UiState<List<Comic>>>// 4 see all
-    fun getAllComicsFromDB(): Observable<List<Comic>>
-    fun getAllEvents(): Single<UiState<List<Event>>>// 4 see all
-    fun getAllEventsFromDB(): Observable<List<Event>>
-    fun getComicDetails(comicId: Int): Single<UiState<List<Comic>>>
-    fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>>
+    fun getEventDetails(eventId: Int): Flow<UiState<List<Event>>>
+    fun getComicDetails(comicId: Int): Flow<UiState<List<Comic>>>
+    fun getSeriesDetails(seriesId: Int): Flow<UiState<List<Series>>>
+    fun getCharacterDetails(characterId: Int): Flow<UiState<List<Character>>>
 
-    fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>>
-
-    fun getCharacterComics(characterId: Int): Single<UiState<List<Comic>>>
-
-    fun getCharacterSeries(characterId: Int): Single<UiState<List<Series>>>
-
-    fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>>
+    fun getCharacterComics(characterId: Int): Flow<UiState<List<Comic>>>
+    fun getCharacterSeries(characterId: Int): Flow<UiState<List<Series>>>
+    fun getCharacterEvents(characterId: Int): Flow<UiState<List<Event>>>
 
     fun getCharactersByName(
         name: String,
-    ): Single<UiState<List<Character>>>
+    ): Flow<UiState<List<Character>>>
 
 
     //endregion
+
 }

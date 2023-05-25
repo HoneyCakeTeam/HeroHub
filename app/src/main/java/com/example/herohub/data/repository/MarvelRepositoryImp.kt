@@ -1,7 +1,5 @@
 package com.example.herohub.data.repository
 
-import android.annotation.SuppressLint
-import android.util.Log
 import com.example.herohub.data.local.SearchHistoryEntity
 import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
@@ -18,10 +16,9 @@ import com.example.herohub.domain.model.Series
 import com.example.herohub.ui.utils.UiState
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -33,7 +30,6 @@ class MarvelRepositoryImp @Inject constructor(
     private val dao: MarvelDao,
 ) : MarvelRepository {
 
-    // private val dao = MarvelDataBase.getInstance().marvelDao()
     private val sharedPreferences = SharedPreferencesUtils
     override fun addToFavorite(favorite: FavoriteItem) {
         val gson = Gson()
@@ -75,8 +71,7 @@ class MarvelRepositoryImp @Inject constructor(
     }
 
     override fun convertToString(
-        gson: Gson,
-        favorites: MutableList<FavoriteItem>?,
+        gson: Gson, favorites: MutableList<FavoriteItem>?,
     ): String = gson.toJson(favorites)
 
     override fun convertToList(
@@ -85,181 +80,153 @@ class MarvelRepositoryImp @Inject constructor(
         stringFavorites, object : TypeToken<List<FavoriteItem>>() {}.type
     )
 
-    override fun saveSearchKeyword(keyword: String): Completable {
+    override suspend fun saveSearchKeyword(keyword: String) {
         return dao.insertSearchKeyword(SearchHistoryEntity(name = keyword))
     }
 
-    override fun getCharactersByName(
-        name: String,
-    ): Single<UiState<List<Character>>> =
-        wrapWithState(
-            { api.getCharactersByName(name) },
-            { dtoToDomainContainer.characterDtoToCharacter.map(it) })
-
 
     //region call from api
-    override fun getCharacterDetails(characterId: Int): Single<UiState<List<Character>>> =
+
+    override fun getCharactersByName(name: String): Flow<UiState<List<Character>>> =
+        wrapWithState({ api.getCharactersByName(name) },
+            { dtoToDomainContainer.characterDtoToCharacter.map(it) })
+
+    override fun getCharacterDetails(characterId: Int): Flow<UiState<List<Character>>> =
         wrapWithState(
             { api.getCharacterDetails(characterId) },
             { dtoToDomainContainer.characterDtoToCharacter.map(it) })
 
-    override fun getEventDetails(eventId: Int): Single<UiState<List<Event>>> =
+    override fun getEventDetails(eventId: Int): Flow<UiState<List<Event>>> =
         wrapWithState({ api.getEvent(eventId) },
             { dtoToDomainContainer.eventDtoToEvent.map(it) })
 
 
-    override fun getComicDetails(comicId: Int): Single<UiState<List<Comic>>> =
+    override fun getComicDetails(comicId: Int): Flow<UiState<List<Comic>>> =
         wrapWithState({ api.getComic(comicId) },
             { dtoToDomainContainer.comicDtoToComic.map(it) })
 
-    override fun getSeriesDetails(seriesId: Int): Single<UiState<List<Series>>> =
+    override fun getSeriesDetails(seriesId: Int): Flow<UiState<List<Series>>> =
         wrapWithState(
             { api.getSeriesDetails(seriesId) },
             { dtoToDomainContainer.seriesDtoToSeries.map(it) })
 
-    override fun getCharacterComics(characterId: Int): Single<UiState<List<Comic>>> =
+    override fun getCharacterComics(characterId: Int): Flow<UiState<List<Comic>>> =
         wrapWithState(
             { api.getCharacterComics(characterId) },
             { dtoToDomainContainer.comicDtoToComic.map(it) })
 
-    override fun getCharacterSeries(characterId: Int): Single<UiState<List<Series>>> =
+    override fun getCharacterSeries(characterId: Int): Flow<UiState<List<Series>>> =
         wrapWithState({ api.getCharacterSeries(characterId) },
             { dtoToDomainContainer.seriesDtoToSeries.map(it) })
 
-    override fun getCharacterEvents(characterId: Int): Single<UiState<List<Event>>> = wrapWithState(
+    override fun getCharacterEvents(characterId: Int): Flow<UiState<List<Event>>> = wrapWithState(
         { api.getCharacterEvents(characterId) },
         { dtoToDomainContainer.eventDtoToEvent.map(it) })
 
     //endregion
 
     //region see all ( from API)
-    override fun getAllCharacters(): Single<UiState<List<Character>>> =
+    override fun getAllCharacters(): Flow<UiState<List<Character>>> =
         wrapWithState({ api.getAllCharacters(100) },
             { dtoToDomainContainer.characterDtoToCharacter.map(it) })
 
-    override fun getAllSeries(): Single<UiState<List<Series>>> {
+    override fun getAllSeries(): Flow<UiState<List<Series>>> {
         return wrapWithState({ api.getAllSeries(100) },
             { dtoToDomainContainer.seriesDtoToSeries.map(it) })
     }
 
-    override fun getAllComics(): Single<UiState<List<Comic>>> {
-        return wrapWithState({ api.getAllComics(100) },
-            { dtoToDomainContainer.comicDtoToComic.map(it) })
-    }
-
-    override fun getAllEvents(): Single<UiState<List<Event>>> {
+    override fun getAllEvents(): Flow<UiState<List<Event>>> {
         return wrapWithState({ api.getAllEvents(100) },
             { dtoToDomainContainer.eventDtoToEvent.map(it) })
     }
 
+
+    override fun getAllComics(): Flow<UiState<List<Comic>>> {
+        return wrapWithState({ api.getAllComics(100) },
+            { dtoToDomainContainer.comicDtoToComic.map(it) })
+    }
+
     //endregion
 
-    //region refresh
-    @SuppressLint("CheckResult")
-    override fun refreshCharacters() {
-        wrapWithState(
-            { api.getAllCharacters(100) }, dtoToEntityContainer.characterMapper::map
-        ).subscribe(
-            {
-                it.toData()?.let { characterEntities ->
-                    dao.insertAllCharacters(characterEntities).subscribeOn(Schedulers.io())
-                        .subscribe()
-                }
-            }, {
-                Log.e("Repository", "Repository")
-            }
-        )
+
+    // region refresh data
+    override suspend fun refreshCharacters() {
+        val result = api.getAllCharacters(100).body()?.data?.results
+        result?.let {
+            val characterEntities = dtoToEntityContainer.characterMapper.map(it)
+            dao.insertAllCharacters(characterEntities)
+        }
     }
 
-    @SuppressLint("CheckResult")
-    override fun refreshComics() {
-        wrapWithState(
-            { api.getAllComics(100) }, dtoToEntityContainer.comicMapper::map
-        ).subscribe(
-            {
-                it.toData()?.let { comicEntity ->
-                    dao.insertAllComics(comicEntity).subscribeOn(Schedulers.io()).subscribe()
-                }
-            }, {
-                Log.e("Repository", "Repository")
-            }
-        )
+    override suspend fun refreshComics() {
+        val result = api.getAllComics(100).body()?.data?.results
+        result?.let {
+            val comicEntities = dtoToEntityContainer.comicMapper.map(it)
+            dao.insertAllComics(comicEntities)
+        }
     }
 
-    @SuppressLint("CheckResult")
-    override fun refreshEvents() {
-        wrapWithState(
-            { api.getAllEvents(100) }, dtoToEntityContainer.eventMapper::map
-        ).subscribe(
-            {
-                it.toData()?.let { eventEntity ->
-                    dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
-                }
-            }, {
-                Log.e("Repository", "Repository")
-            }
-        )
+    override suspend fun refreshEvents() {
+        val result = api.getAllEvents(100).body()?.data?.results
+        result?.let {
+            val eventEntities = dtoToEntityContainer.eventMapper.map(it)
+            dao.insertAllEvents(eventEntities)
+        }
     }
 
-    @SuppressLint("CheckResult")
-    override fun refreshSeries() {
-        wrapWithState(
-            { api.getAllSeries(100) }, dtoToEntityContainer.seriesMapper::map
-        ).subscribe(
-            {
-                it.toData()?.let { seriesEntity ->
-                    dao.insertAllSeries(seriesEntity).subscribeOn(Schedulers.io()).subscribe()
-                }
-            }, {
-                Log.e("Repository", "Repository")
-            }
-        )
+    override suspend fun refreshSeries() {
+        val result = api.getAllSeries(100).body()?.data?.results
+        result?.let {
+            val seriesEntities = dtoToEntityContainer.seriesMapper.map(it)
+            dao.insertAllSeries(seriesEntities)
+        }
     }
 
-    @SuppressLint("CheckResult")
-    override fun refreshSlider() {
-        wrapWithState(
-            { api.getAllEvents(100) }, dtoToEntityContainer.eventMapper::map
-        ).subscribe(
-            {
-                it.toData()?.let { eventEntity ->
-                    dao.insertAllEvents(eventEntity).subscribeOn(Schedulers.io()).subscribe()
-                }
-            }, {
-                Log.e("Repository", "Repository")
-            }
-        )
+    override suspend fun refreshSlider() {
+        val result = api.getAllEvents(100).body()?.data?.results
+        result?.let {
+            val eventEntities = dtoToEntityContainer.eventMapper.map(it)
+            dao.insertAllEvents(eventEntities)
+        }
     }
+
 
 //endregion
 
     //region cashing (get from Room DB)
-    override fun getAllCharactersFromDB(): Observable<List<Character>> =
+    override fun getAllCharactersFromDB(): Flow<List<Character>> =
         dao.getAllCharacters().map { entityToDomainContainer.characterMapper.map(it) }
 
-    override fun getAllSeriesFromDB(): Observable<List<Series>> = dao.getAllSeries().map {
-        entityToDomainContainer.seriesMapper.map(it)
-    }
+    override fun getAllSeriesFromDB(): Flow<List<Series>> =
+        dao.getAllSeries().map { entityToDomainContainer.seriesMapper.map(it) }
 
-    override fun getAllComicsFromDB(): Observable<List<Comic>> =
+    override fun getAllComicsFromDB(): Flow<List<Comic>> =
         dao.getAllComics().map { entityToDomainContainer.comicMapper.map(it) }
 
 
-    override fun getAllEventsFromDB(): Observable<List<Event>> =
+    override fun getAllEventsFromDB(): Flow<List<Event>> =
         dao.getAllEvents().map { entityToDomainContainer.eventMapper.map(it) }
 
+
     //endregion
+
+
     private fun <I, O> wrapWithState(
-        function: () -> Single<Response<BaseResponse<I>>>,
-        map: (List<I>) -> O,
-    ): Single<UiState<O>> {
-        return function().map {
-            if (it.isSuccessful) {
-                UiState.Success(map(it.body()?.data?.results ?: emptyList()))
-            } else {
-                UiState.Error(it.message())
+        response: suspend () -> Response<BaseResponse<I>>, map: (List<I>) -> O,
+    ): Flow<UiState<O>> {
+        return flow {
+            emit(UiState.Loading)
+            try {
+                if (response().isSuccessful) {
+                    emit(UiState.Success(map(response().body()?.data?.results ?: emptyList())))
+                } else {
+                    emit(UiState.Error(response().message()))
+                }
+            } catch (e: Exception) {
+                emit(UiState.Error(e.message ?: "Unknown error occurred"))
             }
         }
     }
+
 }
 

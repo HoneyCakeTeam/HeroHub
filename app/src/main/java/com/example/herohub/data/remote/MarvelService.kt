@@ -5,7 +5,6 @@ import com.example.herohub.data.remote.model.CharacterDto
 import com.example.herohub.data.remote.model.ComicDto
 import com.example.herohub.data.remote.model.EventDto
 import com.example.herohub.data.remote.model.SeriesDto
-import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,47 +14,97 @@ import retrofit2.http.Query
 interface MarvelService {
 
     @GET("characters")
-    fun getCharactersByName(
+    suspend fun getCharactersByName(
         @Query("nameStartsWith")
         name: String,
-    ): Single<Response<BaseResponse<CharacterDto>>>
+    ): Response<BaseResponse<CharacterDto>>
 
     @GET("events/{eventId}")
-    fun getEvent(@Path("eventId") eventId: Int): Single<Response<BaseResponse<EventDto>>>
+    suspend fun getEvent(
+        @Path("eventId") eventId: Int,
+    ): Response<BaseResponse<EventDto>>
 
     @GET("characters")
-    fun getAllCharacters(@Query("limit") limit: Int): Single<Response<BaseResponse<CharacterDto>>>
+    suspend fun getAllCharacters(
+        @Query("limit") limit: Int,
+    ): Response<BaseResponse<CharacterDto>>
 
     @GET("characters/{characterId}")
-    fun getCharacterDetails(
+    suspend fun getCharacterDetails(
         @Path("characterId") characterId: Int,
-    ): Single<Response<BaseResponse<CharacterDto>>>
+    ): Response<BaseResponse<CharacterDto>>
 
     @GET("characters/{characterId}/events")
-    fun getCharacterEvents(@Path("characterId") characterId: Int): Single<Response<BaseResponse<EventDto>>>
+    suspend fun getCharacterEvents(
+        @Path("characterId") characterId: Int,
+    ): Response<BaseResponse<EventDto>>
 
     @GET("characters/{characterId}/comics")
-    fun getCharacterComics(@Path("characterId") characterId: Int): Single<Response<BaseResponse<ComicDto>>>
+    suspend fun getCharacterComics(
+        @Path("characterId") characterId: Int,
+    ): Response<BaseResponse<ComicDto>>
 
     @GET("characters/{characterId}/series")
-    fun getCharacterSeries(
+    suspend fun getCharacterSeries(
         @Path("characterId") characterId: Int,
-    ): Single<Response<BaseResponse<SeriesDto>>>
+    ): Response<BaseResponse<SeriesDto>>
 
 
     @GET("comics/{comicId}")
-    fun getComic(@Path("comicId") comicId: Int): Single<Response<BaseResponse<ComicDto>>>
+    suspend fun getComic(
+        @Path("comicId") comicId: Int,
+    ): Response<BaseResponse<ComicDto>>
 
     @GET("comics")
-    fun getAllComics(@Query("limit") limit: Int): Single<Response<BaseResponse<ComicDto>>>
+    suspend fun getAllComics(
+        @Query("limit") limit: Int,
+    ): Response<BaseResponse<ComicDto>>
 
     @GET("events")
-    fun getAllEvents(@Query("limit") limit: Int): Single<Response<BaseResponse<EventDto>>>
+    suspend fun getAllEvents(
+        @Query("limit") limit: Int,
+    ): Response<BaseResponse<EventDto>>
 
     @GET("series/{seriesId}")
-    fun getSeriesDetails(@Path("seriesId") seriesId: Int): Single<Response<BaseResponse<SeriesDto>>>
+    suspend fun getSeriesDetails(
+        @Path("seriesId") seriesId: Int,
+    ): Response<BaseResponse<SeriesDto>>
 
     @GET("series")
-    fun getAllSeries(@Query("limit") limit: Int): Single<Response<BaseResponse<SeriesDto>>>
+    suspend fun getAllSeries(
+        @Query("limit") limit: Int,
+    ): Response<BaseResponse<SeriesDto>>
 
 }
+
+//override suspend fun refreshComics() {
+//    wrap({ api.getAllComics(100) }, dtoToEntityContainer.comicMapper::map).apply {
+//        toData()?.let { comicEntity ->
+//            dao.insertAllComics(comicEntity)
+//        }
+//    }
+//}
+//override suspend fun getAllComics(): UiState<List<Comic>> {
+//    return wrap({ api.getAllComics(100) },
+//        { dtoToDomainContainer.comicDtoToComic.map(it) })
+//}
+
+
+//private suspend fun <I, O> wraState(
+//    response: suspend () -> Response<BaseResponse<I>>,
+//    map: (List<I>) -> O,
+//): Flow<UiState<O>> {
+//    return flow {
+//        try {
+//            if (response().isSuccessful) {
+//                emit(UiState.Success(map(response().body()?.data?.results ?: emptyList())))
+//            } else {
+//                emit(UiState.Error(response().message()))
+//            }
+//        } catch (e: Exception) {
+//            emit(UiState.Error(e.message ?: "Unknown error occurred"))
+//        }
+//    }
+//}
+
+
