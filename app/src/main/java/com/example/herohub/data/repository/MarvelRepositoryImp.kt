@@ -152,63 +152,56 @@ class MarvelRepositoryImp @Inject constructor(
 
     // region refresh data
     override suspend fun refreshCharacters() {
-        try {
-            val result = api.getAllCharacters(100).body()?.data?.results
-            result?.let {
-                val characterEntities = dtoToEntityContainer.characterMapper.map(it)
-                dao.insertAllCharacters(characterEntities)
-            }
-        } catch (e: Exception) {
-            Log.e("TAG", "refreshCharacters: ${e.message}")
-        }
+        refreshData(
+            { api.getAllCharacters(100) },
+            { dao.insertAllCharacters(it) },
+            { dtoToEntityContainer.characterMapper.map(it) }
+        )
     }
 
     override suspend fun refreshComics() {
-        try {
-            val result = api.getAllComics(100).body()?.data?.results
-            result?.let {
-                val comicEntities = dtoToEntityContainer.comicMapper.map(it)
-                dao.insertAllComics(comicEntities)
-            }
-        } catch (e: Exception) {
-            Log.e("TAG", "refreshComics: ${e.message}")
-        }
+        refreshData(
+            { api.getAllComics(100) },
+            { dao.insertAllComics(it) },
+            { dtoToEntityContainer.comicMapper.map(it) }
+        )
     }
 
     override suspend fun refreshEvents() {
-        try {
-            val result = api.getAllEvents(100).body()?.data?.results
-            result?.let {
-                val eventEntities = dtoToEntityContainer.eventMapper.map(it)
-                dao.insertAllEvents(eventEntities)
-            }
-        } catch (e: Exception) {
-            Log.e("TAG", "refreshEvents: ${e.message}")
-        }
+        refreshData(
+            { api.getAllEvents(100) },
+            { dao.insertAllEvents(it) },
+            { dtoToEntityContainer.eventMapper.map(it) }
+        )
     }
 
     override suspend fun refreshSeries() {
-        try {
-            val result = api.getAllSeries(100).body()?.data?.results
-            result?.let {
-                val seriesEntities = dtoToEntityContainer.seriesMapper.map(it)
-                dao.insertAllSeries(seriesEntities)
-            }
-        } catch (e: Exception) {
-            Log.e("TAG", "refreshSeries: ${e.message}")
-        }
+        refreshData(
+            { api.getAllSeries(100) },
+            { dao.insertAllSeries(it) },
+            { dtoToEntityContainer.seriesMapper.map(it) }
+        )
     }
 
     override suspend fun refreshSlider() {
+        refreshData(
+            { api.getAllCharacters(100) },
+            { dao.insertAllCharacters(it) },
+            { dtoToEntityContainer.characterMapper.map(it) }
+        )
+    }
+
+    private suspend fun <I, O> refreshData(
+        response: suspend () -> Response<BaseResponse<I>>,
+        insertData: suspend (List<O>) -> Unit,
+        mapper: (List<I>) -> List<O>,
+    ) {
         try {
-            Log.e("TAG", "refreshSlider: ")
-            val result = api.getAllEvents(100).body()?.data?.results
-            result?.let {
-                val eventEntities = dtoToEntityContainer.eventMapper.map(it)
-                dao.insertAllEvents(eventEntities)
-            }
+            val result = response().body()?.data?.results.let { mapper(it ?: emptyList()) }
+            insertData(result)
+
         } catch (e: Exception) {
-            Log.e("TAG", "refreshSlider: ${e.message}")
+            Log.e("TAG", "refresh Failed: ${e.message}")
         }
     }
 
@@ -234,7 +227,8 @@ class MarvelRepositoryImp @Inject constructor(
 
 
     private fun <I, O> wrapWithState(
-        response: suspend () -> Response<BaseResponse<I>>, map: (List<I>) -> O,
+        response: suspend () -> Response<BaseResponse<I>>,
+        map: (List<I>) -> O,
     ): Flow<UiState<O>> {
         return flow {
             Log.e("TAG", "in flow block:${response()}")
