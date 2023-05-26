@@ -1,6 +1,7 @@
 package com.example.herohub.ui.home
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -38,7 +39,7 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
     fun stateInitialized(): Boolean = ::state.isInitialized
 
     override val TAG: String
-        get() = this::class.java.simpleName.toString()
+        get() = "TAG"
 
     private val _homeItems = mutableListOf<HomeItem>()
 
@@ -69,6 +70,7 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
             marvelRepositoryImp.refreshComics()
             marvelRepositoryImp.refreshEvents()
         }
+        Log.e(TAG, "init: ")
         getFromLocal()
     }
 
@@ -169,6 +171,7 @@ class HomeViewModel @Inject constructor(private val marvelRepositoryImp: MarvelR
         viewModelScope.launch(Dispatchers.IO) {
             marvelRepositoryImp.getAllEventsFromDB().collectLatest {
                 onGetSliderSuccess(it)
+                Log.e("Slider", it.toString())
             }
         }
     }

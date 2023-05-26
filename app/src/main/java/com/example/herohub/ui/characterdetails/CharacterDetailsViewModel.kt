@@ -1,5 +1,6 @@
 package com.example.herohub.ui.characterdetails
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -19,6 +20,7 @@ import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -28,7 +30,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(
     private val marvelRepositoryImp: MarvelRepository,
-    state: SavedStateHandle
+    state: SavedStateHandle,
 ) : BaseViewModel(),
     ComicsInteractionListener, SeriesInteractionListener, EventsInteractionListener {
 
@@ -75,8 +77,11 @@ class CharacterDetailsViewModel @Inject constructor(
 
     private fun getComicsOfCharacter() {
         viewModelScope.launch(Dispatchers.IO) {
+            Log.e(TAG, "getComicsOfCharacter: ${Thread.currentThread().name}")
             marvelRepositoryImp.getCharacterComics(characterArgs.characterId).collect {
-                onGetCharacterComics(it)
+                withContext(Dispatchers.Main) {
+                    onGetCharacterComics(it)
+                }
             }
         }
     }
@@ -92,8 +97,11 @@ class CharacterDetailsViewModel @Inject constructor(
 
     private fun getEventOfCharacter() {
         viewModelScope.launch(Dispatchers.IO) {
+            Log.e(TAG, "getEventOfCharacter: ${Thread.currentThread().name}")
             marvelRepositoryImp.getCharacterEvents(characterArgs.characterId).collect {
-                onGetCharacterEvents(it)
+                withContext(Dispatchers.Main) {
+                    onGetCharacterEvents(it)
+                }
             }
         }
     }
@@ -109,8 +117,11 @@ class CharacterDetailsViewModel @Inject constructor(
 
     private fun getSeriesOfCharacter() {
         viewModelScope.launch(Dispatchers.IO) {
+            Log.e(TAG, "getSeriesOfCharacter: ${Thread.currentThread().name}")
             marvelRepositoryImp.getCharacterSeries(characterArgs.characterId).collect {
-                onGetCharacterSeries(it)
+                withContext(Dispatchers.Main) {
+                    onGetCharacterSeries(it)
+                }
             }
         }
     }
@@ -126,8 +137,11 @@ class CharacterDetailsViewModel @Inject constructor(
 
     private fun getDetailsOfCharacter() {
         viewModelScope.launch(Dispatchers.IO) {
+            Log.e(TAG, "getDetailsOfCharacter: ${Thread.currentThread().name}")
             marvelRepositoryImp.getCharacterDetails(characterArgs.characterId).collect {
-                onGetCharacterDetails(it)
+                withContext(Dispatchers.Main) {
+                    onGetCharacterDetails(it)
+                }
             }
         }
     }
@@ -140,7 +154,6 @@ class CharacterDetailsViewModel @Inject constructor(
             ?.let { characterDetailsItem.add(it) }
         _characterItemsLiveData.postValue(characterDetailsItem)
     }
-
 
 
     fun onFavClicked() {

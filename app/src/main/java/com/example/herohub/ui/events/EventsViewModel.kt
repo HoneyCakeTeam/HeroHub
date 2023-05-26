@@ -11,11 +11,12 @@ import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class EventsViewModel @Inject constructor(
-    private val marvelRepositoryImp: MarvelRepository
+    private val marvelRepositoryImp: MarvelRepository,
 ) : BaseViewModel(), EventsInteractionListener {
     override val TAG: String = this::class.java.simpleName
     private val _events = MutableLiveData<UiState<List<Event>>>()
@@ -33,7 +34,9 @@ class EventsViewModel @Inject constructor(
     private fun getAllEvents() {
         viewModelScope.launch(Dispatchers.IO) {
             marvelRepositoryImp.getAllEvents().collect {
-                onGetEvents(it)
+                withContext(Dispatchers.Main) {
+                    onGetEvents(it)
+                }
             }
         }
     }

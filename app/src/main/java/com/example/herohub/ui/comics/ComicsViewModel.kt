@@ -11,6 +11,7 @@ import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +34,9 @@ class ComicsViewModel @Inject constructor(private val marvelRepositoryImp: Marve
     private fun getAllComics() {
         viewModelScope.launch(Dispatchers.IO) {
             marvelRepositoryImp.getAllComics().collect {
-                onGetComic(it)
+                withContext(Dispatchers.Main) {
+                    onGetComic(it)
+                }
             }
         }
     }

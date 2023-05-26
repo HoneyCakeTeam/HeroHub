@@ -11,11 +11,12 @@ import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class SeriesViewModel @Inject constructor(
-    private val marvelRepositoryImp: MarvelRepository
+    private val marvelRepositoryImp: MarvelRepository,
 ) : BaseViewModel(), SeriesInteractionListener {
     override val TAG: String = this::class.java.simpleName
     private val _allSeries = MutableLiveData<UiState<List<Series>>>()
@@ -32,9 +33,11 @@ class SeriesViewModel @Inject constructor(
 
     private fun getAllSeries() {
         _allSeries.postValue(UiState.Loading)
-        viewModelScope.launch (Dispatchers.IO){
-            marvelRepositoryImp.getAllSeries().collect{
-                onGetSeries(it)
+        viewModelScope.launch(Dispatchers.IO) {
+            marvelRepositoryImp.getAllSeries().collect {
+                withContext(Dispatchers.Main) {
+                    onGetSeries(it)
+                }
             }
         }
     }

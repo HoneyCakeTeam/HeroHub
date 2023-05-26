@@ -10,8 +10,8 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -23,13 +23,11 @@ object NetworkModule {
     fun provideRetrofit(
         client: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory,
-        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constant.BASE_URL)
-            .client(client)
             .addConverterFactory(gsonConverterFactory)
-            .addCallAdapterFactory(rxJava3CallAdapterFactory)
+            .client(client)
             .build()
     }
 
@@ -39,6 +37,7 @@ object NetworkModule {
         OkHttpClient.Builder().apply {
             addInterceptor(loggingInterceptor)
             addInterceptor(MarvelInterceptor())
+            connectTimeout(1, TimeUnit.MINUTES)
         }.build()
 
     @Singleton
@@ -46,11 +45,6 @@ object NetworkModule {
     fun provideGsonConverterFactory(): GsonConverterFactory =
         GsonConverterFactory.create()
 
-
-    @Singleton
-    @Provides
-    fun provideRxJava3CallAdapterFactory(): RxJava3CallAdapterFactory =
-        RxJava3CallAdapterFactory.create()
 
     @Singleton
     @Provides

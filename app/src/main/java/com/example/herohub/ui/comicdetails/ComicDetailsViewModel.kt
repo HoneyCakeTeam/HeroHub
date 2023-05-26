@@ -12,11 +12,13 @@ import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 @HiltViewModel
 class ComicDetailsViewModel @Inject constructor(
-    private val marvelRepositoryImp:MarvelRepository,
-    state: SavedStateHandle
+    private val marvelRepositoryImp: MarvelRepository,
+    state: SavedStateHandle,
 ) : BaseViewModel() {
     override val TAG: String = this::class.java.simpleName
 
@@ -41,7 +43,9 @@ class ComicDetailsViewModel @Inject constructor(
     private fun getComic() {
         viewModelScope.launch(Dispatchers.IO) {
             marvelRepositoryImp.getComicDetails(comicArgs.comicId).collect {
-                onGetComic(it)
+                withContext(Dispatchers.Main) {
+                    onGetComic(it)
+                }
             }
         }
     }

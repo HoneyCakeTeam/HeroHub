@@ -1,8 +1,6 @@
 package com.example.herohub.data.local
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.herohub.data.local.dao.MarvelDao
 
@@ -15,7 +13,7 @@ import com.example.herohub.data.local.dao.MarvelDao
         CharacterEntity::class,
         SearchHistoryEntity::class
     ],
-    version = 1
+    version = 2
 )
 abstract class MarvelDataBase : RoomDatabase() {
     abstract fun marvelDao(): MarvelDao

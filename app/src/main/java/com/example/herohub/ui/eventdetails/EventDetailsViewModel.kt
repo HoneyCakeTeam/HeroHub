@@ -12,6 +12,7 @@ import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,7 +43,9 @@ class EventDetailsViewModel @Inject constructor(
     private fun getEvent() {
         viewModelScope.launch(Dispatchers.IO) {
             marvelRepositoryImp.getEventDetails(eventArgs.eventId).collect {
-                onGetEvent(it)
+                withContext(Dispatchers.Main) {
+                    onGetEvent(it)
+                }
             }
         }
     }

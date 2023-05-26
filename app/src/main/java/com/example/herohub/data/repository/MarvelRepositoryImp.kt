@@ -1,5 +1,6 @@
 package com.example.herohub.data.repository
 
+import android.util.Log
 import com.example.herohub.data.local.SearchHistoryEntity
 import com.example.herohub.data.local.dao.MarvelDao
 import com.example.herohub.data.local.dto_to_entity_mapper.DtoToEntityContainer
@@ -151,42 +152,63 @@ class MarvelRepositoryImp @Inject constructor(
 
     // region refresh data
     override suspend fun refreshCharacters() {
-        val result = api.getAllCharacters(100).body()?.data?.results
-        result?.let {
-            val characterEntities = dtoToEntityContainer.characterMapper.map(it)
-            dao.insertAllCharacters(characterEntities)
+        try {
+            val result = api.getAllCharacters(100).body()?.data?.results
+            result?.let {
+                val characterEntities = dtoToEntityContainer.characterMapper.map(it)
+                dao.insertAllCharacters(characterEntities)
+            }
+        } catch (e: Exception) {
+            Log.e("TAG", "refreshCharacters: ${e.message}")
         }
     }
 
     override suspend fun refreshComics() {
-        val result = api.getAllComics(100).body()?.data?.results
-        result?.let {
-            val comicEntities = dtoToEntityContainer.comicMapper.map(it)
-            dao.insertAllComics(comicEntities)
+        try {
+            val result = api.getAllComics(100).body()?.data?.results
+            result?.let {
+                val comicEntities = dtoToEntityContainer.comicMapper.map(it)
+                dao.insertAllComics(comicEntities)
+            }
+        } catch (e: Exception) {
+            Log.e("TAG", "refreshComics: ${e.message}")
         }
     }
 
     override suspend fun refreshEvents() {
-        val result = api.getAllEvents(100).body()?.data?.results
-        result?.let {
-            val eventEntities = dtoToEntityContainer.eventMapper.map(it)
-            dao.insertAllEvents(eventEntities)
+        try {
+            val result = api.getAllEvents(100).body()?.data?.results
+            result?.let {
+                val eventEntities = dtoToEntityContainer.eventMapper.map(it)
+                dao.insertAllEvents(eventEntities)
+            }
+        } catch (e: Exception) {
+            Log.e("TAG", "refreshEvents: ${e.message}")
         }
     }
 
     override suspend fun refreshSeries() {
-        val result = api.getAllSeries(100).body()?.data?.results
-        result?.let {
-            val seriesEntities = dtoToEntityContainer.seriesMapper.map(it)
-            dao.insertAllSeries(seriesEntities)
+        try {
+            val result = api.getAllSeries(100).body()?.data?.results
+            result?.let {
+                val seriesEntities = dtoToEntityContainer.seriesMapper.map(it)
+                dao.insertAllSeries(seriesEntities)
+            }
+        } catch (e: Exception) {
+            Log.e("TAG", "refreshSeries: ${e.message}")
         }
     }
 
     override suspend fun refreshSlider() {
-        val result = api.getAllEvents(100).body()?.data?.results
-        result?.let {
-            val eventEntities = dtoToEntityContainer.eventMapper.map(it)
-            dao.insertAllEvents(eventEntities)
+        try {
+            Log.e("TAG", "refreshSlider: ")
+            val result = api.getAllEvents(100).body()?.data?.results
+            result?.let {
+                val eventEntities = dtoToEntityContainer.eventMapper.map(it)
+                dao.insertAllEvents(eventEntities)
+            }
+        } catch (e: Exception) {
+            Log.e("TAG", "refreshSlider: ${e.message}")
         }
     }
 
@@ -215,14 +237,25 @@ class MarvelRepositoryImp @Inject constructor(
         response: suspend () -> Response<BaseResponse<I>>, map: (List<I>) -> O,
     ): Flow<UiState<O>> {
         return flow {
+            Log.e("TAG", "in flow block:${response()}")
             emit(UiState.Loading)
             try {
                 if (response().isSuccessful) {
+                    Log.e(
+                        "TAG",
+                        "in if block:${
+                            UiState.Success(response().body()?.data?.results?.let {
+                                map(it)
+                            })
+                        }"
+                    )
                     emit(UiState.Success(map(response().body()?.data?.results ?: emptyList())))
                 } else {
                     emit(UiState.Error(response().message()))
+                    Log.e("TAG", "in else bock: ${response().message()}")
                 }
             } catch (e: Exception) {
+                Log.e("TAG", "in catch block:${e.message}")
                 emit(UiState.Error(e.message ?: "Unknown error occurred"))
             }
         }

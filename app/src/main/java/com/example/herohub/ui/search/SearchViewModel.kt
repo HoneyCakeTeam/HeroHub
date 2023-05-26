@@ -17,6 +17,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -72,13 +73,15 @@ class SearchViewModel @Inject constructor(
     private fun findCharacters(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
             marvelRepositoryImp.getCharactersByName(name).collect {
-                onGetCharacter(it)
+                withContext(Dispatchers.Main) {
+                    onGetCharacter(it)
+                }
             }
         }
     }
 
     fun saveSearchHistory(keyword: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             marvelRepositoryImp.saveSearchKeyword(keyword)
         }
         Log.e("TAG", "saveSearchHistory: $keyword")

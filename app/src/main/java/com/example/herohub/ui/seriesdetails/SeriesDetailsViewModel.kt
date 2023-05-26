@@ -12,6 +12,7 @@ import com.example.herohub.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,7 +42,9 @@ class SeriesDetailsViewModel @Inject constructor(
     private fun getSeriesDetails() {
         viewModelScope.launch(Dispatchers.IO) {
             marvelRepositoryImp.getSeriesDetails(seriesArgs.seriesId).collect {
-                onSeriesData(it)
+                withContext(Dispatchers.Main) {
+                    onSeriesData(it)
+                }
             }
         }
     }
